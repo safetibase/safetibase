@@ -1,0 +1,1334 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/01/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=2.23.1802.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-A6C9BBECDA314D22A1DE7936D66750D1">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-A6C9BBECDA314D22A1DE7936D66750D1" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      
+
+      <pnp:SiteFields>
+        <Field ID="{36193413-DD5C-4096-8C1E-1B40098B9BA3}" Name="_OriginalSourceSiteId" StaticName="_OriginalSourceSiteId" DisplayName="Original Source Site ID" Type="Guid" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+
+        <Field ID="{91E86A43-75F2-426F-80DA-35EDFB47D55D}" Name="_OriginalSourceItemId" StaticName="_OriginalSourceItemId" DisplayName="Original Source Item ID" Type="Guid" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+        <Field Type="Text" DisplayName="ImageFileName" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="TPSColumns" ID="{e06f5662-3980-4987-8c5c-ff3356b38ff9}" SourceID="{58fa3ca8-da70-4de7-8436-f962706a9ae8}" StaticName="ImageFileName" Name="ImageFileName">
+        </Field>
+        <Field ID="{139DA674-DBF6-439F-98E0-4EB05FA9A669}" Name="_OriginalSourceListId" StaticName="_OriginalSourceListId" DisplayName="Original Source List ID" Type="Guid" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+        <Field Type="Boolean" DisplayName="Promoted" Description="Show on homepage" EnforceUniqueValues="FALSE" Indexed="FALSE" Group="TPSColumns" ID="{46927981-a400-42ae-9d6e-d55a87272a6b}" SourceID="{58fa3ca8-da70-4de7-8436-f962706a9ae8}" StaticName="Promoted" Name="Promoted">
+          <Default>0</Default>
+        </Field>
+
+        <Field ID="{3477A5BC-C605-4B2E-A7C1-8DB8F13C017E}" Name="_OriginalSourceWebId" StaticName="_OriginalSourceWebId" DisplayName="Original Source Web ID" Type="Guid" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+        <Field ID="{6C5CC2D0-706C-4BC2-9549-F774A75D5488}" Name="UserExpiration" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="UserExpiration" Group="_Hidden" DisplayName="User Expiration" ReadOnly="TRUE" ReadOnlyEnforced="TRUE" Type="DateTime" FromBaseType="TRUE" />
+        <Field Type="Note" DisplayName="About" Required="TRUE" EnforceUniqueValues="FALSE" Indexed="FALSE" UnlimitedLengthInDocumentLibrary="TRUE" NumLines="6" RichText="FALSE" Sortable="FALSE" Group="TPSColumns" ID="{177aabd9-6002-4287-a5ef-3a04866a902a}" SourceID="{58fa3ca8-da70-4de7-8436-f962706a9ae8}" StaticName="About" Name="About">
+        </Field>
+        <Field ID="{1A7348E7-1BB7-4A47-9790-088E7CB20B58}" Name="_AuthorByline" StaticName="_AuthorByline" DisplayName="Author Byline" Type="UserMulti" Mult="TRUE" List="UserInfo" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+
+        <Field ID="{D60D65FF-FF42-4044-A684-AC3F7A5E598C}" Name="_TopicHeader" StaticName="_TopicHeader" DisplayName="Topic header" Type="Text" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" AllowDeletion="FALSE" />
+      </pnp:SiteFields>
+      <pnp:ContentTypes>
+      </pnp:ContentTypes>
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmCompanies" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmCompanies" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmCompanies/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmCompanies/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmCompanies/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{34A85C59-538B-4E74-8E31-CDCCB36336F1}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmCompanies/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmCompanyRole" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmCompanyRole" ID="{a7d44b76-08ef-4f53-a554-b64c1b6e2afb}" Name="cdmCompanyRole" WebId="{siteid}" Group="" Version="4" StaticName="cdmCompanyRole" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmCompanyRoles}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmCompanyRoles" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmCompanyRoles" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmCompanyRoles/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmCompanyRoles/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmCompanyRoles/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{BB3A2CB4-337D-4663-83DD-2D882EE7FB10}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmCompanyRoles/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="ID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardCoordinates" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardCoordinates" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardCoordinates/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardCoordinates/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardCoordinates/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{6889CDD7-82B8-4B7C-B952-096698AF3EEF}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardCoordinates/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmX" />
+                <FieldRef Name="cdmY" />
+                <FieldRef Name="cdmZ" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmX" Name="cdmX" Type="Text" ID="{34467065-e2ce-47d2-8ec7-0ef5d1859494}" Group="" Version="2" StaticName="cdmX" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmY" Name="cdmY" Type="Text" ID="{6992614b-130b-4f98-ba17-d5354be2239f}" Group="" Version="2" StaticName="cdmY" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmZ" Name="cdmZ" Type="Text" ID="{1bbf417f-ac4d-4eba-94d7-5fae691cc153}" Group="" Version="2" StaticName="cdmZ" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar6" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{cdbfbc92-2d05-4b99-b834-3b0dc44bb960}" Name="cdmHazard" WebId="{{siteid}}" Group="Custom Columns" Version="6" StaticName="cdmHazard" SourceID="{{listid:cdmHazardCoordinates}}" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardHistory" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardHistory" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardHistory/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardHistory/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardHistory/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{9539EB82-9A0A-4A4F-80EA-BF5C5B1513E1}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardHistory/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmAction" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmAction" Name="cdmAction" Type="Note" ID="{4c59e3b1-d563-4547-9575-ebd2d2a4ea56}" Group="" Version="2" StaticName="cdmAction" SourceID="{{listid:cdmHazardHistory}}" ColName="ntext2" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{70eb13e3-a144-402e-9cbd-079bf9d2c426}" Name="cdmHazard" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazard" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmHazards}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardLinks" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardLinks" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardLinks/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardLinks/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardLinks/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{95E31B8D-D755-4FFD-A1D2-17381D5407A0}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardLinks/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmUrl" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmUrl" Name="cdmUrl" Type="Text" ID="{65518b62-3ebf-4a41-92fe-21ebc68bb6a6}" Group="" Version="2" StaticName="cdmUrl" SourceID="{{listid:cdmHazardLinks}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{d0925c2e-7849-447f-9622-7de6edb0f827}" Name="cdmHazard" WebId="{{siteid}}" Group="Custom Columns" Version="4" StaticName="cdmHazard" SourceID="{{listid:cdmHazardLinks}}" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardReviews" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardReviews" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardReviews/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardReviews/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardReviews/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{15964396-3148-4E00-8A36-44B0A40570F0}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardReviews/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmPeerReviewStatus" />
+                <FieldRef Name="cdmDHReviewStatus" />
+                <FieldRef Name="cdmPreconReviewStatus" />
+                <FieldRef Name="cdmLDReviewStatus" />
+                <FieldRef Name="cdmSMReviewStatus" />
+                <FieldRef Name="cdmPeerReviewedBy" />
+                <FieldRef Name="cdmDHReviewedBy" />
+                <FieldRef Name="cdmPreconReviewedBy" />
+                <FieldRef Name="cdmLDReviewedBy" />
+                <FieldRef Name="cdmSMReviewedBy" />
+                <FieldRef Name="cdmPeerComments" />
+                <FieldRef Name="cdmDHComments" />
+                <FieldRef Name="cdmPreconComments" />
+                <FieldRef Name="cdmLDComments" />
+                <FieldRef Name="cdmSMComments" />
+                <FieldRef Name="cdmPeerReviewed" />
+                <FieldRef Name="cdmDHReviewed" />
+                <FieldRef Name="cdmPreconReviewed" />
+                <FieldRef Name="cdmLDReviewed" />
+                <FieldRef Name="cdmSMReviewed" />
+                <FieldRef Name="cdmSuperseded" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmHazardSnapshot" Name="cdmHazardSnapshot" Type="Note" ID="{3c97c07c-8727-4a1e-ae4c-6d32480608c7}" Group="Custom Columns" Version="4" StaticName="cdmHazardSnapshot" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext2" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="" />
+            <Field DisplayName="cdmPeerReviewedBy" Name="cdmPeerReviewedBy" Type="Text" ID="{ef134908-0c18-4495-8229-4815da550e5a}" Group="" Version="2" StaticName="cdmPeerReviewedBy" SourceID="{{listid:cdmHazardReviews}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmDHReviewedBy" Name="cdmDHReviewedBy" Type="Text" ID="{75a801e4-5a9a-4864-a6f5-2fc76cb570c1}" Group="" Version="2" StaticName="cdmDHReviewedBy" SourceID="{{listid:cdmHazardReviews}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmPreconReviewedBy" Name="cdmPreconReviewedBy" Type="Text" ID="{e07604b0-3482-4f41-bd89-5897482214f3}" Group="" Version="2" StaticName="cdmPreconReviewedBy" SourceID="{{listid:cdmHazardReviews}}" ColName="nvarchar6" RowOrdinal="0" />
+            <Field DisplayName="cdmLDReviewedBy" Name="cdmLDReviewedBy" Type="Text" ID="{f31104e6-4da1-4298-8c18-61c1b38c4c05}" Group="" Version="2" StaticName="cdmLDReviewedBy" SourceID="{{listid:cdmHazardReviews}}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field DisplayName="cdmSMReviewedBy" Name="cdmSMReviewedBy" Type="Text" ID="{d5544f1b-8944-4636-b2e9-d2bc093bca87}" Group="" Version="2" StaticName="cdmSMReviewedBy" SourceID="{{listid:cdmHazardReviews}}" ColName="nvarchar8" RowOrdinal="0" />
+            <Field DisplayName="cdmPeerComments" Name="cdmPeerComments" Type="Note" ID="{6e4f2b43-37a5-429c-8747-794602798cb2}" Group="" Version="2" StaticName="cdmPeerComments" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext3" RowOrdinal="0" />
+            <Field DisplayName="cdmDHComments" Name="cdmDHComments" Type="Note" ID="{346bc43e-1dcc-4bbf-ab86-426ec7faaa8a}" Group="" Version="2" StaticName="cdmDHComments" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext4" RowOrdinal="0" />
+            <Field DisplayName="cdmPreconComments" Name="cdmPreconComments" Type="Note" ID="{c1c55a25-9305-4c39-ac64-39404eca76fa}" Group="" Version="2" StaticName="cdmPreconComments" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="cdmLDComments" Name="cdmLDComments" Type="Note" ID="{444520ea-cd56-4b30-a8e7-61cf7ed420ed}" Group="" Version="2" StaticName="cdmLDComments" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext6" RowOrdinal="0" />
+            <Field DisplayName="cdmSMComments" Name="cdmSMComments" Type="Note" ID="{c4d38dbe-08b5-4ec3-a823-064acd5e240e}" Group="" Version="2" StaticName="cdmSMComments" SourceID="{{listid:cdmHazardReviews}}" ColName="ntext7" RowOrdinal="0" />
+            <Field Format="DateOnly" Description="" DisplayName="cdmPeerReviewed" Type="DateTime" ID="{93e3a90d-dc5f-4875-9784-2e122f222741}" Name="cdmPeerReviewed" Group="" Version="2" StaticName="cdmPeerReviewed" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime1" RowOrdinal="0" />
+            <Field Format="DateOnly" Description="" DisplayName="cdmDHReviewed" Type="DateTime" ID="{e14c2d9a-fdb8-41a0-aff1-1582be331edf}" Name="cdmDHReviewed" Group="" Version="2" StaticName="cdmDHReviewed" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime2" RowOrdinal="0" />
+            <Field Format="DateOnly" Description="" DisplayName="cdmPreconReviewed" Type="DateTime" ID="{912d2449-f5f9-49a3-9c13-1129841838ef}" Name="cdmPreconReviewed" Group="" Version="2" StaticName="cdmPreconReviewed" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime3" RowOrdinal="0" />
+            <Field Format="DateOnly" Description="" DisplayName="cdmLDReviewed" Type="DateTime" ID="{839258c9-14e4-425a-a79e-261412cbe3bb}" Name="cdmLDReviewed" Group="" Version="2" StaticName="cdmLDReviewed" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime4" RowOrdinal="0" />
+            <Field Format="DateOnly" Description="" DisplayName="cdmSMReviewed" Type="DateTime" ID="{a2dc4e14-967a-44e9-bdc0-ba5c8490ebb4}" Name="cdmSMReviewed" Group="" Version="2" StaticName="cdmSMReviewed" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime5" RowOrdinal="0" />
+            <Field DisplayName="cdmSuperseded" Name="cdmSuperseded" Type="DateTime" ID="{f7659807-123e-48f7-8107-2dcff0251da0}" Group="Custom Columns" Version="4" StaticName="cdmSuperseded" SourceID="{{listid:cdmHazardReviews}}" ColName="datetime6" RowOrdinal="0" Format="DateOnly" Description="" />
+            <Field ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{392437f0-4ca3-4a7f-a711-e47b0a669b84}" Name="cdmHazard" WebId="{{siteid}}" Group="Custom Columns" Version="6" StaticName="cdmHazard" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmHazards}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPeerReviewStatus" ID="{bc5905a7-418a-4570-9674-e88bb46a4f9c}" Name="cdmPeerReviewStatus" WebId="{siteid}" Group="" Version="4" StaticName="cdmPeerReviewStatus" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmReviewStatuses}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmDHReviewStatus" ID="{4411ddd0-7ed8-40c5-b96d-099fdbcdd9e6}" Name="cdmDHReviewStatus" WebId="{siteid}" Group="" Version="4" StaticName="cdmDHReviewStatus" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmReviewStatuses}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPreconReviewStatus" ID="{80166c2c-ac92-4e08-ad17-7448f67ada1d}" Name="cdmPreconReviewStatus" WebId="{siteid}" Group="" Version="4" StaticName="cdmPreconReviewStatus" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmReviewStatuses}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmLDReviewStatus" ID="{404824dd-31c7-49ce-8408-5d9d0b37eea8}" Name="cdmLDReviewStatus" WebId="{siteid}" Group="" Version="4" StaticName="cdmLDReviewStatus" SourceID="{{siteid}}" ColName="int5" RowOrdinal="0" List="{listid:cdmReviewStatuses}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSMReviewStatus" ID="{6ad5609c-1894-400e-9b9f-0da15535677e}" Name="cdmSMReviewStatus" WebId="{siteid}" Group="" Version="4" StaticName="cdmSMReviewStatus" SourceID="{{siteid}}" ColName="int6" RowOrdinal="0" List="{listid:cdmReviewStatuses}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardReviewTypes" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardReviewTypes" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardReviewTypes/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardReviewTypes/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardReviewTypes/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{87C390AA-CEA0-4D98-BA2B-DE50B3048EC8}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardReviewTypes/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="ID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazards" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazards" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazards/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazards/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazards/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{A48B8B06-40C2-4305-B6FC-2CC9DA7AADFC}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazards/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="cdmReviews" />
+                <FieldRef Name="cdmIniRisk" />
+                <FieldRef Name="cdmResRisk" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="cdmSiblings" />
+                <FieldRef Name="CurrentReviewOwner" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+            <View Name="{F687842A-2454-479A-BD28-9FDB105E8705}" MobileView="TRUE" Type="HTML" DisplayName="my hazards" Url="/sites/ds-cdm-2/Lists/cdmHazards/my hazards.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+                <Where>
+                  <Eq>
+                    <FieldRef Name="Author" />
+                    <Value Type="Integer">
+                      <UserID Type="Integer" />
+                    </Value>
+                  </Eq>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="cdmReviews" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+            <View Name="{720F89A1-040B-4E56-B1A8-823B7AFA94E6}" MobileView="TRUE" Type="HTML" DisplayName="mods" Url="/sites/ds-cdm-2/Lists/cdmHazards/mods.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="CurrentReviewOwner" />
+                <FieldRef Name="Modified" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmHazardDescription" Name="cdmHazardDescription" Type="Note" ID="{fd1cb645-5319-40b6-87af-711ff90dbf2f}" Group="Custom Columns" Version="4" StaticName="cdmHazardDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext2" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>To be defined</Default>
+            </Field>
+            <Field DisplayName="cdmTW" Name="cdmTW" Type="Text" ID="{c7f2841e-01b2-48cd-96d0-4f0d79e6b246}" Group="" Version="2" StaticName="cdmTW" SourceID="{{listid:cdmHazards}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmRAMS" Name="cdmRAMS" Type="Text" ID="{4bc8648e-4c39-492c-bb7c-09424c6f08cc}" Group="" Version="2" StaticName="cdmRAMS" SourceID="{{listid:cdmHazards}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmRiskDescription" Name="cdmRiskDescription" Type="Note" ID="{6a0f6d8c-0311-4dbc-9d18-b48f28819770}" Group="Custom Columns" Version="4" StaticName="cdmRiskDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext3" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting risk assessment</Default>
+            </Field>
+            <Field DisplayName="cdmMitigationDescription" Name="cdmMitigationDescription" Type="Note" ID="{9572e6e2-3448-42b6-a520-cb0564aaeefe}" Group="Custom Columns" Version="4" StaticName="cdmMitigationDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext4" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting mitigation</Default>
+            </Field>
+            <Field DisplayName="cdmResidualRiskScore" Name="cdmResidualRiskScore" Type="Number" ID="{94b36b6b-ef1d-44c1-93dd-108b21169499}" Group="Custom Columns" Version="5" StaticName="cdmResidualRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float1" RowOrdinal="0" Decimals="0" Description="" CustomFormatter="" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Percentage="FALSE">
+              <Default>25</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewType" Name="cdmLastReviewType" Type="Text" ID="{7cf1d059-2d23-4133-975c-9ed3039d5cf2}" Group="Custom Columns" Version="12" StaticName="cdmLastReviewType" SourceID="{{listid:cdmHazards}}" ColName="nvarchar6" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Review</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewDate" Name="cdmLastReviewDate" Type="DateTime" ID="{d19ff85f-cc00-4cb7-a8e9-b4ae481727a9}" Group="" Version="2" StaticName="cdmLastReviewDate" SourceID="{{listid:cdmHazards}}" ColName="datetime1" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewSnapshot" Name="cdmLastReviewSnapshot" Type="Note" ID="{fe00b704-1987-4e21-a63b-680f99b0bce0}" Group="" Version="2" StaticName="cdmLastReviewSnapshot" SourceID="{{listid:cdmHazards}}" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewer" Name="cdmLastReviewer" Type="Text" ID="{ff116ef6-d81e-4bf2-81e6-bf0c736ac5bd}" Group="" Version="2" StaticName="cdmLastReviewer" SourceID="{{listid:cdmHazards}}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field DisplayName="cdmStageMitigationSuggestion" Name="cdmStageMitigationSuggestion" Type="Note" ID="{e842431a-13b1-4791-acc8-f87f48baae79}" Group="Custom Columns" Version="4" StaticName="cdmStageMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext6" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewStatus" Name="cdmLastReviewStatus" Type="Text" ID="{d7ee1ed5-4bde-4ab4-bba0-de0c455c80e9}" Group="Custom Columns" Version="10" StaticName="cdmLastReviewStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar8" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Not started</Default>
+            </Field>
+            <Field Decimals="0" Description="" DisplayName="cdmInitialRiskScore" Type="Number" ID="{b94481ca-a100-4c54-a7d8-e8be8741a778}" Name="cdmInitialRiskScore" Group="Custom Columns" Version="5" StaticName="cdmInitialRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float2" RowOrdinal="0" CustomFormatter="" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Percentage="FALSE">
+              <Default>25</Default>
+            </Field>
+            <Field DisplayName="cdmInitialRAG" Name="cdmInitialRAG" Type="Note" ID="{4015159d-ec18-4d45-9026-a1d32ba26728}" Group="" Version="2" StaticName="cdmInitialRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext7" RowOrdinal="0" />
+            <Field DisplayName="cdmResidualRAG" Name="cdmResidualRAG" Type="Note" ID="{3f88f954-8dfb-409a-bfc8-59bfcd718f55}" Group="" Version="2" StaticName="cdmResidualRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext8" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardCoordinates" Name="cdmHazardCoordinates" Type="Note" ID="{dfefa5c4-3852-4c9b-8048-a52248b3fe91}" Group="Custom Columns" StaticName="cdmHazardCoordinates" SourceID="{{listid:cdmHazards}}" ColName="ntext9" RowOrdinal="0" Version="6" />
+            <Field DisplayName="cdmSMMitigationSuggestion" Name="cdmSMMitigationSuggestion" Type="Note" ID="{def5c2bc-c8d2-461d-8f5c-151b611b0dba}" Group="" StaticName="cdmSMMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext10" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmHazardTags" Name="cdmHazardTags" Type="Note" ID="{2f0f077a-d197-49cd-85f2-8280e4873ed5}" Group="" StaticName="cdmHazardTags" SourceID="{{listid:cdmHazards}}" ColName="ntext11" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmEntityTitle" Name="cdmEntityTitle" Type="Text" ID="{81955ea4-69a0-4838-a1c4-86f96dcdb838}" Group="" Version="2" StaticName="cdmEntityTitle" SourceID="{{listid:cdmHazards}}" ColName="nvarchar9" RowOrdinal="0" />
+            <Field DisplayName="cdmRelatedRAMS" Name="cdmRelatedRAMS" Type="Note" ID="{45c56b2b-4631-47f7-b8b2-46f150158fce}" Group="" Version="2" StaticName="cdmRelatedRAMS" SourceID="{{listid:cdmHazards}}" ColName="ntext12" RowOrdinal="0" />
+            <Field Decimals="0" Description="" DisplayName="cdmParent" Type="Number" ID="{7ebd7d2f-38c7-48ab-8f17-8f0c807abd80}" Name="cdmParent" Group="" Version="2" StaticName="cdmParent" SourceID="{{listid:cdmHazards}}" ColName="float3" RowOrdinal="0">
+              <Default>0</Default>
+            </Field>
+            <Field DisplayName="cdmRAGSuggestion" Name="cdmRAGSuggestion" Type="Note" ID="{0d4becaa-a559-4f9c-a8fd-8829636b6534}" Group="" Version="2" StaticName="cdmRAGSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext13" RowOrdinal="0" />
+            <Field DisplayName="cdmUniclass" Name="cdmUniclass" Type="Note" ID="{0775945e-d4eb-4c9a-88e8-edd807d30031}" Group="" Version="2" StaticName="cdmUniclass" SourceID="{{listid:cdmHazards}}" ColName="ntext14" RowOrdinal="0" />
+            <Field DisplayName="cdmLinks" Name="cdmLinks" Type="Note" ID="{306e210c-b16b-46b2-8cfe-217540f01cdc}" Group="" Version="2" StaticName="cdmLinks" SourceID="{{listid:cdmHazards}}" ColName="ntext15" RowOrdinal="0" />
+            <Field MaxLength="255" Description="" DisplayName="cdmCurrentStatus" Type="Text" ID="{0d5f6f4d-de7d-4cb6-80da-28c4f3a8d379}" Name="cdmCurrentStatus" Group="" Version="2" StaticName="cdmCurrentStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar10" RowOrdinal="0">
+              <Default>Requires mitigation</Default>
+            </Field>
+            <Field MaxLength="255" Description="" DisplayName="cdmInitialRisk" Type="Text" ID="{4a191eda-367a-4310-adb7-bf0bb2bcb36e}" Name="cdmInitialRisk" Group="" Version="2" StaticName="cdmInitialRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar11" RowOrdinal="0">
+              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+            </Field>
+            <Field MaxLength="255" Description="" DisplayName="cdmResidualRisk" Type="Text" ID="{bff95fae-a81a-4687-9861-c5f534b5d201}" Name="cdmResidualRisk" Group="" Version="2" StaticName="cdmResidualRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar12" RowOrdinal="0">
+              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+            </Field>
+            <Field DisplayName="cdmReviews" Name="cdmReviews" Type="Note" ID="{a0659470-8c4a-49c1-8ccc-8e2732508b6e}" Group="" Version="2" StaticName="cdmReviews" SourceID="{{listid:cdmHazards}}" ColName="ntext16" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmIniRisk" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{0f444de6-51e8-4fae-a5d5-20d596f51cfb}" SourceID="{{listid:cdmHazards}}" StaticName="cdmIniRisk" Name="cdmIniRisk" ColName="ntext17" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmResRisk" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{aa04408f-297d-4638-b709-9382007ec06a}" SourceID="{{listid:cdmHazards}}" StaticName="cdmResRisk" Name="cdmResRisk" ColName="ntext18" RowOrdinal="0" />
+            <Field Type="User" DisplayName="CurrentMitigationOwner" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="ImnName" UserSelectionMode="PeopleOnly" UserSelectionScope="0" ID="{ccabb862-9182-4a7f-b66f-a692e647f589}" SourceID="{{listid:cdmHazards}}" StaticName="CurrentMitigationOwner" Name="CurrentMitigationOwner" ColName="int1" RowOrdinal="0" Version="2" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{7b79167a-5276-4b21-b051-705ce32a470f}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmSites}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWStructure" ID="{2218fe73-5e88-4445-8d5d-92a690a91d2a}" Name="cdmPWStructure" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmPWStructures}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmStage" ID="{582be452-8a4f-4a99-b5ba-eb18ba92de1d}" Name="cdmStage" WebId="{siteid}" Group="" Version="4" StaticName="cdmStage" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmStages}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardOwner" ID="{3332b703-0e14-46b9-873a-8523ab00c081}" Name="cdmHazardOwner" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardOwner" SourceID="{{siteid}}" ColName="int5" RowOrdinal="0" List="{listid:cdmCompanies}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardType" ID="{ef5eba98-ebd2-4a6d-a31d-e982c450c380}" Name="cdmHazardType" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardType" SourceID="{{siteid}}" ColName="int6" RowOrdinal="0" List="{listid:cdmHazardTypes}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int7" RowOrdinal="0" List="{listid:cdmPWElementTerms}" />
+            <Field Type="Note" DisplayName="cdmSiblings" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{fc735ef3-740e-4e85-9b20-f3899e799801}" SourceID="{{listid:cdmHazards}}" StaticName="cdmSiblings" Name="cdmSiblings" ColName="ntext19" RowOrdinal="0" />
+            <Field Type="User" DisplayName="CurrentReviewOwner" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="ImnName" UserSelectionMode="PeopleOnly" UserSelectionScope="0" ID="{aaa7300b-6f3f-4b09-9c29-939336c413e9}" SourceID="{{listid:cdmHazards}}" StaticName="CurrentReviewOwner" Name="CurrentReviewOwner" ColName="int8" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardSiblings" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSiblings" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSiblings/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSiblings/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSiblings/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{753B1223-8D54-4DCB-8965-BD1589A0261A}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardSiblings/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field Type="Lookup" DisplayName="cdmHazard" Required="FALSE" EnforceUniqueValues="FALSE" List="{listid:cdmHazards}" ShowField="ID" UnlimitedLengthInDocumentLibrary="FALSE" RelationshipDeleteBehavior="None" ID="{e6db8d91-360d-4e8d-a31b-74137551e085}" SourceID="{{listid:cdmHazardSiblings}}" StaticName="cdmHazard" Name="cdmHazard" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardSnapshots" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSnapshots" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSnapshots/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSnapshots/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSnapshots/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{B4DAD25F-07EE-4ACB-921B-AE678FE337DE}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardSnapshots/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmPeerReview" />
+                <FieldRef Name="cdmDHMReview" />
+                <FieldRef Name="cdmPreconReview" />
+                <FieldRef Name="cdmLDReview" />
+                <FieldRef Name="cdmSMReview" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmHazardDescription" Name="cdmHazardDescription" Type="Note" ID="{fd1cb645-5319-40b6-87af-711ff90dbf2f}" Group="Custom Columns" Version="4" StaticName="cdmHazardDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext2" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>To be defined</Default>
+            </Field>
+            <Field DisplayName="cdmTW" Name="cdmTW" Type="Text" ID="{c7f2841e-01b2-48cd-96d0-4f0d79e6b246}" Group="" Version="2" StaticName="cdmTW" SourceID="{{listid:cdmHazards}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmRAMS" Name="cdmRAMS" Type="Text" ID="{4bc8648e-4c39-492c-bb7c-09424c6f08cc}" Group="" Version="2" StaticName="cdmRAMS" SourceID="{{listid:cdmHazards}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmRiskDescription" Name="cdmRiskDescription" Type="Note" ID="{6a0f6d8c-0311-4dbc-9d18-b48f28819770}" Group="Custom Columns" Version="4" StaticName="cdmRiskDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext3" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting risk assessment</Default>
+            </Field>
+            <Field DisplayName="cdmMitigationDescription" Name="cdmMitigationDescription" Type="Note" ID="{9572e6e2-3448-42b6-a520-cb0564aaeefe}" Group="Custom Columns" Version="4" StaticName="cdmMitigationDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext4" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting mitigation</Default>
+            </Field>
+            <Field DisplayName="cdmResidualRiskScore" Name="cdmResidualRiskScore" Type="Number" ID="{94b36b6b-ef1d-44c1-93dd-108b21169499}" Group="Custom Columns" Version="4" StaticName="cdmResidualRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float1" RowOrdinal="0" Decimals="0" Description="">
+              <Default>2555</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewType" Name="cdmLastReviewType" Type="Text" ID="{7cf1d059-2d23-4133-975c-9ed3039d5cf2}" Group="Custom Columns" Version="4" StaticName="cdmLastReviewType" SourceID="{{listid:cdmHazards}}" ColName="nvarchar6" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewDate" Name="cdmLastReviewDate" Type="DateTime" ID="{d19ff85f-cc00-4cb7-a8e9-b4ae481727a9}" Group="" Version="2" StaticName="cdmLastReviewDate" SourceID="{{listid:cdmHazards}}" ColName="datetime1" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewSnapshot" Name="cdmLastReviewSnapshot" Type="Note" ID="{fe00b704-1987-4e21-a63b-680f99b0bce0}" Group="" Version="2" StaticName="cdmLastReviewSnapshot" SourceID="{{listid:cdmHazards}}" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewer" Name="cdmLastReviewer" Type="Text" ID="{ff116ef6-d81e-4bf2-81e6-bf0c736ac5bd}" Group="" Version="2" StaticName="cdmLastReviewer" SourceID="{{listid:cdmHazards}}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field DisplayName="cdmStageMitigationSuggestion" Name="cdmStageMitigationSuggestion" Type="Note" ID="{e842431a-13b1-4791-acc8-f87f48baae79}" Group="" Version="2" StaticName="cdmStageMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext6" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewStatus" Name="cdmLastReviewStatus" Type="Text" ID="{d7ee1ed5-4bde-4ab4-bba0-de0c455c80e9}" Group="Custom Columns" Version="4" StaticName="cdmLastReviewStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar8" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field Decimals="0" Description="" DisplayName="cdmInitialRiskScore" Type="Number" ID="{b94481ca-a100-4c54-a7d8-e8be8741a778}" Name="cdmInitialRiskScore" Group="Custom Columns" Version="4" StaticName="cdmInitialRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float2" RowOrdinal="0">
+              <Default>2555</Default>
+            </Field>
+            <Field DisplayName="cdmInitialRAG" Name="cdmInitialRAG" Type="Note" ID="{4015159d-ec18-4d45-9026-a1d32ba26728}" Group="" Version="2" StaticName="cdmInitialRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext7" RowOrdinal="0" />
+            <Field DisplayName="cdmResidualRAG" Name="cdmResidualRAG" Type="Note" ID="{3f88f954-8dfb-409a-bfc8-59bfcd718f55}" Group="" Version="2" StaticName="cdmResidualRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext8" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardCoordinates" Name="cdmHazardCoordinates" Type="Text" ID="{dfefa5c4-3852-4c9b-8048-a52248b3fe91}" Group="" Version="2" StaticName="cdmHazardCoordinates" SourceID="{{listid:cdmHazards}}" ColName="nvarchar9" RowOrdinal="0" />
+            <Field DisplayName="cdmSMMitigationSuggestion" Name="cdmSMMitigationSuggestion" Type="Note" ID="{def5c2bc-c8d2-461d-8f5c-151b611b0dba}" Group="" Version="2" StaticName="cdmSMMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext9" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardTags" Name="cdmHazardTags" Type="Note" ID="{2f0f077a-d197-49cd-85f2-8280e4873ed5}" Group="" Version="2" StaticName="cdmHazardTags" SourceID="{{listid:cdmHazards}}" ColName="ntext10" RowOrdinal="0" />
+            <Field DisplayName="cdmEntityTitle" Name="cdmEntityTitle" Type="Text" ID="{2a90d2bc-9388-4576-b001-987135686006}" Group="" Version="2" StaticName="cdmEntityTitle" SourceID="{{listid:cdmHazardSnapshots}}" ColName="nvarchar10" RowOrdinal="0" />
+            <Field DisplayName="cdmRelatedRAMS" Name="cdmRelatedRAMS" Type="Note" ID="{213f6a95-8bbb-4ea3-9feb-f60ee1a73441}" Group="" Version="2" StaticName="cdmRelatedRAMS" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext11" RowOrdinal="0" />
+            <Field DisplayName="cdmParent" Name="cdmParent" Type="Number" ID="{2a6813d2-58e7-44df-bdec-7867de1c1dec}" Group="" Version="2" StaticName="cdmParent" SourceID="{{listid:cdmHazardSnapshots}}" ColName="float3" RowOrdinal="0" />
+            <Field DisplayName="cdmRAGSuggestion" Name="cdmRAGSuggestion" Type="Note" ID="{89104571-f8af-4e43-a8da-aa0403dd1edf}" Group="" Version="2" StaticName="cdmRAGSuggestion" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext12" RowOrdinal="0" />
+            <Field DisplayName="cdmUniclass" Name="cdmUniclass" Type="Note" ID="{b8469a09-55f1-4e67-8f5e-23f9613b60d9}" Group="" Version="2" StaticName="cdmUniclass" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext13" RowOrdinal="0" />
+            <Field DisplayName="cdmLinks" Name="cdmLinks" Type="Note" ID="{13166461-3699-4a1c-87ed-0fad16241106}" Group="" Version="2" StaticName="cdmLinks" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext14" RowOrdinal="0" />
+            <Field DisplayName="cdmPeerReview" Name="cdmPeerReview" Type="Note" ID="{ecc5689b-760a-4e24-9634-bc5eeef04057}" Group="" Version="2" StaticName="cdmPeerReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext15" RowOrdinal="0" />
+            <Field DisplayName="cdmDHMReview" Name="cdmDHMReview" Type="Note" ID="{4cd7a3bf-5ee7-4c6a-a911-12705a01dd0a}" Group="" Version="2" StaticName="cdmDHMReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext16" RowOrdinal="0" />
+            <Field DisplayName="cdmPreconReview" Name="cdmPreconReview" Type="Note" ID="{0bf632f0-b283-4bb3-a70d-a764b9bc9867}" Group="" Version="2" StaticName="cdmPreconReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext17" RowOrdinal="0" />
+            <Field DisplayName="cdmLDReview" Name="cdmLDReview" Type="Note" ID="{ed416e8a-1ea9-443b-adb1-7fc2c9ccf18e}" Group="" Version="2" StaticName="cdmLDReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext18" RowOrdinal="0" />
+            <Field DisplayName="cdmSMReview" Name="cdmSMReview" Type="Note" ID="{5b7c5729-3b3a-460e-a33a-84f11da6ffda}" Group="" Version="2" StaticName="cdmSMReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext19" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{7b79167a-5276-4b21-b051-705ce32a470f}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmSites}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWStructure" ID="{2218fe73-5e88-4445-8d5d-92a690a91d2a}" Name="cdmPWStructure" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmPWStructures}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmStage" ID="{582be452-8a4f-4a99-b5ba-eb18ba92de1d}" Name="cdmStage" WebId="{siteid}" Group="" Version="4" StaticName="cdmStage" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmStages}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardOwner" ID="{3332b703-0e14-46b9-873a-8523ab00c081}" Name="cdmHazardOwner" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardOwner" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmCompanies}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardType" ID="{ef5eba98-ebd2-4a6d-a31d-e982c450c380}" Name="cdmHazardType" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardType" SourceID="{{siteid}}" ColName="int5" RowOrdinal="0" List="{listid:cdmHazardTypes}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int6" RowOrdinal="0" List="{listid:cdmPWElementTerms}" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{de82bd1b-104f-4f61-8b25-3121577077b5}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmHazardSnapshots}}" ColName="int7" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardTagCategories" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardTagCategories" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardTagCategories/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardTagCategories/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardTagCategories/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{8F225600-0346-41DF-9C4D-18F978A9CD3B}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardTagCategories/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{D66C9A50-A478-48A1-BA64-658EC2D7E36D}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardId" />
+                <FieldRef Name="cdmHazardTagCategory" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardId" ID="{13732855-6a5f-42d4-b2dd-19f93d94763b}" Name="cdmHazardId" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardId" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmHazards}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardTagCategory" ID="{49849a9f-1e4e-465a-8594-afd81d6c3d31}" Name="cdmHazardTagCategory" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardTagCategory" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmHazardTagCategories}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHazardTypes" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardTypes" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardTypes/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardTypes/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardTypes/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{34C6B6A5-E1CB-4B81-AA5F-D550B40338C4}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHazardTypes/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{C4FAB3CC-2E4C-4890-BC6F-7A7FD33DF8F2}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmTag" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="ID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field List="{listid:cdmTags}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmTag" ID="{5eca57ea-729d-4e50-82a7-4378d5ea1989}" Name="cdmTag" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmTag" SourceID="{{listid:cdmHTags}}" ColName="int1" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{0bd9a89d-7f82-4213-84b2-34ddabe9c4a7}" Name="cdmHazard" WebId="{{siteid}}" Group="Custom Columns" Version="4" StaticName="cdmHazard" SourceID="{{listid:cdmHTags}}" ColName="int2" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmHZReview" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHZReview" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHZReview/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHZReview/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHZReview/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{42F54476-1DBD-448E-9612-D6272EBE27CB}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmHZReview/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmReviewType" />
+                <FieldRef Name="cdmReviewStatus" />
+                <FieldRef Name="cdmSnapshot" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmOwner" />
+                <FieldRef Name="cdmComment" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmUserRole" />
+                <FieldRef Name="cdmAssignedTo" />
+                <FieldRef Name="cdmInitiatorComment" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmComment" Name="cdmComment" Type="Note" ID="{0a3e03bd-3b32-4f1f-80a7-c6e64ae47f58}" Group="" Version="2" StaticName="cdmComment" SourceID="{{listid:cdmHZReview}}" ColName="ntext2" RowOrdinal="0" />
+            <Field List="UserInfo" ShowField="Title" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="0" DisplayName="cdmAssignedTo" ID="{b68c2445-babf-49f7-be44-cf29dfe15432}" Name="cdmAssignedTo" Group="" StaticName="cdmAssignedTo" SourceID="{{listid:cdmHZReview}}" ColName="int1" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmInitiatorComment" Name="cdmInitiatorComment" Type="Note" ID="{50965db4-2d5e-4ee5-84e3-f5ad89b1afa4}" Group="" Version="2" StaticName="cdmInitiatorComment" SourceID="{{listid:cdmHZReview}}" ColName="ntext3" RowOrdinal="0" />
+            <Field List="{listid:cdmHazardReviewTypes}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmReviewType" ID="{1ea01872-59ab-495e-a49e-971a0528727e}" Name="cdmReviewType" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmReviewType" SourceID="{{listid:cdmHZReview}}" ColName="int2" RowOrdinal="0" />
+            <Field List="{listid:cdmReviewStatuses}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmReviewStatus" ID="{087aae0e-919c-4cd7-8837-d1cca82216b8}" Name="cdmReviewStatus" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmReviewStatus" SourceID="{{listid:cdmHZReview}}" ColName="int3" RowOrdinal="0" />
+            <Field List="{listid:cdmHazardSnapshots}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmSnapshot" ID="{8eabfb06-c0f3-476b-8210-c1dfb967f2d5}" Name="cdmSnapshot" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmSnapshot" SourceID="{{listid:cdmHZReview}}" ColName="int4" RowOrdinal="0" />
+            <Field List="{listid:cdmSites}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{58190b18-464b-410f-b08f-87c660b13676}" Name="cdmSite" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmSite" SourceID="{{listid:cdmHZReview}}" ColName="int5" RowOrdinal="0" />
+            <Field List="{listid:cdmCompanies}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmOwner" ID="{8634ea09-4328-4ba3-99a8-1c77554fe5e6}" Name="cdmOwner" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmOwner" SourceID="{{listid:cdmHZReview}}" ColName="int6" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{3bb4da0a-9134-448e-90d4-4190f95f1d94}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmHZReview}}" ColName="int7" RowOrdinal="0" />
+            <Field List="{listid:cdmUserRoles}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUserRole" ID="{944757e0-9dbd-4247-adbc-d33d37023dc3}" Name="cdmUserRole" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmUserRole" SourceID="{{listid:cdmHZReview}}" ColName="int8" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmNotifications" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmNotifications" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmNotifications/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmNotifications/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmNotifications/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{BFEEF6C9-A419-47B3-8878-F64ED32C4788}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmNotifications/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmRecipient" />
+                <FieldRef Name="cdmMessage" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Required="TRUE" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="0" DisplayName="cdmRecipient" ID="{4a22ec9f-b687-46bf-a9cb-66c683665057}" Name="cdmRecipient" Group="" Version="2" StaticName="cdmRecipient" SourceID="{{listid:cdmNotifications}}" ColName="int1" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field DisplayName="cdmMessage" Name="cdmMessage" Type="Note" ID="{e55d0c81-af73-4364-ad8c-57f72d1ed1c2}" Group="" Version="2" StaticName="cdmMessage" SourceID="{{listid:cdmNotifications}}" ColName="ntext2" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmPWElements" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmPWElements" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmPWElements/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmPWElements/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmPWElements/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{785DEC76-D15A-4D3A-827C-0A5C53F85397}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmPWElements/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmDescription" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmDescription" Name="cdmDescription" Type="Note" ID="{69ed1bf2-2717-4828-80d7-c7be48423c44}" Group="" Version="2" StaticName="cdmDescription" SourceID="{{listid:cdmPWElements}}" ColName="ntext2" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWStructure" ID="{8611b047-4892-4bae-8333-e5b5caa80f72}" Name="cdmPWStructure" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmPWStructures}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{f9c8ee09-7c1d-46a9-815e-ca6212a66aac}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmSites}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmPWElementTerms" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmPWElementTerms" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmPWElementTerms/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmPWElementTerms/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmPWElementTerms/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{38DC7460-CC05-48F7-AB6A-BA154CFC9A9C}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmPWElementTerms/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">200</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmPWStructures" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmPWStructures" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmPWStructures/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmPWStructures/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmPWStructures/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{E2729894-D7C4-4D3D-ABC8-A1830E86D3A6}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmPWStructures/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmDescription" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmDescription" Name="cdmDescription" Type="Note" ID="{d0c97758-5335-43f8-a463-17b39081e606}" Group="" Version="2" StaticName="cdmDescription" SourceID="{{listid:cdmPWStructures}}" ColName="ntext2" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{9c28f605-2cfe-4148-8442-6022a8201836}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmSites}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmRAGSuggestions" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmRAGSuggestions" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmRAGSuggestions/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmRAGSuggestions/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmRAGSuggestions/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{550BAD6F-79CC-4A40-88C3-FB8B1C096D49}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmRAGSuggestions/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmReviewStatuses" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmReviewStatuses" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmReviewStatuses/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmReviewStatuses/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmReviewStatuses/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{96EB991A-62A2-4C5C-8E18-F266EBF4DF13}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmReviewStatuses/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="ID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmRiskScores" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmRiskScores" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmRiskScores/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmRiskScores/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmRiskScores/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{95095C57-E1F4-426E-BFF3-22E546D4E716}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmRiskScores/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="score" />
+                <FieldRef Name="likelihood" />
+                <FieldRef Name="impact" />
+                <FieldRef Name="category" />
+                <FieldRef Name="colour" />
+                <FieldRef Name="riskscore" />
+                <FieldRef Name="likelihoodscore" />
+                <FieldRef Name="impactscore" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field Decimals="0" Min="111" Max="2555" Required="TRUE" Description="" DisplayName="score" Type="Number" ID="{962cc0a0-072d-436c-b3f5-7dfa340efbf5}" Name="score" Group="" Version="2" StaticName="score" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float1" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field DisplayName="likelihood" Name="likelihood" Type="Text" ID="{8650b2ab-943a-4d8b-b343-74866d0d9915}" Group="" Version="2" StaticName="likelihood" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="impact" Name="impact" Type="Text" ID="{880aceb6-ebbf-40c3-babf-9615a5f6555c}" Group="" Version="2" StaticName="impact" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="category" Name="category" Type="Text" ID="{9bcc575e-78e2-43b0-a89e-eefe801ed719}" Group="" Version="2" StaticName="category" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar6" RowOrdinal="0" />
+            <Field DisplayName="colour" Name="colour" Type="Text" ID="{52781446-ebb9-43cf-ba1e-583be2bad68d}" Group="" Version="2" StaticName="colour" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field Decimals="0" Min="1" Max="25" Required="TRUE" Description="" DisplayName="riskscore" Type="Number" ID="{59d72486-8a88-47e4-bc47-d55c98fd6826}" Name="riskscore" Group="" Version="2" StaticName="riskscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float2" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field Decimals="0" Min="1" Max="5" Required="TRUE" Description="" DisplayName="likelihoodscore" Type="Number" ID="{748b42f0-9b5c-4c3a-9a1e-d0ecb927193d}" Name="likelihoodscore" Group="" Version="2" StaticName="likelihoodscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float3" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE">
+              <Default>5</Default>
+            </Field>
+            <Field Decimals="0" Min="1" Max="5" Required="TRUE" Description="" DisplayName="impactscore" Type="Number" ID="{d34f87c0-ea46-42fd-b71f-c8f9d794bbab}" Name="impactscore" Group="" Version="2" StaticName="impactscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float4" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE">
+              <Default>5</Default>
+            </Field>
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmSites" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmSites" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmSites/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmSites/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmSites/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{3815FCA2-BF15-4EB0-B047-64665FF4A5AF}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmSites/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmDescription" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmDescription" Name="cdmDescription" Type="Note" ID="{45e4d456-6057-4a64-a159-c48651fbaf13}" Group="" Version="2" StaticName="cdmDescription" SourceID="{{listid:cdmSites}}" ColName="ntext2" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmStages" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmStages" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmStages/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmStages/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmStages/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{E8D1C1C3-DFDA-4936-870D-E56F357BEE5E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmStages/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{BEFC6D7E-CBF9-4B5B-B892-80A3EFA9085E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmUniclassTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUniclassTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUniclassTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUniclassTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUniclassTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{139D4310-221C-40D1-A5DD-CCF85AE63FAA}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmUniclassTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmUserRoles" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUserRoles" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUserRoles/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUserRoles/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUserRoles/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{C75E0BBE-593B-4AA4-B504-A8FA78FCFFB6}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmUserRoles/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmUsers" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUsers" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUsers/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUsers/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUsers/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{70EB1D84-CBEB-4ADE-A845-08A14ACC740D}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmUsers/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmUserRole" />
+                <FieldRef Name="cdmCompany" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmUser" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="22" DisplayName="cdmUser" ID="{e712e972-bca9-4d95-bbad-a0fe5512275d}" Name="cdmUser" Group="Custom Columns" StaticName="cdmUser" SourceID="{{listid:cdmUsers}}" ColName="int1" RowOrdinal="0" List="UserInfo" Version="8" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUserRole" ID="{9dfe3c8e-c21e-49a2-890f-27cba5527ee1}" Name="cdmUserRole" WebId="{siteid}" Group="" Version="4" StaticName="cdmUserRole" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmUserRoles}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmCompany" ID="{2b74f360-5d75-4b4e-a1df-7d97e248ce8b}" Name="cdmCompany" WebId="{siteid}" Group="" Version="4" StaticName="cdmCompany" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmCompanies}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{a2c3f154-03e7-4d1c-a987-09951528153e}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmSites}" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+          <pnp:Webhooks>
+            <pnp:Webhook ServerNotificationUrl="https://1-uksouth1.pushp.svc.ms/notifications?token=w3-94ddd3f1-da18-49e6-b2e8-91e52b7030d7" ExpiresInDays="-12" />
+            <pnp:Webhook ServerNotificationUrl="https://1-uksouth1.pushp.svc.ms/notifications?token=w1-146aea73-c9d1-4953-aee6-e0e3b6d6b0f6" ExpiresInDays="-12" />
+          </pnp:Webhooks>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="cdmUTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{7374E675-F1DE-4D4E-A99C-194CDDE59DCD}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/ds-cdm-2/Lists/cdmUTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=45">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmUTag" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field List="{listid:cdmUniclassTags}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUTag" ID="{a674a6ac-3a00-4649-9310-5c6a40ea3438}" Name="cdmUTag" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmUTag" SourceID="{{listid:cdmUTags}}" ColName="int1" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{d5f945f3-c309-430d-86e5-8fc5f6c0cf2f}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmUTags}}" ColName="int2" RowOrdinal="0" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
+            <pnp:FieldRef ID="ccc1037f-f65e-434a-868e-8c98af31fe29" Name="_ComplianceFlags" DisplayName="Label setting" />
+            <pnp:FieldRef ID="d4b6480a-4bed-4094-9a52-30181ea38f1d" Name="_ComplianceTag" DisplayName="Retention label" />
+            <pnp:FieldRef ID="92be610e-ddbb-49f4-b3b1-5c2bc768df8f" Name="_ComplianceTagWrittenTime" DisplayName="Retention label Applied" />
+            <pnp:FieldRef ID="418d7676-2d6f-42cf-a16a-e43d2971252a" Name="_ComplianceTagUserId" DisplayName="Label applied by" />
+            <pnp:FieldRef ID="8382d247-72a9-44b1-9794-7b177edc89f3" Name="_IsRecord" DisplayName="Item is a Record" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+      </pnp:Lists>
+      <pnp:Features>
+        <pnp:WebFeatures>
+          <pnp:Feature ID="8c6f9096-388d-4eed-96ff-698b3ec46fc4" />
+        </pnp:WebFeatures>
+      </pnp:Features>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

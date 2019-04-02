@@ -1,0 +1,8 @@
+PAGE.CONTROLLER
+    layout
+
+PROCESS.CONTROLLER
+    on clicks
+
+DISPLAY.CONTROLLER
+    final ui

@@ -1,0 +1,639 @@
+<div class="tpos-info">Hazards applicable to one or many permanent works, temporary works and/or RAMS can be recorded in one go.</div>
+<div class="tpos-info">Start by describing the hazard (something with the potential to cause harm). Optionally, describe the risk (what harm could
+    come to whom/what) and your mitigation (methods of minimising the risk).</div>
+<div class="tpos-info">Leave the risk and/or mitigation fields empty if you are not yet sure.</div>
+<div class="input-panel" id="hazard">
+    <div class="tpos-lbl">Describe the hazard</div>
+    <!-- <input class="" type="text" name="input_hazard" id="input_hazard"> -->
+    <textarea name="text_hazard" id="cdmHazardDescription" cols="40" rows="5"></textarea>
+</div>
+<div class="input-panel" id="risk">
+    <div class="tpos-lbl">Describe the risk (optional)</div>
+    <!-- <input class="" type="text" name="input_hazard" id="input_hazard"> -->
+    <textarea name="text_risk" id="cdmRiskDescription" cols="40" rows="5"></textarea>
+</div>
+<div class="input-panel" id="mitigation">
+    <div class="tpos-lbl">Your mitigation (optional)</div>
+    <!-- <input class="" type="text" name="input_hazard" id="input_hazard"> -->
+    <textarea name="text_mitigation" id="cdmMitigationDescription" cols="40" rows="5"></textarea>
+</div>
+<div class="risk-panel" id="inirisk">
+    <div class="tpos-lbl">Initial risk score (optional)</div>
+    <div id="cdmInitialRisk" style="display: none;">25-High-clr_5^5-Catastrophic^5-Definite</div>
+    <div class="riskscoring">
+        <table class="risk-tbl">
+            <tr>
+                <td colspan="5">Severity</td>
+            </tr>
+            <tr>
+                <td class="rs sev severity_1 clr_1" data-sev="1-Insignificant" onclick="sev(1)">
+                    <div class="rss">
+                        <div>1</div>
+                        <div>Insignificant</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_2 clr_2" data-sev="2-Marginal" onclick="sev(2)">
+                    <div class="rss">
+                        <div>2</div>
+                        <div>Marginal</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_3 clr_3" data-sev="3-Moderate" onclick="sev(3)">
+                    <div class="rss">
+                        <div>3</div>
+                        <div>Moderate</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_4 clr_4" data-sev="4-Critical" onclick="sev(4)">
+                    <div class="rss">
+                        <div>4</div>
+                        <div>Critical</div>
+                    </div>
+                </td>
+                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5-Catastrophic" onclick="sev(5)">
+                    <div class="rss">
+                        <div>5</div>
+                        <div>Catastrophic</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table class="mini-risk-tbl">
+                        <tr>
+                            <td class="rsc rsc1 clr_1" data-rsk="1-Low-clr_1">1</td>
+                            <td class="rsc rsc2 clr_1" data-rsk="2-Low-clr_1">2</td>
+                            <td class="rsc rsc3 clr_1" data-rsk="3-Low-clr_1">3</td>
+                            <td class="rsc rsc4 clr_1" data-rsk="4-Low-clr_1">4</td>
+                            <td class="rsc rsc5 clr_4" data-rsk="5-Medium-clr_4">5</td>
+                            <td class="rsc rsc6 clr_4" data-rsk="6-Medium-clr_4">6</td>
+                            <td class="rsc rsc8 clr_4" data-rsk="8-Medium-clr_4">8</td>
+                            <td class="rsc rsc9 clr_4" data-rsk="9-Medium-clr_4">9</td>
+                            <td class="rsc rsc10 clr_5" data-rsk="10-High-clr_5">10</td>
+                            <td class="rsc rsc12 clr_5" data-rsk="12-High-clr_5">12</td>
+                            <td class="rsc rsc15 clr_5" data-rsk="15-High-clr_5">15</td>
+                            <td class="rsc rsc16 clr_5" data-rsk="16-High-clr_5">16</td>
+                            <td class="rsc rsc20 clr_5" data-rsk="20-High-clr_5">20</td>
+                            <td class="rsc rsc25 clr_5 clr_5_active" data-rsk="25-High-clr_5">25</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="rs lik likelihood_1 clr_1" data-lik="1-Unlikely" onclick="lik(1)">
+                    <div class="rss">
+                        <div>1</div>
+                        <div>Unlikely</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_2 clr_2" data-lik="2-Seldom" onclick="lik(2)">
+                    <div class="rss">
+                        <div>2</div>
+                        <div>Seldom</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_3 clr_3" data-lik="3-Occasional" onclick="lik(3)">
+                    <div class="rss">
+                        <div>3</div>
+                        <div>Occasional</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_4 clr_4" data-lik="4-Likely" onclick="lik(4)">
+                    <div class="rss">
+                        <div>4</div>
+                        <div>Likely</div>
+                    </div>
+                </td>
+                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5-Definite" onclick="lik(5)">
+                    <div class="rss">
+                        <div>5</div>
+                        <div>Definite</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">Likelihood</td>
+            </tr>
+
+
+        </table>
+    </div>
+
+</div>
+<!-- <div class="risk-panel hide" id="resrisk">
+    <div class="tpos-lbl">Residual risk score (optional)</div>
+    <div class="riskscoring">
+        <table class="risk-tbl">
+            <tr>
+                <td colspan="5">Severity</td>
+            </tr>
+            <tr>
+                <td class="rs sev severity_1 clr_1" data-sev="1 - Insignificant" onclick="sev(1)">
+                    <div class="rss">
+                        <div>1</div>
+                        <div>Insignificant</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_2 clr_2" data-sev="2 - Marginal" onclick="sev(2)">
+                    <div class="rss">
+                        <div>2</div>
+                        <div>Marginal</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_3 clr_3" data-sev="3 - Moderate" onclick="sev(3)">
+                    <div class="rss">
+                        <div>3</div>
+                        <div>Moderate</div>
+                    </div>
+                </td>
+                <td class="rs sev severity_4 clr_4" data-sev="4 - Critical" onclick="sev(4)">
+                    <div class="rss">
+                        <div>4</div>
+                        <div>Critical</div>
+                    </div>
+                </td>
+                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5 - Catastrophic" onclick="sev(5)">
+                    <div class="rss">
+                        <div>5</div>
+                        <div>Catastrophic</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table class="mini-risk-tbl">
+                        <tr>
+                            <td class="rsc rsc1 clr_1">1</td>
+                            <td class="rsc rsc2 clr_1">2</td>
+                            <td class="rsc rsc3 clr_1">3</td>
+                            <td class="rsc rsc4 clr_1">4</td>
+                            <td class="rsc rsc5 clr_1">5</td>
+                            <td class="rsc rsc6 clr_4">6</td>
+                            <td class="rsc rsc8 clr_4">8</td>
+                            <td class="rsc rsc9 clr_4">9</td>
+                            <td class="rsc rsc10 clr_5">10</td>
+                            <td class="rsc rsc12 clr_5">12</td>
+                            <td class="rsc rsc15 clr_5">15</td>
+                            <td class="rsc rsc16 clr_5">16</td>
+                            <td class="rsc rsc20 clr_5">20</td>
+                            <td class="rsc rsc25 clr_5 clr_5_active">25</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="rs lik likelihood_1 clr_1" data-lik="1 - Unlikely" onclick="lik(1)">
+                    <div class="rss">
+                        <div>1</div>
+                        <div>Unlikely</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_2 clr_2" data-lik="2 - Seldom" onclick="lik(2)">
+                    <div class="rss">
+                        <div>2</div>
+                        <div>Seldom</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_3 clr_3" data-lik="3 - Occasional" onclick="lik(3)">
+                    <div class="rss">
+                        <div>3</div>
+                        <div>Occasional</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_4 clr_4" data-lik="4 - Likely" onclick="lik(4)">
+                    <div class="rss">
+                        <div>4</div>
+                        <div>Likely</div>
+                    </div>
+                </td>
+                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5 - Definite" onclick="lik(5)">
+                    <div class="rss">
+                        <div>5</div>
+                        <div>Definite</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">Likelihood</td>
+            </tr>
+
+
+        </table>
+    </div>
+
+</div> -->
+
+<div class="tpos-info">Then select a site. Please note that you can only select one site at a time.</div>
+
+
+<div class="select-panel" id="sites">
+    <div class="tpos-lbl">Select a site</div>
+    <div class="tpos-select" id="div_sel_sites"></div>
+    <div>
+        <input class="hide" type="text" name="" id="sctSite" value="0" placeholder="Select a site" />
+    </div>
+</div>
+
+<div class="selectnext" id="next">
+    <div class="tpos-info">Select any applicable structure (to record permanent works hazards) by clicking on it. Use the search box to quickly
+        find the correct option(s).</div>
+
+    <div class="tpos-info">Once you've selected a structure and wish to add another one, simply click the structure search box again.</div>
+
+    <div class="tpos-info">Proceed in the same way with temporary works and RAMS.</div>
+    <div class="select-panel" id="pwstructures">
+        <div class="tpos-lbl">Select a structure</div>
+        <div class="tpos-select" id="div_sel_structures"></div>
+    </div>
+
+    <div class="select-panel" id="tw">
+        <div class="tpos-lbl">Select temporary works</div>
+        <div class="tpos-select" id="div_sel_tw"></div>
+    </div>
+    <div class="select-panel" id="rams">
+        <div class="tpos-lbl">Select a RAMS</div>
+        <div class="tpos-select" id="div_sel_rams"></div>
+    </div>
+
+</div>
+
+<div class="selectnext">
+    <div class="tpos-info">If you wish to record the same hazard for structures, temporary works and/or RAMS for another site, you can select a
+        new site be clicking the sites search box. Selecting another site will empty all previously selected options and
+        provide new site relevant options.</div>
+
+    <div class="selection-panel" id="selection_panel">
+        <div class="tpos-lbl">Selected site</div>
+        <div id="selectedsite" class="tpos-selection"></div>
+        <div id="pwstructurespanel">
+            <div id="selectedstructures" class="tpos-selection"></div>
+        </div>
+        <div id="twpanel">
+            <div id="selectedtw" class="tpos-selection"></div>
+        </div>
+        <div id="ramspanel">
+            <div id="selectedrams" class="tpos-selection"></div>
+        </div>
+    </div>
+    <div class="tpos-info">Once you've selected at least one works designs and/or RAMS, the hazard can be saved. Should you have selected more than
+        one works and/or RAMS, the hazard will be saved for all of them, i.e. the system will save the described hazard for
+        each works design and/or RAMS specified. Each recorded hazard will contain the same metadata as specified by you.</div>
+
+    <div class="button-row" style="display: none;">
+        <!-- <div class="tpos-left-btn sv-cancel">Cancel</div> -->
+        <div class="tpos-left-btn sv-hazard" onclick="savehazards();">Save</div>
+    </div>
+</div>
+
+<script>
+        function routeSelection(e, v, vn) {
+        var sTerm = '';
+        var t = '';
+        var pc = 0,
+            tc = 0,
+            rc = 0;
+        var nt = '';
+        var lbl = '';
+        if (e == 'cdmSites') {
+            $('#div_sel_structures').html('');
+            $('#div_sel_tw').html('');
+            $('#div_sel_rams').html('');
+            sTerm = '<div class="qresult" data-entity="site" data-name="' + vn + '" data-value="' + v + '"><span>' + vn +
+                ' </span><span class="qrremove" data-field="sel_site">X</span></div>';
+            $('#selectedsite').html(sTerm);
+            $('#sel_cdmSites').val('');
+            $('#selectedtw').html('');
+            $('#selectedrams').html('');
+            $('#selectedstructures').html('');
+
+            //toastr.success('uuu');
+            tposdata.get('cdmPWStructures', 'cdmSite/ID eq ' + v, '', 'sel_structures');
+            jsondata.get('tw', vn, 'sel_tw');
+            jsondata.get('rams', vn, 'sel_rams');
+            $('.selectnext').show();
+            page.scroll('#next');
+        }
+        if (e == 'cdmPWStructures') {
+            t = $('#selectedstructures').html();
+
+
+            var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
+
+            for (var i = 0; i < stgs.length; i++) {
+                var stid = parseInt(i, 10) + 1;
+                sTerm += '<div class="qresult" data-entity="permanent" data-stage="' + stid + '" data-name="' + vn +
+                    '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + stgs[i] + '</span>' +
+                    ' </span><span class="qrremove" data-field="sel_structures">X</span></div>';
+            }
+            nt = t + sTerm;
+            lbl = '<div class="tpos-lbl">Selected structure(s)</div>';
+            if (nt) {
+                $('#pwstructurespanel').html('');
+                $('#pwstructurespanel').html(lbl + '<div id="selectedstructures" class="tpos-selection">' + nt +
+                    '</div>');
+                // $('#selectedstructures').prepend(lbl);
+            }
+            $('#sel_cdmPWStructures').val('');
+        }
+        if (e == 'tw') {
+            t = $('#selectedtw').html();
+            sTerm = '<div class="qresult" data-entity="temporary" data-stage="1" data-name="' + vn + '" data-value="' +
+                v + '"><span>' + vn + ' </span><span class="qrremove" data-field="sel_tw">X</span></div>';
+            nt = t + sTerm;
+            lbl = '<div class="tpos-lbl">Selected temporary works</div>';
+            if (nt) {
+                $('#twpanel').html('');
+                $('#twpanel').html(lbl + '<div id="selectedtw" class="tpos-selection">' + nt + '</div>');
+            }
+            $('#sel_tw').val('');
+        }
+
+        if (e == 'rams') {
+            t = $('#selectedrams').html();
+            sTerm = '<div class="qresult" data-entity="rams" data-stage="1" data-name="' + vn + '" data-value="' + v +
+                '"><span class="qresultdisplay">' + vn +
+                ' </span><span class="qrremove" data-field="sel_rams">X</span></div>';
+            nt = t + sTerm;
+            lbl = '<div class="tpos-lbl">Selected RAMS</div>';
+
+            if (nt) {
+                $('#ramspanel').html('');
+                $('#ramspanel').html(lbl + '<div id="selectedrams" class="tpos-selection">' + nt + '</div>');
+            }
+            $('#sel_rams').val('');
+        }
+
+        var qrs = $('.qresult');
+        for (var k = 0; k < qrs.length; k++) {
+            var cn = qrs.eq(k);
+            if (cn.data('entity') == 'permanent') {
+                pc++;
+            }
+            if (cn.data('entity') == 'temporary') {
+                tc++;
+            }
+            if (cn.data('entity') == 'rams') {
+                rc++;
+            }
+        }
+        if (pc + tc + rc > 0) {
+            $('.button-row').show();
+
+
+        } else {
+            $('.button-row').hide();
+        }
+
+
+        $('.qrremove').click(function () {
+            var crc = $(this).parent().parent();
+            var crs = $(this).parent().siblings();
+            $(this).parent().remove();
+            if (!crs) {
+                crc.html('');
+            }
+        });
+
+        //$('.rss').addEventListener('click',testfunction);
+
+    }
+
+    function sev(n) {
+        var lik = $('.liks').data('lik');
+        var likscore = lik.substring(0, 1);
+        console.log(lik);
+        var clr = '';
+
+        var sev = $('.severity_' + n).data('sev');
+        //$('.severity_'+n).removeClass('clr_'+n);
+        $('.sev').removeClass('sevs');
+        $('.sev').removeClass('clr_1_active');
+        $('.sev').removeClass('clr_2_active');
+        $('.sev').removeClass('clr_3_active');
+        $('.sev').removeClass('clr_4_active');
+        $('.sev').removeClass('clr_5_active');
+        $('.severity_' + n).addClass('clr_' + n + '_active');
+        $('.severity_' + n).addClass('sevs');
+
+        var riskscore = parseInt(n, 10) * parseInt(likscore, 10);
+
+        $('.rsc').removeClass('clr_1_active');
+        $('.rsc').removeClass('clr_2_active');
+        $('.rsc').removeClass('clr_3_active');
+        $('.rsc').removeClass('clr_4_active');
+        $('.rsc').removeClass('clr_5_active');
+        if (riskscore < 5) {
+            clr = 'clr_1_active';
+        }
+        if (riskscore >= 5 && riskscore < 10) {
+            clr = 'clr_4_active';
+        }
+        if (riskscore >= 10) {
+            clr = 'clr_5_active';
+        }
+
+        $('.rsc' + riskscore).addClass(clr);
+        var rsk = $('.rsc' + riskscore).data('rsk');
+
+        var frsk = rsk + '^' + sev + '^' + lik;
+        $('#cdmInitialRisk').html(frsk);
+    }
+
+    function lik(n) {
+        var sev = $('.sevs').data('sev');
+        var sevscore = sev.substring(0, 1);
+        console.log(sev);
+        var clr = '';
+
+        var lik = $('.likelihood_' + n).data('lik');
+        //$('.severity_'+n).removeClass('clr_'+n);
+        $('.lik').removeClass('liks');
+        $('.lik').removeClass('clr_1_active');
+        $('.lik').removeClass('clr_2_active');
+        $('.lik').removeClass('clr_3_active');
+        $('.lik').removeClass('clr_4_active');
+        $('.lik').removeClass('clr_5_active');
+        $('.likelihood_' + n).addClass('clr_' + n + '_active');
+        $('.likelihood_' + n).addClass('liks');
+
+        var riskscore = parseInt(n, 10) * parseInt(sevscore, 10);
+
+        $('.rsc').removeClass('clr_1_active');
+        $('.rsc').removeClass('clr_2_active');
+        $('.rsc').removeClass('clr_3_active');
+        $('.rsc').removeClass('clr_4_active');
+        $('.rsc').removeClass('clr_5_active');
+        if (riskscore < 5) {
+            clr = 'clr_1_active';
+        }
+        if (riskscore >= 5 && riskscore < 10) {
+            clr = 'clr_4_active';
+        }
+        if (riskscore >= 10) {
+            clr = 'clr_5_active';
+        }
+
+        $('.rsc' + riskscore).addClass(clr);
+
+        var rsk = $('.rsc' + riskscore).data('rsk');
+
+        var frsk = rsk + '^' + sev + '^' + lik;
+
+        $('#cdmInitialRisk').html(frsk);
+
+
+    }
+
+    function savehazards() {
+
+        var newhazards = [];
+        var site = 0;
+        var pw = [];
+        var tw = [];
+        var rams = [];
+        var title1 = new Date();
+        //var title2=uid();
+        var title10=title1.getTime()+'^'+title1.getDate()+'^'+title1.getMonth()+1+'^'+title1.getFullYear();
+        var title = title10.toString() + '^' + uid();
+        
+        var hz = $('#cdmHazardDescription').val();
+        var rs = $('#cdmRiskDescription').val();
+        var ms = $('#cdmMitigationDescription').val();
+        if (!hz) {
+            toastr.error('Please describe the hazard');
+        }
+        if (!rs) {
+            rs = 'Awaiting risk assessment';
+        }
+        if (!ms) {
+            ms = 'Awaiting mitigation';
+        }
+
+        var qr = $('.qresult');
+        for (var j = 0; j < qr.length; j++) {
+            var o = qr.eq(j);
+
+            var type = o.data('entity');
+            var name = o.data('name');
+            var value = o.data('value');
+            toastr.success(type);
+            if (type == 'site') {
+                site = value;
+            }
+            if (type == 'permanent') {
+                var stage = o.data('stage');
+                pw.push([name, value, stage]);
+            }
+            if (type == 'temporary') {
+                tw.push([name, value]);
+            }
+            if (type == 'rams') {
+                rams.push([name, value]);
+            }
+        }
+        var risks = $('#cdmInitialRisk').html();
+        var trisks = risks.split('-');
+        var riskscoreval=trisks[0];
+        var rscv=parseInt(riskscoreval,10);
+        console.log(pw);
+        console.log(tw);
+        console.log(rams);
+
+        if (pw.length > 0) {
+            // console.log(tdata);
+
+            for (var ps = 0; ps < pw.length; ps++) {
+                var tdata = [];
+                // toastr.success(site);
+                tdata.push('Title|' + title);
+                tdata.push('cdmSiblings|' + title);
+                tdata.push('cdmHazardDescription|' + hz);
+                tdata.push('cdmRiskDescription|' + rs);
+                tdata.push('cdmMitigationDescription|' + ms);
+                tdata.push('cdmSite|' + site);
+                tdata.push('cdmInitialRisk|' + risks);
+                tdata.push('cdmResidualRisk|' + risks);
+                tdata.push('cdmHazardType|1');
+                tdata.push('cdmInitialRiskScore|'+rscv);
+                tdata.push('cdmResidualRiskScore|'+rscv);
+                tdata.push('cdmSMMitigationSuggestion|Awaiting assessment');
+                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+                tdata.push('cdmPWStructure|' + pw[ps][1]);
+                tdata.push('cdmStage|' + pw[ps][2]);
+                newhazards.push(tdata);
+            }
+
+        }
+        if (tw.length > 0) {
+            for (var ts = 0; ts < tw.length; ts++) {
+                var tdata = [];
+                // toastr.success(site);
+                tdata.push('Title|' + title);
+                tdata.push('cdmSiblings|' + title);
+                tdata.push('cdmHazardDescription|' + hz);
+                tdata.push('cdmRiskDescription|' + rs);
+                tdata.push('cdmMitigationDescription|' + ms);
+                tdata.push('cdmSite|' + site);
+                tdata.push('cdmInitialRisk|' + risks);
+                tdata.push('cdmResidualRisk|' + risks);
+                tdata.push('cdmHazardType|1');
+                tdata.push('cdmInitialRiskScore|'+rscv);
+                tdata.push('cdmResidualRiskScore|'+rscv);
+                tdata.push('cdmSMMitigationSuggestion|Awaiting assessment');
+                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+
+                tdata.push('cdmTW|' + tw[ts][1]);
+                tdata.push('cdmEntityTitle|' + tw[ts][0]);
+                tdata.push('cdmStage|1');
+                newhazards.push(tdata);
+
+            }
+
+
+        }
+        if (rams.length > 0) {
+            for (var ras = 0; ras < rams.length; ras++) {
+                var tdata = [];
+                // toastr.success(site);
+                tdata.push('Title|' + title);
+                tdata.push('cdmSiblings|' + title);
+                tdata.push('cdmHazardDescription|' + hz);
+                tdata.push('cdmRiskDescription|' + rs);
+                tdata.push('cdmMitigationDescription|' + ms);
+                tdata.push('cdmSite|' + site);
+                tdata.push('cdmInitialRisk|' + risks);
+                tdata.push('cdmResidualRisk|' + risks);
+                tdata.push('cdmHazardType|1');
+                tdata.push('cdmInitialRiskScore|'+rscv);
+                tdata.push('cdmResidualRiskScore|'+rscv);
+                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+                tdata.push('cdmStageMitigationSuggestion|Not applicable');
+                tdata.push('cdmSMMitigationSuggestion|Awaiting assessment');
+                tdata.push('cdmRAMS|' + rams[ras][1]);
+                tdata.push('cdmEntityTitle|' + rams[ras][0]);
+                tdata.push('cdmStage|1');
+                newhazards.push(tdata);
+
+            }
+
+
+        }
+        for (var dd = 0; dd < newhazards.length; dd++) {
+            tposdata.set('cdmHazards', newhazards[dd],'qmsg');
+        }
+        $('#div_sel_structures').html('');
+            $('#div_sel_tw').html('');
+            $('#div_sel_rams').html('');
+            $('#sel_cdmSites').val('');
+            $('#selectedtw').html('');
+            $('#selectedrams').html('');
+            $('#selectedstructures').html('');
+        $('.button-row').hide();
+
+
+    }
+
+</script>
