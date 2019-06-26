@@ -242,7 +242,7 @@
 
     <div class="tpos-info">Proceed in the same way with temporary works and RAMS.</div>
     <div class="select-panel" id="pwstructures">
-        <div class="tpos-lbl">Select a structure</div>
+        <div class="tpos-lbl">Select a permanent works structure</div>
         <div class="tpos-select" id="div_sel_structures"></div>
     </div>
 
@@ -463,10 +463,10 @@
         $('.rsc').removeClass('clr_3_active');
         $('.rsc').removeClass('clr_4_active');
         $('.rsc').removeClass('clr_5_active');
-        if (riskscore < 5) {
+        if (riskscore < 6) {
             clr = 'clr_1_active';
         }
-        if (riskscore >= 5 && riskscore < 10) {
+        if (riskscore >= 6 && riskscore < 10) {
             clr = 'clr_4_active';
         }
         if (riskscore >= 10) {
@@ -553,7 +553,7 @@
                 tdata.push('cdmSite|' + site);
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|1');
+                tdata.push('cdmHazardType|2');
                 tdata.push('cdmInitialRiskScore|'+rscv);
                 tdata.push('cdmResidualRiskScore|'+rscv);
                 tdata.push('cdmSMMitigationSuggestion|Awaiting assessment');
@@ -577,7 +577,7 @@
                 tdata.push('cdmSite|' + site);
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|1');
+                tdata.push('cdmHazardType|2');
                 tdata.push('cdmInitialRiskScore|'+rscv);
                 tdata.push('cdmResidualRiskScore|'+rscv);
                 tdata.push('cdmSMMitigationSuggestion|Awaiting assessment');
@@ -605,7 +605,7 @@
                 tdata.push('cdmSite|' + site);
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|1');
+                tdata.push('cdmHazardType|2');
                 tdata.push('cdmInitialRiskScore|'+rscv);
                 tdata.push('cdmResidualRiskScore|'+rscv);
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
