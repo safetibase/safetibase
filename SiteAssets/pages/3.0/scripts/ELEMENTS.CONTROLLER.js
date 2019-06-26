@@ -51,9 +51,9 @@ function closesubs(){
 function global_nav(){
     var myvar = '<div id="tpos-global-nav" class="tpos-global-nav">'+
     '    <div class="tgn-btn" data-action="init">home</div>'+
-    '    <div class="tgn-btn" data-action="systemstats">system stats</div>'+
-    '    <div class="tgn-btn-xtra" data-action="dynamicstats">dynamic stats</div>'+
-    '    <div class="tgn-btn-xtra" data-action="test1stats">test 1 stats</div>'+
+    // '    <div class="tgn-btn" data-action="systemstats">system stats</div>'+
+    // '    <div class="tgn-btn-xtra" data-action="dynamicstats">dynamic stats</div>'+
+    // '    <div class="tgn-btn-xtra" data-action="test1stats">test 1 stats</div>'+
     '</div>';
 
 
@@ -80,6 +80,14 @@ function mkSmallDataBox (id, v, title, clr) {
         color = 'databox-clr-' + clr;
     }
     var t = '<div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
+    return t;
+}
+function mkSmallQCDataBox (id, v,bt, title, clr) {
+    var color = '';
+    if (clr) {
+        color = 'databox-clr-' + clr;
+    }
+    var t = '<div class="db-wrapper"><div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + bt + '</div></div></div>';
     return t;
 }
 

@@ -2,7 +2,7 @@
  {
    "RAG": "RG1",
    "Colour": "Red",
-   "RAGStatement": "On-site spraying or other applications of substances identified as ‘harmful’ within the COSHH Regulations and EH40, including Volatile Organic Compounds"
+   "RAGStatement": "Red"
  },
  {
    "RAG": "RG2",
@@ -127,7 +127,7 @@
  {
    "RAG": "RG26",
    "Colour": "Red",
-   "RAGStatement": "Re-bar cage designs without sufficient support and provision / identification of lifting points for lifting and installation"
+   "RAGStatement": "Re-bar cage designs without sufficient support and provision / identification of lifting points for lifting and installation "
  },
  {
    "RAG": "RG27",
@@ -137,7 +137,7 @@
  {
    "RAG": "RG28",
    "Colour": "Red",
-   "RAGStatement": "Use of air lances with known or suspected asbestos contaminated soils."
+   "RAGStatement": "Use of air lances with known or suspected asbestos contaminated soils. "
  },
  {
    "RAG": "RG29",
@@ -147,7 +147,7 @@
  {
    "RAG": "RG30",
    "Colour": "Red",
-   "RAGStatement": "Gates and doors on site hoardings opening outwards into a public area. Except for emergency exits where adequate protection for the public will be in place."
+   "RAGStatement": "Gates and doors on site hoardings opening outwards into a public area. Except for emergency exits where adequate protection for the public will be in place.  "
  },
  {
    "RAG": "RG31",
@@ -362,7 +362,7 @@
  {
    "RAG": "RT17",
    "Colour": "Red",
-   "RAGStatement": "Designs or processes that do not have 2 means of isolation."
+   "RAGStatement": "Designs or processes that do not have 2 means of isolation. "
  },
  {
    "RAG": "RO1",
@@ -512,7 +512,7 @@
  {
    "RAG": "AG18",
    "Colour": "Amber",
-   "RAGStatement": "Construction/design that requires on-site welding of stainless steel in an outdoor well ventilated environment"
+   "RAGStatement": "Construction/design that requires on-site welding of stainless steel in an outdoor well ventilated environment "
  },
  {
    "RAG": "AG19",
@@ -532,7 +532,7 @@
  {
    "RAG": "AG22",
    "Colour": "Amber",
-   "RAGStatement": "The specification and use of heavy lintels"
+   "RAGStatement": "The specification and use of heavy lintels "
  },
  {
    "RAG": "AG23",
@@ -597,17 +597,17 @@
  {
    "RAG": "AG35",
    "Colour": "Amber",
-   "RAGStatement": "Working in/over/near water/tidal environment"
+   "RAGStatement": "Working in/over/near water/tidal environment "
  },
  {
    "RAG": "AG36",
    "Colour": "Amber",
-   "RAGStatement": "Individual handling of re-bar lengths (particulalry 32mm/40mm) for constructing in-situ re-inforcement."
+   "RAGStatement": "Individual handling of re-bar lengths (particulalry 32mm/40mm) for constructing in-situ re-inforcement. "
  },
  {
    "RAG": "AG37",
    "Colour": "Amber",
-   "RAGStatement": "Use of white diesel powered plant and equipment with filters fitted to exhaust and adequate forced ventilation."
+   "RAGStatement": "Use of white diesel powered plant and equipment with filters fitted to exhaust and adequate forced ventilation. "
  },
  {
    "RAG": "AG38",
@@ -632,7 +632,7 @@
  {
    "RAG": "AG42",
    "Colour": "Amber",
-   "RAGStatement": "Hot bitumen waterproofing"
+   "RAGStatement": "Hot bitumen waterproofing "
  },
  {
    "RAG": "AG43",
@@ -907,7 +907,7 @@
  {
    "RAG": "GG6",
    "Colour": "Green",
-   "RAGStatement": "Construction/designs which consider alternative solutions to hand excavation near live buried services. Use of suction excavation or air lance around underground services. Suction excavation only where there is known or possible contamination with asbesto"
+   "RAGStatement": "Construction/designs which consider alternative solutions to hand excavation near live buried services. Use of suction excavation or air lance around underground services. Suction excavation only where there is known or possible contamination with asbestos containing materials"
  },
  {
    "RAG": "GG7",
@@ -1057,12 +1057,12 @@
  {
    "RAG": "GG36",
    "Colour": "Green",
-   "RAGStatement": "Concrete designs that incorporate \"soft eyes\" for cut-outs. Or shutter in rebar to minimise the amount of breaking out required"
+   "RAGStatement": "Concrete designs that incorporate \"soft eyes\" for cut-outs. Or shutter in rebar to minimise the amount of breaking out required "
  },
  {
    "RAG": "GG37",
    "Colour": "Green",
-   "RAGStatement": "Cover slab openings that incorporate integrated grilles or cast-in sockets for handrails"
+   "RAGStatement": "Cover slab openings that incorporate integrated grilles or cast-in sockets for handrails "
  },
  {
    "RAG": "GG38",
@@ -1077,12 +1077,12 @@
  {
    "RAG": "GG40",
    "Colour": "Green",
-   "RAGStatement": "Use of pre-fabricated re-bar cages rather than individual handling of bars. Consider off-site pre-fabrication. (Pre-fabricated cages must have identified lifting points and appropriate re-inforcement whilst in temporary state)."
+   "RAGStatement": "Use of pre-fabricated re-bar cages rather than individual handling of bars. Consider off-site pre-fabrication. (Pre-fabricated cages must have identified lifting points and appropriate re-inforcement whilst in temporary state). "
  },
  {
    "RAG": "GG41",
    "Colour": "Green",
-   "RAGStatement": "Use of electrically powered plant and equipment"
+   "RAGStatement": "Use of electrically powered plant and equipment "
  },
  {
    "RAG": "GG42",
@@ -1252,7 +1252,7 @@
  {
    "RAG": "GT2",
    "Colour": "Green",
-   "RAGStatement": "Tunnels and shafts sized to suit:                                                                      Readily available excavation equipment                                                          Provision of subsurface welfare facilities              "
+   "RAGStatement": "Tunnels and shafts sized to suit:                                                                      Readily available excavation equipment                                                          Provision of subsurface welfare facilities                                                    Maintenance activities (such as, utility tunnels)"
  },
  {
    "RAG": "GT3",
@@ -1383,10 +1383,5 @@
    "RAG": "GO7",
    "Colour": "Green",
    "RAGStatement": "Design of plant and processes where pumps or other consumables are not located in restricted or confined environments"
- },
- {
-   "RAG": "None",
-   "Colour": "NONE",
-   "RAGStatement": "No applicable project control found."
  }
 ]

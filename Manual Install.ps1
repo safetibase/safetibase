@@ -27,7 +27,7 @@ set-executionpolicy remotesigned
 # USER INPUTS
 #---------------------------------------
 
-$SPsite = "https://mottmac.sharepoint.com/teams/bf-00145/gs-mnc-im/"
+$SPsite = "https://mottmac.sharepoint.com/teams/pj-d2108/"
 
 #---------------------------------------
 # FIXED INPUTS
@@ -37,7 +37,7 @@ $SPsite = "https://mottmac.sharepoint.com/teams/bf-00145/gs-mnc-im/"
 
 $Template = "$($PSScriptRoot)\SafetIbaseTemplate.xml"
 $SiteAssets = "$($PSScriptRoot)\SiteAssets"
-$ExcelListPath = "$($PSScriptRoot)\SafetIbaseListsContent_rev2.xlsx"
+$ExcelListPath = "$($PSScriptRoot)\SafetIbaseListsContent.xlsx"
 $Library = "Site Assets"
 
 #---------------------------------------
@@ -85,7 +85,7 @@ Try{
 # CREATE LISTS (USING THE PROVISIONING TEMPLATE)
 #---------------------------------------
 
-Apply-PnPProvisioningTemplate -Path $Template -ErrorAction Continue -Verbose
+#Apply-PnPProvisioningTemplate -Path $Template -ErrorAction Continue -Verbose
 
 #---------------------------------------
 # UPLOAD SITE ASSETS
