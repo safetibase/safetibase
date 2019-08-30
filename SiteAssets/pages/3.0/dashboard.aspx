@@ -2,6 +2,7 @@
 <%-- _LocalBinding --%>
 <%@ Page language="C#" MasterPageFile="~masterurl/default.master"    Inherits="Microsoft.SharePoint.WebPartPages.WebPartPage,Microsoft.SharePoint,Version=16.0.0.0,Culture=neutral,PublicKeyToken=71e9bce111e9429c"  %> <%@ Register Tagprefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %> <%@ Register Tagprefix="Utilities" Namespace="Microsoft.SharePoint.Utilities" Assembly="Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %> <%@ Import Namespace="Microsoft.SharePoint" %> <%@ Assembly Name="Microsoft.Web.CommandUI, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %> <%@ Register Tagprefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 <asp:Content ContentPlaceHolderId="PlaceHolderPageTitle" runat="server">
+<WebPartPages:AllowFraming runat="server" />
 	your dashboard
 </asp:Content>
 <asp:Content ContentPlaceHolderId="PlaceHolderAdditionalPageHead" runat="server">
@@ -19,7 +20,7 @@
 	<script src="../3.0/scripts/CDM.DATA.CONTROLLER.js"></script>
 	<script src="../3.0/scripts/DATA.FORMAT.CONTROLLER.js"></script>
 	<script src="../3.0/scripts/INIT.PAGE.js"></script>
-	
+
 
 	<link rel="stylesheet" href="../../resources/jquery-ui.min.css">
 	<link rel="stylesheet" href="../../resources/animate.css">
