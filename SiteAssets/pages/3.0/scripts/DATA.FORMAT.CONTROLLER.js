@@ -120,47 +120,6 @@ formatdatato={
         var t='<table class="tpos-tbl">'+rows+'</table>';
         $('#'+trg).html(t);
     },
-    hazardtablerowitems:function(data,ftv,trg,wpt) {
-        var tlist = data.d.results;
-        var tcnt = tlist.length;
-        var row = "";
-        wpt='<h1>'+wpt+'</h1>';
-        if(tcnt===0){
-          wpt='';
-        }
-        $("#"+trg).html(wpt);
-  
-        for (var cc = 0; cc < tcnt; cc++) {
-            // build rows
-            var h = tlist[cc];
-  
-            // var hitem=buildHazardListItem(h);
-            var hitem = printHazardRow(h);
-            $("#"+trg).append(hitem);
-            // $('.ramsonly').hide();
-            if (h.cdmRAMS) {
-                $("#h_" + h.ID + " .ramshide").hide();
-                $("#h_" + h.ID + " .ramsonly").show();
-            }
-            if (h.cdmHazardType.Title == "Safety") {
-                $("#h_" + h.ID + " .safetyhide").hide();
-            }
-            if (
-                h.cdmStage.Title != "Construction" &&
-                h.cdmStage.Title != "Commission"
-            ) {
-                $("#h_" + h.ID + " .stagehide").hide();
-            }
-        }
-  
-        hazardreviewbuttonaction();
-        toggleCollapse();
-        toggleInfoPanel();
-        activateHazardEdits();
-        // activateRAMSActions();
-        activateRAMSBtn();
-        // rows to target
-    },
     hazardtablerows:function(data,ftv,trg){
         var tlist = data.d.results;
         var tcnt = tlist.length;

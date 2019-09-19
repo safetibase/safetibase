@@ -20,7 +20,7 @@
 	<script src="../3.0/scripts/CDM.DATA.CONTROLLER.js"></script>
 	<script src="../3.0/scripts/DATA.FORMAT.CONTROLLER.js"></script>
 	<script src="../3.0/scripts/INIT.PAGE.js"></script>
-
+	
 
 	<link rel="stylesheet" href="../../resources/jquery-ui.min.css">
 	<link rel="stylesheet" href="../../resources/animate.css">
