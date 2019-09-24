@@ -518,6 +518,7 @@
             <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int7" RowOrdinal="0" List="{listid:cdmPWElementTerms}" />
             <Field Type="Note" DisplayName="cdmSiblings" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{fc735ef3-740e-4e85-9b20-f3899e799801}" SourceID="{{listid:cdmHazards}}" StaticName="cdmSiblings" Name="cdmSiblings" ColName="ntext19" RowOrdinal="0" />
             <Field Type="User" DisplayName="CurrentReviewOwner" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="ImnName" UserSelectionMode="PeopleOnly" UserSelectionScope="0" ID="{aaa7300b-6f3f-4b09-9c29-939336c413e9}" SourceID="{{listid:cdmHazards}}" StaticName="CurrentReviewOwner" Name="CurrentReviewOwner" ColName="int8" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmGeometry" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{85de46bd-6b4f-4ed8-81f0-f4c7d461bcf1}" SourceID="{{listid:cdmHazards}}" StaticName="cdmGeometry" Name="cdmGeometry" ColName="ntext20" RowOrdinal="0" />          
           </pnp:Fields>
           <pnp:FieldRefs>
             <pnp:FieldRef ID="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Name="ComplianceAssetId" DisplayName="Compliance Asset Id" />
