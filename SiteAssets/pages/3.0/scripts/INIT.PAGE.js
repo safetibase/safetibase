@@ -83,9 +83,9 @@ function setupsystemstats(){
     // $('.tpos-body').prepend(newmain);
 
     $('#tpos-main').html('<div class="tpos-area-title">System statistics</div><div id="systemstats" class="tpos-area-content"></div>');
-
-}
     
+}
+
 function setupuserstats(r,c,s){
     $('#tpos-main').html('');
     // $('.dataset').removeClass('active');
@@ -124,8 +124,8 @@ function setupuserstats(r,c,s){
 
 
         cdmdata.getQuickCount('cdmHazards',5,'cdmResidualRiskScore gt \'9\' and cdmHazardOwner/Title eq \''+c+'\'','High (residual) risk hazards','chighrisk','red',null);
-        cdmdata.getQuickCount('cdmHazards',6,'cdmResidualRiskScore gt \'5\' and cdmResidualRiskScore lt \'10\' and cdmHazardOwner/Title eq \''+c+'\'','Medium (residual) risk hazards','cmediumrisk','amber',null);
-        cdmdata.getQuickCount('cdmHazards',7,'cdmResidualRiskScore lt \'6\' and cdmHazardOwner/Title eq \''+c+'\'','Low (residual) risk hazards','clowrisk','green',null);
+        cdmdata.getQuickCount('cdmHazards',6,'cdmResidualRiskScore gt \'4\' and cdmResidualRiskScore lt \'10\' and cdmHazardOwner/Title eq \''+c+'\'','Medium (residual) risk hazards','cmediumrisk','amber',null);
+        cdmdata.getQuickCount('cdmHazards',7,'cdmResidualRiskScore lt \'5\' and cdmHazardOwner/Title eq \''+c+'\'','Low (residual) risk hazards','clowrisk','green',null);
 
         cdmdata.getQuickCount('cdmHazards',8,'cdmCurrentStatus eq \'Assessment in progress\' and cdmHazardOwner/Title eq \''+c+'\'','Assessment in progress','casses','blue',null);
         cdmdata.getQuickCount('cdmHazards',9,'cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Under peer review','cpeer','blue',null);
