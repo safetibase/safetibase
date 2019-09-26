@@ -45,7 +45,7 @@ function init(){
         }
 
         // activate_global_nav();
-
+        
     });
     
 
@@ -75,6 +75,7 @@ function setupmainareastats(hazardId){
             cdmdata.get('cdmSites',null,'Title asc','stats-table-row','statstbl');
         }
     });
+    
 }
 
 function setupsystemstats(){
