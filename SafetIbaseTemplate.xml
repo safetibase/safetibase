@@ -360,7 +360,6 @@
                 <FieldRef Name="CurrentMitigationOwner" />
                 <FieldRef Name="cdmSiblings" />
                 <FieldRef Name="CurrentReviewOwner" />
-                <FieldRef Name="cdmGeometry" />
               </ViewFields>
               <RowLimit Paged="TRUE">100</RowLimit>
               <Aggregations Value="Off" />
@@ -418,7 +417,6 @@
                 <FieldRef Name="cdmInitialRisk" />
                 <FieldRef Name="cdmResidualRisk" />
                 <FieldRef Name="cdmReviews" />
-                <FieldRef Name="cdmGeometry" />
               </ViewFields>
               <RowLimit Paged="TRUE">30</RowLimit>
               <Aggregations Value="Off" />
