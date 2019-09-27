@@ -511,6 +511,7 @@
         
         const urlParams = new URLSearchParams(window.location.search);
         const cdmGeometry = urlParams.get("cdmGeometry");
+        const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
 
         var qr = $('.qresult');
         for (var j = 0; j < qr.length; j++) {
@@ -564,6 +565,7 @@
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
                 tdata.push('cdmPWStructure|' + pw[ps][1]);
                 tdata.push('cdmStage|' + pw[ps][2]);
+                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
                 tdata.push('cdmGeometry|' + cdmGeometry);
                 newhazards.push(tdata);
             }
@@ -591,6 +593,7 @@
                 tdata.push('cdmTW|' + tw[ts][1]);
                 tdata.push('cdmEntityTitle|' + tw[ts][0]);
                 tdata.push('cdmStage|1');
+                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
                 tdata.push('cdmGeometry|' + cdmGeometry);
                 newhazards.push(tdata);
 
@@ -620,6 +623,7 @@
                 tdata.push('cdmRAMS|' + rams[ras][1]);
                 tdata.push('cdmEntityTitle|' + rams[ras][0]);
                 tdata.push('cdmStage|1');
+                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
                 tdata.push('cdmGeometry|' + cdmGeometry);
                 newhazards.push(tdata);
 
