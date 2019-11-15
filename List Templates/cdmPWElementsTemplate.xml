@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmPWElements" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmPWElements" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmPWElements/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmPWElements/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmPWElements/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{D0351594-DD03-4773-AE80-A9746767079F}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmPWElements/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmDescription" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmDescription" Name="cdmDescription" Type="Note" ID="{69ed1bf2-2717-4828-80d7-c7be48423c44}" Group="" Version="2" StaticName="cdmDescription" SourceID="{{listid:cdmPWElements}}" ColName="ntext2" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWStructure" ID="{8611b047-4892-4bae-8333-e5b5caa80f72}" Name="cdmPWStructure" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmPWStructures}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{f9c8ee09-7c1d-46a9-815e-ca6212a66aac}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmSites}" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHazardSiblings" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSiblings" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSiblings/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSiblings/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSiblings/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{4340558C-B829-4149-B61A-CDBAAFB3E32D}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmHazardSiblings/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field Type="Lookup" DisplayName="cdmHazard" Required="FALSE" EnforceUniqueValues="FALSE" List="{listid:cdmHazards}" ShowField="ID" UnlimitedLengthInDocumentLibrary="FALSE" ID="{e6db8d91-360d-4e8d-a31b-74137551e085}" SourceID="{{listid:cdmHazardSiblings}}" StaticName="cdmHazard" Name="cdmHazard" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>
