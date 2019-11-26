@@ -10,6 +10,7 @@ function init(){
     };
     // set up the page title and logo
     const urlParams = new URLSearchParams(window.location.search);
+    const disableNavigationLinks = urlParams.get("disableNavigationLinks");
 
     let pageTitle = "";
     const idParam = urlParams.get("hazardId");
@@ -31,7 +32,9 @@ function init(){
         
         // get the user and their roles and display navigation
         setupleftnav();
-        
+        if (disableNavigationLinks) {
+          $("#user_roles").hide();
+        }
 
         setupmainareastats(idParam);
 
@@ -43,11 +46,9 @@ function init(){
         
     });
     
-    const disableNavigationLinks = urlParams.get("disableNavigationLinks");
     if (disableNavigationLinks) {
       $("#suiteBarDelta").hide();
       $("#s4-ribbonrow").hide();
-      $("#user_roles").hide();
       $("#tpos-global-nav").hide();
     }
 
