@@ -45,7 +45,22 @@ function init(){
         // activate_global_nav();
         
     });
-    
+
+    $('#cdmsearch').on('keypress', function (e) {
+        if(e.which === 13){
+            e.preventDefault();
+           //Disable textbox to prevent multiple submit
+           $('#cdmsearchbox').attr("disabled", "disabled");
+
+           //Do Stuff, submit, etc..
+           var sv=$('#cdmsearchbox').val();
+           getsearchresults(sv);
+            $('#cdmsearchbox').val('');
+           //Enable the textbox again if needed.
+           $('#cdmsearchbox').removeAttr("disabled");
+        }
+    });
+
     if (disableNavigationLinks) {
       $("#suiteBarDelta").hide();
       $("#s4-ribbonrow").hide();
@@ -104,13 +119,17 @@ function setupuserstats(r,c,s){
     if(s){sphrase=' and assigned to '+s;}
     $('#tpos-main').html('<div class="tpos-area-title">Hazards relevant to a '+r+' working for '+c+sphrase+'</div><div id="userstats" class="tpos-area-content"></div>');
     $('#userstats').load('../3.0/html/stats.div.html',function(){
-    var utbl1='<div class="row">Hazards last modified by me</div><table class="tpos-tbl"><tr><td id="userhighrisk"></td><td id="usernotassigned"></td></tr></table>';
-    var utbl2='<div class="row">'+c+' hazards by residual risk'+'</div><div><table class="tpos-tbl"><tr><td id="chighrisk"></td><td id="cmediumrisk"></td><td id="clowrisk"></td></tr></table></div>';
-    var utbl3='<div class="row">'+c+' hazards by status'+'</div><div><table class="tpos-tbl"><tr><td id="caa"></td><td id="casses"></td><td id="cpeer"></td><td id="cdhm"></td><td id="cprecon"></td><td id="cld"></td><td id="csm"></td><td id="cacc"></td></tr></table></div>';
-    $('#stats').html('<table class="tpos-tbl" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>'+utbl2+utbl3);
-    cdmdata.getQuickCount('cdmHazards',1,'Author/ID eq '+uid()+' and cdmHazardOwner/Title eq \''+c+'\'','Identified by you for '+c,'a','blue',null);
-    cdmdata.getQuickCount('cdmHazards',2,'Editor/ID eq '+uid()+' and cdmHazardOwner/Title eq \''+c+'\'','Last modified by you for '+c,'e','blue',null);
-    if(r=='Designer'||r=='Sub contractor rep'){
+        var utbl1='<div class="row">Hazards last modified by you</div><table class="tpos-tbl"><tr><td id="userhighrisk"></td><td id="usernotassigned"></td></tr></table>';
+        var utbl4='<div class="row">Hazards identified and/or last modified by you (regardless of company)</div><div><table class="tpos-tbl"><tr><td id="aa"></td><td id="ea"></td></tr></table></div>';
+        var utbl2='<div class="row">'+c+' hazards by residual risk'+'</div><div><table class="tpos-tbl"><tr><td id="chighrisk"></td><td id="cmediumrisk"></td><td id="clowrisk"></td></tr></table></div>';
+        var utbl3='<div class="row">'+c+' hazards by status'+'</div><div><table class="tpos-tbl"><tr><td id="caa"></td><td id="casses"></td><td id="cpeer"></td><td id="cdhm"></td><td id="cprecon"></td><td id="cld"></td><td id="csm"></td><td id="cacc"></td></tr></table></div>';
+        $('#stats').html('<table class="tpos-tbl" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>'+utbl4+utbl2+utbl3);
+        cdmdata.getQuickCount('cdmHazards',1,'Author/ID eq '+uid()+' and cdmHazardOwner/Title eq \''+c+'\'','Identified by you for '+c,'a','blue',null);
+        cdmdata.getQuickCount('cdmHazards',2,'Editor/ID eq '+uid()+' and cdmHazardOwner/Title eq \''+c+'\'','Last modified by you for '+c,'e','blue',null);
+        cdmdata.getQuickCount('cdmHazards',16,'Author/ID eq '+uid(),'Identified by you','aa','blue',null);
+        cdmdata.getQuickCount('cdmHazards',17,'Editor/ID eq '+uid(),'Last modified by you','ea','blue',null);
+
+        if(r=='Designer'||r=='Sub contractor rep'){
             cdmdata.getQuickCount('cdmHazards',3,'Editor/ID ne '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Hazards you could peer review','c','blue',null);
             cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
@@ -341,89 +360,75 @@ function setupReviewableHazards(a){
 }
 
 function getsearchresults(v){
-
-  var vn=parseInt(v,10);
-  // console.log(vn);
-  // console.log(v);
-  var vs=v.toString();
-  var vcnt=vs.replace(/ /g,'').length;
-  for(var cc=0;cc<5-vcnt;cc++){
-      vs='0'+vs;
-  }
-  console.log(vs);
-  // if(vcnt===1){
-  //     vs='0000'+vs;
-  // }
-  // if(vcnt===2){
-  //     vs='000'+vs;
-  // }
-  // if(vcnt=)
-  // console.log(vs);
-  $('#tpos-main').html('');
-  // $('.dataset').removeClass('active');
-  $('#stats').remove();
-  $('#systemstats').remove();
-  $('#userstats').remove();
-  // var newmain='<div class="tpos-main" id="tpos-main"></div>';
-  // $('.tpos-body').prepend(newmain);
-
-  $('#tpos-main').html('<div class="tpos-area-title">Search results for query: '+v+'</div><div id="searchresults" class="tpos-area-content"></div>');
-  // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
-  var utbl='<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
-  $('#searchresults').append(utbl);
-
-  // cdmdata.getQuickCount('cdmHazards',20,'ID eq '+vn,'Exact ID Match','idmatch','blue',null);
-  // cdmdata.getQuickCount('cdmHazards',21,'startswith(cdmLegacyId,'+v+')','Starts with','swidmatch','blue',null);
-  // cdmdata.getQuickCount('cdmHazards',22,'cdmLegacyId eq \''+vs+'\'','Legacy ID Match','legacymatch','blue',null);
-  // cdmdata.getQuickCount('cdmHazards',23,'cdmTW eq \''+v+'\'','Temporary Work Hazards','twmatch','blue',null);
-  // cdmdata.getQuickCount('cdmHazards',24,'cdmParent eq \''+vn+'\'','RAMS Hazards associated with this ID','ramsmatch','blue',null);
-
-  cdmdata.get(
-      "cdmHazards",
-      'ID eq '+vn,
-      "Modified desc",
-      "hazards-search",
-      "idmatch",
-      'ID Match'
-    );
-    cdmdata.get(
-      "cdmHazards",
-      'cdmLegacyId eq \''+vs+'\'',
-      "Modified desc",
-      "hazards-search",
-      "legacymatch",
-      'Legacy ID Match'
-    );
-    cdmdata.get(
-      "cdmHazards",
-      'cdmTW eq \''+v+'\'',
-      "Modified desc",
-      "hazards-search",
-      "twmatch",
-      'Temporary Works Design Hazard Matches'
-    );
-    cdmdata.get(
-      "cdmHazards",
-      'cdmParent eq \''+vn+'\'',
-      "Modified desc",
-      "hazards-table-rams",
-      "ramsmatch"
-    );
-
-  // cdmdata.getQuickCount('cdmHazards',20,'LegacyId eq '+vn,'Exact ID Match','idmatch','blue',null);
-
-}
-
-
-
-
-function setupnewhazard(){
+    
+    var vn=parseInt(v,10);
+    // console.log(vn);
+    // console.log(v);
+    var vs=v.toString();
+    var vcnt=vs.replace(/ /g,'').length;
+    for(var cc=0;cc<5-vcnt;cc++){
+        vs='0'+vs;
+    }
+    console.log(vs);
+    // if(vcnt===1){
+    //     vs='0000'+vs;
+    // }
+    // if(vcnt===2){
+    //     vs='000'+vs;
+    // }
+    // if(vcnt=)
+    // console.log(vs);
     $('#tpos-main').html('');
     // $('.dataset').removeClass('active');
-    $('#tpos-main').html('<div class="tpos-area-title">Identify new hazard(s)</div><div id="newhazardform" class="tpos-area-content"></div>');
-    $('#newhazardform').load('../3.0/html/new.hazard.form.html',function(){
-        $('.selectnext').hide();
-        tposdata.get('cdmSites', '', '', 'sel_sites');
+    $('#stats').remove();
+    $('#systemstats').remove();
+    $('#userstats').remove();
+    // var newmain='<div class="tpos-main" id="tpos-main"></div>';
+    // $('.tpos-body').prepend(newmain);
 
-    });
+    $('#tpos-main').html('<div class="tpos-area-title">Search results for query: '+v+'</div><div id="searchresults" class="tpos-area-content"></div>');
+    // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
+    var utbl='<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
+    $('#searchresults').append(utbl);
+
+    // cdmdata.getQuickCount('cdmHazards',20,'ID eq '+vn,'Exact ID Match','idmatch','blue',null);
+    // cdmdata.getQuickCount('cdmHazards',21,'startswith(cdmLegacyId,'+v+')','Starts with','swidmatch','blue',null);
+    // cdmdata.getQuickCount('cdmHazards',22,'cdmLegacyId eq \''+vs+'\'','Legacy ID Match','legacymatch','blue',null);
+    // cdmdata.getQuickCount('cdmHazards',23,'cdmTW eq \''+v+'\'','Temporary Work Hazards','twmatch','blue',null);
+    // cdmdata.getQuickCount('cdmHazards',24,'cdmParent eq \''+vn+'\'','RAMS Hazards associated with this ID','ramsmatch','blue',null);
+
+    cdmdata.get(
+        "cdmHazards",
+        'ID eq '+vn,
+        "Modified desc",
+        "hazards-search",
+        "idmatch",
+        'ID Match'
+      );
+      cdmdata.get(
+        "cdmHazards",
+        'cdmLegacyId eq \''+vs+'\'',
+        "Modified desc",
+        "hazards-search",
+        "legacymatch",
+        'Legacy ID Match'
+      );
+      cdmdata.get(
+        "cdmHazards",
+        'cdmTW eq \''+v+'\'',
+        "Modified desc",
+        "hazards-search",
+        "twmatch",
+        'Temporary Works Design Hazard Matches'
+      );
+      cdmdata.get(
+        "cdmHazards",
+        'cdmParent eq \''+vn+'\'',
+        "Modified desc",
+        "hazards-table-rams",
+        "ramsmatch"
+      );
+
+    // cdmdata.getQuickCount('cdmHazards',20,'LegacyId eq '+vn,'Exact ID Match','idmatch','blue',null);
+
 }
