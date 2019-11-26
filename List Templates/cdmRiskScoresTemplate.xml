@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmRiskScores" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmRiskScores" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmRiskScores/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmRiskScores/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmRiskScores/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{957E952B-0335-4E53-A767-3F1A24C1E678}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmRiskScores/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="score" />
+                <FieldRef Name="likelihood" />
+                <FieldRef Name="impact" />
+                <FieldRef Name="category" />
+                <FieldRef Name="colour" />
+                <FieldRef Name="riskscore" />
+                <FieldRef Name="likelihoodscore" />
+                <FieldRef Name="impactscore" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field Decimals="0" Min="111" Max="2555" Required="TRUE" Description="" DisplayName="score" Type="Number" ID="{962cc0a0-072d-436c-b3f5-7dfa340efbf5}" Name="score" Group="" Version="2" StaticName="score" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float1" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field DisplayName="likelihood" Name="likelihood" Type="Text" ID="{8650b2ab-943a-4d8b-b343-74866d0d9915}" Group="" Version="2" StaticName="likelihood" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="impact" Name="impact" Type="Text" ID="{880aceb6-ebbf-40c3-babf-9615a5f6555c}" Group="" Version="2" StaticName="impact" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="category" Name="category" Type="Text" ID="{9bcc575e-78e2-43b0-a89e-eefe801ed719}" Group="" Version="2" StaticName="category" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar6" RowOrdinal="0" />
+            <Field DisplayName="colour" Name="colour" Type="Text" ID="{52781446-ebb9-43cf-ba1e-583be2bad68d}" Group="" Version="2" StaticName="colour" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field Decimals="0" Min="1" Max="25" Required="TRUE" Description="" DisplayName="riskscore" Type="Number" ID="{59d72486-8a88-47e4-bc47-d55c98fd6826}" Name="riskscore" Group="" Version="2" StaticName="riskscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float2" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field Decimals="0" Min="1" Max="5" Required="TRUE" Description="" DisplayName="likelihoodscore" Type="Number" ID="{748b42f0-9b5c-4c3a-9a1e-d0ecb927193d}" Name="likelihoodscore" Group="" Version="2" StaticName="likelihoodscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float3" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE">
+              <Default>5</Default>
+            </Field>
+            <Field Decimals="0" Min="1" Max="5" Required="TRUE" Description="" DisplayName="impactscore" Type="Number" ID="{d34f87c0-ea46-42fd-b71f-c8f9d794bbab}" Name="impactscore" Group="" Version="2" StaticName="impactscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float4" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE">
+              <Default>5</Default>
+            </Field>
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

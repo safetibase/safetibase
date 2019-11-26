@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmNotifications" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmNotifications" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmNotifications/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmNotifications/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmNotifications/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{D964A1C7-6F43-4837-B06C-20D4604F98B3}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmNotifications/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmRecipient" />
+                <FieldRef Name="cdmMessage" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Required="TRUE" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="0" DisplayName="cdmRecipient" ID="{4a22ec9f-b687-46bf-a9cb-66c683665057}" Name="cdmRecipient" Group="" Version="2" StaticName="cdmRecipient" SourceID="{{listid:cdmNotifications}}" ColName="int1" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
+            <Field DisplayName="cdmMessage" Name="cdmMessage" Type="Note" ID="{e55d0c81-af73-4364-ad8c-57f72d1ed1c2}" Group="" Version="2" StaticName="cdmMessage" SourceID="{{listid:cdmNotifications}}" ColName="ntext2" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>
