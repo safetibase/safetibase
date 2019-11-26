@@ -340,6 +340,83 @@ function setupReviewableHazards(a){
 
 }
 
+function getsearchresults(v){
+
+  var vn=parseInt(v,10);
+  // console.log(vn);
+  // console.log(v);
+  var vs=v.toString();
+  var vcnt=vs.replace(/ /g,'').length;
+  for(var cc=0;cc<5-vcnt;cc++){
+      vs='0'+vs;
+  }
+  console.log(vs);
+  // if(vcnt===1){
+  //     vs='0000'+vs;
+  // }
+  // if(vcnt===2){
+  //     vs='000'+vs;
+  // }
+  // if(vcnt=)
+  // console.log(vs);
+  $('#tpos-main').html('');
+  // $('.dataset').removeClass('active');
+  $('#stats').remove();
+  $('#systemstats').remove();
+  $('#userstats').remove();
+  // var newmain='<div class="tpos-main" id="tpos-main"></div>';
+  // $('.tpos-body').prepend(newmain);
+
+  $('#tpos-main').html('<div class="tpos-area-title">Search results for query: '+v+'</div><div id="searchresults" class="tpos-area-content"></div>');
+  // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
+  var utbl='<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
+  $('#searchresults').append(utbl);
+
+  // cdmdata.getQuickCount('cdmHazards',20,'ID eq '+vn,'Exact ID Match','idmatch','blue',null);
+  // cdmdata.getQuickCount('cdmHazards',21,'startswith(cdmLegacyId,'+v+')','Starts with','swidmatch','blue',null);
+  // cdmdata.getQuickCount('cdmHazards',22,'cdmLegacyId eq \''+vs+'\'','Legacy ID Match','legacymatch','blue',null);
+  // cdmdata.getQuickCount('cdmHazards',23,'cdmTW eq \''+v+'\'','Temporary Work Hazards','twmatch','blue',null);
+  // cdmdata.getQuickCount('cdmHazards',24,'cdmParent eq \''+vn+'\'','RAMS Hazards associated with this ID','ramsmatch','blue',null);
+
+  cdmdata.get(
+      "cdmHazards",
+      'ID eq '+vn,
+      "Modified desc",
+      "hazards-search",
+      "idmatch",
+      'ID Match'
+    );
+    cdmdata.get(
+      "cdmHazards",
+      'cdmLegacyId eq \''+vs+'\'',
+      "Modified desc",
+      "hazards-search",
+      "legacymatch",
+      'Legacy ID Match'
+    );
+    cdmdata.get(
+      "cdmHazards",
+      'cdmTW eq \''+v+'\'',
+      "Modified desc",
+      "hazards-search",
+      "twmatch",
+      'Temporary Works Design Hazard Matches'
+    );
+    cdmdata.get(
+      "cdmHazards",
+      'cdmParent eq \''+vn+'\'',
+      "Modified desc",
+      "hazards-table-rams",
+      "ramsmatch"
+    );
+
+  // cdmdata.getQuickCount('cdmHazards',20,'LegacyId eq '+vn,'Exact ID Match','idmatch','blue',null);
+
+}
+
+
+
+
 function setupnewhazard(){
     $('#tpos-main').html('');
     // $('.dataset').removeClass('active');
