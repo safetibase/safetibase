@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHazardSnapshots" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSnapshots" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSnapshots/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSnapshots/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSnapshots/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{B769D60E-A2C5-4552-B72E-AD1D8D5E6B7C}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmHazardSnapshots/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmPeerReview" />
+                <FieldRef Name="cdmDHMReview" />
+                <FieldRef Name="cdmPreconReview" />
+                <FieldRef Name="cdmLDReview" />
+                <FieldRef Name="cdmSMReview" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmHazardDescription" Name="cdmHazardDescription" Type="Note" ID="{fd1cb645-5319-40b6-87af-711ff90dbf2f}" Group="Custom Columns" Version="4" StaticName="cdmHazardDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext2" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>To be defined</Default>
+            </Field>
+            <Field DisplayName="cdmTW" Name="cdmTW" Type="Text" ID="{c7f2841e-01b2-48cd-96d0-4f0d79e6b246}" Group="" Version="2" StaticName="cdmTW" SourceID="{{listid:cdmHazards}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmRAMS" Name="cdmRAMS" Type="Text" ID="{4bc8648e-4c39-492c-bb7c-09424c6f08cc}" Group="" Version="2" StaticName="cdmRAMS" SourceID="{{listid:cdmHazards}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmRiskDescription" Name="cdmRiskDescription" Type="Note" ID="{6a0f6d8c-0311-4dbc-9d18-b48f28819770}" Group="Custom Columns" Version="4" StaticName="cdmRiskDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext3" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting risk assessment</Default>
+            </Field>
+            <Field DisplayName="cdmMitigationDescription" Name="cdmMitigationDescription" Type="Note" ID="{9572e6e2-3448-42b6-a520-cb0564aaeefe}" Group="Custom Columns" Version="4" StaticName="cdmMitigationDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext4" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting mitigation</Default>
+            </Field>
+            <Field DisplayName="cdmResidualRiskScore" Name="cdmResidualRiskScore" Type="Number" ID="{94b36b6b-ef1d-44c1-93dd-108b21169499}" Group="Custom Columns" Version="4" StaticName="cdmResidualRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float1" RowOrdinal="0" Decimals="0" Description="">
+              <Default>2555</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewType" Name="cdmLastReviewType" Type="Text" ID="{7cf1d059-2d23-4133-975c-9ed3039d5cf2}" Group="Custom Columns" Version="4" StaticName="cdmLastReviewType" SourceID="{{listid:cdmHazards}}" ColName="nvarchar6" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewDate" Name="cdmLastReviewDate" Type="DateTime" ID="{d19ff85f-cc00-4cb7-a8e9-b4ae481727a9}" Group="" Version="2" StaticName="cdmLastReviewDate" SourceID="{{listid:cdmHazards}}" ColName="datetime1" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewSnapshot" Name="cdmLastReviewSnapshot" Type="Note" ID="{fe00b704-1987-4e21-a63b-680f99b0bce0}" Group="" Version="2" StaticName="cdmLastReviewSnapshot" SourceID="{{listid:cdmHazards}}" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewer" Name="cdmLastReviewer" Type="Text" ID="{ff116ef6-d81e-4bf2-81e6-bf0c736ac5bd}" Group="" Version="2" StaticName="cdmLastReviewer" SourceID="{{listid:cdmHazards}}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field DisplayName="cdmStageMitigationSuggestion" Name="cdmStageMitigationSuggestion" Type="Note" ID="{e842431a-13b1-4791-acc8-f87f48baae79}" Group="" Version="2" StaticName="cdmStageMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext6" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewStatus" Name="cdmLastReviewStatus" Type="Text" ID="{d7ee1ed5-4bde-4ab4-bba0-de0c455c80e9}" Group="Custom Columns" Version="4" StaticName="cdmLastReviewStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar8" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field Decimals="0" Description="" DisplayName="cdmInitialRiskScore" Type="Number" ID="{b94481ca-a100-4c54-a7d8-e8be8741a778}" Name="cdmInitialRiskScore" Group="Custom Columns" Version="4" StaticName="cdmInitialRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float2" RowOrdinal="0">
+              <Default>2555</Default>
+            </Field>
+            <Field DisplayName="cdmInitialRAG" Name="cdmInitialRAG" Type="Note" ID="{4015159d-ec18-4d45-9026-a1d32ba26728}" Group="" Version="2" StaticName="cdmInitialRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext7" RowOrdinal="0" />
+            <Field DisplayName="cdmResidualRAG" Name="cdmResidualRAG" Type="Note" ID="{3f88f954-8dfb-409a-bfc8-59bfcd718f55}" Group="" Version="2" StaticName="cdmResidualRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext8" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardCoordinates" Name="cdmHazardCoordinates" Type="Text" ID="{dfefa5c4-3852-4c9b-8048-a52248b3fe91}" Group="" Version="2" StaticName="cdmHazardCoordinates" SourceID="{{listid:cdmHazards}}" ColName="nvarchar9" RowOrdinal="0" />
+            <Field DisplayName="cdmSMMitigationSuggestion" Name="cdmSMMitigationSuggestion" Type="Note" ID="{def5c2bc-c8d2-461d-8f5c-151b611b0dba}" Group="" Version="2" StaticName="cdmSMMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext9" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardTags" Name="cdmHazardTags" Type="Note" ID="{2f0f077a-d197-49cd-85f2-8280e4873ed5}" Group="" Version="2" StaticName="cdmHazardTags" SourceID="{{listid:cdmHazards}}" ColName="ntext10" RowOrdinal="0" />
+            <Field DisplayName="cdmEntityTitle" Name="cdmEntityTitle" Type="Text" ID="{2a90d2bc-9388-4576-b001-987135686006}" Group="" Version="2" StaticName="cdmEntityTitle" SourceID="{{listid:cdmHazardSnapshots}}" ColName="nvarchar10" RowOrdinal="0" />
+            <Field DisplayName="cdmRelatedRAMS" Name="cdmRelatedRAMS" Type="Note" ID="{213f6a95-8bbb-4ea3-9feb-f60ee1a73441}" Group="" Version="2" StaticName="cdmRelatedRAMS" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext11" RowOrdinal="0" />
+            <Field DisplayName="cdmParent" Name="cdmParent" Type="Number" ID="{2a6813d2-58e7-44df-bdec-7867de1c1dec}" Group="" Version="2" StaticName="cdmParent" SourceID="{{listid:cdmHazardSnapshots}}" ColName="float3" RowOrdinal="0" />
+            <Field DisplayName="cdmRAGSuggestion" Name="cdmRAGSuggestion" Type="Note" ID="{89104571-f8af-4e43-a8da-aa0403dd1edf}" Group="" Version="2" StaticName="cdmRAGSuggestion" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext12" RowOrdinal="0" />
+            <Field DisplayName="cdmUniclass" Name="cdmUniclass" Type="Note" ID="{b8469a09-55f1-4e67-8f5e-23f9613b60d9}" Group="" Version="2" StaticName="cdmUniclass" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext13" RowOrdinal="0" />
+            <Field DisplayName="cdmLinks" Name="cdmLinks" Type="Note" ID="{13166461-3699-4a1c-87ed-0fad16241106}" Group="" Version="2" StaticName="cdmLinks" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext14" RowOrdinal="0" />
+            <Field DisplayName="cdmPeerReview" Name="cdmPeerReview" Type="Note" ID="{ecc5689b-760a-4e24-9634-bc5eeef04057}" Group="" Version="2" StaticName="cdmPeerReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext15" RowOrdinal="0" />
+            <Field DisplayName="cdmDHMReview" Name="cdmDHMReview" Type="Note" ID="{4cd7a3bf-5ee7-4c6a-a911-12705a01dd0a}" Group="" Version="2" StaticName="cdmDHMReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext16" RowOrdinal="0" />
+            <Field DisplayName="cdmPreconReview" Name="cdmPreconReview" Type="Note" ID="{0bf632f0-b283-4bb3-a70d-a764b9bc9867}" Group="" Version="2" StaticName="cdmPreconReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext17" RowOrdinal="0" />
+            <Field DisplayName="cdmLDReview" Name="cdmLDReview" Type="Note" ID="{ed416e8a-1ea9-443b-adb1-7fc2c9ccf18e}" Group="" Version="2" StaticName="cdmLDReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext18" RowOrdinal="0" />
+            <Field DisplayName="cdmSMReview" Name="cdmSMReview" Type="Note" ID="{5b7c5729-3b3a-460e-a33a-84f11da6ffda}" Group="" Version="2" StaticName="cdmSMReview" SourceID="{{listid:cdmHazardSnapshots}}" ColName="ntext19" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{7b79167a-5276-4b21-b051-705ce32a470f}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int1" RowOrdinal="0" List="{listid:cdmSites}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWStructure" ID="{2218fe73-5e88-4445-8d5d-92a690a91d2a}" Name="cdmPWStructure" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmPWStructures}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmStage" ID="{582be452-8a4f-4a99-b5ba-eb18ba92de1d}" Name="cdmStage" WebId="{siteid}" Group="" Version="4" StaticName="cdmStage" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmStages}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardOwner" ID="{3332b703-0e14-46b9-873a-8523ab00c081}" Name="cdmHazardOwner" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardOwner" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmCompanies}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardType" ID="{ef5eba98-ebd2-4a6d-a31d-e982c450c380}" Name="cdmHazardType" WebId="{siteid}" Group="" Version="4" StaticName="cdmHazardType" SourceID="{{siteid}}" ColName="int5" RowOrdinal="0" List="{listid:cdmHazardTypes}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" Version="4" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int6" RowOrdinal="0" List="{listid:cdmPWElementTerms}" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{de82bd1b-104f-4f61-8b25-3121577077b5}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmHazardSnapshots}}" ColName="int7" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

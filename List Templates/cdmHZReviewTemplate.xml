@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHZReview" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHZReview" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHZReview/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHZReview/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHZReview/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{1E0FEC1A-67D5-4393-B293-0A967B8EA6EA}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmHZReview/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmReviewType" />
+                <FieldRef Name="cdmReviewStatus" />
+                <FieldRef Name="cdmSnapshot" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmOwner" />
+                <FieldRef Name="cdmComment" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmUserRole" />
+                <FieldRef Name="cdmAssignedTo" />
+                <FieldRef Name="cdmInitiatorComment" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmComment" Name="cdmComment" Type="Note" ID="{0a3e03bd-3b32-4f1f-80a7-c6e64ae47f58}" Group="" Version="2" StaticName="cdmComment" SourceID="{{listid:cdmHZReview}}" ColName="ntext2" RowOrdinal="0" />
+            <Field List="UserInfo" ShowField="Title" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="0" DisplayName="cdmAssignedTo" ID="{b68c2445-babf-49f7-be44-cf29dfe15432}" Name="cdmAssignedTo" Group="" StaticName="cdmAssignedTo" SourceID="{{listid:cdmHZReview}}" ColName="int1" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmInitiatorComment" Name="cdmInitiatorComment" Type="Note" ID="{50965db4-2d5e-4ee5-84e3-f5ad89b1afa4}" Group="" Version="2" StaticName="cdmInitiatorComment" SourceID="{{listid:cdmHZReview}}" ColName="ntext3" RowOrdinal="0" />
+            <Field List="{listid:cdmHazardReviewTypes}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmReviewType" ID="{1ea01872-59ab-495e-a49e-971a0528727e}" Name="cdmReviewType" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmReviewType" SourceID="{{listid:cdmHZReview}}" ColName="int2" RowOrdinal="0" />
+            <Field List="{listid:cdmReviewStatuses}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmReviewStatus" ID="{087aae0e-919c-4cd7-8837-d1cca82216b8}" Name="cdmReviewStatus" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmReviewStatus" SourceID="{{listid:cdmHZReview}}" ColName="int3" RowOrdinal="0" />
+            <Field List="{listid:cdmHazardSnapshots}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmSnapshot" ID="{8eabfb06-c0f3-476b-8210-c1dfb967f2d5}" Name="cdmSnapshot" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmSnapshot" SourceID="{{listid:cdmHZReview}}" ColName="int4" RowOrdinal="0" />
+            <Field List="{listid:cdmSites}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{58190b18-464b-410f-b08f-87c660b13676}" Name="cdmSite" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmSite" SourceID="{{listid:cdmHZReview}}" ColName="int5" RowOrdinal="0" />
+            <Field List="{listid:cdmCompanies}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmOwner" ID="{8634ea09-4328-4ba3-99a8-1c77554fe5e6}" Name="cdmOwner" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmOwner" SourceID="{{listid:cdmHZReview}}" ColName="int6" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{3bb4da0a-9134-448e-90d4-4190f95f1d94}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmHZReview}}" ColName="int7" RowOrdinal="0" />
+            <Field List="{listid:cdmUserRoles}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUserRole" ID="{944757e0-9dbd-4247-adbc-d33d37023dc3}" Name="cdmUserRole" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmUserRole" SourceID="{{listid:cdmHZReview}}" ColName="int8" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

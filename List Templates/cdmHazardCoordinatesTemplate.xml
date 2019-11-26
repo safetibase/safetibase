@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHazardCoordinates" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardCoordinates" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardCoordinates/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardCoordinates/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardCoordinates/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{5F04E22B-9046-4BC9-92EC-0C7508434524}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmHazardCoordinates/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+                <FieldRef Name="cdmX" />
+                <FieldRef Name="cdmY" />
+                <FieldRef Name="cdmZ" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmX" Name="cdmX" Type="Text" ID="{34467065-e2ce-47d2-8ec7-0ef5d1859494}" Group="" Version="2" StaticName="cdmX" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmY" Name="cdmY" Type="Text" ID="{6992614b-130b-4f98-ba17-d5354be2239f}" Group="" Version="2" StaticName="cdmY" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmZ" Name="cdmZ" Type="Text" ID="{1bbf417f-ac4d-4eba-94d7-5fae691cc153}" Group="" Version="2" StaticName="cdmZ" SourceID="{{listid:cdmHazardCoordinates}}" ColName="nvarchar6" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{cdbfbc92-2d05-4b99-b834-3b0dc44bb960}" Name="cdmHazard" WebId="{{siteid}}" Group="Custom Columns" Version="6" StaticName="cdmHazard" SourceID="{{listid:cdmHazardCoordinates}}" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

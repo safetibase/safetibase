@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmUsers" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUsers" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUsers/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUsers/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUsers/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{03A3F186-C32B-49A0-9BDC-883C91CABB44}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmUsers/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmUserRole" />
+                <FieldRef Name="cdmCompany" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmUser" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ShowField="Title" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="22" DisplayName="cdmUser" ID="{e712e972-bca9-4d95-bbad-a0fe5512275d}" Name="cdmUser" Group="Custom Columns" StaticName="cdmUser" SourceID="{{listid:cdmUsers}}" ColName="int1" RowOrdinal="0" List="UserInfo" Version="8" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUserRole" ID="{9dfe3c8e-c21e-49a2-890f-27cba5527ee1}" Name="cdmUserRole" WebId="{siteid}" Group="" Version="4" StaticName="cdmUserRole" SourceID="{{siteid}}" ColName="int2" RowOrdinal="0" List="{listid:cdmUserRoles}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmCompany" ID="{2b74f360-5d75-4b4e-a1df-7d97e248ce8b}" Name="cdmCompany" WebId="{siteid}" Group="" Version="4" StaticName="cdmCompany" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmCompanies}" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{a2c3f154-03e7-4d1c-a987-09951528153e}" Name="cdmSite" WebId="{siteid}" Group="" Version="4" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" List="{listid:cdmSites}" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

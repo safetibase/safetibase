@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2018/07/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=3.8.1904.0, Culture=neutral, PublicKeyToken=5e633289e95c321a" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8C53EF497B26459DBED1878B5C13F9E8" Version="1" BaseSiteTemplate="STS#0" Scope="Undefined">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmUTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:Views>
+            <View Name="{57999346-9589-4471-B574-5482CB4F548C}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/teams/pj-c1062/Lists/cdmUTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=46">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmUTag" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field List="{listid:cdmUniclassTags}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmUTag" ID="{a674a6ac-3a00-4649-9310-5c6a40ea3438}" Name="cdmUTag" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmUTag" SourceID="{{listid:cdmUTags}}" ColName="int1" RowOrdinal="0" />
+            <Field List="{listid:cdmHazards}" ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{d5f945f3-c309-430d-86e5-8fc5f6c0cf2f}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmUTags}}" ColName="int2" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>
