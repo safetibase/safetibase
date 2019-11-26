@@ -10,14 +10,9 @@ function init(){
     };
     // set up the page title and logo
     const urlParams = new URLSearchParams(window.location.search);
-    const disableNavigationLinks = urlParams.get("disableNavigationLinks");
-    if (disableNavigationLinks) {
-        $("#suiteBarDelta").hide();
-        $("#s4-ribbonrow").hide();
-    }
 
     let pageTitle = "";
-    const idParam = urlParams.get("ID");
+    const idParam = urlParams.get("hazardId");
     if (idParam) {
         pageTitle = `SafetiBase - Hazard ${idParam}`;
     } else if (urlParams.get("newHazard")) {
@@ -35,9 +30,9 @@ function init(){
         
         
         // get the user and their roles and display navigation
-        if (!disableNavigationLinks) {
-            setupleftnav();
-        }
+        setupleftnav();
+        
+
         setupmainareastats(idParam);
 
         if (urlParams.get("newHazard") === "true") {
@@ -48,7 +43,13 @@ function init(){
         
     });
     
-
+    const disableNavigationLinks = urlParams.get("disableNavigationLinks");
+    if (disableNavigationLinks) {
+      $("#suiteBarDelta").hide();
+      $("#s4-ribbonrow").hide();
+      $("#user_roles").hide();
+      $("#tpos-global-nav").hide();
+    }
 
     // gimmepops('test','more tests');
 }
