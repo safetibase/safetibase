@@ -432,3 +432,15 @@ function getsearchresults(v){
     // cdmdata.getQuickCount('cdmHazards',20,'LegacyId eq '+vn,'Exact ID Match','idmatch','blue',null);
 
 }
+
+
+function setupnewhazard(){
+    $('#tpos-main').html('');
+    // $('.dataset').removeClass('active');
+    $('#tpos-main').html('<div class="tpos-area-title">Identify new hazard(s)</div><div id="newhazardform" class="tpos-area-content"></div>');
+    $('#newhazardform').load('../3.0/html/new.hazard.form.html',function(){
+        $('.selectnext').hide();
+        tposdata.get('cdmSites', '', '', 'sel_sites');
+
+    });
+}
