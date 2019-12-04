@@ -65,6 +65,7 @@ function init(){
       $("#suiteBarDelta").hide();
       $("#s4-ribbonrow").hide();
       $("#tpos-global-nav").hide();
+      $("#ctl00_onetidProjectPropertyTitleGraphic").removeAttr("href");
     }
   
     // gimmepops('test','more tests');
