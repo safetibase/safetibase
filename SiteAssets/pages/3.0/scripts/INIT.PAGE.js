@@ -11,13 +11,9 @@ function init(){
     // set up the page title and logo
     const urlParams = new URLSearchParams(window.location.search);
     const disableNavigationLinks = urlParams.get("disableNavigationLinks");
-    if (disableNavigationLinks) {
-        $("#suiteBarDelta").hide();
-        $("#s4-ribbonrow").hide();
-    }
 
     let pageTitle = "";
-    const idParam = urlParams.get("ID");
+    const idParam = urlParams.get("hazardId");
     if (idParam) {
         pageTitle = `SafetiBase - Hazard ${idParam}`;
     } else if (urlParams.get("newHazard")) {
@@ -35,9 +31,11 @@ function init(){
         
         
         // get the user and their roles and display navigation
-        if (!disableNavigationLinks) {
-            setupleftnav();
+        setupleftnav();
+        if (disableNavigationLinks) {
+            $("#user_roles").hide();
         }
+      
         setupmainareastats(idParam);
 
         if (urlParams.get("newHazard") === "true") {
@@ -47,7 +45,7 @@ function init(){
         // activate_global_nav();
         
     });
-    
+
     $('#cdmsearch').on('keypress', function (e) {
         if(e.which === 13){
             e.preventDefault();
@@ -61,9 +59,15 @@ function init(){
            //Enable the textbox again if needed.
            $('#cdmsearchbox').removeAttr("disabled");
         }
-  });
+    });
 
-
+    if (disableNavigationLinks) {
+      $("#suiteBarDelta").hide();
+      $("#s4-ribbonrow").hide();
+      $("#tpos-global-nav").hide();
+      $("#ctl00_onetidProjectPropertyTitleGraphic").removeAttr("href");
+    }
+  
     // gimmepops('test','more tests');
 }
 
