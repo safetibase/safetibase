@@ -124,6 +124,7 @@ Foreach ($item in $ListOrder){
 # Add indexes to: cdmHazards list 'Modified' field & cdmStages list 'Title' field
 
 Set-PnPField -List 'cdmHazards' -Identity 'Modified' -Values @{Indexed=$true}
+Set-PnPField -List 'cdmHazards' -Identity 'cdmStage' -Values @{Indexed=$true}
 Set-PnPField -List 'cdmStages' -Identity 'Title' -Values @{Indexed=$true}
 
 #---------------------------------------
