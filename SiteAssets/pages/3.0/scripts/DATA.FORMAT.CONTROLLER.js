@@ -292,10 +292,12 @@ formatdatato = {
     // rows to target
   },
 
-  hazardtablerows: function(data, ftv, trg,filter) {
-    var tlist = data.d.results;
+  hazardtablerows: function(response, next_url, prev_number_loaded) {
+    var tlist = response;
     var tcnt = tlist.length;
+    var number_loaded = tcnt + prev_number_loaded;
     var row = "";
+    console.log(tlist);
     // if(tcnt>100){
     //   xtrafilter('cdmStages',filter+' and cdmStage eq ',' Hazards');
     // }
@@ -322,8 +324,50 @@ formatdatato = {
         $("#h_" + h.ID + " .stagehide").hide();
       }
     }
+   
+    async function GetListItems(url) {
+        $.ajax({
+            url: url,
+            method: "GET",
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            },
+            success: function(data) {
+                var next_url = null;
+                var response = data.d.results;
+                if (data.d.__next) {
+                    next_url = data.d.__next;
+                } 
+                formatdatato.hazardtablerows(response, next_url, number_loaded)
+            },
+            error: function(error) {
+                console.log("Hit Error")
+                console.log(error);
+            }
+        });
+    }
+
+    var num_loaded_text;
+    $(".tpos-next").remove();
+    if (next_url) {
+        var tpos_next = '<div><input class="tpos-next" type="button" value="Load Additional 200 Hazards"/></div>';
+        $("#hazardstable").prepend(tpos_next);
+        $("#hazardstable").append(tpos_next);
+        $('.tpos-next').click(function() {
+          $('.tpos-next').prop('disabled', true);
+          GetListItems(next_url);
+        });
+        num_loaded_text = `<div class="num-loaded-text"><p>${number_loaded} hazards loaded</p></div>`;
+    } else {
+        num_loaded_text = `<div class="num-loaded-text"><p>All ${number_loaded} hazards loaded</p></div>`;
+    }
+    $(".num-loaded-text").remove();
+    $("#hazardstable").prepend(num_loaded_text);
+    $("#hazardstable").append(num_loaded_text);
+
+    
     var tpos_search =
-      '<div class="filter-row"><input id="tpos_search" placeholder="Search here" /></div>';
+      '<div class="filter-row"><input id="tpos_search" placeholder="Search loaded hazards" /></div>';
     $("#tpos_search").remove();
     $("#hazardstable").prepend(tpos_search);
     $("#tpos_search").keyup(function() {
