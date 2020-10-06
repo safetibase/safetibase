@@ -22,7 +22,7 @@
 #  Un-comment next line and run this for those who haven't used PowerShell before
 #---------------------------------------
 
-#set-executionpolicy remotesigned 
+#set-executionpolicy remotesigned -Scope CurrentUser
 
 #---------------------------------------
 # INPUTS
