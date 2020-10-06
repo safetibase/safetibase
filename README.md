@@ -7,12 +7,12 @@ Deploy Safetibase on a SharePoint Site
 -----------------------------------------------------
 Requirements:
 - Windows 10
-- Administrator rights on your computer
+- SharePoint Project Site (sites from other templates might not work)
 - Owner rights on your SharePoint site
 -----------------------------------------------------
 To install SafetIbase on a SharePoint, follow the steps below:
 - Download these files to your C drive
-- Open PowerShell as administrator
+- Open PowerShell (PopwerShell ISE is the easiest option)
 - Open 'Manual Instal.ps1'
 - In the User input section, change the Url to the url of your SharePoint site
 - Go to your SharePoint site > 'Site Contents' > 'Site Assets'
@@ -20,10 +20,17 @@ To install SafetIbase on a SharePoint, follow the steps below:
 - Run the script
 - [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs your are not updating
 - [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the url of your site
-- [Optional] Run the script
+- [Optional] Run the script. This will populate the SharePoint lists with the input you provide in the spreadsheet above
 - To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
 -----------------------------------------------------
 CHANGE LOG:
+
+06/10/20
+  -Cleaned up tw.txt & rams.txt
+  -Corrected the user roles being autoamticaly populated. Remove 'System admin', 'RAG admin', 'RAMS admin', 'TW admin' as they are not used.
+  -Modified code to deal better with large number of hazards (up to 5000 hazards per tile in the SafetIbase dashboard). Includes adding extra indices to cdmHazards
+  -Added home button and removed the link from the SafetIbase icon (unstable)
+  -Removed requirement to run PowerShell as Administrator (install modules in user scope and change execution policy only in user scope).
 
 15/11/19
   -Incorporated changes to new.hazard.form.html from evanpreslar-bentley
