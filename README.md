@@ -31,6 +31,7 @@ CHANGE LOG:
   -Modified code to deal better with large number of hazards (up to 5000 hazards per tile in the SafetIbase dashboard). Includes adding extra indices to cdmHazards
   -Added home button and removed the link from the SafetIbase icon (unstable)
   -Removed requirement to run PowerShell as Administrator (install modules in user scope and change execution policy only in user scope).
+  -Added Update_SafetIbase.ps1 This can be used to updae SafetIbase on a SP site where it is already isntalled. It will upload the latest relevant files from Github and add the required indices
 
 15/11/19
   -Incorporated changes to new.hazard.form.html from evanpreslar-bentley
