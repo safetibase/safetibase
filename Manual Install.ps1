@@ -22,7 +22,7 @@
 #  Un-comment next line and run this for those who haven't used PowerShell before
 #---------------------------------------
 
-#set-executionpolicy remotesigned 
+#set-executionpolicy remotesigned -Scope CurrentUser
 
 #---------------------------------------
 # INPUTS
@@ -58,18 +58,13 @@ $ExcelListPath = "$($PSScriptRoot)\SafetIbaseListsContent - NoUserInput.xlsx"
 Import-Module "$($PSScriptRoot)\SafetIbaseFunctions.psm1"
 
 <# Used functions
-
 #Install-RequiredModules - Check is ImportExcel and SharePointPnP modules are installed
-
 #Convert object to hashtable
 ConvertTo-HashtableFromPsCustomObject
-
 #Do a topological sort
 Get-TopologicalSort
-
 #Function required by topological sort function
 Get-ClonedObject
-
 #>
 
 #---------------------------------------
@@ -121,10 +116,11 @@ Foreach ($item in $ListOrder){
     Write-Host "Done`n"
 } 
 
-# Add indexes to: cdmHazards list 'Modified' field & cdmStages list 'Title' field
+# Add indexes to: cdmHazards list '& cdmStages list 'Title' field
 
-Set-PnPField -List 'cdmHazards' -Identity 'Modified' -Values @{Indexed=$true}
-Set-PnPField -List 'cdmHazards' -Identity 'cdmStage' -Values @{Indexed=$true}
+$fieldsToIndex = 'cdmCurrentStatus','cdmHazardOwner','cdmResidualRiskScore','cdmSite','Created By','Modified','Modified By','cdmStage'
+$fieldsToIndex | set-pnpfield -List 'cdmHazards' -Identity $_ -Values @{Indexed=$true}
+
 Set-PnPField -List 'cdmStages' -Identity 'Title' -Values @{Indexed=$true}
 
 #---------------------------------------

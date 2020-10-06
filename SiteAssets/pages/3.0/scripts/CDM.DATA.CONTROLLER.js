@@ -72,6 +72,52 @@ cdmdata = {
           filter: filter // 'OData__user/Id eq \'' + i + '\''
         }).done(function(data) {
 
+          if (format == "hazards-table") {
+                var appurl = _spPageContextInfo.webAbsoluteUrl;
+                if (select) {
+                    select = '?$select=' + select;
+                } else select = '?$select=*';
+                if (filter) {
+                    filter = '&$filter=' + filter;
+                } else filter = '';
+                if (expand) {
+                    expand = '&$expand=' + expand;
+                } else expand = '';
+                if (order) {
+                    order = '&$orderby=' + order;
+                } else order = '';
+                var limit = '&$top=200';
+
+                var url = appurl + "/_api/web/lists/getByTitle(%27" + lst + "%27)/items" + select + filter + expand + order + limit
+                async function GetListItems() {
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json; odata=verbose"
+                        },
+                        success: function(data) {
+                            var response = data.d.results;
+                            if (data.d.__next) {
+                                callbackMain(response, data.d.__next)
+                            } else {
+                                callbackMain(response, null)
+                            }
+                        },
+                        error: function(error) {
+                            console.log("Hit Error")
+                            console.log(error);
+                        }
+                    });
+                }
+                GetListItems();
+
+                function callbackMain(response, next_url) {
+                  formatdatato.hazardtablerows(response, next_url, 0)
+                }
+
+          }
+
           if (format == "urbuttons") {
             formatdatato.urbuttons(data, ftv, trg);
           }
@@ -81,9 +127,6 @@ cdmdata = {
 
           if (format == "stats-table-row") {
             formatdatato.statstablerows(data, ftv, trg);
-          }
-          if (format == "hazards-table") {
-            formatdatato.hazardtablerows(data, ftv, trg, filter);
           }
           if (format == "hazards-search") {
             formatdatato.hazardtablerowitems(data, ftv, trg, wpt);
@@ -253,64 +296,74 @@ cdmdata = {
       }
     }
     var ftxt=filter;
-    getListItemsByListName({
-      listName: lst,
-      select: select,
-      expansion: expand,
-      filter: filter // 'OData__user/Id eq \'' + i + '\''
-    }).done(function(data) {
-      $("#" + lst + "_databox").remove();
-      var itemsCount = data.d.results.length;
-      if (itemsCount >= 0) {
-        // var t=ui.mkDataBox(lst+'_databox_'+n,itemsCount,title,clr);
-        if (itemsCount == 0) {
-          t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, "noclr");
-        } else {
-          t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, clr);
-        }
-        $("#" + trg).html(t);
-        // $('#'+trg).append(t);
+    $("#" + lst + "_databox").remove();
 
+    var url =
+        _spPageContextInfo.webServerRelativeUrl +
+        "/_api/web/lists/getbytitle('" +
+        lst +
+        "')/items?$filter=" + filter + "&$top=1000";
+    var response = response || [];
 
-        
-
-
-        
-        $("#" + lst + "_databox_" + n).click(function() {
-          // if itemscount > 100 attempt further filters
-          if(itemsCount>100){
-            filterBy(filter,title,clr);
-          }else{
-            $("#tpos-main").html("");
-            $(".dataset").removeClass("active");
-            $("#stats").remove();
-            $("#systemstats").remove();
-            $("#userstats").remove();
-            // var tbtn=$(this).clone();
-            // $('#lastuserquery').html('<div class="tborder">'+tbtn+'</div>');
-            // cdmdata.getQuickCount(lst,1,filter,title,'lastuserquery',clr,null);
-            // cdmdata.get(lst,filter,'Modified desc','mkHazardList');
-            if ((lst = "cdmHazards")) {
-              $("#tpos-main").html(
-                '<div class="tpos-area-title">' +
-                  title +
-                  '</div><div id="hazardstable" class="tpos-area-content"></div>'
-              );
-              cdmdata.get(
-                "cdmHazards",
-                filter,
-                "Modified desc",
-                "hazards-table",
-                "hazardstable"
-              );
+    async function GetListItems() {
+        $.ajax({
+            url: url,
+            method: "GET",
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            },
+            success: function(data) {
+                response = response.concat(data.d.results);
+                if (data.d.__next) {
+                    url = data.d.__next;
+                    GetListItems();
+                } else {
+                    createBoxes();
+                }
+            },
+            error: function(error) {
+                console.log("Hit Error")
+                console.log(error);
             }
-  
-          }
-          // if itemscount < 100
         });
+    }
+    GetListItems();
+
+    function createBoxes() {
+        var itemsCount = response.length;
+        if (itemsCount >= 0) {
+            if (itemsCount == 0) {
+                t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, "noclr");
+            } else {
+                t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, clr);
+            }
+            $("#" + trg).html(t);
+
+            $("#" + lst + "_databox_" + n).click(function() {
+                $("#tpos-main").html("");
+                $(".dataset").removeClass("active");
+                $("#stats").remove();
+                $("#systemstats").remove();
+                $("#userstats").remove();
+                if ((lst = "cdmHazards")) {
+                    $("#tpos-main").html(
+                        '<div class="tpos-area-title">' +
+                        title +
+                        '</div><div id="hazardstable" class="tpos-area-content"></div>'
+                    );
+                    cdmdata.get(
+                        "cdmHazards",
+                        filter,
+                        "Modified desc",
+                        "hazards-table",
+                        "hazardstable"
+                    );
+                }
+            });
+        }
+
       }
-    });
-  },
+    },
   getQuickCountNoZeroes: function(lst, n, filter, title, trg, clr, size,bt) {
     var select = "";
     var expand = "";

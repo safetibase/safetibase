@@ -1,7737 +1,997 @@
 [
  {
    "Title": 311001,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Hoarding"
  },
  {
    "Title": 311002,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Main access gate"
  },
  {
-   "Title": 311003,
-   "Site": "CHAWF",
-   "Description": "Cofferdam and working platforms (including drainage, tremporary flood defence, main storage bin, jetty demolition and stability...) "
- },
- {
-   "Title": 311004,
-   "Site": "CHAWF",
-   "Description": "Jetty assessment for cabin delivery"
- },
- {
-   "Title": 311006,
-   "Site": "CHAWF",
-   "Description": "Site drainage - discharge to river"
- },
- {
    "Title": 311007,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Crane platform for office/welfare building set up"
  },
  {
    "Title": 311008,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Welfare, office foundations"
  },
  {
    "Title": 311009,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Workshop area platform"
  },
  {
    "Title": 311010,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Protection of Boreholes"
  },
  {
    "Title": 311011,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Site roads and ramps between two platforms"
  },
  {
-   "Title": 311012,
-   "Site": "CHAWF",
-   "Description": "Bevington Street pedestrian crossing, Thames path temporary diversion, pedestrian deviation at Loftie street…"
- },
- {
    "Title": 311013,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Temporary power supply"
  },
  {
    "Title": 311014,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Temporary water supply"
  },
  {
    "Title": 311015,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Wheel washing bay"
  },
  {
-   "Title": 311016,
-   "Site": "CHAWF",
-   "Description": "Piled foundation section for overhead crane at river side "
- },
- {
    "Title": 311017,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Foundation for accoustic shed over the shaft"
  },
  {
    "Title": 311018,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "STP tanks & Silos foundation and drainage"
  },
  {
    "Title": 311019,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "STP Noise Enclosures - incl. FP, desanding, WTP and Lime & Bento mix"
  },
  {
    "Title": 311020,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "STP Filter press support walls"
  },
  {
    "Title": 311021,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Screening/Enclosing of STP scalping and desanding unit"
  },
  {
    "Title": 311022,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Screening/Enclosing of static Dwalls equipment"
  },
  {
-   "Title": 311023,
-   "Site": "CHAWF",
-   "Description": "STP/WTP discharge to sewer"
- },
- {
-   "Title": 311024,
-   "Site": "CHAWF",
-   "Description": "STP/WTP discharge to river"
- },
- {
    "Title": 311025,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "WTP foundation (tunnel specific)"
  },
  {
    "Title": 311026,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Grout plant foundation (tunnel)"
  },
  {
    "Title": 311027,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Ventilation frame in shed building to sustain fans (consider 311177 )"
  },
  {
    "Title": 311028,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Main tunnel drive shunt (Primary Lining shutter)  steel can"
  },
  {
    "Title": 311029,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Main tunnel drive launching frame"
  },
  {
    "Title": 311030,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Greenwich tunnel reception  top hat bulkhead (inlcuding fixings)"
  },
  {
    "Title": 311031,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Batching plant foundation"
  },
  {
    "Title": 311032,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Bentonite tanks foundation. Silos to be considered separately"
  },
  {
    "Title": 311033,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "D-Walls guide walls"
  },
  {
    "Title": 311034,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Pumping tests wells"
  },
  {
    "Title": 311035,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft Edge protection (including retaining wall at level change)"
  },
  {
    "Title": 311036,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft ventilation for all construction phases"
  },
  {
    "Title": 311037,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft excavation - muckaway skip portal"
  },
  {
    "Title": 311038,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Jigs for reinforcement cage prefabrication base slab reo"
  },
  {
    "Title": 311039,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Spreader beams for reinforcement cage lifting"
  },
  {
    "Title": 311040,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Anchorages for concreting spider mast"
  },
  {
    "Title": 311041,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Secondary lining shutter system: slipform"
  },
  {
    "Title": 311042,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shutters for mass concrete benching"
  },
  {
    "Title": 311043,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft access/Fluid pipes and cables containment down the shaft"
  },
  {
    "Title": 311044,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Sheet piling for air treatment chamber"
  },
  {
    "Title": 311045,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Propping for air treatment chamber"
  },
  {
    "Title": 311046,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shutter system for air treatment chamber walls"
  },
  {
    "Title": 311047,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Falsework for air treatment chamber roof slab"
  },
  {
    "Title": 311048,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Screening/Enclosing of all static plant"
  },
  {
    "Title": 311049,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Protection of timber dolphins in river"
  },
  {
    "Title": 311050,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Archeological excavations Ground Support trench box designs"
  },
  {
    "Title": 311051,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Site drainage - connection to sewer"
  },
  {
    "Title": 311052,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Welfare, office connection to sewer"
  },
  {
    "Title": 311053,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Site lighting"
  },
  {
-   "Title": 311054,
-   "Site": "CHAWF",
-   "Description": "Main tunnel C reception shunt SCL "
- },
- {
-   "Title": 311055,
-   "Site": "CHAWF",
-   "Description": "Formwork for office foundation pour"
- },
- {
-   "Title": 311056,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr: Scaffold for lifting and access"
- },
- {
-   "Title": 311061,
-   "Site": "CHAWF",
-   "Description": "Exploratory trenches for archaeologists (ventilation chamber)"
- },
- {
-   "Title": 311062,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr: Heras Fencing for trial pits"
- },
- {
-   "Title": 311063,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr: Trial Pits and raft slab"
- },
- {
-   "Title": 311064,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr: Heras Fencing for raft work"
- },
- {
-   "Title": 311065,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr: Heras fencing around scaffold"
- },
- {
-   "Title": 311067,
-   "Site": "CHAWF",
-   "Description": "Archeological excavations impact on River Wall (311061)"
- },
- {
-   "Title": 311068,
-   "Site": "CHAWF",
-   "Description": "Office cabins delivery crane platform 200T"
- },
- {
-   "Title": 311069,
-   "Site": "CHAWF",
-   "Description": "Jetty assessment for crawler crane sizes 120T to 300T"
- },
- {
-   "Title": 311070,
-   "Site": "CHAWF",
-   "Description": "Hoarding - Concrete block lift beam"
- },
- {
-   "Title": 311071,
-   "Site": "CHAWF",
-   "Description": "Plant spreader beam to lift equipment across the work site 20t capacity "
- },
- {
-   "Title": 311072,
-   "Site": "CHAWF",
-   "Description": "Pile Gates 2 No."
- },
- {
-   "Title": 311073,
-   "Site": "CHAWF",
-   "Description": "Jack Up Barge Personnel Access Walkways"
- },
- {
-   "Title": 311074,
-   "Site": "CHAWF",
-   "Description": "Wailing Support Bracket (tie-rod access platform)"
- },
- {
-   "Title": 311075,
-   "Site": "CHAWF",
-   "Description": "Jack Up Barge Loading Check, deck and lateral loadings"
- },
- {
-   "Title": 311076,
-   "Site": "CHAWF",
-   "Description": "Flat top barge loading check 1st"
- },
- {
-   "Title": 311077,
-   "Site": "CHAWF",
-   "Description": "Flat top barge loading check 2nd"
- },
- {
-   "Title": 311078,
-   "Site": "CHAWF",
-   "Description": "Cell closure walls to allow tie rod installation and pile gate"
- },
- {
-   "Title": 311079,
-   "Site": "CHAWF",
-   "Description": "Tie rod spreader beam"
- },
- {
-   "Title": 311080,
-   "Site": "CHAWF",
-   "Description": "Fountain Gr. River WallAcoustic  Screening"
- },
- {
-   "Title": 311081,
-   "Site": "CHAWF",
-   "Description": "Access Walkways to install upper level tie rods"
- },
- {
-   "Title": 311082,
-   "Site": "CHAWF",
-   "Description": "Grout plug Main Tunnel East (for Front Shunt)"
- },
- {
-   "Title": 311083,
-   "Site": "CHAWF",
-   "Description": "Grout plug Main Tunnel East (for reception FLO)"
- },
- {
-   "Title": 311084,
-   "Site": "CHAWF",
-   "Description": "Grout plug Main Tunnel East (for reception GRECT)"
- },
- {
-   "Title": 311085,
-   "Site": "CHAWF",
-   "Description": "Pipes culvert for Dwall and Tunneling pipes"
- },
- {
-   "Title": 311086,
-   "Site": "CHAWF",
-   "Description": "Jetty Assessment - Mobile Crane UXO Works "
- },
- {
-   "Title": 311087,
-   "Site": "CHAWF",
-   "Description": "Superceeded - Acoustic Shed structure"
- },
- {
-   "Title": 311088,
-   "Site": "CHAWF",
-   "Description": "Gantry Crane"
- },
- {
-   "Title": 311089,
-   "Site": "CHAWF",
-   "Description": "Gantry Crane Ground beams above foundation."
- },
- {
-   "Title": 311090,
-   "Site": "CHAWF",
-   "Description": "Access bridge to Alimak"
- },
- {
-   "Title": 311091,
-   "Site": "CHAWF",
-   "Description": "Crane handling of shaft lining rebar"
- },
- {
-   "Title": 311092,
-   "Site": "CHAWF",
-   "Description": "Guard ring/Fall arrest netting/Handrailing. Excavation set"
- },
- {
-   "Title": 311093,
-   "Site": "CHAWF",
-   "Description": "Sand & Gravel Muck bin"
- },
- {
-   "Title": 311094,
-   "Site": "CHAWF",
-   "Description": "Lifting of rebar for fixing base slab in panels"
- },
- {
-   "Title": 311095,
-   "Site": "CHAWF",
-   "Description": "Lifting points for turfers, cradles, frames - Launch activities"
- },
- {
-   "Title": 311096,
-   "Site": "CHAWF",
-   "Description": "Shaft banksman shaft exc. viewing platform"
- },
- {
-   "Title": 311097,
-   "Site": "CHAWF",
-   "Description": "Relief wells in base slab"
- },
- {
-   "Title": 311098,
-   "Site": "CHAWF",
-   "Description": "Craneage arrangements for TBM removal"
- },
- {
-   "Title": 311099,
-   "Site": "CHAWF",
-   "Description": "FLO TBM Dismantling & Removal from Shaft (Checking FLO design)"
- },
- {
-   "Title": 311100,
-   "Site": "CHAWF",
-   "Description": "Gecko muck skip for shaft excavation"
- },
- {
-   "Title": 311101,
-   "Site": "CHAWF",
-   "Description": "Ventilation in shaft for portals and tunnel commencement"
- },
- {
-   "Title": 311102,
-   "Site": "CHAWF",
-   "Description": "Grouting platform stability - East"
- },
- {
-   "Title": 311103,
-   "Site": "CHAWF",
-   "Description": "Grouting platform stability - West"
- },
- {
-   "Title": 311104,
-   "Site": "CHAWF",
-   "Description": "Jetty Assessment - Ground bearing pressure"
- },
- {
-   "Title": 311105,
-   "Site": "CHAWF",
-   "Description": "Obstruction removal trenchboxes (allows archeological investigations at same time)"
- },
- {
-   "Title": 311106,
-   "Site": "CHAWF",
-   "Description": "Water asset damage assessment"
- },
- {
-   "Title": 311107,
-   "Site": "CHAWF",
-   "Description": "DER for zone 10 to 16m off River Wall"
- },
- {
-   "Title": 311108,
-   "Site": "CHAWF",
-   "Description": "UXO testing:- working platform for rigs and existing River wall stability"
- },
- {
-   "Title": 311109,
-   "Site": "CHAWF",
-   "Description": "Acoustic shed and gantry crane support over shaft (including stability during erection/dismantlement)"
- },
- {
-   "Title": 311110,
-   "Site": "CHAWF",
-   "Description": "TBM Lifting in Shaft (Check of Mammoet lifting system)"
- },
- {
-   "Title": 311111,
-   "Site": "CHAWF",
-   "Description": "GRECT TBM Dismantling & Removal from Shaft "
- },
- {
-   "Title": 311112,
-   "Site": "CHAWF",
-   "Description": "TBM Delivery/Launch Cradle (structure) "
- },
- {
-   "Title": 311113,
-   "Site": "CHAWF",
-   "Description": "All Task Acoustic enclosure for VSL jetty demolition / cut works"
- },
- {
-   "Title": 311114,
-   "Site": "CHAWF",
-   "Description": "Pedestrian access gate and associated works"
- },
- {
-   "Title": 311115,
-   "Site": "CHAWF",
-   "Description": "Hand rail around the bentonite silo base"
- },
- {
-   "Title": 311116,
-   "Site": "CHAWF",
-   "Description": "Heras Fencing for Acoustic screens around grout plant"
- },
- {
-   "Title": 311117,
-   "Site": "CHAWF",
-   "Description": "Pumping Wells protection manhole"
- },
- {
-   "Title": 311118,
-   "Site": "CHAWF",
-   "Description": "CVB Electrical Substation Foundation slab"
- },
- {
-   "Title": 311119,
-   "Site": "CHAWF",
-   "Description": "Check of existing river walls stability through sequence of the works, temporary loading and removal of the jetty"
- },
- {
-   "Title": 311120,
-   "Site": "CHAWF",
-   "Description": "Access Scaffold to PRIF Silo"
- },
- {
-   "Title": 311121,
-   "Site": "CHAWF",
-   "Description": "Retained jetty & River wall assessment & mitigation measure design. RW655 and RW656"
- },
- {
-   "Title": 311122,
-   "Site": "CHAWF",
-   "Description": "CHAWF – shaft construction. River Wall Impact Assessment"
- },
- {
-   "Title": 311123,
-   "Site": "CHAWF",
-   "Description": "Main 11kV substation, Office 11kV substation and Protection study"
- },
- {
-   "Title": 311127,
-   "Site": "CHAWF",
-   "Description": "5m welded support Acoustic Barrier"
- },
- {
-   "Title": 311128,
-   "Site": "CHAWF",
-   "Description": "Container Mounted Acoustic Barrier"
- },
- {
-   "Title": 311129,
-   "Site": "CHAWF",
-   "Description": "VCB Mounted Acoustic Barrier"
- },
- {
-   "Title": 311130,
-   "Site": "CHAWF",
-   "Description": "TBM recovery cradle"
- },
- {
-   "Title": 311131,
-   "Site": "CHAWF",
-   "Description": "Water main thrust blocks"
- },
- {
-   "Title": 311132,
-   "Site": "CHAWF",
-   "Description": "Luna House Security Fan"
- },
- {
-   "Title": 311133,
-   "Site": "CHAWF",
-   "Description": "Access Scaffold for Acoustic Enclosure Construction - Jetty Cut"
- },
- {
-   "Title": 311134,
-   "Site": "CHAWF",
-   "Description": "Flag poles for offices"
- },
- {
-   "Title": 311135,
-   "Site": "CHAWF",
-   "Description": "Edge protection at demolition of jetty"
- },
- {
-   "Title": 311136,
-   "Site": "CHAWF",
-   "Description": "Double stacked wernick cabins"
- },
- {
-   "Title": 311137,
-   "Site": "CHAWF",
-   "Description": "Site wide heras with acoustic sheeting"
- },
- {
-   "Title": 311138,
-   "Site": "CHAWF",
-   "Description": "Site wide heras fencing without sheeting"
- },
- {
-   "Title": 311139,
-   "Site": "CHAWF",
-   "Description": "Haki stairs by western jetty demolition over temp flood defence wall"
- },
- {
-   "Title": 311140,
-   "Site": "CHAWF",
-   "Description": "Ladder Access to Cell"
- },
- {
-   "Title": 311141,
-   "Site": "CHAWF",
-   "Description": "Shutter to infill/sealing detail at east & west corner cofferdam to riverwall."
- },
- {
-   "Title": 311142,
-   "Site": "CHAWF",
-   "Description": "RVT Acoustic Enclosure"
- },
- {
-   "Title": 311143,
-   "Site": "CHAWF",
-   "Description": "Temporary flood protection during demolition for cofferdam tie in"
- },
- {
-   "Title": 311144,
-   "Site": "CHAWF",
-   "Description": "Secondary flood protection "
- },
- {
-   "Title": 311145,
-   "Site": "CHAWF",
-   "Description": "Shaft Cover Slab beams lifting assessment"
- },
- {
-   "Title": 311146,
-   "Site": "CHAWF",
-   "Description": "Wedge pit for road sweeper"
- },
- {
-   "Title": 311147,
-   "Site": "CHAWF",
-   "Description": "Minimum backfill for tie rod removal"
- },
- {
-   "Title": 311148,
-   "Site": "CHAWF",
-   "Description": "D-wall treatment plant muck bin"
- },
- {
-   "Title": 311149,
-   "Site": "CHAWF",
-   "Description": "Bollard beam formwork design"
- },
- {
-   "Title": 311150,
-   "Site": "CHAWF",
-   "Description": "L shaped retaining walls muck bin "
- },
- {
-   "Title": 311151,
-   "Site": "CHAWF",
-   "Description": "Bentonite  support inside excavation for obstruction clearance"
- },
- {
-   "Title": 311152,
-   "Site": "CHAWF",
-   "Description": "Western tie in column temporary support"
- },
- {
-   "Title": 311153,
-   "Site": "CHAWF",
-   "Description": "Excavations less than 1m deep or benched or battered at 45degree angle."
- },
- {
-   "Title": 311154,
-   "Site": "CHAWF",
-   "Description": "Noise monitor scaffold towers"
- },
- {
-   "Title": 311155,
-   "Site": "CHAWF",
-   "Description": "Safety line scafold supports"
- },
- {
-   "Title": 311156,
-   "Site": "CHAWF",
-   "Description": "Access stairs to electrian stores"
- },
- {
-   "Title": 311157,
-   "Site": "CHAWF",
-   "Description": "D-walling bentonite tank bases"
- },
- {
-   "Title": 311158,
-   "Site": "CHAWF",
-   "Description": "Dewatering pump system for cofferdam dewater"
- },
- {
-   "Title": 311159,
-   "Site": "CHAWF",
-   "Description": "Freestanding bentonite silo and base"
- },
- {
-   "Title": 311160,
-   "Site": "CHAWF",
-   "Description": "Bentonite plant substation base and palacade fencing"
- },
- {
-   "Title": 311161,
-   "Site": "CHAWF",
-   "Description": "K-Guard edge protection fencing - fixing to substantial reinforced concrete element."
- },
- {
-   "Title": 311162,
-   "Site": "CHAWF",
-   "Description": "Temporary vehicle access routes"
- },
- {
-   "Title": 311164,
-   "Site": "CHAWF",
-   "Description": "K-Guard edge protection fixed to surfacing, protecting low risk edges"
- },
- {
-   "Title": 311165,
-   "Site": "CHAWF",
-   "Description": "Reinforced concrete surface slab infills to RCC"
- },
- {
-   "Title": 311166,
-   "Site": "CHAWF",
-   "Description": "Review of Cofferdam Groundwork Levels VS Tide Levels"
- },
- {
-   "Title": 311167,
-   "Site": "CHAWF",
-   "Description": "Temporary canopy for crane comissioning"
- },
- {
-   "Title": 311168,
-   "Site": "CHAWF",
-   "Description": "D-wall cage lifting"
- },
- {
-   "Title": 311169,
-   "Site": "CHAWF",
-   "Description": "Bentoinite support for d-walling"
- },
- {
-   "Title": 311170,
-   "Site": "CHAWF",
-   "Description": "Container mounted canopy"
- },
- {
-   "Title": 311171,
-   "Site": "CHAWF",
-   "Description": "Tammet access stairs"
- },
- {
-   "Title": 311172,
-   "Site": "CHAWF",
-   "Description": "KCSL Dwall capping beam formwork"
- },
- {
-   "Title": 311173,
-   "Site": "CHAWF",
-   "Description": "Tunnel portal formwork"
- },
- {
-   "Title": 311174,
-   "Site": "CHAWF",
-   "Description": "Dwall trimming mock-up including jacking frame for Dwall splitting"
- },
- {
-   "Title": 311175,
-   "Site": "CHAWF",
-   "Description": "Pipe overbridge structure"
- },
- {
-   "Title": 311176,
-   "Site": "CHAWF",
-   "Description": "Acoustic shed shallow foundations (linked to 311016)"
- },
- {
-   "Title": 311177,
-   "Site": "CHAWF",
-   "Description": "Shaft excavation  - ventilation extending bagging cassette; support and retension"
- },
- {
-   "Title": 311178,
-   "Site": "CHAWF",
-   "Description": "Ventilation plant enclosure - (external to shed)"
- },
- {
-   "Title": 311179,
-   "Site": "CHAWF",
-   "Description": "Shaft Services Bracket (Shaft Phase)"
- },
- {
-   "Title": 311180,
-   "Site": "CHAWF",
-   "Description": "Shed foundation formwork - including if formwork required to southern perimeter"
- },
- {
-   "Title": 311181,
-   "Site": "CHAWF",
-   "Description": "Ramp on roundabout for south of shed access"
- },
- {
-   "Title": 311182,
-   "Site": "CHAWF",
-   "Description": "Shaft shallow access (scaffolding or system) for works less than 10m"
- },
- {
-   "Title": 311183,
-   "Site": "CHAWF",
-   "Description": "Excavation profile (shed foundations)"
- },
- {
-   "Title": 311184,
-   "Site": "CHAWF",
-   "Description": "ATU capping beam formwork"
- },
- {
-   "Title": 311185,
-   "Site": "CHAWF",
-   "Description": "Archaeological excavation profiles (including review of crane heavy loading in vicinity)"
- },
- {
-   "Title": 311186,
-   "Site": "CHAWF",
-   "Description": "Shed stability during errection/dismantling  sequence"
- },
- {
-   "Title": 311187,
-   "Site": "CHAWF",
-   "Description": "Circular skip and tipping frame for shaft excavation works "
- },
- {
-   "Title": 311189,
-   "Site": "CHAWF",
-   "Description": "Muck Bin within Shed"
- },
- {
-   "Title": 311190,
-   "Site": "CHAWF",
-   "Description": "STP Platform Drainage Arrangement"
- },
- {
-   "Title": 311191,
-   "Site": "CHAWF",
-   "Description": "Desanding Unit Emergency Tanks"
- },
- {
-   "Title": 311192,
-   "Site": "CHAWF",
-   "Description": "KCSL shed foundation 1.2m formwork"
- },
- {
-   "Title": 311193,
-   "Site": "CHAWF",
-   "Description": "Temporary Flood defence for TBM delivery "
- },
- {
-   "Title": 311194,
-   "Site": "CHAWF",
-   "Description": "Stability of timber revetments during archeological excavation"
- },
- {
-   "Title": 311195,
-   "Site": "CHAWF",
-   "Description": "Scaffolding PPE store"
- },
- {
-   "Title": 311196,
-   "Site": "CHAWF",
-   "Description": "KCSL ATU capping beam formwork"
- },
- {
-   "Title": 311197,
-   "Site": "CHAWF",
-   "Description": "KCSL noise enclosure (for dwall trimming)"
- },
- {
-   "Title": 311198,
-   "Site": "CHAWF",
-   "Description": "Working platform for fundex rig"
- },
- {
-   "Title": 311199,
-   "Site": "CHAWF",
-   "Description": "KCSL edge protection around excavations fixed into RCC"
- },
- {
-   "Title": 311200,
-   "Site": "CHAWF",
-   "Description": "KCSL Combi safe batter steps"
- },
- {
-   "Title": 311201,
-   "Site": "CHAWF",
-   "Description": "Guidewall lifting anchor maximum load confirmation"
- },
- {
-   "Title": 311202,
-   "Site": "CHAWF",
-   "Description": "CFA Pile cage stability"
- },
- {
-   "Title": 311203,
-   "Site": "CHAWF",
-   "Description": "Dwall recovery retaining wall"
- },
- {
-   "Title": 311204,
-   "Site": "CHAWF",
-   "Description": "Dwall recovery retaining wall"
- },
- {
-   "Title": 311205,
-   "Site": "CHAWF",
-   "Description": "Shed foundation formwork"
- },
- {
-   "Title": 311206,
-   "Site": "CHAWF",
-   "Description": "KCSL capping beam prefabricated cage stability"
- },
- {
-   "Title": 311207,
-   "Site": "CHAWF",
-   "Description": "Not used"
- },
- {
-   "Title": 311208,
-   "Site": "CHAWF",
-   "Description": "STP Conveyor acoustic enclosure"
- },
- {
-   "Title": 311209,
-   "Site": "CHAWF",
-   "Description": "Foundation for STP conveyor acoustic enclosure"
- },
- {
-   "Title": 311210,
-   "Site": "CHAWF",
-   "Description": "Tunnel services supports at surface"
- },
- {
-   "Title": 311211,
-   "Site": "CHAWF",
-   "Description": "Acid delivery area facilities"
- },
- {
-   "Title": 311212,
-   "Site": "CHAWF",
-   "Description": "Acoustic curtain in front of FP bays"
- },
- {
-   "Title": 311213,
-   "Site": "CHAWF",
-   "Description": "Lifting arrangement for STP erection "
- },
- {
-   "Title": 311214,
-   "Site": "CHAWF",
-   "Description": "Scaffolding associated with cladding of STP acoustic enclosures"
- },
- {
-   "Title": 311215,
-   "Site": "CHAWF",
-   "Description": "Work shop area for tunnelling"
- },
- {
-   "Title": 311216,
-   "Site": "CHAWF",
-   "Description": "Train maintenance area incl. rails from inside shaft"
- },
- {
-   "Title": 311217,
-   "Site": "CHAWF",
-   "Description": "Support for ventilation duct from fan to shaft"
- },
- {
-   "Title": 311218,
-   "Site": "CHAWF",
-   "Description": "Access arrangement for maintenance of services"
- },
- {
-   "Title": 311219,
-   "Site": "CHAWF",
-   "Description": "Support frames for various equipment in shed incl. baterry chargers etc"
- },
- {
-   "Title": 311220,
-   "Site": "CHAWF",
-   "Description": "Lifting frames for TBM gantries"
- },
- {
-   "Title": 311221,
-   "Site": "CHAWF",
-   "Description": "Opening in flood defence wall"
- },
- {
-   "Title": 311222,
-   "Site": "CHAWF",
-   "Description": "Mooring points in river bed for TBM delivery barge"
- },
- {
-   "Title": 311223,
-   "Site": "CHAWF",
-   "Description": "Various scaffolds for preparation of TBM gantries at surface"
- },
- {
-   "Title": 311224,
-   "Site": "CHAWF",
-   "Description": "Potential Assessments required by PLA for TBM delivery"
- },
- {
-   "Title": 311225,
-   "Site": "CHAWF",
-   "Description": "Capping beam shaft edge protection"
- },
- {
-   "Title": 311226,
-   "Site": "CHAWF",
-   "Description": "Cantilevered Access Scaffold to P15"
- },
- {
-   "Title": 311227,
-   "Site": "CHAWF",
-   "Description": "Differential excavation rates across shafts "
- },
- {
-   "Title": 311228,
-   "Site": "CHAWF",
-   "Description": "Aggregate storage bin for conc. batching plant"
- },
- {
-   "Title": 311229,
-   "Site": "CHAWF",
-   "Description": "Silo foundations for conc. batching plant"
- },
- {
-   "Title": 311230,
-   "Site": "CHAWF",
-   "Description": "KCSL P15 retaining wall and guidewall reinforcement stability and formwork"
- },
- {
-   "Title": 311231,
-   "Site": "CHAWF",
-   "Description": "D-wall  repair letter box shutter"
- },
- {
-   "Title": 311232,
-   "Site": "CHAWF",
-   "Description": "Base slab rebar cage stability assessment"
- },
- {
-   "Title": 311233,
-   "Site": "CHAWF",
-   "Description": "Sacraficial support frame for concrete placement boom"
- },
- {
-   "Title": 311234,
-   "Site": "CHAWF",
-   "Description": "Base slab sump box out and cover"
- },
- {
-   "Title": 311235,
-   "Site": "CHAWF",
-   "Description": "Base slab installation access scaffold"
- },
- {
-   "Title": 311236,
-   "Site": "CHAWF",
-   "Description": "Base slab (non structural) reinforcement chairs"
- },
- {
-   "Title": 311237,
-   "Site": "CHAWF",
-   "Description": "Base slab vertical perimeter formwork"
- },
- {
-   "Title": 311238,
-   "Site": "CHAWF",
-   "Description": "Base slab construction joint stop end support"
- },
- {
-   "Title": 311239,
-   "Site": "CHAWF",
-   "Description": "Overhead crane in STP Desanding Building"
- },
- {
-   "Title": 311240,
-   "Site": "CHAWF",
-   "Description": "Pressure relief well"
- },
- {
-   "Title": 311241,
-   "Site": "CHAWF",
-   "Description": "Tri mast alimak base support (cast in items)"
- },
- {
-   "Title": 311242,
-   "Site": "CHAWF",
-   "Description": "Alimak for tunnelling phase (bolted to secondary lining)"
- },
- {
-   "Title": 311243,
-   "Site": "CHAWF",
-   "Description": "Haki stair from top of portal to pit bottom for tunneling phase"
- },
- {
-   "Title": 311244,
-   "Site": "CHAWF",
-   "Description": "Portal drum shutters x2"
- },
- {
-   "Title": 311245,
-   "Site": "CHAWF",
-   "Description": "Portal jump shutter"
- },
- {
-   "Title": 311246,
-   "Site": "CHAWF",
-   "Description": "Portal rebar lifting and stability"
- },
- {
-   "Title": 311247,
-   "Site": "CHAWF",
-   "Description": "Edge protection on portal"
- },
- {
-   "Title": 311249,
-   "Site": "CHAWF",
-   "Description": "Access/falsework to support assembly of slip form shutter for secondary lining"
- },
- {
-   "Title": 311250,
-   "Site": "CHAWF",
-   "Description": "Secondary lining reinforcement stability insitu"
- },
- {
-   "Title": 311251,
-   "Site": "CHAWF",
-   "Description": "Box outs in secondary lining for capping slab beams"
- },
- {
-   "Title": 311252,
-   "Site": "CHAWF",
-   "Description": "ATU Culvert Box out in secondary lining (provides edge protection during culvert construction and needs to included for removal during culvert completion)"
- },
- {
-   "Title": 311253,
-   "Site": "CHAWF",
-   "Description": "Portal break-through Falsework/scaffold access"
- },
- {
-   "Title": 311254,
-   "Site": "CHAWF",
-   "Description": "Horizontal grout block drilling valves (water ingress protection)"
- },
- {
-   "Title": 311255,
-   "Site": "CHAWF",
-   "Description": "Horizontal grout block rig stability"
- },
- {
-   "Title": 311256,
-   "Site": "CHAWF",
-   "Description": "RoRo (Roll on roll off) beam"
- },
- {
-   "Title": 311257,
-   "Site": "CHAWF",
-   "Description": "Skidding and shaft spanning launch beams assessment"
- },
- {
-   "Title": 311258,
-   "Site": "CHAWF",
-   "Description": "Access to base of ATU (for construction of internals)"
- },
- {
-   "Title": 311259,
-   "Site": "CHAWF",
-   "Description": "ATU wall formwork"
- },
- {
-   "Title": 311260,
-   "Site": "CHAWF",
-   "Description": "ATU Rebar lift and stability"
- },
- {
-   "Title": 311261,
-   "Site": "CHAWF",
-   "Description": "ATU Pumping and sump"
- },
- {
-   "Title": 311262,
-   "Site": "CHAWF",
-   "Description": "ATU Falsework/formwork for capping slab/roof"
- },
- {
-   "Title": 311263,
-   "Site": "CHAWF",
-   "Description": "ATU Boxouts for roof slab"
- },
- {
-   "Title": 311264,
-   "Site": "CHAWF",
-   "Description": "ATU Culvert Wall formwork"
- },
- {
-   "Title": 311265,
-   "Site": "CHAWF",
-   "Description": "ATU Culvert Rebar lift and stability"
- },
- {
-   "Title": 311266,
-   "Site": "CHAWF",
-   "Description": "ATU Culvert Falsework/formwork for capping slab/roof"
- },
- {
-   "Title": 311267,
-   "Site": "CHAWF",
-   "Description": "Shaft Benching Formwork for benching initial walls"
- },
- {
-   "Title": 311268,
-   "Site": "CHAWF",
-   "Description": "Shaft Benching stability of walls / propping"
- },
- {
-   "Title": 311269,
-   "Site": "CHAWF",
-   "Description": "Shaft Benching Temporary support of shell items"
- },
- {
-   "Title": 311270,
-   "Site": "CHAWF",
-   "Description": "Shaft Benching Access during construction"
- },
- {
-   "Title": 311271,
-   "Site": "CHAWF",
-   "Description": "Shaft Benching Access for concrete finishing"
- },
- {
-   "Title": 311272,
-   "Site": "CHAWF",
-   "Description": "Demolition of shed"
- },
- {
-   "Title": 311273,
-   "Site": "CHAWF",
-   "Description": "Shaft Cover Slab beams shuttering and reinforcement"
- },
- {
-   "Title": 311274,
-   "Site": "CHAWF",
-   "Description": "Shaft Cover Slab Slab beams installation sequence"
- },
- {
-   "Title": 311275,
-   "Site": "CHAWF",
-   "Description": "Shaft Cover Slab Slab topping slab formwork"
- },
- {
-   "Title": 311276,
-   "Site": "CHAWF",
-   "Description": "Shaft Cover Slab topping slab Reinforcement stability"
- },
- {
-   "Title": 311277,
-   "Site": "CHAWF",
-   "Description": "Surface kiosk Formwork/falsework for roof access"
- },
- {
-   "Title": 311278,
-   "Site": "CHAWF",
-   "Description": "ATU drainage to shaft TW"
- },
- {
-   "Title": 311279,
-   "Site": "CHAWF",
-   "Description": "Tunnel secondary lining to shaft portal joint (x3)"
- },
- {
-   "Title": 311280,
-   "Site": "CHAWF",
-   "Description": "Formwork for Benching on top of portals"
- },
- {
-   "Title": 311281,
-   "Site": "CHAWF",
-   "Description": "Pipe Bridge Foundations"
- },
- {
-   "Title": 311282,
-   "Site": "CHAWF",
-   "Description": "Reinforcement support for mass fill and ramp in base of shaft"
- },
- {
-   "Title": 311283,
-   "Site": "CHAWF",
-   "Description": "Formwork for stairs and slab detail in base"
- },
- {
-   "Title": 311284,
-   "Site": "CHAWF",
-   "Description": "Demobilisation of offices"
- },
- {
-   "Title": 311285,
-   "Site": "CHAWF",
-   "Description": "Workshop foundations"
- },
- {
-   "Title": 311286,
-   "Site": "CHAWF",
-   "Description": "Workshop superstructure"
- },
- {
-   "Title": 311287,
-   "Site": "CHAWF",
-   "Description": "STP Gravel bin, including formwork if required"
- },
- {
-   "Title": 311288,
-   "Site": "CHAWF",
-   "Description": "River Wall Removal of cofferdam PDA?"
- },
- {
-   "Title": 311289,
-   "Site": "CHAWF",
-   "Description": "STP Service route support brackets"
- },
- {
-   "Title": 311290,
-   "Site": "CHAWF",
-   "Description": "River Wall Tidal terraces parapet wall formwork"
- },
- {
-   "Title": 311291,
-   "Site": "CHAWF",
-   "Description": "River Wall Erecting and finishing of precast facer panels"
- },
- {
-   "Title": 311292,
-   "Site": "CHAWF",
-   "Description": "Acoustic shed gable removable section removal sequence"
- },
- {
-   "Title": 311293,
-   "Site": "CHAWF",
-   "Description": "River Wall Secant pile guidewalls"
- },
- {
-   "Title": 311294,
-   "Site": "CHAWF",
-   "Description": "River Wall Platform review for pile coring rig"
- },
- {
-   "Title": 311295,
-   "Site": "CHAWF",
-   "Description": "River Wall Reinforcement stability"
- },
- {
-   "Title": 311296,
-   "Site": "CHAWF",
-   "Description": "River Wall East tie-in formwork"
- },
- {
-   "Title": 311297,
-   "Site": "CHAWF",
-   "Description": "River Wall West tie-in detail"
- },
- {
-   "Title": 311298,
-   "Site": "CHAWF",
-   "Description": "River Wall scour protection installation TW"
- },
- {
-   "Title": 311299,
-   "Site": "CHAWF",
-   "Description": "River Wall guard installation TW"
- },
- {
-   "Title": 311300,
-   "Site": "CHAWF",
-   "Description": "River Wall fender installation TW"
- },
- {
-   "Title": 311301,
-   "Site": "CHAWF",
-   "Description": "Access for installation"
- },
- {
-   "Title": 311302,
-   "Site": "CHAWF",
-   "Description": "Precast slab errection scheme"
- },
- {
-   "Title": 311303,
-   "Site": "CHAWF",
-   "Description": "TAPS at Access Court Balcony and Terraces"
- },
- {
    "Title": 311304,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Scaffold access to gantry crane"
  },
  {
    "Title": 311305,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "KCSL Titan working platform for use against capping beam"
  },
  {
    "Title": 311306,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Access to top of portals during benching construction"
  },
  {
    "Title": 311307,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft Cover Slab Access for installation"
  },
  {
    "Title": 311308,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft Cover Slab Precast slab errection scheme"
  },
  {
    "Title": 311309,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Survey reflector mounting - typical all sites"
  },
  {
    "Title": 311310,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Retaining struture for P15 remedial works backfill"
  },
  {
    "Title": 311311,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shed porch for pedestrian access gate"
  },
  {
    "Title": 311312,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Working platform alternative reinstatement"
  },
  {
    "Title": 311313,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Ventilation bracket for the shaft excavation, Phase 1"
  },
  {
    "Title": 311314,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "SM14 drilling rig loading in the shaft"
  },
  {
    "Title": 311315,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Secondary flood defence cut out for shed foundations beams"
  },
  {
    "Title": 311316,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "STP acoustic enclosure vertical foundation load assessment"
  },
  {
    "Title": 311317,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "PMC 30 Metre Stair Tower (for shed cladding installation)"
  },
  {
    "Title": 311318,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "PMC Eaves Edge Protection Class B (for shed cladding installation)"
  },
  {
    "Title": 311319,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "PMC Gable Edge Protection Class A (for shed cladding installation)"
  },
  {
    "Title": 311320,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "PMC Safety netting and fixing detail"
  },
  {
    "Title": 311321,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Acoustic shed lean-to temporary screening"
  },
  {
    "Title": 311322,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Impact assessment of Skylift TBM Delivery on Cofferdam"
  },
  {
    "Title": 311323,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Lower Platform stability assessment for mobile plant"
  },
  {
    "Title": 311324,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Foundations of STP acoustic enclosures"
  },
  {
    "Title": 311325,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "WTP desanding tank - formwork"
  },
  {
    "Title": 311326,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Base slab drainage"
  },
  {
    "Title": 311327,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "STP desanding tank - formwork"
  },
  {
    "Title": 311328,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft Crow’s Nest Platform"
  },
  {
    "Title": 311329,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Cofferdam assessment  for 1200t crane for TBM Delivery"
  },
  {
    "Title": 311330,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Wokring platform review ahead of 450t crane loading"
  },
  {
    "Title": 311331,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Differential Settlement on Acoustic Shed - Mitigation Plan and Jacking sequence"
  },
  {
    "Title": 311333,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Base slab cage landing pad stone detail"
  },
  {
    "Title": 311332,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Demolition Sequence of Acoustic Shed"
  },
  {
    "Title": 311334,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Ventilation duct support bracket during shaft works"
  },
  {
-   "Title": 311335,
-   "Site": "CHAWF",
-   "Description": "Storage Platform Over River"
- },
- {
-   "Title": 311336,
-   "Site": "CHAWF",
-   "Description": "Predim GRECT reception cradle support"
- },
- {
    "Title": 311337,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Chairs and temporary mesh for base slab pour"
  },
  {
    "Title": 311338,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Acoustic Fence on surface"
  },
  {
    "Title": 311339,
-   "Site": "CHAWF",
-   "Description": "Filter press walls formwork (shutters)"
+   "Site": "Site 1",
+   "Description": "Filter press walls formwork (shutters)"
  },
  {
    "Title": 311340,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Adit Probe Drilling Dwall Flange Plates"
  },
  {
    "Title": 311341,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Man-rider Platform for the shaft base slab construction"
  },
  {
    "Title": 311342,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Base Slab Drainage Passive Relief Sump"
  },
  {
    "Title": 311343,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Stools for base slab cages"
  },
  {
    "Title": 311344,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Concrete column boom for secondary lining"
  },
  {
    "Title": 311345,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shotcrete batching plant silos slab"
  },
  {
    "Title": 311346,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Stability of filter press wall reinforcement cages for lifting"
  },
  {
    "Title": 311347,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Shaft Benching 1st Phase"
  },
  {
    "Title": 311900,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Access for installation"
  },
  {
    "Title": 311901,
-   "Site": "CHAWF",
+   "Site": "Site 1",
    "Description": "Precast slab errection scheme"
  },
  {
-   "Title": 311902,
-   "Site": "CHAWF",
-   "Description": "TAPS at Access Court Balcony and Terraces"
- },
- {
    "Title": 312001,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Footpath / cycleway temporary realignment"
  },
  {
    "Title": 312002,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Site hoarding and accesses (all site)"
  },
  {
-   "Title": 312003,
-   "Site": "GREPS",
-   "Description": "CVB substation foundation"
- },
- {
-   "Title": 312004,
-   "Site": "GREPS",
-   "Description": "Site hoarding and accesses (along realigned footpath) - DELETED see 312 002"
- },
- {
-   "Title": 312005,
-   "Site": "GREPS",
-   "Description": "New access gate on Norman Road (Exit)  - DELETED see 312 002"
- },
- {
-   "Title": 312006,
-   "Site": "GREPS",
-   "Description": "Site drainage - connection to sewer - Office and welfare area"
- },
- {
-   "Title": 312007,
-   "Site": "GREPS",
-   "Description": "Site drainage - discharge to river-  Office and welfare area - DELETED"
- },
- {
    "Title": 312008,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Crane platform for office building set-up"
  },
  {
    "Title": 312009,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Foundations for stacked offices and welfare"
  },
  {
-   "Title": 312010,
-   "Site": "GREPS",
-   "Description": "Working platform on Phoenix Wharf for D-Walls set-up"
- },
- {
    "Title": 312011,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Shed over shaft"
  },
  {
    "Title": 312012,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Foundations for shed (including Overhead crane)"
  },
  {
    "Title": 312013,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Office power supply foundations"
  },
  {
-   "Title": 312014,
-   "Site": "GREPS",
-   "Description": "Services culvert between the shaft and Phoenix Wharf"
- },
- {
-   "Title": 312015,
-   "Site": "GREPS",
-   "Description": "STP tanks base"
- },
- {
-   "Title": 312016,
-   "Site": "GREPS",
-   "Description": "STP Filter press support walls"
- },
- {
-   "Title": 312017,
-   "Site": "GREPS",
-   "Description": "STP/WTP discharge to sewer"
- },
- {
-   "Title": 312018,
-   "Site": "GREPS",
-   "Description": "STP/WTP discharge to river"
- },
- {
    "Title": 312019,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "STP Acoustic Enclosures (incl. FP, Desanding & WTP)"
  },
  {
    "Title": 312020,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Screening/Enclosing of STP scalping and desanding unit"
  },
  {
-   "Title": 312021,
-   "Site": "GREPS",
-   "Description": "WTP foundation"
- },
- {
-   "Title": 312022,
-   "Site": "GREPS",
-   "Description": "Muckbin on Phoenix Wharf"
- },
- {
    "Title": 312023,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Piling platform around shaft"
  },
  {
    "Title": 312024,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Site roads incl. access ramps - offices and welfare area"
  },
  {
    "Title": 312025,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Site lighting - welfare and office area"
  },
  {
    "Title": 312026,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Assessment and demolition of L-shape buildings"
  },
  {
    "Title": 312027,
-   "Site": "GREPS",
-   "Description": "Guide walls for diaphragm walls (Incl. impact on Sewer Assessment"
- },
- {
-   "Title": 312028,
-   "Site": "GREPS",
-   "Description": "DLR protection measures (Phase 1)"
+   "Site": "Site 2",
+   "Description": "Guide walls for diaphragm walls (Incl. impact on Sewer Assessment)"
  },
  {
    "Title": 312029,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Guide walls for secant piles for hydraulic chambers and culvert"
  },
  {
    "Title": 312030,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Secant piles propping for culvert (including wailing beams)"
  },
  {
    "Title": 312031,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Secant piles capping beam for culvert"
  },
  {
    "Title": 312032,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Falsework for culvert roof slab"
  },
  {
    "Title": 312033,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Falsework and formwork for air treatment chamber roof slab"
  },
  {
-   "Title": 312034,
-   "Site": "GREPS",
-   "Description": "EGRS temporary flume in interception chamber"
- },
- {
-   "Title": 312035,
-   "Site": "GREPS",
-   "Description": "EastGRelief Sewer protection nearby shaft"
- },
- {
    "Title": 312036,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "LL1 sewer protection"
  },
  {
    "Title": 312037,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Sheet piles cofferdam for Air treatment chamber excavation"
  },
  {
-   "Title": 312038,
-   "Site": "GREPS",
-   "Description": "Temporary power supply for TBM and STP"
- },
- {
-   "Title": 312039,
-   "Site": "GREPS",
-   "Description": "Water supply - connection to water main"
- },
- {
-   "Title": 312040,
-   "Site": "GREPS",
-   "Description": "Wheel washing bay"
- },
- {
-   "Title": 312041,
-   "Site": "GREPS",
-   "Description": "Grout plant foundation"
- },
- {
-   "Title": 312042,
-   "Site": "GREPS",
-   "Description": "Ventilation Ducting Support "
- },
- {
-   "Title": 312043,
-   "Site": "GREPS",
-   "Description": "Main tunnel drive shunt (SCL)"
- },
- {
-   "Title": 312044,
-   "Site": "GREPS",
-   "Description": "Main tunnel drive launching frame"
- },
- {
-   "Title": 312045,
-   "Site": "GREPS",
-   "Description": "100m3 Vertical Bentonite tank foundations"
- },
- {
-   "Title": 312046,
-   "Site": "GREPS",
-   "Description": "Shaft ventilation  for all construction phases (after excavation completed)"
- },
- {
-   "Title": 312047,
-   "Site": "GREPS",
-   "Description": "Shaft excavation - muckaway skip portal (road side)"
- },
- {
-   "Title": 312048,
-   "Site": "GREPS",
-   "Description": "Jigs for reinforcement cage prefabrication"
- },
- {
-   "Title": 312049,
-   "Site": "GREPS",
-   "Description": "Spreader beams for reinforcement cage lifting"
- },
- {
-   "Title": 312050,
-   "Site": "GREPS",
-   "Description": "Anchorages for concreting spider mast"
- },
- {
-   "Title": 312051,
-   "Site": "GREPS",
-   "Description": "Secondary lining shutter system (including vortex): jumpform"
- },
- {
-   "Title": 312052,
-   "Site": "GREPS",
-   "Description": "Shutter system for baffle wall"
- },
- {
-   "Title": 312053,
-   "Site": "GREPS",
-   "Description": "Shutter system for dividing wall"
- },
- {
-   "Title": 312054,
-   "Site": "GREPS",
-   "Description": "Shutter system for CSO chamber lining wall"
- },
- {
-   "Title": 312055,
-   "Site": "GREPS",
-   "Description": "Shutter system for CSO chamber internal walls"
- },
- {
-   "Title": 312056,
-   "Site": "GREPS",
-   "Description": "Shutter system for CSO culvert lining wall"
- },
- {
-   "Title": 312057,
-   "Site": "GREPS",
-   "Description": "Shutter system for air treatment chamber lining wall"
- },
- {
-   "Title": 312058,
-   "Site": "GREPS",
-   "Description": "Shutter system for air treatment chamber internal walls"
- },
- {
-   "Title": 312059,
-   "Site": "GREPS",
-   "Description": "Falsework for vortex"
- },
- {
-   "Title": 312060,
-   "Site": "GREPS",
-   "Description": "Shutter system for vortex"
- },
- {
-   "Title": 312061,
-   "Site": "GREPS",
-   "Description": "Shutter system for benching (including access)"
- },
- {
-   "Title": 312062,
-   "Site": "GREPS",
-   "Description": "Piling platform for air treatment chamber and crane working platform"
- },
- {
-   "Title": 312063,
-   "Site": "GREPS",
-   "Description": "Excavation support for ventilation pipe (inside east beam engine house)"
- },
- {
-   "Title": 312064,
-   "Site": "GREPS",
-   "Description": "Excavation support for ventilation pipe (outside east beam engine house)"
- },
- {
-   "Title": 312065,
-   "Site": "GREPS",
-   "Description": "Excavation support for culvert from shaft to air treatment chamber"
- },
- {
-   "Title": 312066,
-   "Site": "GREPS",
-   "Description": "Excavation support for air treatment chamber manhole and drainage connections"
- },
- {
-   "Title": 312067,
-   "Site": "GREPS",
-   "Description": "Temporary propping of exisitng pump screening chamber wall to allow backfill of sunken stairs"
- },
- {
-   "Title": 312068,
-   "Site": "GREPS",
-   "Description": "Excavation support for sealing pipes to deptford creek"
- },
- {
-   "Title": 312069,
-   "Site": "GREPS",
-   "Description": "Working platform Site roads incl. access ramps - main area"
- },
- {
-   "Title": 312070,
-   "Site": "GREPS",
-   "Description": "Site drainage - discharge to river - Main area and Phoenix Wharf - DELETE"
- },
- {
-   "Title": 312072,
-   "Site": "GREPS",
-   "Description": "Site lighting - main area and phoenix wharf"
- },
- {
-   "Title": 312073,
-   "Site": "GREPS",
-   "Description": "Lifting operations for TBM installation"
- },
- {
-   "Title": 312074,
-   "Site": "GREPS",
-   "Description": "Use railway arches - Possible re-fit or refub"
- },
- {
-   "Title": 312075,
-   "Site": "GREPS",
-   "Description": "Demolition of Engenica Buildings - DELETE see TW Brief 312 026"
- },
- {
-   "Title": 312076,
-   "Site": "GREPS",
-   "Description": "Grout plug Connection tunnel (for Front shunt)"
- },
- {
-   "Title": 312077,
-   "Site": "GREPS",
-   "Description": "Crane handling of shaft lining rebar"
- },
- {
-   "Title": 312078,
-   "Site": "GREPS",
-   "Description": "Guard ring/Fall arrest netting/Handrailing"
- },
- {
-   "Title": 312079,
-   "Site": "GREPS",
-   "Description": "Initial Earth Retaining Structure"
- },
- {
-   "Title": 312080,
-   "Site": "GREPS",
-   "Description": "Lifting of rebar for fixing base slab in panels"
- },
- {
-   "Title": 312081,
-   "Site": "GREPS",
-   "Description": "Lifting points for turfers, cradles, frames"
- },
- {
-   "Title": 312082,
-   "Site": "GREPS",
-   "Description": "Manrider platform and Access down the shaft during shaft construction"
- },
- {
-   "Title": 312083,
-   "Site": "GREPS",
-   "Description": "Relief wells in base slab (french drain and drainage blanket)"
- },
- {
-   "Title": 312084,
-   "Site": "GREPS",
-   "Description": "Access down the shaft during shaft construction"
- },
- {
-   "Title": 312085,
-   "Site": "GREPS",
-   "Description": "Support frame, stool for muck skip (muck bin side)"
- },
- {
-   "Title": 312086,
-   "Site": "GREPS",
-   "Description": "TBM recovery cradle"
- },
- {
-   "Title": 312087,
-   "Site": "GREPS",
-   "Description": "Ventilation in shaft for portals and tunnel commencement"
- },
- {
-   "Title": 312088,
-   "Site": "GREPS",
-   "Description": "Access bridge to Alimak"
- },
- {
-   "Title": 312089,
-   "Site": "GREPS",
-   "Description": "Phoenix wharf assessment for drill rigs"
- },
- {
-   "Title": 312090,
-   "Site": "GREPS",
-   "Description": "Security hut foundation "
- },
- {
-   "Title": 312091,
-   "Site": "GREPS",
-   "Description": "Wharf River Wall Assessement for Bentonite Plant"
- },
- {
-   "Title": 312092,
-   "Site": "GREPS",
-   "Description": "Access scaffold to DLR viaduct bearing shelf."
- },
- {
-   "Title": 312093,
-   "Site": "GREPS",
-   "Description": "Excavation support to expose gas mains."
- },
- {
-   "Title": 312094,
-   "Site": "GREPS",
-   "Description": "Heras fencing for safe walkways"
- },
- {
-   "Title": 312095,
-   "Site": "GREPS",
-   "Description": "Temporary welfare container support"
- },
- {
-   "Title": 312096,
-   "Site": "GREPS",
-   "Description": "Heras fencing with acoustic panels"
- },
- {
-   "Title": 312097,
-   "Site": "GREPS",
-   "Description": "Walkway to the office DELETE (included in 312024)"
- },
- {
-   "Title": 312098,
-   "Site": "GREPS",
-   "Description": "Main 11kV substation and Protection study"
- },
- {
-   "Title": 312099,
-   "Site": "GREPS",
-   "Description": "Service culvert crossing"
- },
- {
-   "Title": 312100,
-   "Site": "GREPS",
-   "Description": "TBM Delivery/Launch Cradle (structure) "
- },
- {
-   "Title": 312101,
-   "Site": "GREPS",
-   "Description": "Dwall guidewalls"
- },
- {
-   "Title": 312102,
-   "Site": "GREPS",
-   "Description": "Dwall temporary Muck bin retaining wall structure"
- },
- {
-   "Title": 312103,
-   "Site": "GREPS",
-   "Description": "Pheonix Wharf adopted hoarding assessment to adopt"
- },
- {
-   "Title": 312104,
-   "Site": "GREPS",
-   "Description": "Enabling works for secant pile installation (excavation load assessment, door replacement, well infill."
- },
- {
-   "Title": 312105,
-   "Site": "GREPS",
-   "Description": "Working platform for drilling rigs Public pathway for BH7521"
- },
- {
-   "Title": 312106,
-   "Site": "GREPS",
-   "Description": "Heras fencing with acoustic panels for BH7521"
- },
- {
-   "Title": 312107,
-   "Site": "GREPS",
-   "Description": "Heras fencing without acoustic panels for BH7521"
- },
- {
-   "Title": 312108,
-   "Site": "GREPS",
-   "Description": "Shutter for filling abandoned sewer with concrete"
- },
- {
-   "Title": 312109,
-   "Site": "GREPS",
-   "Description": "Working platform for drilling rigs within shaft site"
- },
- {
-   "Title": 312110,
-   "Site": "GREPS",
-   "Description": "Pumping test drill rig working platform"
- },
- {
-   "Title": 312111,
-   "Site": "GREPS",
-   "Description": "Temporary flood defence and platform edge around shaft excavation"
- },
- {
-   "Title": 312112,
-   "Site": "GREPS",
-   "Description": "Electrical workshop container support"
- },
- {
-   "Title": 312113,
-   "Site": "GREPS",
-   "Description": "GREPS Dwall Cage lifting points"
- },
- {
-   "Title": 312114,
-   "Site": "GREPS",
-   "Description": "Phoenix Wharf \"More by river\" study and designs (formally 5600-CVBJV-GREPS-520-VZ-EB-200007)"
- },
- {
-   "Title": 312115,
-   "Site": "GREPS",
-   "Description": "Outrigger pads for KATO City Crane"
- },
- {
-   "Title": 312116,
-   "Site": "GREPS",
-   "Description": "Assessment of Thames Water chambers at Phoenix Wharf site entrance"
- },
- {
-   "Title": 312117,
-   "Site": "GREPS",
-   "Description": "Scaffold on DLR viaduct Pier 1 for Mitigation Works"
- },
- {
-   "Title": 312118,
-   "Site": "GREPS",
-   "Description": "Scaffold on DLR viaduct Pier 2 for Mitigation Works"
- },
- {
-   "Title": 312119,
-   "Site": "GREPS",
-   "Description": "Scaffold on DLR viaduct Pier 3 for Mitigation Works"
- },
- {
-   "Title": 312120,
-   "Site": "GREPS",
-   "Description": "Assessment / adaptation of working platforms for shaft muck away and TBM delivery"
- },
- {
-   "Title": 312121,
-   "Site": "GREPS",
-   "Description": "Creation of access at the back of the realigned footpath"
- },
- {
-   "Title": 312122,
-   "Site": "GREPS",
-   "Description": "Modification to fencing on or next ro River Wall on Main site"
- },
- {
-   "Title": 312123,
-   "Site": "GREPS",
-   "Description": "Temporary working platform for CPT rig at pheonix wharf"
- },
- {
-   "Title": 312124,
-   "Site": "GREPS",
-   "Description": "Steel structure for excavator platform and Retaining wall for muck storage"
- },
- {
-   "Title": 312125,
-   "Site": "GREPS",
-   "Description": "Pre-fabricated deck for CSO excavation"
- },
- {
-   "Title": 312126,
-   "Site": "GREPS",
-   "Description": "Support structure within shed for electrical installations"
- },
- {
-   "Title": 312127,
-   "Site": "GREPS",
-   "Description": "Impact Assessment on D-walls, Secant piles and Capping beams due to shed loadings and TBM delivery"
- },
- {
-   "Title": 312128,
-   "Site": "GREPS",
-   "Description": "H-Pile Retaining wall for 2.9m deep capping beam of the shaft"
- },
- {
-   "Title": 312129,
-   "Site": "GREPS",
-   "Description": "Access road  between radiator and river wall - design and assessment"
- },
- {
-   "Title": 312130,
-   "Site": "GREPS",
-   "Description": "Formwork for cast in situ concrete block"
- },
- {
-   "Title": 312131,
-   "Site": "GREPS",
-   "Description": "Jet Grouting to seal CSO Chamber"
- },
- {
-   "Title": 312132,
-   "Site": "GREPS",
-   "Description": "EGRS assessment and strengthening for Jet Grouting activities"
- },
- {
-   "Title": 312133,
-   "Site": "GREPS",
-   "Description": "Monitoring of Vertical tank stability"
- },
- {
-   "Title": 312134,
-   "Site": "GREPS",
-   "Description": "Excavation support around EGS chamber"
- },
- {
-   "Title": 312135,
-   "Site": "GREPS",
-   "Description": "Phoenix Wharf entrance slab"
- },
- {
-   "Title": 312136,
-   "Site": "GREPS",
-   "Description": "Dwall trench stability check "
- },
- {
-   "Title": 312137,
-   "Site": "GREPS",
-   "Description": "Trough crossing access road and services support at Phoenix Wharf"
- },
- {
-   "Title": 312138,
-   "Site": "GREPS",
-   "Description": "Desanding plant transformer foundations on Phoenix Wharf"
- },
- {
-   "Title": 312139,
-   "Site": "GREPS",
-   "Description": "Timber shutter for sunken staircase door infill"
- },
- {
-   "Title": 312140,
-   "Site": "GREPS",
-   "Description": "Platform base for Hi-AB to lift 8t Substation Container"
- },
- {
-   "Title": 312141,
-   "Site": "GREPS",
-   "Description": "DLR protection measures (Phase 2)"
- },
- {
-   "Title": 312142,
-   "Site": "GREPS",
-   "Description": "Tremmie pipe storage bored tube"
- },
- {
-   "Title": 312143,
-   "Site": "GREPS",
-   "Description": "Formwork for Dwall guide walls"
- },
- {
-   "Title": 312144,
-   "Site": "GREPS",
-   "Description": "TIG chambers (EGS diversion chamber) Assessment"
- },
- {
-   "Title": 312145,
-   "Site": "GREPS",
-   "Description": "Permanent access for bearing inspection at Pier 1"
- },
- {
-   "Title": 312146,
-   "Site": "GREPS",
-   "Description": "Permanent access for bearing inspection at Pier 2 and 3"
- },
- {
-   "Title": 312147,
-   "Site": "GREPS",
-   "Description": "Permanent access for bearing inspection at Pier 3"
- },
- {
-   "Title": 312148,
-   "Site": "GREPS",
-   "Description": "Formwork for Shaft deep capping beam"
- },
- {
-   "Title": 312149,
-   "Site": "GREPS",
-   "Description": "Concrete base for On-site Concrete Laboratory"
- },
- {
-   "Title": 312150,
-   "Site": "GREPS",
-   "Description": "Hanging scaffold for ladder extension installation at TIG manhole"
- },
- {
-   "Title": 312151,
-   "Site": "GREPS",
-   "Description": "Beam Support under shed column"
- },
- {
-   "Title": 312152,
-   "Site": "GREPS",
-   "Description": "Scaffold footbridge on 2 sides of shaft"
- },
- {
-   "Title": 312153,
-   "Site": "GREPS",
-   "Description": "STP Foundation initial assessment"
- },
- {
-   "Title": 312154,
-   "Site": "GREPS",
-   "Description": "Piling Gate"
- },
- {
-   "Title": 312155,
-   "Site": "GREPS",
-   "Description": "Jetfloats"
- },
- {
-   "Title": 312156,
-   "Site": "GREPS",
-   "Description": "Access to Piling gate (gangway)"
- },
- {
-   "Title": 312157,
-   "Site": "GREPS",
-   "Description": "Crane platform Phoenix Wharf "
- },
- {
-   "Title": 312158,
-   "Site": "GREPS",
-   "Description": "Dredging barge stability Check"
- },
- {
-   "Title": 312159,
-   "Site": "GREPS",
-   "Description": "Ecological enhancements"
- },
- {
-   "Title": 312160,
-   "Site": "GREPS",
-   "Description": "RC upstand to retain the ground around the CSO chamber"
- },
- {
-   "Title": 312161,
-   "Site": "GREPS",
-   "Description": "Lifting frame for Dwall concrete trimming"
- },
- {
-   "Title": 312162,
-   "Site": "GREPS",
-   "Description": "Jacking system for Dwall concrete triming"
- },
- {
-   "Title": 312163,
-   "Site": "GREPS",
-   "Description": "Shutters for all capping beams (Shaft, culvert and CSO)"
- },
- {
-   "Title": 312164,
-   "Site": "GREPS",
-   "Description": "Capping beam pre-fab'd cages lifting points"
- },
- {
-   "Title": 312165,
-   "Site": "GREPS",
-   "Description": "Screening Chamber podium asssessment"
- },
- {
-   "Title": 312166,
-   "Site": "GREPS",
-   "Description": "Davit Arm Foundation, passenger hoist and L-shape retaining wall connections with working platform"
- },
- {
-   "Title": 312167,
-   "Site": "GREPS",
-   "Description": "Shaft crossing/viewing platforms and Ladder Accesses to Overhead Cranes"
- },
- {
-   "Title": 312168,
-   "Site": "GREPS",
-   "Description": "Ladder Accesses to Overhead Cranes"
- },
- {
-   "Title": 312169,
-   "Site": "GREPS",
-   "Description": "Screening Chamber podium asssessment"
- },
- {
-   "Title": 312170,
-   "Site": "GREPS",
-   "Description": "Working platform reinstatement (Phase 2)"
- },
- {
-   "Title": 312171,
-   "Site": "GREPS",
-   "Description": "Temporary flood defence and platform edge around CSO and culvert excavations"
- },
- {
-   "Title": 312172,
-   "Site": "GREPS",
-   "Description": "Temporary works elements for shed erection (propping, edge protection, netting)"
- },
- {
-   "Title": 312173,
-   "Site": "GREPS",
-   "Description": "Temporary works elements for shed dismantling (propping, edge protection, netting)"
- },
- {
-   "Title": 312174,
-   "Site": "GREPS",
-   "Description": "Sheetpiles around CSO chamber on the external perimeter"
- },
- {
-   "Title": 312175,
-   "Site": "GREPS",
-   "Description": "Construction sequence loads on to strengthen of penstock chamber walls (Cintec anchors)"
- },
- {
-   "Title": 312176,
-   "Site": "GREPS",
-   "Description": "Rake props supporting permanent \"columns\" during top down construction"
- },
- {
-   "Title": 312177,
-   "Site": "GREPS",
-   "Description": "Needles and support columns to allow construction of opening frame in TWUL EGRS chamber."
- },
- {
-   "Title": 312178,
-   "Site": "GREPS",
-   "Description": "CSO chamber 3rd level of prop"
- },
- {
-   "Title": 312179,
-   "Site": "GREPS",
-   "Description": "Bulkheads to isolate the new chamber from existing sewers until commissioning stage"
- },
- {
-   "Title": 312180,
-   "Site": "GREPS",
-   "Description": "Provision of temporary bracings in penstock chamber"
- },
- {
-   "Title": 312181,
-   "Site": "GREPS",
-   "Description": "Edge protection for CSO chamber"
- },
- {
-   "Title": 312182,
-   "Site": "GREPS",
-   "Description": "Access to CSO chamber during construction"
- },
- {
-   "Title": 312183,
-   "Site": "GREPS",
-   "Description": "Ventilation of CSO chamber during its construction"
- },
- {
-   "Title": 312184,
-   "Site": "GREPS",
-   "Description": "Lifting and Handling of materials within chambers"
- },
- {
-   "Title": 312185,
-   "Site": "GREPS",
-   "Description": "MEICA assembly and temporary stability (and handling)"
- },
- {
-   "Title": 312186,
-   "Site": "GREPS",
-   "Description": "Overpumping - flume installation and removal"
- },
- {
-   "Title": 312187,
-   "Site": "GREPS",
-   "Description": "Support for secondary beams - CSO roof"
- },
- {
-   "Title": 312188,
-   "Site": "GREPS",
-   "Description": "Lifting and Handling of precast elements (roof)"
- },
- {
-   "Title": 312189,
-   "Site": "GREPS",
-   "Description": "Shaft excavation ventilation and supports"
- },
- {
-   "Title": 312190,
-   "Site": "GREPS",
-   "Description": "Dewatering pump system for shaft excavation"
- },
- {
-   "Title": 312191,
-   "Site": "GREPS",
-   "Description": "Sump pit in shaft base slab with cover"
- },
- {
-   "Title": 312192,
-   "Site": "GREPS",
-   "Description": "Pressure relief well for shaft excavation"
- },
- {
-   "Title": 312193,
-   "Site": "GREPS",
-   "Description": "Access platform for dome and infill base concreting"
- },
- {
-   "Title": 312194,
-   "Site": "GREPS",
-   "Description": "Base slab infill mesh support"
- },
- {
-   "Title": 312195,
-   "Site": "GREPS",
-   "Description": "Concrete line brackets and S pressure bend for base slab and secondary lining concreting"
- },
- {
-   "Title": 312196,
-   "Site": "GREPS",
-   "Description": "Scaffold platform for coring (tunnel opening) with access"
- },
- {
-   "Title": 312197,
-   "Site": "GREPS",
-   "Description": "Strong (RMD) platform for saw cutting and block removal (tunnel opening)"
- },
- {
-   "Title": 312198,
-   "Site": "GREPS",
-   "Description": "Face excavation support during tunnel opening through D-wall"
- },
- {
-   "Title": 312199,
-   "Site": "GREPS",
-   "Description": "SCL muckbin (bottom of the shaft)"
- },
- {
-   "Title": 312200,
-   "Site": "GREPS",
-   "Description": "Assessment of the East Beam Engine House (EBEH) and the screening chamber roof (podium) for permanent works construction and coring rig"
- },
- {
-   "Title": 312201,
-   "Site": "GREPS",
-   "Description": "Access to EBEH design (deck, ramp or lifting solution with edge protection)"
- },
- {
-   "Title": 312202,
-   "Site": "GREPS",
-   "Description": "Air Treatment Unit (ATU) construction vibration assessment"
- },
- {
-   "Title": 312203,
-   "Site": "GREPS",
-   "Description": "Tunnel portal formwork (including access)"
- },
- {
-   "Title": 312204,
-   "Site": "GREPS",
-   "Description": "Shaft secondary lining formwork up to portal level"
- },
- {
-   "Title": 312205,
-   "Site": "GREPS",
-   "Description": "Secondary lining external shutter at ground level"
- },
- {
-   "Title": 312206,
-   "Site": "GREPS",
-   "Description": "Box out for secondary lining and tunnel openings"
- },
- {
-   "Title": 312207,
-   "Site": "GREPS",
-   "Description": "Formwork and falsework for vortex soffit including hanging pipe"
- },
- {
-   "Title": 312208,
-   "Site": "GREPS",
-   "Description": "Access to jumpform secondary lining works"
- },
- {
-   "Title": 312209,
-   "Site": "GREPS",
-   "Description": "Prefabricated cages lifting and stability"
- },
- {
-   "Title": 312210,
-   "Site": "GREPS",
-   "Description": "Vortex lining support, shape keeper and lifting"
- },
- {
-   "Title": 312211,
-   "Site": "GREPS",
-   "Description": "Vortex Generator shutter and support, shape keeper"
- },
- {
-   "Title": 312212,
-   "Site": "GREPS",
-   "Description": "Vortex Generator Lifting and Handling of materials"
- },
- {
-   "Title": 312213,
-   "Site": "GREPS",
-   "Description": "Vortex Generator Access"
- },
- {
-   "Title": 312214,
-   "Site": "GREPS",
-   "Description": "Opening between culvert and shaft: working platform, block handling, crash deck with access"
- },
- {
-   "Title": 312215,
-   "Site": "GREPS",
-   "Description": "CSO/ vortex tie-in shutter (including access)"
- },
- {
-   "Title": 312216,
-   "Site": "GREPS",
-   "Description": "Access and erection for precast walkway of the vortex"
- },
- {
-   "Title": 312217,
-   "Site": "GREPS",
-   "Description": "Vortex Precast walkway edge protection shutter"
- },
- {
-   "Title": 312218,
-   "Site": "GREPS",
-   "Description": "Vortex intermediate level platform"
- },
- {
-   "Title": 312219,
-   "Site": "GREPS",
-   "Description": "Vortex intermediate level access"
- },
- {
-   "Title": 312220,
-   "Site": "GREPS",
-   "Description": "Vortex intermediate level falsework"
- },
- {
-   "Title": 312221,
-   "Site": "GREPS",
-   "Description": "Vortex intermediate level formwork"
- },
- {
-   "Title": 312222,
-   "Site": "GREPS",
-   "Description": "Ventilation house and culvert connection shutter"
- },
- {
-   "Title": 312223,
-   "Site": "GREPS",
-   "Description": "Ventilation house and culvert connection, reinforcing cage lifting and stability"
- },
- {
-   "Title": 312224,
-   "Site": "GREPS",
-   "Description": "Ventilation house and culvert connection access"
- },
- {
-   "Title": 312225,
-   "Site": "GREPS",
-   "Description": "Ventilation house and culvert connection opening cover/crash deck"
- },
- {
-   "Title": 312226,
-   "Site": "GREPS",
-   "Description": "Vertical slot for internal walls"
- },
- {
-   "Title": 312227,
-   "Site": "GREPS",
-   "Description": "Shutter system for weir wall"
- },
- {
-   "Title": 312228,
-   "Site": "GREPS",
-   "Description": "Rebar lifting and stability for shaft internal structures permanent works"
- },
- {
-   "Title": 312229,
-   "Site": "GREPS",
-   "Description": "Crane outriggers for installation of precast elements of shaft roof slab (main site)"
- },
- {
-   "Title": 312230,
-   "Site": "GREPS",
-   "Description": "Crane outriggers for installation of precast elements of shaft roof slab (Phoenix Wharf)"
- },
- {
-   "Title": 312231,
-   "Site": "GREPS",
-   "Description": "Precast yard set up, Phoenix Wharf platform formwork and rebar"
- },
- {
-   "Title": 312232,
-   "Site": "GREPS",
-   "Description": "In situ stitches for shaft roof slab (including access)"
- },
- {
-   "Title": 312233,
-   "Site": "GREPS",
-   "Description": "Edge protection for shaft roof slab"
- },
- {
-   "Title": 312234,
-   "Site": "GREPS",
-   "Description": "Shutter system for shaft roof slab"
- },
- {
-   "Title": 312235,
-   "Site": "GREPS",
-   "Description": "Access for shaft roof slab"
- },
- {
-   "Title": 312236,
-   "Site": "GREPS",
-   "Description": "Upstand parapet formwork at shaft final ground level (including rebar assessment)"
- },
- {
-   "Title": 312237,
-   "Site": "GREPS",
-   "Description": "Retaining wall formwork at shaft final ground level (including rebar assessment)"
- },
- {
-   "Title": 312238,
-   "Site": "GREPS",
-   "Description": "Access for culvert construction"
- },
- {
-   "Title": 312239,
-   "Site": "GREPS",
-   "Description": "Lifting, Handling  and stability of rebars and materials within Culvert"
- },
- {
-   "Title": 312240,
-   "Site": "GREPS",
-   "Description": "Lifting study including fixings for ATU"
- },
- {
-   "Title": 312241,
-   "Site": "GREPS",
-   "Description": "ATU lintel opening design"
- },
- {
-   "Title": 312242,
-   "Site": "GREPS",
-   "Description": "Concrete pipes temporary support"
- },
- {
-   "Title": 312243,
-   "Site": "GREPS",
-   "Description": "EBEH brickwork wall assessment and mitigation works (local proppings)"
- },
- {
-   "Title": 312244,
-   "Site": "GREPS",
-   "Description": " ATU works impact assessment on EGRS"
- },
- {
-   "Title": 312245,
-   "Site": "GREPS",
-   "Description": "Pump test rig platform review"
- },
- {
-   "Title": 312246,
-   "Site": "GREPS",
-   "Description": "Base slab perimeter vertical shutter"
- },
- {
-   "Title": 312247,
-   "Site": "GREPS",
-   "Description": "Pressure relief well for CSO chamber - dewatering to surface level"
- },
- {
-   "Title": 312248,
-   "Site": "GREPS",
-   "Description": "SCL setup (including culvert, pump line routes)"
- },
- {
-   "Title": 312249,
-   "Site": "GREPS",
-   "Description": "ATU chamber works- all rebars lifting and stability check"
- },
- {
-   "Title": 312250,
-   "Site": "GREPS",
-   "Description": "ATU chamber works - Access"
- },
- {
-   "Title": 312251,
-   "Site": "GREPS",
-   "Description": "ATU chamber works - ventilation"
- },
- {
-   "Title": 312252,
-   "Site": "GREPS",
-   "Description": "ATU chamber works - dewatering"
- },
- {
-   "Title": 312253,
-   "Site": "GREPS",
-   "Description": "ATU roof slab upstand formwork"
- },
- {
-   "Title": 312254,
-   "Site": "GREPS",
-   "Description": "ATU back propping of roof slab for mass concrete pour"
- },
- {
-   "Title": 312255,
-   "Site": "GREPS",
-   "Description": "ATU roof opening covers"
- },
- {
-   "Title": 312256,
-   "Site": "GREPS",
-   "Description": "Access and lifting for Pumping Station refurbishment (internal and external)"
- },
- {
-   "Title": 312257,
-   "Site": "GREPS",
-   "Description": "Phoenix Wharf assessment for coring rig (removal of piles)"
- },
- {
-   "Title": 312258,
-   "Site": "GREPS",
-   "Description": "Dismantling of welfare and office"
- },
- {
-   "Title": 312259,
-   "Site": "GREPS",
-   "Description": "Reinstatement of footpath (and retaining wall) and temporary conditions"
- },
- {
-   "Title": 312260,
-   "Site": "GREPS",
-   "Description": "Excavation batters for capping beam construction, exclusion zone and edge protection"
- },
- {
-   "Title": 312261,
-   "Site": "GREPS",
-   "Description": "Electrical Substation foundation for shaft excavation, SCL and tunnelling phases"
- },
- {
-   "Title": 312262,
-   "Site": "GREPS",
-   "Description": "Foundations of STP acoustic enclosures"
- },
- {
-   "Title": 312263,
-   "Site": "GREPS",
-   "Description": "STP Conveyor acoustic enclosure"
- },
- {
-   "Title": 312264,
-   "Site": "GREPS",
-   "Description": "Foundation for STP conveyor acoustic enclosure"
- },
- {
-   "Title": 312265,
-   "Site": "GREPS",
-   "Description": "Tunnel services supports at surface"
- },
- {
-   "Title": 312266,
-   "Site": "GREPS",
-   "Description": "Acid delivery area facilities"
- },
- {
-   "Title": 312267,
-   "Site": "GREPS",
-   "Description": "Acoustic curtain in front of FP bays"
- },
- {
-   "Title": 312268,
-   "Site": "GREPS",
-   "Description": "Lifting arrangement for STP erection "
- },
- {
-   "Title": 312269,
-   "Site": "GREPS",
-   "Description": "Scaffolding associated with cladding of STP acoustic enclosures"
- },
- {
-   "Title": 312270,
-   "Site": "GREPS",
-   "Description": "Work shop area for tunnelling"
- },
- {
-   "Title": 312271,
-   "Site": "GREPS",
-   "Description": "Train maintenance area incl. rails from inside shaft"
- },
- {
-   "Title": 312272,
-   "Site": "GREPS",
-   "Description": "Ventilation Ducting Support at Building Entrance"
- },
- {
-   "Title": 312273,
-   "Site": "GREPS",
-   "Description": "Access arrangement for maintenance of services"
- },
- {
-   "Title": 312274,
-   "Site": "GREPS",
-   "Description": "Support frames for various equipment in shed incl. baterry chargers etc"
- },
- {
-   "Title": 312275,
-   "Site": "GREPS",
-   "Description": "Lifting frames for TBM gantries"
- },
- {
-   "Title": 312276,
-   "Site": "GREPS",
-   "Description": "Various scaffolds for preps of gantries at surface"
- },
- {
-   "Title": 312277,
-   "Site": "GREPS",
-   "Description": "GRECT STP FP Walls & Foundations"
- },
- {
-   "Title": 312278,
-   "Site": "GREPS",
-   "Description": "High level walkways along railway"
- },
- {
-   "Title": 312279,
-   "Site": "GREPS",
-   "Description": "Walkway along fence"
- },
- {
-   "Title": 312280,
-   "Site": "GREPS",
-   "Description": "Services accommodation at end of culvert"
- },
- {
-   "Title": 312281,
-   "Site": "GREPS",
-   "Description": "Lifting frames for TBM gantries"
- },
- {
-   "Title": 312282,
-   "Site": "GREPS",
-   "Description": "Foundation for skid track"
- },
- {
-   "Title": 312283,
-   "Site": "GREPS",
-   "Description": "Check of Mammoet lifting system"
- },
- {
-   "Title": 312284,
-   "Site": "GREPS",
-   "Description": "Various scaffolds for preps of TBM gantries at surface"
- },
- {
-   "Title": 312285,
-   "Site": "GREPS",
-   "Description": "Ramp from road to shed for TBM delivery"
- },
- {
-   "Title": 312286,
-   "Site": "GREPS",
-   "Description": "Survey and assessment of CGRL yard - Fence removal and potential prep work"
- },
- {
-   "Title": 312288,
-   "Site": "GREPS",
-   "Description": "Excavation support around East Beam Engine House podium steps during Capping Beam construction"
- },
- {
-   "Title": 312289,
-   "Site": "GREPS",
-   "Description": "Acoustic shed redesign to Eurocodes"
- },
- {
-   "Title": 312290,
-   "Site": "GREPS",
-   "Description": "Acoustic Shed Foundations - Differentiel settlement Mitigation Report"
- },
- {
-   "Title": 312291,
-   "Site": "GREPS",
-   "Description": "TWUL radiators protection scaffold"
- },
- {
-   "Title": 312292,
-   "Site": "GREPS",
-   "Description": "Cabins support for ventilation plant"
- },
- {
-   "Title": 312293,
-   "Site": "GREPS",
-   "Description": "Working platform for CFA piles @ Phoenix Wharf"
- },
- {
-   "Title": 312294,
-   "Site": "GREPS",
-   "Description": "Access Scaffold to screening chamber for inspection"
- },
- {
-   "Title": 312295,
-   "Site": "GREPS",
-   "Description": "Puddle flange and box-out in the CSO chamber and culvert bottom slab for pressure relief wells (dewatering)"
- },
- {
-   "Title": 312296,
-   "Site": "GREPS",
-   "Description": "Shaft capping beam shutter for the transition deep to typical section"
- },
- {
-   "Title": 312297,
-   "Site": "GREPS",
-   "Description": "Emergency tanks under STP Desanding unit"
- },
- {
-   "Title": 312298,
-   "Site": "GREPS",
-   "Description": "Propping Excavation support for muck bin"
- },
- {
-   "Title": 312299,
-   "Site": "GREPS",
-   "Description": "Shutter system for muck bin wall construction"
- },
- {
-   "Title": 312300,
-   "Site": "GREPS",
-   "Description": "Steel plate retaining ground at CSO culvert overtrimming"
- },
- {
-   "Title": 312301,
-   "Site": "GREPS",
-   "Description": "Support for hydraulic spider concrete placing boom"
- },
- {
-   "Title": 312302,
-   "Site": "GREPS",
-   "Description": "Service Culvert Extension at Phoenix Wharf"
- },
- {
-   "Title": 312303,
-   "Site": "GREPS",
-   "Description": "Working platform and Sand & Gravel Muck bin at Phoenix"
- },
- {
-   "Title": 312304,
-   "Site": "GREPS",
-   "Description": "Assessment of the maximum CSO excavation depth above EGRS"
- },
- {
-   "Title": 312305,
-   "Site": "GREPS",
-   "Description": "Support pad for the 2 Mammoet steel beams for TBM lifting down the shaft"
- },
- {
    "Title": 312306,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Passive fire protections to acoustic enclosure columns"
  },
  {
    "Title": 312307,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Access scaffold platform to inside shaft level for Panel 5 works"
  },
  {
-   "Title": 312308,
-   "Site": "GREPS",
-   "Description": "Hanging of muck bin propping on River Wall"
- },
- {
    "Title": 312309,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Groundforce edge protection"
  },
  {
    "Title": 312310,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Formwork for D-wall panel 5 repair works"
  },
  {
-   "Title": 312311,
-   "Site": "GREPS",
-   "Description": "Magistre 's Court Hoarding"
- },
- {
    "Title": 312312,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Scaffold for Phase 2 of shaft panel 5 repair works"
  },
  {
    "Title": 312313,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Formwork for Filter Press walls"
  },
  {
    "Title": 312314,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Formwork for WTP building walls"
  },
  {
    "Title": 312315,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Formwork for Emergency tanks and desanding walls"
  },
  {
    "Title": 312316,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Base slab drainage sump and outflow pipe"
  },
  {
    "Title": 312317,
-   "Site": "GREPS",
+   "Site": "Site 2",
    "Description": "Scaffold support and vibration control of the ventilation pipe in shed"
  },
  {
    "Title": 313001,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Site hoarding"
  },
  {
    "Title": 313002,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Site Offices and Welfare Foundations"
  },
  {
    "Title": 313003,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Use railway arches - Possible re-fit or refub"
  },
  {
    "Title": 313004,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Site Working Platform, Drainage & Utility Protection"
  },
  {
    "Title": 313005,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Protection slab tied in with 313004"
  },
  {
    "Title": 313006,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Create site exit "
  },
  {
    "Title": 313007,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary Site Drainage and Ducting combined with 313004"
  },
  {
    "Title": 313008,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary Power"
  },
  {
    "Title": 313009,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary Water"
  },
  {
    "Title": 313010,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary Sewer includes suitable for discharge of pumping activities"
  },
  {
    "Title": 313011,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary Communication "
  },
  {
    "Title": 313012,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Traffic Management phase 1 - (signage etc.)"
  },
  {
    "Title": 313013,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Highway modification prior to works onsite (as per WI)"
  },
  {
    "Title": 313014,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Site Lighting "
  },
  {
    "Title": 313015,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Services - fixing supports to suit the temporary services."
  },
  {
    "Title": 313016,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Auto track of vehicle movements"
  },
  {
    "Title": 313017,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Muckbin for shaft excavation"
  },
  {
    "Title": 313018,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Site Investigation  - Temporary platform"
  },
  {
    "Title": 313019,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Archaeology investigation for shaft - excavation support"
  },
  {
    "Title": 313020,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Archaeology excavation support - Interception Chamber and connection culvert"
  },
  {
    "Title": 313021,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "D-Walls guide walls"
  },
  {
    "Title": 313022,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "D-Walls working platform combined with oversite platform 313004"
  },
  {
    "Title": 313023,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Dewatering Well and Base Slab Drainage "
  },
  {
    "Title": 313024,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft viewing /Banksman platform"
  },
  {
    "Title": 313025,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Access - Trimast Foundation"
  },
  {
    "Title": 313026,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Edge protection and access to inclinometers"
  },
  {
    "Title": 313027,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft ventilation  through phases"
  },
  {
    "Title": 313028,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft excavation - muckaway skip portal"
  },
  {
    "Title": 313029,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Opening protection"
  },
  {
    "Title": 313030,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Temporary support of opening through Dwall"
  },
  {
    "Title": 313031,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Jigs for reinforcement cage prefabrication"
  },
  {
    "Title": 313032,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Spreader beams for reinforcement cage lifting"
  },
  {
    "Title": 313033,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Sacrificial Frame for Concrete Boom "
  },
  {
    "Title": 313034,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Secondary lining shutter system including any box outs"
  },
  {
    "Title": 313035,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutters for baffle wall including box outs, rebar lifting and stability"
  },
  {
    "Title": 313036,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Vortex inner lining lifting, temporary support and shape keeper"
  },
  {
    "Title": 313037,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter system for vortex c/w integral access and all safe access"
  },
  {
    "Title": 313038,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter / falsework for vortex channel construction / junction with culvert"
  },
  {
    "Title": 313039,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter / falsework for vortex maintenance platform"
  },
  {
    "Title": 313040,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutters for mass concrete benching"
  },
  {
    "Title": 313041,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Backfilling - protection against shaft secondary lining"
  },
  {
    "Title": 313042,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Backfill material for TBM transit"
  },
  {
    "Title": 313043,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "TBM inspection chamber"
  },
  {
    "Title": 313044,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Guide wall for secant piles"
  },
  {
    "Title": 313045,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Secant piles around the interception chamber and culvert (phase 1)"
  },
  {
-   "Title": 313046,
-   "Site": "DEPCS",
-   "Description": "Propping frame for CSO secant piles"
- },
- {
    "Title": 313047,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Assessment of Flow Restriction in Storm Relief Sewer"
  },
  {
-   "Title": 313048,
-   "Site": "DEPCS",
-   "Description": "CSO - Shutters Main Chamber Walls and Internals"
- },
- {
-   "Title": 313049,
-   "Site": "DEPCS",
-   "Description": "CSO Falsework for interception chamber top slab"
- },
- {
-   "Title": 313050,
-   "Site": "DEPCS",
-   "Description": "Interception Chamber Traffic Management (phase 2)"
- },
- {
    "Title": 313051,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Secant piles around the interception chamber (phase 2)"
  },
  {
    "Title": 313052,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Propping frame for secant piles around interception chamber (Phase 2)"
  },
  {
    "Title": 313053,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter for interception chamber benching"
  },
  {
-   "Title": 313054,
-   "Site": "DEPCS",
-   "Description": "Bronze Sewer Chamber excavation support"
- },
- {
-   "Title": 313055,
-   "Site": "DEPCS",
-   "Description": "Bronze Sewer Chamber Traffic management works"
- },
- {
-   "Title": 313056,
-   "Site": "DEPCS",
-   "Description": "Bronze Sewer temporary diversion arrangement"
- },
- {
    "Title": 313057,
-   "Site": "DEPCS",
-   "Description": "CSO culvert temp propping part 1 & part 2 (for Dwall Opening into the Shaft"
+   "Site": "Site 3",
+   "Description": "CSO culvert temp propping part 1 & part 2 (for Dwall Opening into the Shaft)"
  },
  {
    "Title": 313058,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter for Culvert Walls (West Section)"
  },
  {
    "Title": 313059,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Falsework for culvert top slab"
  },
  {
    "Title": 313060,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Sheet piling for air treatment chamber"
  },
  {
    "Title": 313061,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter system for air treatment chamber walls"
  },
  {
    "Title": 313062,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Falsework for air treatment chamber roof slab"
  },
  {
    "Title": 313063,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Sheet piling for ventilation columns chamber"
  },
  {
    "Title": 313064,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shutter system for ventilation columns chamber walls incl rebar lifting & stability"
  },
  {
-   "Title": 313065,
-   "Site": "DEPCS",
-   "Description": "Falsework for ventilation columns chamber roof slab"
- },
- {
-   "Title": 313066,
-   "Site": "DEPCS",
-   "Description": "excavation support for ventilation pipe"
- },
- {
-   "Title": 313067,
-   "Site": "DEPCS",
-   "Description": "Temporary interception pumping out arrangement "
- },
- {
-   "Title": 313068,
-   "Site": "DEPCS",
-   "Description": "Site Flood protection. (through all phases of construction)"
- },
- {
-   "Title": 313069,
-   "Site": "DEPCS",
-   "Description": "Temporary blanking plates in interception chamber "
- },
- {
-   "Title": 313070,
-   "Site": "DEPCS",
-   "Description": "Live Sewer Working during connection to sewer"
- },
- {
-   "Title": 313071,
-   "Site": "DEPCS",
-   "Description": "Forming Portals - Formwork"
- },
- {
-   "Title": 313072,
-   "Site": "DEPCS",
-   "Description": "Shaft finishing works from GREPS"
- },
- {
-   "Title": 313073,
-   "Site": "DEPCS",
-   "Description": "Acoustic/Ball stop screen , St Joseph's Catholic School"
- },
- {
-   "Title": 313074,
-   "Site": "DEPCS",
-   "Description": "Ventilation, St Joseph'S school"
- },
- {
-   "Title": 313075,
-   "Site": "DEPCS",
-   "Description": "Acoustic Sealing to Nave Doors, St Pauls Church"
- },
- {
-   "Title": 313076,
-   "Site": "DEPCS",
-   "Description": "Padstone for Shaft Prefab Cages"
- },
- {
-   "Title": 313077,
-   "Site": "DEPCS",
-   "Description": "Reinforcement handling for secondary lining/portals (Lifting Points)"
- },
- {
-   "Title": 313078,
-   "Site": "DEPCS",
-   "Description": "Shaft base reinforcement support arrangements"
- },
- {
-   "Title": 313079,
-   "Site": "DEPCS",
-   "Description": "Shaft Crossing Using GBGM inc GRP Reinf Chamber"
- },
- {
-   "Title": 313080,
-   "Site": "DEPCS",
-   "Description": "Ventilation in shaft during excavation"
- },
- {
-   "Title": 313081,
-   "Site": "DEPCS",
-   "Description": "Shaft Access - Trimast and Trimast Bridge"
- },
- {
-   "Title": 313082,
-   "Site": "DEPCS",
-   "Description": "St Joseph School HERAS fencing for trial pits (HERAS fence design certificate only)"
- },
- {
-   "Title": 313083,
-   "Site": "DEPCS",
-   "Description": "Assessment of Deptford Church Street Sewer with Sheet Pilling Rig Working on Top"
- },
- {
-   "Title": 313084,
-   "Site": "DEPCS",
-   "Description": "DEPCS Boreholes Temporary Fencing with acoustic panels (HERAS fence design certificate only)"
- },
- {
-   "Title": 313085,
-   "Site": "DEPCS",
-   "Description": "DEPCS Boreholes Temporary Fencing without acoustic panels (HERAS fence design certificate only)"
- },
- {
-   "Title": 313086,
-   "Site": "DEPCS",
-   "Description": "Heras fencing design certificate for Pump test drill rig- with acoustic panels"
- },
- {
-   "Title": 313087,
-   "Site": "DEPCS",
-   "Description": "Heras fencing design certificate for Pump test drill rig- Without acoustic panels"
- },
- {
-   "Title": 313088,
-   "Site": "DEPCS",
-   "Description": "Assessment of Deptford Church Street Sewer during piling"
- },
- {
-   "Title": 313089,
-   "Site": "DEPCS",
-   "Description": "Heras fencing for TAPS works at Saint Joseph's School"
- },
- {
-   "Title": 313090,
-   "Site": "DEPCS",
-   "Description": "Wheelwash"
- },
- {
-   "Title": 313091,
-   "Site": "DEPCS",
-   "Description": "Foundations for shelters at St Josephs Primary school"
- },
- {
-   "Title": 313092,
-   "Site": "DEPCS",
-   "Description": "Crane Mat for Office Installation"
- },
- {
-   "Title": 313093,
-   "Site": "DEPCS",
-   "Description": "Pedestrian Crossing Reconfiguration"
- },
- {
-   "Title": 313094,
-   "Site": "DEPCS",
-   "Description": "Mitigation Works in the Bronze Street Sewer"
- },
- {
-   "Title": 313095,
-   "Site": "DEPCS",
-   "Description": "Mitigation Works in the Foul Egg Sewer"
- },
- {
-   "Title": 313096,
-   "Site": "DEPCS",
-   "Description": "Mitigation Works in the Deptford Storm Relief Sewer"
- },
- {
-   "Title": 313097,
-   "Site": "DEPCS",
-   "Description": "Temporary Dam for Tide Mitigation in Deptford Storm Relief Sewer"
- },
- {
-   "Title": 313098,
-   "Site": "DEPCS",
-   "Description": "Platform for Pump Test Rig"
- },
- {
-   "Title": 313099,
-   "Site": "DEPCS",
-   "Description": "Modular Hoarding"
- },
- {
-   "Title": 313100,
-   "Site": "DEPCS",
-   "Description": "Dwall Muckbin"
- },
- {
-   "Title": 313101,
-   "Site": "DEPCS",
-   "Description": "Bachy Silo Foundation"
- },
- {
-   "Title": 313102,
-   "Site": "DEPCS",
-   "Description": "Excavation of Dwall trench stability under bentonite"
- },
- {
-   "Title": 313103,
-   "Site": "DEPCS",
-   "Description": "Excavation support for water main install"
- },
- {
-   "Title": 313104,
-   "Site": "DEPCS",
-   "Description": "UKPN Fence"
- },
- {
-   "Title": 313105,
-   "Site": "DEPCS",
-   "Description": "Lifting Anchor for Trimmed Dwall Blocks"
- },
- {
-   "Title": 313106,
-   "Site": "DEPCS",
-   "Description": "Lifting Anchor for Trimmed shaft dwall Blocks"
- },
- {
-   "Title": 313107,
-   "Site": "DEPCS",
-   "Description": "Shaft capping beam - formwork & access"
- },
- {
-   "Title": 313108,
-   "Site": "DEPCS",
-   "Description": "Shaft capping beam - rebar lifting and stability"
- },
- {
-   "Title": 313109,
-   "Site": "DEPCS",
-   "Description": "CSO capping beam - Excavation support / Trench Box"
- },
- {
-   "Title": 313110,
-   "Site": "DEPCS",
-   "Description": "CSO Capping Beam Formwork & Perm Props Formwork "
- },
- {
-   "Title": 313111,
-   "Site": "DEPCS",
-   "Description": "CSO Capping Beam and Perm Props Cages Lifting Stability "
- },
- {
-   "Title": 313112,
-   "Site": "DEPCS",
-   "Description": "Propping frame for CSO Dwall on main chamber"
- },
- {
-   "Title": 313113,
-   "Site": "DEPCS",
-   "Description": "CSO construction - Prop to east dwall incl. capping beam assessment to transfer loads."
- },
- {
-   "Title": 313114,
-   "Site": "DEPCS",
-   "Description": "CSO construction - Prop to east dwall; impact assessment on sewer and permanent works"
- },
- {
-   "Title": 313115,
-   "Site": "DEPCS",
-   "Description": "CSO Propping Beam Foundation Checks"
- },
- {
-   "Title": 313116,
-   "Site": "DEPCS",
-   "Description": "CSO construction - perm props rebar lifting and stability"
- },
- {
-   "Title": 313117,
-   "Site": "DEPCS",
-   "Description": "CSO excavation - Access (Haki / Scaffold)"
- },
- {
-   "Title": 313118,
-   "Site": "DEPCS",
-   "Description": "CSO excavation - Excavation Batter & L Retaining Wall"
- },
- {
-   "Title": 313119,
-   "Site": "DEPCS",
-   "Description": "CSO excavation - Edge protection L units/combisafe"
- },
- {
-   "Title": 313120,
-   "Site": "DEPCS",
-   "Description": "CSO excavation - Ventilation and other services."
- },
- {
-   "Title": 313121,
-   "Site": "DEPCS",
-   "Description": "CSO base slab - relief well extension, and pumping arrangementsbar lifting and stability"
- },
- {
-   "Title": 313122,
-   "Site": "DEPCS",
-   "Description": "CSO phase 1 - wall shutters, rebar lifting and stability, flap valve frame supports"
- },
- {
-   "Title": 313123,
-   "Site": "DEPCS",
-   "Description": "CSO Falsework for Main Chamber + East Culvert Roof Slab"
- },
- {
-   "Title": 313124,
-   "Site": "DEPCS",
-   "Description": "CSO Falsework for West Culvert Roof"
- },
- {
-   "Title": 313125,
-   "Site": "DEPCS",
-   "Description": "CSO flap valves / penstocks installation reqmts"
- },
- {
-   "Title": 313126,
-   "Site": "DEPCS",
-   "Description": "Shaft excavation - davit arm foundation"
- },
- {
-   "Title": 313127,
-   "Site": "DEPCS",
-   "Description": "Shaft excavation - services support"
- },
- {
-   "Title": 313128,
-   "Site": "DEPCS",
-   "Description": "Bronze street sewer - services support during excavations"
- },
- {
-   "Title": 313129,
-   "Site": "DEPCS",
-   "Description": "Bronze street sewer - edge protection c/w live traffic loading."
- },
- {
-   "Title": 313130,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - assessment of sewer during piling works"
- },
- {
-   "Title": 313131,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - protection of sewer during piling."
- },
- {
-   "Title": 313132,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - capping beam formwork, rebar lifting and stability."
- },
- {
-   "Title": 313133,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - excavation support with edge protection (live traffic)"
- },
- {
-   "Title": 313134,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - demolition design "
- },
- {
-   "Title": 313135,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - internal crash deck as req'd c/w flow analysis"
- },
- {
-   "Title": 313136,
-   "Site": "DEPCS",
-   "Description": "CSO Phase 2 - Flume, support of flume and flow analysis."
- },
- {
-   "Title": 313137,
-   "Site": "DEPCS",
-   "Description": "CSO phase 2 - excavation support where not piled (either side of lateral)"
- },
- {
-   "Title": 313138,
-   "Site": "DEPCS",
-   "Description": "Interception chamber - staircase shutter and falsework"
- },
- {
-   "Title": 313139,
-   "Site": "DEPCS",
-   "Description": "Interception chamber - rebar lifting assessments and stability checks all locations"
- },
- {
-   "Title": 313140,
-   "Site": "DEPCS",
-   "Description": "Interception chamber - west side sequence design including egg sewer assessment."
- },
- {
-   "Title": 313141,
-   "Site": "DEPCS",
-   "Description": "Base slab - sump and relief well box out and cover."
- },
- {
-   "Title": 313142,
-   "Site": "DEPCS",
-   "Description": "Shaft Base slab - perimeter beam formwork"
- },
- {
-   "Title": 313143,
-   "Site": "DEPCS",
-   "Description": "Base slab - relief well pumping, concrete line support and hydraulic design."
- },
- {
-   "Title": 313144,
-   "Site": "DEPCS",
-   "Description": "Secondary lining - access to jump form all stages"
- },
- {
-   "Title": 313145,
-   "Site": "DEPCS",
-   "Description": "Secondary lining - vortex soffit support"
- },
- {
-   "Title": 313146,
-   "Site": "DEPCS",
-   "Description": "Secondary lining - concrete lines, hydraulics and service routes to all stages."
- },
- {
-   "Title": 313147,
-   "Site": "DEPCS",
-   "Description": "Shaft internals - vertical slot wall supports shutters, rebar lifting and stability"
- },
- {
-   "Title": 313148,
-   "Site": "DEPCS",
-   "Description": "Shaft internals - dividing wall shutters incl box outs"
- },
- {
-   "Title": 313149,
-   "Site": "DEPCS",
-   "Description": "Shaft internals - 45 degree benching shutters, incl access all locations."
- },
- {
-   "Title": 313150,
-   "Site": "DEPCS",
-   "Description": "Precast walkway - erection/finishing access"
- },
- {
-   "Title": 313151,
-   "Site": "DEPCS",
-   "Description": "Precast walkway - edge protection shutters"
- },
- {
-   "Title": 313152,
-   "Site": "DEPCS",
-   "Description": "Intermediate landing - falsework/formwork with access."
- },
- {
-   "Title": 313153,
-   "Site": "DEPCS",
-   "Description": "Culvert/shaft opening - working platform & crash deck c/w access"
- },
- {
-   "Title": 313154,
-   "Site": "DEPCS",
-   "Description": "Culvert/shaft opening - block handling reqmts."
- },
- {
-   "Title": 313155,
-   "Site": "DEPCS",
-   "Description": "Vortex roof - falsework and formwork"
- },
- {
-   "Title": 313156,
-   "Site": "DEPCS",
-   "Description": "Vortex corbel - falsework and formwork"
- },
- {
-   "Title": 313157,
-   "Site": "DEPCS",
-   "Description": "Vortex generator bridge - access platforms, formwork, liner support & edge protection."
- },
- {
-   "Title": 313158,
-   "Site": "DEPCS",
-   "Description": "Vent chamber/shaft opening - working platform & crash deck c/w access"
- },
- {
-   "Title": 313159,
-   "Site": "DEPCS",
-   "Description": "Vent chamber/shaft opening - block handling reqmts."
- },
- {
-   "Title": 313160,
-   "Site": "DEPCS",
-   "Description": "Roof slab - precasting requirement incl formwork, rebar lifting and stability."
- },
- {
-   "Title": 313161,
-   "Site": "DEPCS",
-   "Description": "Roof slab - installation crane reqmts"
- },
- {
-   "Title": 313162,
-   "Site": "DEPCS",
-   "Description": "Roof slab - various shutters, access, edge protection, rebar lifting and stability to complete structure "
- },
- {
-   "Title": 313163,
-   "Site": "DEPCS",
-   "Description": "TBM transit - water source, pumping for place and remove, disposal"
- },
- {
-   "Title": 313164,
-   "Site": "DEPCS",
-   "Description": "TBM transit - fill removal, ring removal sequence, internal access."
- },
- {
-   "Title": 313165,
-   "Site": "DEPCS",
-   "Description": "TBM transit - crash deck segregation between shaft & tunnel operations."
- },
- {
-   "Title": 313166,
-   "Site": "DEPCS",
-   "Description": "Tunnel / shaft tie in - formwork, falsework, access."
- },
- {
    "Title": 313167,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Kiosk - shuttering, rebar lift & stability"
  },
  {
    "Title": 313168,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Kiosk - roof falsework/formwork"
  },
  {
    "Title": 313169,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Deep drainage removal - excavation support, pumping etc."
  },
  {
    "Title": 313170,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Office removal - crane platform"
  },
  {
    "Title": 313171,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft capping beam - Excavation support / batters"
  },
  {
    "Title": 313172,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Muckbin modification for shaft excavation"
  },
  {
    "Title": 313173,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "CSO Dewatering Pipe Support"
  },
  {
    "Title": 313174,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Silo Slab In-fill"
  },
- {
-   "Title": 313175,
-   "Site": "DEPCS",
-   "Description": "Puddle flange et box-out in the CSO chamber and culvert bottom slab for pressure relief wells (dewatering)"
- },
- {
-   "Title": 313176,
-   "Site": "DEPCS",
-   "Description": "Platform extension during Contraflow (Deptford Church Street)"
- },
- {
+  {
    "Title": 313177,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Curtain Grouting Block"
  },
  {
    "Title": 313178,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "New Site Access Gate"
  },
  {
    "Title": 313179,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "CSO Dewatering Scheme"
  },
  {
    "Title": 313180,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "CSO Dewatering Rig Load Assessment"
  },
  {
    "Title": 313181,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Reinstatement of platform after Shaft L Blocks Installation"
  },
  {
    "Title": 313182,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "HERAS Fence with acoustic panel - Guidewall & Dwall Trimming"
  },
  {
    "Title": 313183,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Excavation for construction of Shaft Capping Beam"
  },
  {
    "Title": 313184,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Long term protection of groundwater monitoring boreholes"
  },
  {
-   "Title": 313185,
-   "Site": "DEPCS",
-   "Description": "HERAS fence at Deptford Church Street -  Contra-flow"
- },
- {
    "Title": 313186,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Combisafe fence around capping beam excavation"
  },
  {
    "Title": 313187,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Crowd barrier with acoustic blankets"
  },
  {
    "Title": 313188,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Shaft Capping Beam Scaffold"
  },
  {
    "Title": 313189,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Man-rider Platform for the shaft base slab construction"
  },
  {
-   "Title": 313190,
-   "Site": "DEPCS",
-   "Description": "Vortex tube installation"
- },
- {
-   "Title": 313191,
-   "Site": "DEPCS",
-   "Description": "CSO Capping Beam Bespoken Formwork (South East Section)"
- },
- {
-   "Title": 313192,
-   "Site": "DEPCS",
-   "Description": "Base slab drainage passive relief well sump"
- },
- {
-   "Title": 313193,
-   "Site": "DEPCS",
-   "Description": "Temporary Hut for Chippies"
- },
- {
-   "Title": 313194,
-   "Site": "DEPCS",
-   "Description": "Temporary Shed near CSO"
- },
- {
-   "Title": 313195,
-   "Site": "DEPCS",
-   "Description": "Support for Landing Feet of Shaft Base Slab Steel Cages"
- },
- {
-   "Title": 313196,
-   "Site": "DEPCS",
-   "Description": "Formwork for CSO Temporary Propping Beam"
- },
- {
-   "Title": 313197,
-   "Site": "DEPCS",
-   "Description": "Desanding Plant & Silos for Piles on CSO"
- },
- {
    "Title": 313198,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "L-block retaining wall for crane movement"
  },
  {
    "Title": 313199,
-   "Site": "DEPCS",
+   "Site": "Site 3",
    "Description": "Lifting Points for Propping Beam Cages"
- },
- {
-   "Title": 314001,
-   "Site": "EARPS",
-   "Description": "Site Working Platform, Drainage & Utility Protection"
- },
- {
-   "Title": 314002,
-   "Site": "EARPS",
-   "Description": "Protection slab"
- },
- {
-   "Title": 314003,
-   "Site": "EARPS",
-   "Description": "Site offices and welfare foundations"
- },
- {
-   "Title": 314004,
-   "Site": "EARPS",
-   "Description": "Site Hoarding + Access Gates Chilton"
- },
- {
-   "Title": 314005,
-   "Site": "EARPS",
-   "Description": "Create site access"
- },
- {
-   "Title": 314006,
-   "Site": "EARPS",
-   "Description": "Highway Works - Footpath diversions - (WI requirements and signage etc.)"
- },
- {
-   "Title": 314007,
-   "Site": "EARPS",
-   "Description": "Temporary Power foundations"
- },
- {
-   "Title": 314008,
-   "Site": "EARPS",
-   "Description": "Temporary Water Connection"
- },
- {
-   "Title": 314009,
-   "Site": "EARPS",
-   "Description": "Temporary Sewer Connection"
- },
- {
-   "Title": 314010,
-   "Site": "EARPS",
-   "Description": "Temporary Communication "
- },
- {
-   "Title": 314011,
-   "Site": "EARPS",
-   "Description": "Site Temporary Drainage and ducting"
- },
- {
-   "Title": 314012,
-   "Site": "EARPS",
-   "Description": "Auto track of vehicle movements"
- },
- {
-   "Title": 314013,
-   "Site": "EARPS",
-   "Description": "Site Lighting"
- },
- {
-   "Title": 314014,
-   "Site": "EARPS",
-   "Description": "Geomix for Dwalls"
- },
- {
-   "Title": 314015,
-   "Site": "EARPS",
-   "Description": "D-Walls guide walls"
- },
- {
-   "Title": 314016,
-   "Site": "EARPS",
-   "Description": "Protection of existing boreholes"
- },
- {
-   "Title": 314017,
-   "Site": "EARPS",
-   "Description": "D-Walls Silo Base"
- },
- {
-   "Title": 314018,
-   "Site": "EARPS",
-   "Description": "Pumping tests wells and dewatering wells"
- },
- {
-   "Title": 314019,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - viewing /Banksman platform"
- },
- {
-   "Title": 314020,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - Access incl gangways "
- },
- {
-   "Title": 314021,
-   "Site": "EARPS",
-   "Description": "Shaft - Edge protection (Combisafe)"
- },
- {
-   "Title": 314022,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - Ventilation fan"
- },
- {
-   "Title": 314023,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - pipelines and services"
- },
- {
-   "Title": 314024,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - muckaway storage area incl. ventilation and cover."
- },
- {
-   "Title": 314025,
-   "Site": "EARPS",
-   "Description": "Jigs for reinforcement cage prefabrication (civils works)"
- },
- {
-   "Title": 314026,
-   "Site": "EARPS",
-   "Description": "Spreader beams for reinforcement cage lifting (civils works)"
- },
- {
-   "Title": 314027,
-   "Site": "EARPS",
-   "Description": "Anchorages for concreting spider mast and sump pump arrangement (base slab construction)"
- },
- {
-   "Title": 314028,
-   "Site": "EARPS",
-   "Description": "Secondary lining shutter system including box outs"
- },
- {
-   "Title": 314029,
-   "Site": "EARPS",
-   "Description": "Backfill material for TBM transit - material, placement."
- },
- {
-   "Title": 314030,
-   "Site": "EARPS",
-   "Description": "Protection against shaft secondary lining (??)"
- },
- {
-   "Title": 314031,
-   "Site": "EARPS",
-   "Description": "Manhole for TBM inspection"
- },
- {
-   "Title": 314032,
-   "Site": "EARPS",
-   "Description": "Shutter system for vortex "
- },
- {
-   "Title": 314033,
-   "Site": "EARPS",
-   "Description": "Vortex generator - Shutter / falsework for vortex channel construction / junction with culvert all stages"
- },
- {
-   "Title": 314034,
-   "Site": "EARPS",
-   "Description": "Shutter / falsework for vortex maintenance platform"
- },
- {
-   "Title": 314035,
-   "Site": "EARPS",
-   "Description": "Vortex inner lining temporary support incl shape retainer and lifting req.mts"
- },
- {
-   "Title": 314036,
-   "Site": "EARPS",
-   "Description": "Vortex - Shaft Opening (including Crash deck within shaft) and all accesses."
- },
- {
-   "Title": 314037,
-   "Site": "EARPS",
-   "Description": "Shutters for baffle wall including box outs"
- },
- {
-   "Title": 314038,
-   "Site": "EARPS",
-   "Description": "Vortex incl lining temporary support at vortex soffit level"
- },
- {
-   "Title": 314039,
-   "Site": "EARPS",
-   "Description": "Shutters for mass concrete benching"
- },
- {
-   "Title": 314040,
-   "Site": "EARPS",
-   "Description": "Forming Portals (shutter for portals)"
- },
- {
-   "Title": 314041,
-   "Site": "EARPS",
-   "Description": "Croft Sewer Temporary Diversion"
- },
- {
-   "Title": 314042,
-   "Site": "EARPS",
-   "Description": "Croft Street Sewer Diversion - Excavation Support"
- },
- {
-   "Title": 314043,
-   "Site": "EARPS",
-   "Description": "Controls for ground water contamination treatment"
- },
- {
-   "Title": 314044,
-   "Site": "EARPS",
-   "Description": "Controls for contamination (excavated material and airborne)"
- },
- {
-   "Title": 314045,
-   "Site": "EARPS",
-   "Description": "Fixed bar screen removal and crash deck for anding removal in DWF"
- },
- {
-   "Title": 314046,
-   "Site": "EARPS",
-   "Description": "Highway Speed Cushions"
- },
- {
-   "Title": 314047,
-   "Site": "EARPS",
-   "Description": "Archaeology - shaft excavation support"
- },
- {
-   "Title": 314048,
-   "Site": "EARPS",
-   "Description": "Archaeology excavation support - Interception Chamber and connection culvert"
- },
- {
-   "Title": 314049,
-   "Site": "EARPS",
-   "Description": "Live Sewer Working (??)"
- },
- {
-   "Title": 314050,
-   "Site": "EARPS",
-   "Description": "Guide wall for secant piles"
- },
- {
-   "Title": 314051,
-   "Site": "EARPS",
-   "Description": "Secant piles around the interception chamber and connection culvert"
- },
- {
-   "Title": 314052,
-   "Site": "EARPS",
-   "Description": "slurry wall for secant piles / or grouting of secants (??)"
- },
- {
-   "Title": 314053,
-   "Site": "EARPS",
-   "Description": "Jet Grouting - existing assets assessment due to rig loading."
- },
- {
-   "Title": 314054,
-   "Site": "EARPS",
-   "Description": "CSO ground improvement (auger soil mixing, jet grouting)"
- },
- {
-   "Title": 314055,
-   "Site": "EARPS",
-   "Description": "CSO Temporary Works (Temporary propping and impact assessment on DWF and Penstock Chamber)"
- },
- {
-   "Title": 314056,
-   "Site": "EARPS",
-   "Description": "CSO temp flume - pipe in junction chamber "
- },
- {
-   "Title": 314057,
-   "Site": "EARPS",
-   "Description": "CSO temp flume - Support of Flume"
- },
- {
-   "Title": 314058,
-   "Site": "EARPS",
-   "Description": "Opening in dry flow chamber"
- },
- {
-   "Title": 314059,
-   "Site": "EARPS",
-   "Description": "Shutter for interception chamber walls"
- },
- {
-   "Title": 314060,
-   "Site": "EARPS",
-   "Description": "Falsework for interception chamber top slab"
- },
- {
-   "Title": 314061,
-   "Site": "EARPS",
-   "Description": "Shutter for penstock and valve chamber walls"
- },
- {
-   "Title": 314062,
-   "Site": "EARPS",
-   "Description": "Falsework for penstock and valve chamber top slab"
- },
- {
-   "Title": 314063,
-   "Site": "EARPS",
-   "Description": "Temporary props design for CSO and culvert"
- },
- {
-   "Title": 314064,
-   "Site": "EARPS",
-   "Description": "Shutter for culvert walls"
- },
- {
-   "Title": 314065,
-   "Site": "EARPS",
-   "Description": "Falsework for culvert top slab"
- },
- {
-   "Title": 314066,
-   "Site": "EARPS",
-   "Description": "Temporary blanking plates in interception chamber "
- },
- {
-   "Title": 314067,
-   "Site": "EARPS",
-   "Description": "ventilation column excavation support"
- },
- {
-   "Title": 314068,
-   "Site": "EARPS",
-   "Description": "excavation support for ventilation pipe"
- },
- {
-   "Title": 314069,
-   "Site": "EARPS",
-   "Description": "Shutter system for air treatment chamber walls"
- },
- {
-   "Title": 314070,
-   "Site": "EARPS",
-   "Description": "Falsework for air treatment chamber roof slab"
- },
- {
-   "Title": 314071,
-   "Site": "EARPS",
-   "Description": "Sheet piling for storm pump exercising system"
- },
- {
-   "Title": 314072,
-   "Site": "EARPS",
-   "Description": "Grouting between sheet piles (for valve chambers)"
- },
- {
-   "Title": 314073,
-   "Site": "EARPS",
-   "Description": "Shutter system for storm pump exercising chambers walls"
- },
- {
-   "Title": 314074,
-   "Site": "EARPS",
-   "Description": "Falsework for storm pumps exercising chambers roof slab"
- },
- {
-   "Title": 314075,
-   "Site": "EARPS",
-   "Description": "Site Flood protection. (through all phases of construction)"
- },
- {
-   "Title": 314076,
-   "Site": "EARPS",
-   "Description": "Pump exercise pipework"
- },
- {
-   "Title": 314077,
-   "Site": "EARPS",
-   "Description": "Reinforcement handling for base slab rebar"
- },
- {
-   "Title": 314078,
-   "Site": "EARPS",
-   "Description": "Reinforcement handling & stability for shaft lining rebar"
- },
- {
-   "Title": 314079,
-   "Site": "EARPS",
-   "Description": "Shaft base reinforcement support arrangements incl infill concrete reinforcing."
- },
- {
-   "Title": 314080,
-   "Site": "EARPS",
-   "Description": "Shaft Crossing Using GBGM inc GRP Reinf Chamber"
- },
- {
-   "Title": 314081,
-   "Site": "EARPS",
-   "Description": "Shaft Ventilation support brackets"
- },
- {
-   "Title": 314082,
-   "Site": "EARPS",
-   "Description": "Access bridge to Alimak"
- },
- {
-   "Title": 314083,
-   "Site": "EARPS",
-   "Description": "GI investigation rig working platform - advanced GI"
- },
- {
-   "Title": 314084,
-   "Site": "EARPS",
-   "Description": "Loading Assessment of rigs on TWUL Assets for implementation of CSO geotechnical works"
- },
- {
-   "Title": 314085,
-   "Site": "EARPS",
-   "Description": "Dry Weather Flow Intrusive Surveys - Excavation Support"
- },
- {
-   "Title": 314086,
-   "Site": "EARPS",
-   "Description": "Heras fencing panels with acoustic panels"
- },
- {
-   "Title": 314087,
-   "Site": "EARPS",
-   "Description": "Heras fencing panels without acoustic panels "
- },
- {
-   "Title": 314088,
-   "Site": "EARPS",
-   "Description": "Adopted hoarding assessment & strengthening"
- },
- {
-   "Title": 314089,
-   "Site": "EARPS",
-   "Description": "Unloading temporary welfare cabins - outrigger loading"
- },
- {
-   "Title": 314090,
-   "Site": "EARPS",
-   "Description": "Cage pitching Dolly"
- },
- {
-   "Title": 314091,
-   "Site": "EARPS",
-   "Description": "Heras fencing with debris netting"
- },
- {
-   "Title": 314092,
-   "Site": "EARPS",
-   "Description": "Borehole Decommissioning"
- },
- {
-   "Title": 314093,
-   "Site": "EARPS",
-   "Description": "Office Water Main Diversion"
- },
- {
-   "Title": 314094,
-   "Site": "EARPS",
-   "Description": "Earl Sewer Temporary Overpumping"
- },
- {
-   "Title": 314095,
-   "Site": "EARPS",
-   "Description": "Dwall Muckbin"
- },
- {
-   "Title": 314096,
-   "Site": "EARPS",
-   "Description": "Terraced Houses Sewer Diversion"
- },
- {
-   "Title": 314097,
-   "Site": "EARPS",
-   "Description": "Grout Bag for Earl Sewer"
- },
- {
-   "Title": 314098,
-   "Site": "EARPS",
-   "Description": "Watermain Removal"
- },
- {
-   "Title": 314099,
-   "Site": "EARPS",
-   "Description": "Crane check for office installation"
- },
- {
-   "Title": 314100,
-   "Site": "EARPS",
-   "Description": "UKPN Substation Slab Design Check & Stud Wall"
- },
- {
-   "Title": 314101,
-   "Site": "EARPS",
-   "Description": "Ground support for terrace sewer diversion"
- },
- {
-   "Title": 314102,
-   "Site": "EARPS",
-   "Description": "Overpumping Core Support"
- },
- {
-   "Title": 314103,
-   "Site": "EARPS",
-   "Description": "Rhino Barrier Check"
- },
- {
-   "Title": 314104,
-   "Site": "EARPS",
-   "Description": "Cattle Grid for Muckbin"
- },
- {
-   "Title": 314105,
-   "Site": "EARPS",
-   "Description": "Geomix Plant around Muckbin"
- },
- {
-   "Title": 314106,
-   "Site": "EARPS",
-   "Description": "Earl Sewer Plug"
- },
- {
-   "Title": 314107,
-   "Site": "EARPS",
-   "Description": "Coring of sewer to infill - impact assess existing sewer."
- },
- {
-   "Title": 314108,
-   "Site": "EARPS",
-   "Description": "Shaft capping beam - Excavation support / batters"
- },
- {
-   "Title": 314109,
-   "Site": "EARPS",
-   "Description": "Shaft capping beam - shutter"
- },
- {
-   "Title": 314110,
-   "Site": "EARPS",
-   "Description": "Shaft - Retaining Wall"
- },
- {
-   "Title": 314111,
-   "Site": "EARPS",
-   "Description": "Shaft excavation - dewatering and other services."
- },
- {
-   "Title": 314112,
-   "Site": "EARPS",
-   "Description": "Base slab - Relief well and sump box outs and cover"
- },
- {
-   "Title": 314113,
-   "Site": "EARPS",
-   "Description": "Base slab - vertical shutter for perimeter beam"
- },
- {
-   "Title": 314114,
-   "Site": "EARPS",
-   "Description": "Base slab - concrete line and hydraulic design"
- },
- {
-   "Title": 314115,
-   "Site": "EARPS",
-   "Description": "Base slab - concrete and finishing access."
- },
- {
-   "Title": 314116,
-   "Site": "EARPS",
-   "Description": "Base slab - pumping of the relief wells"
- },
- {
-   "Title": 314117,
-   "Site": "EARPS",
-   "Description": "Shaft lining - external shutter for above ground."
- },
- {
-   "Title": 314118,
-   "Site": "EARPS",
-   "Description": "Shaft lining - access to jump form all stages"
- },
- {
-   "Title": 314119,
-   "Site": "EARPS",
-   "Description": "Shaft lining - concrete delivery and hydraulics"
- },
- {
-   "Title": 314120,
-   "Site": "EARPS",
-   "Description": "Vortex generator - access for construction at all stages"
- },
- {
-   "Title": 314121,
-   "Site": "EARPS",
-   "Description": "Vortex generator - lining support, lifting assessmt and shape keeper."
- },
- {
-   "Title": 314122,
-   "Site": "EARPS",
-   "Description": "Vortex - shaft opening block handling."
- },
- {
-   "Title": 314123,
-   "Site": "EARPS",
-   "Description": "Vortex corbel and roof formwork/falsework incl access."
- },
- {
-   "Title": 314124,
-   "Site": "EARPS",
-   "Description": "Vortex - walkway precast units erection and finishing incl. access."
- },
- {
-   "Title": 314125,
-   "Site": "EARPS",
-   "Description": "Vortex - walkway parapet formwork/falsework incl access."
- },
- {
-   "Title": 314126,
-   "Site": "EARPS",
-   "Description": "Vortex - intermediate landing falsework/formwork incl. access."
- },
- {
-   "Title": 314127,
-   "Site": "EARPS",
-   "Description": "Shaft ventilation opening - boxout, temporary cover and access all stages."
- },
- {
-   "Title": 314128,
-   "Site": "EARPS",
-   "Description": "Shaft internals - internal wall slots - shutters, rebar lifting and stability"
- },
- {
-   "Title": 314129,
-   "Site": "EARPS",
-   "Description": "Shaft internals - baffle wall shutters, box outs, rebar lifting and stability."
- },
- {
-   "Title": 314130,
-   "Site": "EARPS",
-   "Description": "Shaft internals - benching infill walls, shutters, rebar lifting and stability."
- },
- {
-   "Title": 314131,
-   "Site": "EARPS",
-   "Description": "45 degree benching - portal forms, access."
- },
- {
-   "Title": 314132,
-   "Site": "EARPS",
-   "Description": "45 degress benching - top of vertical benching forms, access."
- },
- {
-   "Title": 314133,
-   "Site": "EARPS",
-   "Description": "45 degree benching & ramp - low level benching forms."
- },
- {
-   "Title": 314134,
-   "Site": "EARPS",
-   "Description": "Vortex - installation of hanging pipe section, lifting, support, access, formwork/falsework."
- },
- {
-   "Title": 314135,
-   "Site": "EARPS",
-   "Description": "Tunnel transit - water source requirements to flood shaft incl removal pumping & disposal."
- },
- {
-   "Title": 314136,
-   "Site": "EARPS",
-   "Description": "Tunnel transit - Removal of fill incl segment removal, lifting, internal access as required."
- },
- {
-   "Title": 314137,
-   "Site": "EARPS",
-   "Description": "Tunnel transit - crash deck segregation from tunnel operations."
- },
- {
-   "Title": 314138,
-   "Site": "EARPS",
-   "Description": "Tunnel - secondary lining shutter delivery"
- },
- {
-   "Title": 314139,
-   "Site": "EARPS",
-   "Description": "Tunnel - secondary lining concrete delivery and hydraulics"
- },
- {
-   "Title": 314140,
-   "Site": "EARPS",
-   "Description": "Tunnel - secondary lining services and access"
- },
- {
-   "Title": 314141,
-   "Site": "EARPS",
-   "Description": "Shaft bottom protective crash deck."
- },
- {
-   "Title": 314142,
-   "Site": "EARPS",
-   "Description": "Roof slab - beam erection crane assessments & outrigger design"
- },
- {
-   "Title": 314143,
-   "Site": "EARPS",
-   "Description": "Roof slab - beam casting yard, forms, rebars checks and logistics."
- },
- {
-   "Title": 314144,
-   "Site": "EARPS",
-   "Description": "roof slab - erection edge protections"
- },
- {
-   "Title": 314145,
-   "Site": "EARPS",
-   "Description": "Roof slab - insitu topping."
- },
- {
-   "Title": 314146,
-   "Site": "EARPS",
-   "Description": "CSO excavation - pumping, access and services."
- },
- {
-   "Title": 314147,
-   "Site": "EARPS",
-   "Description": "Main sewer diversion - to suit revised perm work design"
- },
- {
-   "Title": 314148,
-   "Site": "EARPS",
-   "Description": "Roof slab - beams and columns, wall panels, staircase, parapet insitu concrete including all accesses."
- },
- {
-   "Title": 314149,
-   "Site": "EARPS",
-   "Description": "Vent house - Insitu concrete shutters, rebar lifting and stability checks."
- },
- {
-   "Title": 314150,
-   "Site": "EARPS",
-   "Description": "Vent house - crash deck/cover for opening. "
- },
- {
-   "Title": 314151,
-   "Site": "EARPS",
-   "Description": "Vent house - access to all stages of construction"
- },
- {
-   "Title": 314152,
-   "Site": "EARPS",
-   "Description": "MEICA installations "
- },
- {
-   "Title": 314153,
-   "Site": "EARPS",
-   "Description": "Jet Grouting - existing assets assessment due to grouting."
- },
- {
-   "Title": 314154,
-   "Site": "EARPS",
-   "Description": "CSO piling - impact on exist assets"
- },
- {
-   "Title": 314155,
-   "Site": "EARPS",
-   "Description": "CSO geotechnical works - piling platform"
- },
- {
-   "Title": 314156,
-   "Site": "EARPS",
-   "Description": "CSO piling exist assets incl temporary propping"
- },
- {
-   "Title": 314157,
-   "Site": "EARPS",
-   "Description": "CSO excavation - temporary propping"
- },
- {
-   "Title": 314158,
-   "Site": "EARPS",
-   "Description": "CSO excavation - ventilation, storage, treatment"
- },
- {
-   "Title": 314159,
-   "Site": "EARPS",
-   "Description": "CSO base slab - Relief well accommodation and pumping arrangements"
- },
- {
-   "Title": 314160,
-   "Site": "EARPS",
-   "Description": "CSO base slab - rebar lifting and stability checks."
- },
- {
-   "Title": 314161,
-   "Site": "EARPS",
-   "Description": "CSO capping beam - excavation support/batters"
- },
- {
-   "Title": 314162,
-   "Site": "EARPS",
-   "Description": "CSO capping beam - formwork"
- },
- {
-   "Title": 314163,
-   "Site": "EARPS",
-   "Description": "CSO capping beam - rebar lifting and stability"
- },
- {
-   "Title": 314164,
-   "Site": "EARPS",
-   "Description": "CSO capping beam - edge protection"
- },
- {
-   "Title": 314165,
-   "Site": "EARPS",
-   "Description": "CSO temp flume - installation reqmts"
- },
- {
-   "Title": 314166,
-   "Site": "EARPS",
-   "Description": "CSO temp flume - temporary tiesins including shutters"
- },
- {
-   "Title": 314167,
-   "Site": "EARPS",
-   "Description": "CSO chamber - increase size of DFC opening exist asset assessment"
- },
- {
-   "Title": 314168,
-   "Site": "EARPS",
-   "Description": "CSO chamber - increase size of DFC opening access and handling reqmts"
- },
- {
-   "Title": 314169,
-   "Site": "EARPS",
-   "Description": "CSO chamber - increase size of DFC opening lintel installation and access reqmts."
- },
- {
-   "Title": 314170,
-   "Site": "EARPS",
-   "Description": "CSO chamber - existing chamber walkway relocation incl bridging pieces reqmts."
- },
- {
-   "Title": 314171,
-   "Site": "EARPS",
-   "Description": "CSO chamber - sequence design for lintel construction including impact on the chamber."
- },
- {
-   "Title": 314172,
-   "Site": "EARPS",
-   "Description": "CSO chamber - permanent walkway falsework/formwork/access"
- },
- {
-   "Title": 314173,
-   "Site": "EARPS",
-   "Description": "CSO chamber - benching at flume invert access and formwork."
- },
- {
-   "Title": 314174,
-   "Site": "EARPS",
-   "Description": "CSO chamber - lining & internal walls formwork"
- },
- {
-   "Title": 314175,
-   "Site": "EARPS",
-   "Description": "CSO chamber - lining & internal walls rebar lifting and stability"
- },
- {
-   "Title": 314176,
-   "Site": "EARPS",
-   "Description": "CSO chamber - lining & internal walls access"
- },
- {
-   "Title": 314177,
-   "Site": "EARPS",
-   "Description": "CSO chamber - penstoke frame supports"
- },
- {
-   "Title": 314178,
-   "Site": "EARPS",
-   "Description": "CSO chamber - benching formwork"
- },
- {
-   "Title": 314179,
-   "Site": "EARPS",
-   "Description": "CSO chamber - benching rebar lifting & stability"
- },
- {
-   "Title": 314180,
-   "Site": "EARPS",
-   "Description": "CSO roof - insitu falsework / formwork"
- },
- {
-   "Title": 314181,
-   "Site": "EARPS",
-   "Description": "CSO roof - rebar lifting and stability"
- },
- {
-   "Title": 314182,
-   "Site": "EARPS",
-   "Description": "CSO roof precast - beam lifting study and impact on exist assets."
- },
- {
-   "Title": 314183,
-   "Site": "EARPS",
-   "Description": "CSO roof precast - access for erection & follow on works"
- },
- {
-   "Title": 314184,
-   "Site": "EARPS",
-   "Description": "CSO roof precast - insitu stitch formwork 7 finishes formwork."
- },
- {
-   "Title": 314185,
-   "Site": "EARPS",
-   "Description": "CSO culvert - soffit falsework / formwork"
- },
- {
-   "Title": 314186,
-   "Site": "EARPS",
-   "Description": "CSO culvert - rebar lifting and stability"
- },
- {
-   "Title": 314187,
-   "Site": "EARPS",
-   "Description": "ATU - Excavation support"
- },
- {
-   "Title": 314188,
-   "Site": "EARPS",
-   "Description": "ATU - Wall formwork"
- },
- {
-   "Title": 314189,
-   "Site": "EARPS",
-   "Description": "ATU - rebar lifting and stability"
- },
- {
-   "Title": 314190,
-   "Site": "EARPS",
-   "Description": "ATU - roof falsework / formwork"
- },
- {
-   "Title": 314191,
-   "Site": "EARPS",
-   "Description": "Pump station modification for MEICA install."
- },
- {
-   "Title": 314192,
-   "Site": "EARPS",
-   "Description": "Pump station  larger doors study and impact incl all measures req'd."
- },
- {
-   "Title": 314193,
-   "Site": "EARPS",
-   "Description": "Dwall Trench Stability Check"
- },
- {
-   "Title": 314194,
-   "Site": "EARPS",
-   "Description": "Temporary Modular Hoarding on Croft Street"
- },
- {
-   "Title": 314195,
-   "Site": "EARPS",
-   "Description": "Lifting anchor for trimmed Dwall blocks"
- },
- {
-   "Title": 314196,
-   "Site": "EARPS",
-   "Description": "Trench box for P150 foundations"
- },
- {
-   "Title": 314197,
-   "Site": "EARPS",
-   "Description": "Silbuster load check"
- },
- {
-   "Title": 314198,
-   "Site": "EARPS",
-   "Description": "Crane check for PSD Unit Slab Installation"
- },
- {
-   "Title": 314199,
-   "Site": "EARPS",
-   "Description": "Access Gate - Yeoman Street"
- },
- {
-   "Title": 314200,
-   "Site": "EARPS",
-   "Description": "Dry Flow Chamber assessment of the need for internal propping identified by the permanent works designer."
- },
- {
-   "Title": 314201,
-   "Site": "EARPS",
-   "Description": "Temporary propping of existing Pumping Station while enlarging the door leading to electrical rooms"
- },
- {
-   "Title": 314203,
-   "Site": "EARPS",
-   "Description": "CSO Hydraulic Stability check and Dewatering contingency"
- },
- {
-   "Title": 314204,
-   "Site": "EARPS",
-   "Description": "Shaft Base Slab - Storage Platform"
- },
- {
-   "Title": 314205,
-   "Site": "EARPS",
-   "Description": "CSO Excavation - Temporary Shotcrete"
- },
- {
-   "Title": 314206,
-   "Site": "EARPS",
-   "Description": " Water Main Diversion"
- },
- {
-   "Title": 315001,
-   "Site": "KEMPF",
-   "Description": "Cofferdam (including working platforms, flood defense, temporary moorings, ship impact protection systems, dwall waste area, site drainage...)"
- },
- {
-   "Title": 315002,
-   "Site": "KEMPF",
-   "Description": "Temporary power supply. Substation base design"
- },
- {
-   "Title": 315003,
-   "Site": "KEMPF",
-   "Description": "Temporary water supply"
- },
- {
-   "Title": 315004,
-   "Site": "KEMPF",
-   "Description": "Hoarding (with removable access to park areas open on week ends)"
- },
- {
-   "Title": 315005,
-   "Site": "KEMPF",
-   "Description": "Wheel washing bay"
- },
- {
-   "Title": 315006,
-   "Site": "KEMPF",
-   "Description": "Access gate from Glamis road included elsewhere"
- },
- {
-   "Title": 315007,
-   "Site": "KEMPF",
-   "Description": "Site lighting  (assume floods mounted on hoarding posts review needed"
- },
- {
-   "Title": 315008,
-   "Site": "KEMPF",
-   "Description": "Modifications on \"the Highway\": stop line, signal head, cycle stop line, and temporary diversions"
- },
- {
-   "Title": 315009,
-   "Site": "KEMPF",
-   "Description": "Enabling Works - TW68 - Drainage connection to sewer"
- },
- {
-   "Title": 315010,
-   "Site": "KEMPF",
-   "Description": "Welfare, office connection to sewer"
- },
- {
-   "Title": 315011,
-   "Site": "KEMPF",
-   "Description": "Propping for Dwall new CSO"
- },
- {
-   "Title": 315012,
-   "Site": "KEMPF",
-   "Description": "Screening/Enclosing of static Dwalls equipment"
- },
- {
-   "Title": 315013,
-   "Site": "KEMPF",
-   "Description": "Shaft Edge protection"
- },
- {
-   "Title": 315014,
-   "Site": "KEMPF",
-   "Description": "TBM shaft crossing Backfill material (CBGM, GRP)"
- },
- {
-   "Title": 315015,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW60 - Shutters for chambers"
- },
- {
-   "Title": 315016,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW59 - Proppings for chambers/Diaphram walls (Top props)"
- },
- {
-   "Title": 315017,
-   "Site": "KEMPF",
-   "Description": "350T crawler crane working platform - (impact on Dwall, River wall, Pennington Sewer)"
- },
- {
-   "Title": 315018,
-   "Site": "KEMPF",
-   "Description": "Spreader beams for reinforcement cage lifting for Dwall"
- },
- {
-   "Title": 315019,
-   "Site": "KEMPF",
-   "Description": "Shaft and secondary lining access "
- },
- {
-   "Title": 315020,
-   "Site": "KEMPF",
-   "Description": "Shutter / falsework for vortex channel construction / junction with culvert - (Vortex Tie in shutters)"
- },
- {
-   "Title": 315021,
-   "Site": "KEMPF",
-   "Description": "Shutter / falsework for vortex maintenance platform / walkway"
- },
- {
-   "Title": 315022,
-   "Site": "KEMPF",
-   "Description": "Shutters for mass concrete benching"
- },
- {
-   "Title": 315023,
-   "Site": "KEMPF",
-   "Description": "Secondary lining shutter system: jumpform"
- },
- {
-   "Title": 315024,
-   "Site": "KEMPF",
-   "Description": "Vortex inner lining temporary support"
- },
- {
-   "Title": 315025,
-   "Site": "KEMPF",
-   "Description": "Shutter system for vortex "
- },
- {
-   "Title": 315026,
-   "Site": "KEMPF",
-   "Description": "Soffits for vortex installation"
- },
- {
-   "Title": 315027,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW70 - Temporary dam for connection of CSO and chamber Bulkhead"
- },
- {
-   "Title": 315028,
-   "Site": "KEMPF",
-   "Description": "Access Road - TW50 - Site roads with fencing and pedestrian gate at Thames Pathway"
- },
- {
-   "Title": 315029,
-   "Site": "KEMPF",
-   "Description": "Enabling Works - TW71 - Welfare, office foundations"
- },
- {
-   "Title": 315030,
-   "Site": "KEMPF",
-   "Description": "Jigs for reinforcement cage prefabrication"
- },
- {
-   "Title": 315031,
-   "Site": "KEMPF",
-   "Description": "Bentonite tanks foundation"
- },
- {
-   "Title": 315032,
-   "Site": "KEMPF",
-   "Description": "Workshops foundations"
- },
- {
-   "Title": 315033,
-   "Site": "KEMPF",
-   "Description": "D-Walls guide walls"
- },
- {
-   "Title": 315034,
-   "Site": "KEMPF",
-   "Description": "Shaft ventilation  through phases"
- },
- {
-   "Title": 315035,
-   "Site": "KEMPF",
-   "Description": "Shaft excavation - muckaway skip portal / hydraukci skip"
- },
- {
-   "Title": 315036,
-   "Site": "KEMPF",
-   "Description": "Anchorages for concreting spider mast"
- },
- {
-   "Title": 315037,
-   "Site": "KEMPF",
-   "Description": "Guide walls install and demolition for Dwall (Inc. BR check on sheet piles)"
- },
- {
-   "Title": 315038,
-   "Site": "KEMPF",
-   "Description": "Protection of boreholes "
- },
- {
-   "Title": 315039,
-   "Site": "KEMPF",
-   "Description": "Pumping tests wells"
- },
- {
-   "Title": 315040,
-   "Site": "KEMPF",
-   "Description": "Screening/Enclosing of all static plant"
- },
- {
-   "Title": 315041,
-   "Site": "KEMPF",
-   "Description": "Archeological excavations"
- },
- {
-   "Title": 315042,
-   "Site": "KEMPF",
-   "Description": "Double isolation system for tunnel during construction"
- },
- {
-   "Title": 315043,
-   "Site": "KEMPF",
-   "Description": "Balcony screening to Free Trade Wharf"
- },
- {
-   "Title": 315044,
-   "Site": "KEMPF",
-   "Description": "Acoustic/Ball stop fence, Pier Head School"
- },
- {
-   "Title": 315045,
-   "Site": "KEMPF",
-   "Description": "Acoustic treatment main hall, Pier Head School"
- },
- {
-   "Title": 315046,
-   "Site": "KEMPF",
-   "Description": "Supplementary Ventilation, Pier Head School"
- },
- {
-   "Title": 315047,
-   "Site": "KEMPF",
-   "Description": "Reinforcement handling for shaft lining rebar"
- },
- {
-   "Title": 315048,
-   "Site": "KEMPF",
-   "Description": "Reinforcement Lifting and handling methodology other"
- },
- {
-   "Title": 315049,
-   "Site": "KEMPF",
-   "Description": "Shaft base reinforcement support arrangements for lifting"
- },
- {
-   "Title": 315050,
-   "Site": "KEMPF",
-   "Description": "Shaft Crossing Using GBGM inc GRP Reinf Chamber"
- },
- {
-   "Title": 315051,
-   "Site": "KEMPF",
-   "Description": "Ventilation in shaft during excavation with forced air in"
- },
- {
-   "Title": 315052,
-   "Site": "KEMPF",
-   "Description": "Access bridge to Alimak"
- },
- {
-   "Title": 315053,
-   "Site": "KEMPF",
-   "Description": "Base and steel column design for dust meter,Pier Head School"
- },
- {
-   "Title": 315054,
-   "Site": "KEMPF",
-   "Description": "Tie Rod installation - TW51 - Access walkways to install upper level tie rods and external fittings"
- },
- {
-   "Title": 315055,
-   "Site": "KEMPF",
-   "Description": "Coffeedam Works - TW52 - 2 No. Identical Jack up slung piling gates (for steel sheet pile wall installed using a Giken supercrush 45T all-up)"
- },
- {
-   "Title": 315056,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Works - TW53 - Access to JUB and Barges from river side of cofferdam (re-locatable for barge movements) - 2 no. 10m pedestrian walkways from jetty to piles and between cofferdam plus walkway along piles"
- },
- {
-   "Title": 315057,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Works - TW54 - Barge stability check"
- },
- {
-   "Title": 315058,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Works - TW55 - JUB Barge stability check - 2 no."
- },
- {
-   "Title": 315059,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Works - TW56 - Cell closure walls to allow tie rod installation - 10m wide sheet pile wall into gravels only with vibro stabilised by 1T bags. Sacrificial gate to restrain piles"
- },
- {
-   "Title": 315060,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW57 - Crane Platform Design"
- },
- {
-   "Title": 315061,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW58 - Installation of CSO precast/lifting beam"
- },
- {
-   "Title": 315062,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW61 - Spreader beam to lift shutter and steel cages"
- },
- {
-   "Title": 315063,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW62 - Secondary lining access into chambers"
- },
- {
-   "Title": 315064,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW63 - CSO sheet pile (for slidiing/overturning)"
- },
- {
-   "Title": 315065,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW64 - Crane platform for servicing concrete works"
- },
- {
-   "Title": 315066,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Works - TW65 - Scour Protection lifting equipment"
- },
- {
-   "Title": 315067,
-   "Site": "KEMPF",
-   "Description": "Water bar between CSO culvert and Dwall to perm outfall (grouting plug)"
- },
- {
-   "Title": 315068,
-   "Site": "KEMPF",
-   "Description": "Chamber Construction - TW67 - Removal of existing CSO culvert flap valve"
- },
- {
-   "Title": 315069,
-   "Site": "KEMPF",
-   "Description": "Spreading Platform for Drilling Rigs"
- },
- {
-   "Title": 315070,
-   "Site": "KEMPF",
-   "Description": "Heras fencing standard design (GI use)"
- },
- {
-   "Title": 315071,
-   "Site": "KEMPF",
-   "Description": "Heras fencing with acoustic panels (GI use)"
- },
- {
-   "Title": 315072,
-   "Site": "KEMPF",
-   "Description": "Bulkhead at outlet of CSO diversion"
- },
- {
-   "Title": 315073,
-   "Site": "KEMPF",
-   "Description": "Riverwall 331, 332, 407 assessments for imposed loading including load testing."
- },
- {
-   "Title": 315074,
-   "Site": "KEMPF",
-   "Description": "Riverwall 331 assessment for impact of excavation to front toe of wall"
- },
- {
-   "Title": 315075,
-   "Site": "KEMPF",
-   "Description": "Bells Wharf CSO - impact assessment due to hoarding loading reference 315004"
- },
- {
-   "Title": 315076,
-   "Site": "KEMPF",
-   "Description": "Jack up barge stability during close working to CSO outlet"
- },
- {
-   "Title": 315077,
-   "Site": "KEMPF",
-   "Description": "Assessment of the effect on the CSO due to excavations to install culvert diversion structure.\nInforms PDA"
- },
- {
-   "Title": 315078,
-   "Site": "KEMPF",
-   "Description": "Crane outrigger spreader mat - delivery of steel for TAPS works"
- },
- {
-   "Title": 315079,
-   "Site": "KEMPF",
-   "Description": "Riverwall stability mitigation measures (Ref 315074)"
- },
- {
-   "Title": 315080,
-   "Site": "KEMPF",
-   "Description": "Piling gate for culvert support tubular piles"
- },
- {
-   "Title": 315081,
-   "Site": "KEMPF",
-   "Description": "Support of precast culvert from pile sleeve"
- },
- {
-   "Title": 315082,
-   "Site": "KEMPF",
-   "Description": "Riverwall stability for foreshore clearance crane loads"
- },
- {
-   "Title": 315083,
-   "Site": "KEMPF",
-   "Description": "Crane mat for 200te landside crawler crane"
- },
- {
-   "Title": 315084,
-   "Site": "KEMPF",
-   "Description": "Haki access stairs"
- },
- {
-   "Title": 315085,
-   "Site": "KEMPF",
-   "Description": "NESR diversion weir "
- },
- {
-   "Title": 315086,
-   "Site": "KEMPF",
-   "Description": "Riverwall stability during excavation of ColeStairs sewer outlet"
- },
- {
-   "Title": 315087,
-   "Site": "KEMPF",
-   "Description": "Strengthening works to RW407"
- },
- {
-   "Title": 315088,
-   "Site": "KEMPF",
-   "Description": "Free Trade Wharf stability and strengthening requirements"
- },
- {
-   "Title": 315089,
-   "Site": "KEMPF",
-   "Description": "Colestairs CSO abandonment"
- },
- {
-   "Title": 315090,
-   "Site": "KEMPF",
-   "Description": "Bell Wharf CSO abandonment"
- },
- {
-   "Title": 315091,
-   "Site": "KEMPF",
-   "Description": "Swan neck connection on the Browema Jack up barge "
- },
- {
-   "Title": 315092,
-   "Site": "KEMPF",
-   "Description": "Turnstile foundation"
- },
- {
-   "Title": 315093,
-   "Site": "KEMPF",
-   "Description": "Entrance barrier"
- },
- {
-   "Title": 315094,
-   "Site": "KEMPF",
-   "Description": "Bentonite Base Slab - include river wall impact"
- },
- {
-   "Title": 315095,
-   "Site": "KEMPF",
-   "Description": "130T mobile crane loadings"
- },
- {
-   "Title": 315096,
-   "Site": "KEMPF",
-   "Description": "200t Mobile Crane Access for KEMPF"
- },
- {
-   "Title": 315097,
-   "Site": "KEMPF",
-   "Description": "Access Scaffold for construction of brickwork in playground"
- },
- {
-   "Title": 315098,
-   "Site": "KEMPF",
-   "Description": "Culvert Piling Works - Including Jack up assessment, pile gate"
- },
- {
-   "Title": 315099,
-   "Site": "KEMPF",
-   "Description": "Alternative piling gate design "
- },
- {
-   "Title": 315100,
-   "Site": "KEMPF",
-   "Description": "Free Trade Wharf Scaffold"
- },
- {
-   "Title": 315101,
-   "Site": "KEMPF",
-   "Description": "Edge protection playground capping beam"
- },
- {
-   "Title": 315102,
-   "Site": "KEMPF",
-   "Description": "Ladder access system over NESR"
- },
- {
-   "Title": 315103,
-   "Site": "KEMPF",
-   "Description": "Up and over access unit"
- },
- {
-   "Title": 315104,
-   "Site": "KEMPF",
-   "Description": "Access above CSO for river wall"
- },
- {
-   "Title": 315105,
-   "Site": "KEMPF",
-   "Description": "Riverwall seal formwork"
- },
- {
-   "Title": 315106,
-   "Site": "KEMPF",
-   "Description": "Boxer crane barge stability check"
- },
- {
-   "Title": 315107,
-   "Site": "KEMPF",
-   "Description": "Single sided formwork for Portland stone concrete backfill"
- },
- {
-   "Title": 315108,
-   "Site": "KEMPF",
-   "Description": "Access Road  Realignment Adjacent Cracked  Pennington Sewer             "
- },
- {
-   "Title": 315109,
-   "Site": "KEMPF",
-   "Description": "Flap valve to NESR cofferdam"
- },
- {
-   "Title": 315110,
-   "Site": "KEMPF",
-   "Description": "Formwork for sheetpile tie-in pour at riverwall interface"
- },
- {
-   "Title": 315111,
-   "Site": "KEMPF",
-   "Description": "Haki stair access scaffold in NESR"
- },
- {
-   "Title": 315112,
-   "Site": "KEMPF",
-   "Description": "New sheet pile deviation around NESR "
- },
- {
-   "Title": 315113,
-   "Site": "KEMPF",
-   "Description": "Cole Stairs CSO sewer section recovery works"
- },
- {
-   "Title": 315114,
-   "Site": "KEMPF",
-   "Description": "Penington Sewer pressure bulb influence assessment on cracked section"
- },
- {
-   "Title": 315115,
-   "Site": "KEMPF",
-   "Description": "Removable gate post for site access off Glamis Road"
- },
- {
-   "Title": 315116,
-   "Site": "KEMPF",
-   "Description": "Support bracket for total station "
- },
- {
-   "Title": 315117,
-   "Site": "KEMPF",
-   "Description": "Muck bin for cofferdam installation"
- },
- {
-   "Title": 315118,
-   "Site": "KEMPF",
-   "Description": "Plant and pedesrian access route over river wall"
- },
- {
-   "Title": 315119,
-   "Site": "KEMPF",
-   "Description": "Sheetpile CSO channel through cofferdam"
- },
- {
-   "Title": 315120,
-   "Site": "KEMPF",
-   "Description": "Siltration Pumping system"
- },
- {
-   "Title": 315121,
-   "Site": "KEMPF",
-   "Description": "Excavation and impact assessment above NESR"
- },
- {
-   "Title": 315122,
-   "Site": "KEMPF",
-   "Description": "Pedestrian access fencing"
- },
- {
-   "Title": 315123,
-   "Site": "KEMPF",
-   "Description": "Tube and fitting handrail to sheetpile line"
- },
- {
-   "Title": 315124,
-   "Site": "KEMPF",
-   "Description": "Propping for sheetpiles designed in 315112"
- },
- {
-   "Title": 315125,
-   "Site": "KEMPF",
-   "Description": "Reinforced concrete slab over NESR"
- },
- {
-   "Title": 315126,
-   "Site": "KEMPF",
-   "Description": "Reinforced concrete slab for bentonite plant for D-wall"
- },
- {
-   "Title": 315127,
-   "Site": "KEMPF",
-   "Description": "Reinforced concrete slab for access road"
- },
- {
-   "Title": 315128,
-   "Site": "KEMPF",
-   "Description": "Termp support for tie-rod installation in Cell D (Location closest to river wall)"
- },
- {
-   "Title": 315129,
-   "Site": "KEMPF",
-   "Description": "6 - 5m Lamp post installation"
- },
- {
-   "Title": 315130,
-   "Site": "KEMPF",
-   "Description": "Tennis courts Chain-link fencing (TBC Permanent)"
- },
- {
-   "Title": 315131,
-   "Site": "KEMPF",
-   "Description": "NESR Sheetpile Installation Frame"
- },
- {
-   "Title": 315132,
-   "Site": "KEMPF",
-   "Description": "Landside Surface Drainage for Soil Mixing and Beyond"
- },
- {
-   "Title": 315133,
-   "Site": "KEMPF",
-   "Description": "Muck bin Design"
- },
- {
-   "Title": 315134,
-   "Site": "KEMPF",
-   "Description": "RCC Cofferdam Working Platform"
- },
- {
-   "Title": 315135,
-   "Site": "KEMPF",
-   "Description": "Lifting of rebar cage and CHS tubes for cofferdam remedial works"
- },
- {
-   "Title": 315136,
-   "Site": "KEMPF",
-   "Description": "Immediate Scour Protection - RW 407"
- },
- {
-   "Title": 315137,
-   "Site": "KEMPF",
-   "Description": "RW 407 Movement Mitigation - short term"
- },
- {
-   "Title": 315138,
-   "Site": "KEMPF",
-   "Description": "Substation over NESR"
- },
- {
-   "Title": 315139,
-   "Site": "KEMPF",
-   "Description": "Piling Platform for CFA Rig"
- },
- {
-   "Title": 315141,
-   "Site": "KEMPF",
-   "Description": "Spider Crane Set Up on Top of NESR"
- },
- {
-   "Title": 315142,
-   "Site": "KEMPF",
-   "Description": "Working platform for Soil improvements ahead of main Dwall platform"
- },
- {
-   "Title": 315143,
-   "Site": "KEMPF",
-   "Description": "Shaft capping beam - Formwork inc. access"
- },
- {
-   "Title": 315144,
-   "Site": "KEMPF",
-   "Description": "Shaft capping beam - Lift arrangement for top removal"
- },
- {
-   "Title": 315145,
-   "Site": "KEMPF",
-   "Description": "Shaft capping beam - Excavation support / batters"
- },
- {
-   "Title": 315146,
-   "Site": "KEMPF",
-   "Description": "Shaft capping beam - Lifting of preassembled rebar"
- },
- {
-   "Title": 315147,
-   "Site": "KEMPF",
-   "Description": "Shaft flood defence inc. water retention"
- },
- {
-   "Title": 315148,
-   "Site": "KEMPF",
-   "Description": "Crane platform check in MUGA (Check Pennington sewer)"
- },
- {
-   "Title": 315149,
-   "Site": "KEMPF",
-   "Description": "Shaft Excavation - Pumping arrangement"
- },
- {
-   "Title": 315150,
-   "Site": "KEMPF",
-   "Description": "Shaft Excavation - Viewing platform"
- },
- {
-   "Title": 315151,
-   "Site": "KEMPF",
-   "Description": "Shaft Excavation - Services"
- },
- {
-   "Title": 315152,
-   "Site": "KEMPF",
-   "Description": "CSO culvert - preassembled rebar lift"
- },
- {
-   "Title": 315153,
-   "Site": "KEMPF",
-   "Description": "CSO culvert - access (HAKI or other)"
- },
- {
-   "Title": 315154,
-   "Site": "KEMPF",
-   "Description": "Capping Beam CSO - formwork and access"
- },
- {
-   "Title": 315155,
-   "Site": "KEMPF",
-   "Description": "Capping Beam CSO - exc. Support / batters"
- },
- {
-   "Title": 315156,
-   "Site": "KEMPF",
-   "Description": "Capping Beam CSO - Lift arrangement for Dwall Demolition"
- },
- {
-   "Title": 315157,
-   "Site": "KEMPF",
-   "Description": "Capping Beam CSO - Edge protection"
- },
- {
-   "Title": 315158,
-   "Site": "KEMPF",
-   "Description": "Capping Beam CSO - Rebar lifting check"
- },
- {
-   "Title": 315159,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - formwork and access"
- },
- {
-   "Title": 315160,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - exc. Support / batters"
- },
- {
-   "Title": 315161,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - Lift arrangement for Dwall Demolition"
- },
- {
-   "Title": 315162,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - Edge protection"
- },
- {
-   "Title": 315163,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - Rebar lifting check"
- },
- {
-   "Title": 315164,
-   "Site": "KEMPF",
-   "Description": "Capping Beam East RW - Dewatering"
- },
- {
-   "Title": 315165,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West - formwork and access"
- },
- {
-   "Title": 315166,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West -Dewatering"
- },
- {
-   "Title": 315167,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West - exc. Support / batters"
- },
- {
-   "Title": 315168,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West - Lift arrangement for Dwall Demolition"
- },
- {
-   "Title": 315169,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West - Edge protection"
- },
- {
-   "Title": 315170,
-   "Site": "KEMPF",
-   "Description": "Capping Beam West - Rebar lifting check"
- },
- {
-   "Title": 315171,
-   "Site": "KEMPF",
-   "Description": "Excavation of chambers to 97.6 - Pumping inc. pipe arrangements"
- },
- {
-   "Title": 315172,
-   "Site": "KEMPF",
-   "Description": "Excavation of chambers to 97.6 - Access into hole"
- },
- {
-   "Title": 315173,
-   "Site": "KEMPF",
-   "Description": "Excavation of chambers to 97.6 - Services"
- },
- {
-   "Title": 315174,
-   "Site": "KEMPF",
-   "Description": "Excavation of chambers to 97.6 - Ventilation"
- },
- {
-   "Title": 315175,
-   "Site": "KEMPF",
-   "Description": "Excavation of chambers to 97.6 - Associated - modification of muck bin"
- },
- {
-   "Title": 315176,
-   "Site": "KEMPF",
-   "Description": "Shaft base slab - Relief well and sump inc. box out detail and cover, and pumping arrangement"
- },
- {
-   "Title": 315177,
-   "Site": "KEMPF",
-   "Description": "Shaft base slab - Access for concrete of base slab"
- },
- {
-   "Title": 315178,
-   "Site": "KEMPF",
-   "Description": "Shaft base slab - Vertical shutter for permiter beam"
- },
- {
-   "Title": 315179,
-   "Site": "KEMPF",
-   "Description": "Shaft base slab - Concrete line support and hydraulic design"
- },
- {
-   "Title": 315180,
-   "Site": "KEMPF",
-   "Description": "Shaft base slab - infill rebar support"
- },
- {
-   "Title": 315181,
-   "Site": "KEMPF",
-   "Description": "Portals and secondary lining to 12m - Access for rebar fixing"
- },
- {
-   "Title": 315182,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - water source for flooding pumping"
- },
- {
-   "Title": 315183,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - Pumping for water disposal"
- },
- {
-   "Title": 315184,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - Removal of backfill - assessment of ring removals as loaded"
- },
- {
-   "Title": 315185,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - ring removal sequence"
- },
- {
-   "Title": 315186,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - ring removal lifting fittings"
- },
- {
-   "Title": 315187,
-   "Site": "KEMPF",
-   "Description": "TBM transition backfill - tunnel internal access (bird cage or similar)"
- },
- {
-   "Title": 315188,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Formwork design inc. integral access, lining and vortex"
- },
- {
-   "Title": 315189,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Box out designs"
- },
- {
-   "Title": 315190,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Access to jumpform"
- },
- {
-   "Title": 315191,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Concrete line support and hydraulics"
- },
- {
-   "Title": 315192,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Preassembled cage lifting and stability"
- },
- {
-   "Title": 315193,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Vortex lining shape support"
- },
- {
-   "Title": 315194,
-   "Site": "KEMPF",
-   "Description": "Secondary lining to surface and vortex - Additional support for first pours of vortex"
- },
- {
-   "Title": 315195,
-   "Site": "KEMPF",
-   "Description": "Vortex Generation - Access to work area / edge protection"
- },
- {
-   "Title": 315196,
-   "Site": "KEMPF",
-   "Description": "Vortex Generation - Steel lining support"
- },
- {
-   "Title": 315197,
-   "Site": "KEMPF",
-   "Description": "Vortex Generation - Steel lining shape keeper"
- },
- {
-   "Title": 315198,
-   "Site": "KEMPF",
-   "Description": "Vortex Generation - Steel lining lifting assessment"
- },
- {
-   "Title": 315199,
-   "Site": "KEMPF",
-   "Description": "Vortex Opening - Personnel working platforms"
- },
- {
-   "Title": 315200,
-   "Site": "KEMPF",
-   "Description": "Vortex Opening - Crash deck"
- },
- {
-   "Title": 315201,
-   "Site": "KEMPF",
-   "Description": "Vortex Opening - Access to working platform"
- },
- {
-   "Title": 315202,
-   "Site": "KEMPF",
-   "Description": "Vortex Opening - Block handling inserts removal"
- },
- {
-   "Title": 315203,
-   "Site": "KEMPF",
-   "Description": "Vortex Opening - Blanking bulkhead"
- },
- {
-   "Title": 315204,
-   "Site": "KEMPF",
-   "Description": "CSO/Vortex - Vortex roof falsework/formwork"
- },
- {
-   "Title": 315205,
-   "Site": "KEMPF",
-   "Description": "CSO/Vortex - Access - precast walkway erection and finishing"
- },
- {
-   "Title": 315206,
-   "Site": "KEMPF",
-   "Description": "CSO/Vortex - Edge protection to concrete shutters"
- },
- {
-   "Title": 315207,
-   "Site": "KEMPF",
-   "Description": "CSO/Vortex - Intermediate landing falsework / formwork and access"
- },
- {
-   "Title": 315208,
-   "Site": "KEMPF",
-   "Description": "Shaft Ventilation Opening - Box out design"
- },
- {
-   "Title": 315209,
-   "Site": "KEMPF",
-   "Description": "Shaft Ventilation Opening - Bulkhead cover"
- },
- {
-   "Title": 315210,
-   "Site": "KEMPF",
-   "Description": "Shaft Ventilation Opening - Access and edge protection"
- },
- {
-   "Title": 315211,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Vertical corbel / lateral support for internal walls"
- },
- {
-   "Title": 315212,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Shutters for dividing wall plus boxout "
- },
- {
-   "Title": 315213,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Rebar stability"
- },
- {
-   "Title": 315214,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - 45' benching over portal shutters"
- },
- {
-   "Title": 315215,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Access for benching concrete to portal shutters"
- },
- {
-   "Title": 315216,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - 45' benching over vertcal bench shutters"
- },
- {
-   "Title": 315217,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Access for benching concrete to vertical bench shutters"
- },
- {
-   "Title": 315218,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Shutters for 45' benching at shaft base including ramp benching on tunnel alignment"
- },
- {
-   "Title": 315219,
-   "Site": "KEMPF",
-   "Description": "Tie-in shaft lining and tunnel - Shutters (Barrel plus face)"
- },
- {
-   "Title": 315220,
-   "Site": "KEMPF",
-   "Description": "Tie-in shaft lining and tunnel - Access"
- },
- {
-   "Title": 315221,
-   "Site": "KEMPF",
-   "Description": "Tie-in shaft lining and tunnel - Concrete lines and layout"
- },
- {
-   "Title": 315222,
-   "Site": "KEMPF",
-   "Description": "Installation of hanging vortex - Access"
- },
- {
-   "Title": 315223,
-   "Site": "KEMPF",
-   "Description": "Installation of hanging vortex - Lifting / support"
- },
- {
-   "Title": 315224,
-   "Site": "KEMPF",
-   "Description": "Installation of hanging vortex - concrete shutters with access"
- },
- {
-   "Title": 315225,
-   "Site": "KEMPF",
-   "Description": "Kiosk - Services connection"
- },
- {
-   "Title": 315226,
-   "Site": "KEMPF",
-   "Description": "Kiosk - Excavation support"
- },
- {
-   "Title": 315227,
-   "Site": "KEMPF",
-   "Description": "Kiosk - Impact on assets in park"
- },
- {
-   "Title": 315228,
-   "Site": "KEMPF",
-   "Description": "Kiosk - Surrounding temporary hoarding"
- },
- {
-   "Title": 315229,
-   "Site": "KEMPF",
-   "Description": "Underslung Ventilation Chamber - Lifting requirements"
- },
- {
-   "Title": 315230,
-   "Site": "KEMPF",
-   "Description": "Underslung Ventilation Chamber - Shuttering for insitu stitching"
- },
- {
-   "Title": 315231,
-   "Site": "KEMPF",
-   "Description": "Underslung Ventilation Chamber - Shuttering for insitu parapets"
- },
- {
-   "Title": 315232,
-   "Site": "KEMPF",
-   "Description": "Underslung Ventilation Chamber - Access for vent chamber"
- },
- {
-   "Title": 315233,
-   "Site": "KEMPF",
-   "Description": "Underslung Ventilation Chamber - Edge protection"
- },
- {
-   "Title": 315234,
-   "Site": "KEMPF",
-   "Description": "Ventilation House - Excavation support / batter"
- },
- {
-   "Title": 315235,
-   "Site": "KEMPF",
-   "Description": "Ventilation House - formwork and access"
- },
- {
-   "Title": 315236,
-   "Site": "KEMPF",
-   "Description": "Ventilation House - Rebar cage lifting and stability checks"
- },
- {
-   "Title": 315237,
-   "Site": "KEMPF",
-   "Description": "Ventilation House - Crane platform"
- },
- {
-   "Title": 315238,
-   "Site": "KEMPF",
-   "Description": "Temporary Dwall propping at 97m"
- },
- {
-   "Title": 315239,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Shutters"
- },
- {
-   "Title": 315240,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Access to pours"
- },
- {
-   "Title": 315241,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Rebar lifting and stability check"
- },
- {
-   "Title": 315242,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Ventilation"
- },
- {
-   "Title": 315243,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Access to lower level into the hole"
- },
- {
-   "Title": 315244,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Pumping / dewatering system"
- },
- {
-   "Title": 315245,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Northern Dwall breakout access and edge protection"
- },
- {
-   "Title": 315246,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Retaining extension to east Flood defence wall"
- },
- {
-   "Title": 315247,
-   "Site": "KEMPF",
-   "Description": "Overflow baseslab and inner walls - Reconfiguration of high level access routes"
- },
- {
-   "Title": 315248,
-   "Site": "KEMPF",
-   "Description": "Excavation of outfall - excavation support / batter"
- },
- {
-   "Title": 315249,
-   "Site": "KEMPF",
-   "Description": "Excavation of outfall - Install flap valve lifting / access"
- },
- {
-   "Title": 315250,
-   "Site": "KEMPF",
-   "Description": "Cofferdam removal including strengthening (VSL)"
- },
- {
-   "Title": 315251,
-   "Site": "KEMPF",
-   "Description": "Shaft Roof Slab - Primary/secondary beams w. insitu slab - Precast beams fabrication and erection  inc. edge protection TBC"
- },
- {
-   "Title": 315252,
-   "Site": "KEMPF",
-   "Description": "Shaft Roof Slab - Primary/secondary beams w. insitu slab - Formwork for beam stitches"
- },
- {
-   "Title": 315253,
-   "Site": "KEMPF",
-   "Description": "Shaft Roof Slab - Primary/secondary beams w. insitu slab - Access for beam erection and finishing"
- },
- {
-   "Title": 315254,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Temporary overpumping CSO discharge"
- },
- {
-   "Title": 315255,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - West - Support / falsework for precast / insitu"
- },
- {
-   "Title": 315256,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - West - Edge protection"
- },
- {
-   "Title": 315257,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - West - Formwork"
- },
- {
-   "Title": 315258,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - West - Rebar lifting and stability checks"
- },
- {
-   "Title": 315259,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber - Propping removal access"
- },
- {
-   "Title": 315260,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber - Inner wall shutters (inc. box outs)"
- },
- {
-   "Title": 315261,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber - Rebar lifting and stability checks"
- },
- {
-   "Title": 315262,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber - Temporary support of penstocks"
- },
- {
-   "Title": 315263,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber Roof (Insitu) - Falsework / Formwork"
- },
- {
-   "Title": 315264,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber Roof (Insitu) - Access"
- },
- {
-   "Title": 315265,
-   "Site": "KEMPF",
-   "Description": "Interception Chamber Roof (Insitu) - Rebar cage lifting and stability checks"
- },
- {
-   "Title": 315266,
-   "Site": "KEMPF",
-   "Description": "CSO Platforms - Temporary support"
- },
- {
-   "Title": 315267,
-   "Site": "KEMPF",
-   "Description": "CSO Platforms - Lift assessment"
- },
- {
-   "Title": 315268,
-   "Site": "KEMPF",
-   "Description": "CSO Platforms - Edge protection"
- },
- {
-   "Title": 315269,
-   "Site": "KEMPF",
-   "Description": "MEICA Installation access and lifting"
- },
- {
-   "Title": 315270,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Dewatering"
- },
- {
-   "Title": 315271,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Shutters"
- },
- {
-   "Title": 315272,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Rebar lifting and stability checks"
- },
- {
-   "Title": 315273,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Access"
- },
- {
-   "Title": 315274,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Removal of existing flap valves"
- },
- {
-   "Title": 315275,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Soffit shutters and falsework"
- },
- {
-   "Title": 315276,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Dwall Demolition - Lifting study"
- },
- {
-   "Title": 315277,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Dwall Demolition - Access"
- },
- {
-   "Title": 315278,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber (CONCEPT) - Dwall Demolition - Protection measures"
- },
- {
-   "Title": 315279,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Temporary fill plug - Formwork"
- },
- {
-   "Title": 315280,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Temporary fill plug - Dewatering / water exclusion"
- },
- {
-   "Title": 315281,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Temporary fill plug - Access"
- },
- {
-   "Title": 315282,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Temporary fill plug - Rebar cage lifting and stability check"
- },
- {
-   "Title": 315283,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Permanent fill plug - Formwork"
- },
- {
-   "Title": 315284,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Permanent fill plug - Access"
- },
- {
-   "Title": 315285,
-   "Site": "KEMPF",
-   "Description": "Upper Interception Chamber - Diversion to Permanent Flow - Permanent fill plug - Rebar cage lifting and stability check"
- },
- {
-   "Title": 315286,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - East - Support / falsework"
- },
- {
-   "Title": 315287,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - East - Edge protection"
- },
- {
-   "Title": 315288,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - East - Formwork"
- },
- {
-   "Title": 315289,
-   "Site": "KEMPF",
-   "Description": "Garden Terrace - East - Rebar lifting and stability checks"
- },
- {
-   "Title": 315290,
-   "Site": "KEMPF",
-   "Description": "RW Cladding - Propping / support to chamber roof for crane loading at demob"
- },
- {
-   "Title": 315291,
-   "Site": "KEMPF",
-   "Description": "RW Cladding - Access for drill and fixing for grout"
- },
- {
-   "Title": 315292,
-   "Site": "KEMPF",
-   "Description": "RW Cladding - Edge protection"
- },
- {
-   "Title": 315293,
-   "Site": "KEMPF",
-   "Description": "Landscaping - Ventilation columns lift review"
- },
- {
-   "Title": 315294,
-   "Site": "KEMPF",
-   "Description": "Landscaping - bandstand erection support"
- },
- {
-   "Title": 315295,
-   "Site": "KEMPF",
-   "Description": "Hoarding dismantling - lifting study"
- },
- {
-   "Title": 315296,
-   "Site": "KEMPF",
-   "Description": "Office dismantling - Lifting study"
- },
- {
-   "Title": 315297,
-   "Site": "KEMPF",
-   "Description": "Crane transitions - Working platform modifications VARIOUS TBC"
- },
- {
-   "Title": 315298,
-   "Site": "KEMPF",
-   "Description": "Culvert - Top-props - Assembling rebar and lifting"
- },
- {
-   "Title": 315299,
-   "Site": "KEMPF",
-   "Description": "Culvert Top-props - Access"
- },
- {
-   "Title": 315300,
-   "Site": "KEMPF",
-   "Description": "Shaft Excavation - Main and Secondary Access"
- },
- {
-   "Title": 315301,
-   "Site": "KEMPF",
-   "Description": "Culvert Top-props - Formwork"
- },
- {
-   "Title": 315302,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Infill wall for benching - vertical shutters and rebar stability"
- },
- {
-   "Title": 315303,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Shutter for baffle wall inc. boxouts"
- },
- {
-   "Title": 315304,
-   "Site": "KEMPF",
-   "Description": "Shaft Internals - Baffle Wall Stability Check"
- },
- {
-   "Title": 315305,
-   "Site": "KEMPF",
-   "Description": "Crane transitions - Assessing permanent works and existing assets impact VARIOUS"
- },
- {
-   "Title": 315306,
-   "Site": "KEMPF",
-   "Description": "RW 407 Movement Mitigation - long term"
- },
- {
-   "Title": 315307,
-   "Site": "KEMPF",
-   "Description": "Cofferdam strengthening pile cap monitoring monument."
- },
- {
-   "Title": 315308,
-   "Site": "KEMPF",
-   "Description": "CFA Piles Lifting Eyes"
- },
- {
-   "Title": 315309,
-   "Site": "KEMPF",
-   "Description": "Soil Improvements"
- },
- {
-   "Title": 315310,
-   "Site": "KEMPF",
-   "Description": "Pedestrian access along top of souther anchor wall sheet piles"
- },
- {
-   "Title": 315311,
-   "Site": "KEMPF",
-   "Description": "Formwork for 700mm high Insitu Crosshead Beams"
- },
- {
-   "Title": 315312,
-   "Site": "KEMPF",
-   "Description": "Pipe Protection for Hinterland Pumps"
- },
- {
-   "Title": 315313,
-   "Site": "KEMPF",
-   "Description": "Install bracket on cell B and attach to concrete plinth"
- },
- {
-   "Title": 315314,
-   "Site": "KEMPF",
-   "Description": "Subsurface Drainage for Cofferdam"
- },
- {
-   "Title": 315315,
-   "Site": "KEMPF",
-   "Description": "Water Main Connection through park - park wall fixings"
- },
- {
-   "Title": 315316,
-   "Site": "KEMPF",
-   "Description": "trench box for the tie rod to remove in Cell C - 2.5m depth"
- },
- {
-   "Title": 315317,
-   "Site": "KEMPF",
-   "Description": "Rotherhithe Tunnel Impact Assessment"
- },
- {
-   "Title": 315318,
-   "Site": "KEMPF",
-   "Description": "Crane Pad for Propping Slab in NESR on Hinterland"
- },
- {
-   "Title": 315319,
-   "Site": "KEMPF",
-   "Description": "Secondary access into NESR for propping slab works"
- },
- {
-   "Title": 315320,
-   "Site": "KEMPF",
-   "Description": "Spreader beam for lifting prefabricated crosshead reinforcement "
- },
- {
-   "Title": 315321,
-   "Site": "KEMPF",
-   "Description": "Piling platform for silo slab"
- },
- {
-   "Title": 315322,
-   "Site": "KEMPF",
-   "Description": "Pump Loading in Cell E on current platform"
- },
- {
-   "Title": 315323,
-   "Site": "KEMPF",
-   "Description": "Levelling Concrete on Scour Mats east of cofferdam"
- },
- {
-   "Title": 315324,
-   "Site": "KEMPF",
-   "Description": "Pump Support while resetting Cell B Tie Rods"
- },
- {
-   "Title": 315325,
-   "Site": "KEMPF",
-   "Description": "60te Crane loading hinterland for Bentonite Slab"
- },
- {
-   "Title": 315326,
-   "Site": "KEMPF",
-   "Description": "SF 65 piling rig for obstructions survey in hinterland"
- },
- {
-   "Title": 315327,
-   "Site": "KEMPF",
-   "Description": "4no. Lifting points on pre-fab cages"
- },
- {
-   "Title": 315328,
-   "Site": "KEMPF",
-   "Description": "Pipe support in Cell B for resetting tie rods"
- },
- {
-   "Title": 315329,
-   "Site": "KEMPF",
-   "Description": "Shaft Passive Groundwater Control & Base Slab Drainage Blanket Design"
- },
- {
-   "Title": 315330,
-   "Site": "KEMPF",
-   "Description": "Combined Sewerage Outfall (CSO) Passive Groundwater Control & Base Slab Drainage Blanket Design"
- },
- {
-   "Title": 315331,
-   "Site": "KEMPF",
-   "Description": "Cat Ladder for NESR access"
- },
- {
-   "Title": 315332,
-   "Site": "KEMPF",
-   "Description": "Inertia real secondary access for NESR platform"
- },
- {
-   "Title": 315333,
-   "Site": "KEMPF",
-   "Description": "Services bridge for processing equipment marine - land"
- },
- {
-   "Title": 315334,
-   "Site": "KEMPF",
-   "Description": "Crash deck"
- },
- {
-   "Title": 315335,
-   "Site": "KEMPF",
-   "Description": "VSL Crane platform - Hinterland"
- },
- {
-   "Title": 315336,
-   "Site": "KEMPF",
-   "Description": "Cofferdam Surface Drainage for D-walling and Beyond"
- },
- {
-   "Title": 315337,
-   "Site": "KEMPF",
-   "Description": "Access shaft scheme for the archaeological investigations "
- },
- {
-   "Title": 315338,
-   "Site": "KEMPF",
-   "Description": "Monitoring trigger levels assessment for Rotherhithe Tunnel "
- },
- {
-   "Title": 315339,
-   "Site": "KEMPF",
-   "Description": "Design: Cofferdam Twin Wall Surcharge  "
- },
- {
-   "Title": 315340,
-   "Site": "KEMPF",
-   "Description": "Eastern Access Ramp into Hinterland Over River Wall"
- },
- {
-   "Title": 315341,
-   "Site": "KEMPF",
-   "Description": "Trigger Levels for Scour Protection - RW407"
- },
- {
-   "Title": 315342,
-   "Site": "KEMPF",
-   "Description": "Ground Treatment for SCL Tunnel Adit"
- },
- {
-   "Title": 315343,
-   "Site": "KEMPF",
-   "Description": "Adit Grouting Rig Platform and Setup"
- },
- {
-   "Title": 315344,
-   "Site": "KEMPF",
-   "Description": "Timber board for Considerate Constructors sign"
- },
- {
-   "Title": 315346,
-   "Site": "KEMPF",
-   "Description": "Geotech Welding Area Canopy"
- },
- {
-   "Title": 315347,
-   "Site": "KEMPF",
-   "Description": "Ramp reduction over RW 331"
- },
- {
-   "Title": 315348,
-   "Site": "KEMPF",
-   "Description": "250mm thick Adit equipment slabs (cell A and hinterland)"
- },
- {
-   "Title": 315349,
-   "Site": "KEMPF",
-   "Description": "Change in Ground Conditions Effects on RW407"
- },
- {
-   "Title": 316001,
-   "Site": "ABMPS",
-   "Description": "Hoarding"
- },
- {
-   "Title": 316002,
-   "Site": "ABMPS",
-   "Description": "Crane base for TBM removal"
- },
- {
-   "Title": 316003,
-   "Site": "ABMPS",
-   "Description": "Offices, Welfare & Store foundations"
- },
- {
-   "Title": 316004,
-   "Site": "ABMPS",
-   "Description": "Access to shaft"
- },
- {
-   "Title": 316005,
-   "Site": "ABMPS",
-   "Description": "Ventilation for shaft"
- },
- {
-   "Title": 316006,
-   "Site": "ABMPS",
-   "Description": "Shaft services"
- },
- {
-   "Title": 316007,
-   "Site": "ABMPS",
-   "Description": "Formwork for new ventilation system"
- },
- {
-   "Title": 316008,
-   "Site": "ABMPS",
-   "Description": "Foundations for batching plant"
- },
- {
-   "Title": 316009,
-   "Site": "ABMPS",
-   "Description": "Access paltforms for roof installation"
- },
- {
-   "Title": 316010,
-   "Site": "ABMPS",
-   "Description": "Formwork for vertical benching"
- },
- {
-   "Title": 316011,
-   "Site": "ABMPS",
-   "Description": "Formwork for sloping benching"
- },
- {
-   "Title": 316012,
-   "Site": "ABMPS",
-   "Description": "Sealing of tunnel eye (Main Tunnel)"
- },
- {
-   "Title": 316013,
-   "Site": "ABMPS",
-   "Description": "Bulkhead removal"
- },
- {
-   "Title": 316014,
-   "Site": "ABMPS",
-   "Description": "Access Bridge for Alimak"
- },
- {
-   "Title": 316015,
-   "Site": "ABMPS",
-   "Description": "Formwork Specification/Drawings for completing shaft base benching"
- },
- {
-   "Title": 316016,
-   "Site": "ABMPS",
-   "Description": "Lifting points for turfers, cradles, frames within ABMPS shaft"
- },
- {
-   "Title": 316017,
-   "Site": "ABMPS",
-   "Description": "Support brackets on shaft lining for temp services"
- },
- {
-   "Title": 316018,
-   "Site": "ABMPS",
-   "Description": "TBM Recovery Cradle"
- },
- {
-   "Title": 316019,
-   "Site": "ABMPS",
-   "Description": "TBM temporary supports for dismantling"
- },
- {
-   "Title": 316020,
-   "Site": "ABMPS",
-   "Description": "TBM Winching"
- },
- {
-   "Title": 316021,
-   "Site": "ABMPS",
-   "Description": "Ventilation in shaft during TBM Recovery"
- },
- {
-   "Title": 316022,
-   "Site": "ABMPS",
-   "Description": "Sloping Benching Formwork - Preliminary Study"
- },
- {
-   "Title": 316023,
-   "Site": "ABMPS",
-   "Description": "Removal of Dome"
- },
- {
-   "Title": 316024,
-   "Site": "ABMPS",
-   "Description": "Working platform for preliminary testing in 2018"
- },
- {
-   "Title": 316035,
-   "Site": "ABMPS",
-   "Description": "DO NOT USE :See TW Engineers for additional rows!"
- },
- {
-   "Title": 317001,
-   "Site": "MNTLD",
-   "Description": "TBM Umbilical Services Cassete"
- },
- {
-   "Title": 317002,
-   "Site": "MNTLD",
-   "Description": "TBM Services at Pit Bottom inc. monorail or similar"
- },
- {
-   "Title": 317003,
-   "Site": "MNTLD",
-   "Description": "Launch Rail & Dolly (incl rail bridge)"
- },
- {
-   "Title": 317004,
-   "Site": "MNTLD",
-   "Description": "Shove Frame "
- },
- {
-   "Title": 317005,
-   "Site": "MNTLD",
-   "Description": "Slurry Launch  Seal Support"
- },
- {
-   "Title": 317006,
-   "Site": "MNTLD",
-   "Description": "Temporary steel Invert for TBM launch"
- },
- {
-   "Title": 317007,
-   "Site": "MNTLD",
-   "Description": "Tunnel Temp Walkways "
- },
- {
-   "Title": 317008,
-   "Site": "MNTLD",
-   "Description": "Tunnel Temp Ventilation System incl. shaft"
- },
- {
-   "Title": 317009,
-   "Site": "MNTLD",
-   "Description": "Service Brackets (Tunnel )"
- },
- {
-   "Title": 317010,
-   "Site": "MNTLD",
-   "Description": "Service Tower"
- },
- {
-   "Title": 317011,
-   "Site": "MNTLD",
-   "Description": "Pit Bottom Railhead & California Crossing Support"
- },
- {
-   "Title": 317012,
-   "Site": "MNTLD",
-   "Description": "Secondary Lining Tunnel Shutter"
- },
- {
-   "Title": 317013,
-   "Site": "MNTLD",
-   "Description": "Concrete Delivery System Check"
- },
- {
-   "Title": 317014,
-   "Site": "MNTLD",
-   "Description": "TBM pit bottom cradle"
- },
- {
-   "Title": 317015,
-   "Site": "MNTLD",
-   "Description": "TBM transfer to face : Umbilical"
- },
- {
-   "Title": 317016,
-   "Site": "MNTLD",
-   "Description": "TBM transfer to face : Front Chamber"
- },
- {
-   "Title": 317017,
-   "Site": "MNTLD",
-   "Description": "TBM manufacture and Supply"
- },
- {
-   "Title": 317018,
-   "Site": "MNTLD",
-   "Description": "TBM Logistics, strenghtening. Too generic)"
- },
- {
-   "Title": 317019,
-   "Site": "MNTLD",
-   "Description": "TBM assembley/connections to shaft bottom"
- },
- {
-   "Title": 317020,
-   "Site": "MNTLD",
-   "Description": "TBM dissassembley and off-site removal. (overview)"
- },
- {
-   "Title": 317021,
-   "Site": "MNTLD",
-   "Description": "H+S items (sprinklers, foam, communication systems)"
- },
- {
-   "Title": 317022,
-   "Site": "MNTLD",
-   "Description": "Flood and River wall protection throughout construction"
- },
- {
-   "Title": 317023,
-   "Site": "MNTLD",
-   "Description": "Steel Can for MNTLD TBM launch"
- },
- {
-   "Title": 317024,
-   "Site": "MNTLD",
-   "Description": "Point loading assessment for Sonic borehole rig (gi works)"
- },
- {
-   "Title": 317025,
-   "Site": "MNTLD",
-   "Description": "Heras fencing with acoustic panels for Bartlett park sonic borehole "
- },
- {
-   "Title": 317026,
-   "Site": "MNTLD",
-   "Description": "Heras fencing without acoustic panels for Bartlett park sonic borehole"
- },
- {
-   "Title": 317027,
-   "Site": "MNTLD",
-   "Description": "Space prooving of temp works within tunnel bore"
- },
- {
-   "Title": 317028,
-   "Site": "MNTLD",
-   "Description": "Steel can Grout Seal - Bulflex"
- },
- {
-   "Title": 317029,
-   "Site": "MNTLD",
-   "Description": "Landing plinth for TBM cradle incl reaction check"
- },
- {
-   "Title": 317030,
-   "Site": "MNTLD",
-   "Description": "Scaffold for steel can erection at surface"
- },
- {
-   "Title": 317031,
-   "Site": "MNTLD",
-   "Description": "Hop-ups/ survey platform"
- },
- {
-   "Title": 317032,
-   "Site": "MNTLD",
-   "Description": "Pumps platforms/transfo/panel incl. lifting arrangement"
- },
- {
-   "Title": 317033,
-   "Site": "MNTLD",
-   "Description": "Shaft crossing arrangement (CBGM)"
- },
- {
-   "Title": 317034,
-   "Site": "MNTLD",
-   "Description": "Dismantling of segments into shafts"
- },
- {
-   "Title": 317035,
-   "Site": "MNTLD",
-   "Description": "Initial assessment of confinement pressures for drive and interventions"
- },
- {
-   "Title": 317036,
-   "Site": "MNTLD",
-   "Description": "Tunnel Services removal gantry"
- },
- {
-   "Title": 317037,
-   "Site": "MNTLD",
-   "Description": "Tunnel Repair gantry"
- },
- {
-   "Title": 317038,
-   "Site": "MNTLD",
-   "Description": "Scaffolding for TBM dismantling at Abbey Mills"
- },
- {
-   "Title": 317039,
-   "Site": "MNTLD",
-   "Description": "Secondary lining Shutter for tunnel junction"
- },
- {
-   "Title": 317040,
-   "Site": "MNTLD",
-   "Description": "Secondary Lining repair gantry"
- },
- {
-   "Title": 317041,
-   "Site": "MNTLD",
-   "Description": "Tunnel eye formwork"
- },
- {
-   "Title": 317042,
-   "Site": "MNTLD",
-   "Description": "Tunnel eyes Construction access arrangement"
- },
- {
-   "Title": 317043,
-   "Site": "MNTLD",
-   "Description": "Pit decking through various sages of tunnelling"
- },
- {
-   "Title": 317044,
-   "Site": "MNTLD",
-   "Description": "Access to holding tank on top of portal"
- },
- {
-   "Title": 317045,
-   "Site": "MNTLD",
-   "Description": "Lifting frames for sump pumps"
- },
- {
-   "Title": 317046,
-   "Site": "MNTLD",
-   "Description": "Stillages for various materials (pipes, grease drums etc.)"
- },
- {
-   "Title": 317047,
-   "Site": "MNTLD",
-   "Description": "SCL drainage arrangement"
- },
- {
-   "Title": 317048,
-   "Site": "MNTLD",
-   "Description": "Engineer hop-up for SCL construction"
- },
- {
-   "Title": 317049,
-   "Site": "MNTLD",
-   "Description": "Northfleet platform assessment"
- },
- {
-   "Title": 317050,
-   "Site": "MNTLD",
-   "Description": "Northfleet fencing"
- },
- {
-   "Title": 317051,
-   "Site": "MNTLD",
-   "Description": "Launch slurry umbilical supports"
- },
- {
-   "Title": 317052,
-   "Site": "MNTLD",
-   "Description": "Access and walkways to grout remixer on top of MNTLD portal"
- },
- {
-   "Title": 318001,
-   "Site": "GRECT",
-   "Description": "TBM Umbilical Services support during launch"
- },
- {
-   "Title": 318002,
-   "Site": "GRECT",
-   "Description": "TBM Services at Pit Bottom"
- },
- {
-   "Title": 318003,
-   "Site": "GRECT",
-   "Description": "Launch Dolly"
- },
- {
-   "Title": 318004,
-   "Site": "GRECT",
-   "Description": "Shove Frame "
- },
- {
-   "Title": 318005,
-   "Site": "GRECT",
-   "Description": "Slurry Launch Seal (Bulflex)"
- },
- {
-   "Title": 318006,
-   "Site": "GRECT",
-   "Description": "Temporary TBM Skid rails incl dolly. and rail bridge"
- },
- {
-   "Title": 318007,
-   "Site": "GRECT",
-   "Description": "Tunnel Temp Walkways "
- },
- {
-   "Title": 318008,
-   "Site": "GRECT",
-   "Description": "Tunnel Temp Ventilation System incl. via shaft to surface"
- },
- {
-   "Title": 318009,
-   "Site": "GRECT",
-   "Description": "Service Brackets (Tunnel )"
- },
- {
-   "Title": 318010,
-   "Site": "GRECT",
-   "Description": "Service Tower"
- },
- {
-   "Title": 318011,
-   "Site": "GRECT",
-   "Description": "Pit Bottom Railhead & Crossing Support"
- },
- {
-   "Title": 318012,
-   "Site": "GRECT",
-   "Description": "Secondary Lining Tunnel Shutter "
- },
- {
-   "Title": 318013,
-   "Site": "GRECT",
-   "Description": "Concrete Delivery System "
- },
- {
-   "Title": 318014,
-   "Site": "GRECT",
-   "Description": "TBM cradle"
- },
- {
-   "Title": 318015,
-   "Site": "GRECT",
-   "Description": "TBM transfer to face : Umbilical incl. monorail + cassettes of services"
- },
- {
-   "Title": 318017,
-   "Site": "GRECT",
-   "Description": "TBM transfer to face : Front Chamber"
- },
- {
-   "Title": 318018,
-   "Site": "GRECT",
-   "Description": "TBM manufacture and Supply"
- },
- {
-   "Title": 318019,
-   "Site": "GRECT",
-   "Description": "TBM Logistics, road strenghtening. (Too generic)"
- },
- {
-   "Title": 318020,
-   "Site": "GRECT",
-   "Description": "TBM assembly/connections to shaft bottom"
- },
- {
-   "Title": 318021,
-   "Site": "GRECT",
-   "Description": "TBM dissassembly and off-site removal. Overview)"
- },
- {
-   "Title": 318022,
-   "Site": "GRECT",
-   "Description": "H+S items (sprinklers, foam, comms, trolex systems)"
- },
- {
-   "Title": 318023,
-   "Site": "GRECT",
-   "Description": "Shaft collar Acoustic Shed"
- },
- {
-   "Title": 318024,
-   "Site": "GRECT",
-   "Description": "Shaft access: man hoist, access controls, etc."
- },
- {
-   "Title": 318025,
-   "Site": "GRECT",
-   "Description": "Flood and river wall protection throughout construction"
- },
- {
-   "Title": 318026,
-   "Site": "GRECT",
-   "Description": "Cat III Check Herrenknecht Top Hat"
- },
- {
-   "Title": 318027,
-   "Site": "GRECT",
-   "Description": "Slurry Pump Support Platform incl. electrical transfo and panel"
- },
- {
-   "Title": 318028,
-   "Site": "GRECT",
-   "Description": "Steel Cradle Deck to support retrieval of Greenwich TBM"
- },
- {
-   "Title": 318029,
-   "Site": "GRECT",
-   "Description": "TBM Backup Gantry Installation Sequence "
- },
- {
-   "Title": 318030,
-   "Site": "GRECT",
-   "Description": "TBM Crane Lift Foundation"
- },
- {
-   "Title": 318031,
-   "Site": "GRECT",
-   "Description": "Temporary steel Invert TBM launch"
- },
- {
-   "Title": 318032,
-   "Site": "GRECT",
-   "Description": "Steel Can for GRECT TBM launch"
- },
- {
-   "Title": 318033,
-   "Site": "GRECT",
-   "Description": "Segment cassette for GREPS "
- },
- {
-   "Title": 318034,
-   "Site": "GRECT",
-   "Description": "Turning table for the TBM cradle "
- },
- {
-   "Title": 318035,
-   "Site": "GRECT",
-   "Description": "Space prooving of temp works within tunnel bore"
- },
- {
-   "Title": 318036,
-   "Site": "GRECT",
-   "Description": "Scoping of TW for TBM delivery at Greenwich"
- },
- {
-   "Title": 318037,
-   "Site": "GRECT",
-   "Description": "Scaffold for steel can erection at surface"
- },
- {
-   "Title": 318038,
-   "Site": "GRECT",
-   "Description": "Hop-ups/ survey platform"
- },
- {
-   "Title": 318039,
-   "Site": "GRECT",
-   "Description": "Pumps platforms/transfo/panel incl. lifting arrangement"
- },
- {
-   "Title": 318040,
-   "Site": "GRECT",
-   "Description": "Shaft crossing arrangement (CBGM)"
- },
- {
-   "Title": 318041,
-   "Site": "GRECT",
-   "Description": "Dismantling of segments into shafts"
- },
- {
-   "Title": 318042,
-   "Site": "GRECT",
-   "Description": "Initial assessment of confinement pressures for drive and interventions"
- },
- {
-   "Title": 318043,
-   "Site": "GRECT",
-   "Description": "Tunnel Services removal gantry"
- },
- {
-   "Title": 318044,
-   "Site": "GRECT",
-   "Description": "Tunnel Repair gantry"
- },
- {
-   "Title": 318045,
-   "Site": "GRECT",
-   "Description": "Scaffolding for TBM dismantling at Abbey Mills"
- },
- {
-   "Title": 318046,
-   "Site": "GRECT",
-   "Description": "Secondary lining Shutter for tunnel junction"
- },
- {
-   "Title": 318047,
-   "Site": "GRECT",
-   "Description": "Secondary Lining repair gantry"
- },
- {
-   "Title": 318048,
-   "Site": "GRECT",
-   "Description": "Tunnel eye formwork"
- },
- {
-   "Title": 318049,
-   "Site": "GRECT",
-   "Description": "Tunnel eyes Construction access arrangement"
- },
- {
-   "Title": 318050,
-   "Site": "GRECT",
-   "Description": "Pit decking through various sages of tunnelling"
- },
- {
-   "Title": 318051,
-   "Site": "GRECT",
-   "Description": "Access to holding tank on top of portal"
- },
- {
-   "Title": 318052,
-   "Site": "GRECT",
-   "Description": "Lifting frames for sump pumps"
- },
- {
-   "Title": 318053,
-   "Site": "GRECT",
-   "Description": "Stillages for various materials (pipes, grease drums etc.)"
- },
- {
-   "Title": 318054,
-   "Site": "GRECT",
-   "Description": "SCL drainage arrangement"
- },
- {
-   "Title": 318055,
-   "Site": "GRECT",
-   "Description": "Engineer hop-up for SCL construction"
- },
- {
-   "Title": 318056,
-   "Site": "GRECT",
-   "Description": "Access arrangement for re-installing equipment on TBM gantries at pit bottom"
- },
- {
-   "Title": 318057,
-   "Site": "GRECT",
-   "Description": "Pit Bottom Train traverser"
- },
- {
-   "Title": 318058,
-   "Site": "GRECT",
-   "Description": "Vic Deep Welfares"
- },
- {
-   "Title": 318059,
-   "Site": "GRECT",
-   "Description": "Vic Deep Workshop"
- },
- {
-   "Title": 318060,
-   "Site": "GRECT",
-   "Description": "Vic Deep Jetty assessment - RoRo"
- },
- {
-   "Title": 318061,
-   "Site": "GRECT",
-   "Description": "Vic Deep Jetty assessment - TBM gantries unloading by crane"
- },
- {
-   "Title": 318062,
-   "Site": "GRECT",
-   "Description": "Vic Deep to GREPS Route survey and street furniture removal and reinstatement "
- },
- {
-   "Title": 318063,
-   "Site": "GRECT",
-   "Description": "Vic Deep site fencing"
- },
- {
-   "Title": 318064,
-   "Site": "GRECT",
-   "Description": "Magistrate Court Assessment"
- },
- {
-   "Title": 318065,
-   "Site": "GRECT",
-   "Description": "Vic Deep TBM assembly platform"
- },
- {
-   "Title": 318066,
-   "Site": "GRECT",
-   "Description": "Slurrt Treatment Plant"
- },
- {
-   "Title": 319001,
-   "Site": "BESTW",
-   "Description": "Site offices & Welfare Foundations"
  }
 ]

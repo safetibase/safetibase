@@ -133,7 +133,7 @@ function Install-RequiredModules {
             Get-InstalledModule -Name $mod -ErrorAction Stop | Out-Null
         } Catch {
             Write-Host "module $($mod) not installed, installing..."
-            Try{ Install-Module $mod -Force -ErrorAction Stop | Out-Null}
+            Try{ Install-Module $mod -Scope CurrentUser -Force -ErrorAction Stop | Out-Null}
             Catch {
                 $output = $mod
             }
