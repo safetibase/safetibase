@@ -119,7 +119,7 @@ Foreach ($item in $ListOrder){
 # Add indexes to: cdmHazards list '& cdmStages list 'Title' field
 
 $fieldsToIndex = 'cdmCurrentStatus','cdmHazardOwner','cdmResidualRiskScore','cdmSite','Created By','Modified','Modified By','cdmStage'
-$fieldsToIndex | set-pnpfield -List 'cdmHazards' -Identity $_ -Values @{Indexed=$true}
+$fieldsToIndex | ForEach-Object {Set-PnPField -List 'cdmHazards' -Identity $_ -Values @{Indexed=$true}}
 
 Set-PnPField -List 'cdmStages' -Identity 'Title' -Values @{Indexed=$true}
 
