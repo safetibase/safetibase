@@ -1373,8 +1373,10 @@ function printHazardRow(h) {
   }
   var haztags='';
   var unitags='';
+  var links='';
   if(h.cdmHazardTags){haztags=h.cdmHazardTags;}
   if(h.cdmUniclass){unitags=h.cdmUniclass;}
+  if(h.cdmLinks){links=h.cdmLinks;}
   var myvar =
     '<div class="cdmHazard-row row row-hazard ' +
     decodeRisk("Residual", h.cdmResidualRisk, 1) +
@@ -1705,7 +1707,9 @@ function printHazardRow(h) {
     "</div>" +
     "                    </td>" +
     '                    <td class="width-250 fld">' +
-    '                        <div class="cell cdmLinks"></div>' +
+    '                        <div class="cell cdmLinks pointer" title="Click to edit">' +
+    links +
+    '</div>' +
     "                    </td>" +
     "                </tr>" +
     "            </table>" +

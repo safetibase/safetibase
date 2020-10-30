@@ -490,6 +490,20 @@ function activateHazardEdits() {
             );
             cdmdata.get("cdmUniclassTags", "", null, "frmsel_utag", hc);
           }
+          if (fld == "cdmLinks") {
+            var existingTxt = $("#" + hi + " .cdmLinks").html();
+            var txtbox =
+              '<div><textarea id="txtform" rows="6" cols="60">' +
+              existingTxt +
+              "</textarea></div>";
+            var svBtn =
+              '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmLinks\');">Save</div>';
+            gimmepops(
+              "Associated Links",
+              txtbox +
+              svBtn
+            );
+          }
         }
       }
 
