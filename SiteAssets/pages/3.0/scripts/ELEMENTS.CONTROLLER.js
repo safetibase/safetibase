@@ -208,17 +208,18 @@ function mkSelect (lst, data, fset, trg) {
     });
     $('#sel_' + lst).click(function () {
         var st = $(this).val().toLowerCase();
-        toastr.success(st);
-        if (!st || st == '') {
-            $('tr').each(function () {
-                if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
+        $('tr').each(function () {
+            if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
+                if ($(this).is(":visible")) {
+                    $(this).hide();
+                } else {
                     $(this).show();
                 }
+            }
 
-            });
-        }
-
+        });
     });
+
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();
