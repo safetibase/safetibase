@@ -13,7 +13,7 @@ Requirements:
 To install SafetIbase on a SharePoint, follow the steps below:
 - Download these files to your C drive (downloading the whole repo from Github using the green 'Code' button on the top right, the select 'Download ZIP')
 - Unblock the zip file (right click > properties > check the 'Unblock' checkbox)
-- Open PowerShell (PopwerShell ISE is the easiest option)
+- Open PowerShell (PowerShell ISE is the easiest option)
 - Open 'Manual Instal.ps1'
 - In the User input section, change the Url to the url of your SharePoint site
 - Go to your SharePoint site > 'Site Contents' > 'Site Assets'
