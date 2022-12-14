@@ -21,7 +21,7 @@ function closepops(){
     $('#pops').html('');
     $('#pops').remove();
 }
-
+ 
 // GLOBAL NAV SUB MENU
 function gimmesubs(title,content,cl){
     $('#subs').html('');
@@ -45,10 +45,10 @@ function closesubs(){
     $('#subs').html('');
     $('#subs').remove();
 }
-
+ 
 
 // GLOBAL NAV
-function global_nav(){
+function global_nav(cdmSites, allHazardsData){
     var myvar = '<div id="tpos-global-nav" class="tpos-global-nav">'+
     '    <div class="tgn-btn" data-action="init">home</div>'+
     // '    <div class="tgn-btn" data-action="systemstats">system stats</div>'+
@@ -66,8 +66,8 @@ function global_nav(){
 
     // oldmenu.replaceWith(myvar);
     // $('#zz12_TopNavigationMenu').replaceWith(myvar);
-    activateGlobalNav();
-}
+    activateGlobalNav(cdmSites, allHazardsData);
+} 
 
 // BUTTONS
 function urbutton(data,trg){
@@ -79,7 +79,7 @@ function mkSmallDataBox (id, v, title, clr) {
     if (clr) {
         color = 'databox-clr-' + clr;
     }
-    var t = '<div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
+    var t = '<div tabindex="1" class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
     return t;
 }
 function mkSmallQCDataBox (id, v,bt, title, clr) {
@@ -87,7 +87,7 @@ function mkSmallQCDataBox (id, v,bt, title, clr) {
     if (clr) {
         color = 'databox-clr-' + clr;
     }
-    var t = '<div class="db-wrapper"><div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + bt + '</div></div></div>';
+    var t = '<div  class="db-wrapper"><div tabindex="1" class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + bt + '</div></div></div>';
     return t;
 }
 
@@ -117,7 +117,7 @@ function mkBtn(action, entity, title, v){
         i3 = '';
     }
     // var t = '<div class="tpos-btn ' + action + '" data-action="' + v + '" onclick="' + fn + '(' + v + ')" >' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
-    var t = '<div class="tpos-btn ' + action + '" data-action="' + v + '">' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
+    var t = '<div tabindex="1" class="tpos-btn  ' + action + '" data-action="' + v + '">' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
     return t;
 
 }
@@ -125,7 +125,7 @@ function mkBtn(action, entity, title, v){
 function mkReviewButton(action,company,userrole,site,hazardid,title){
     var s=site;
     if(!site){s='';}
-    var t='<div class="tpos-rvbtn" data-item="'+hazardid+'" data-action="'+action+'" data-company="'+company+'" data-site="'+s+'" data-userrole="'+userrole+'">'+title+'</div>';
+    var t='<div class="tpos-rvbtn" tabindex="1" data-item="'+hazardid+'" data-action="'+action+'" data-company="'+company+'" data-site="'+s+'" data-userrole="'+userrole+'">'+title+'</div>';
     return t;
 }
 
@@ -192,7 +192,7 @@ function mkSelect (lst, data, fset, trg) {
         if (st) {
             $('tr:not(:contains(' + st + '))').each(function () {
                 var t = $(this).html();
-                //console.log(t);
+                //////console.log(t);
                 if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                     $(this).hide();
                 }
@@ -208,18 +208,21 @@ function mkSelect (lst, data, fset, trg) {
     });
     $('#sel_' + lst).click(function () {
         var st = $(this).val().toLowerCase();
-        $('tr').each(function () {
-            if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
-                if ($(this).is(":visible")) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
+        toastr.success(st);
+        if (!st || st == '') {
+            $('tr').each(function () {
+                if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
+                    if ($(this).is(":visible")) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
                 }
-            }
 
-        });
+            });
+        }
+
     });
-
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();

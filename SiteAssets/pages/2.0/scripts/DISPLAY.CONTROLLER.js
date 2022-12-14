@@ -1,8 +1,8 @@
 function writeHazard(h){
     var hi=h.ID;
     var ref='<div class="cell-ne cell-hazref lg" data-itemid="'+hi+'" data-itemtitle="'+h.Title+'">Ref: '+hi+'</div>';
-    var stagedefault='<div class="cell-ne cell-hazstage" data-item="cdmStage" data-itemid="'+h.cdmStage.ID+'" data-itemtitle="'+h.cdmStage.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStage.ID+'.svg" alt="'+h.cdmStage.Title+'"></div>';
-    var stagehover='<div class="cell-ne cell-hazstage center" data-item="cdmStage" data-itemid="'+h.cdmStage.ID+'" data-itemtitle="'+h.cdmStage.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStage.ID+'.svg" alt="'+h.cdmStage.Title+'"><div>'+h.cdmStage.Title+'</div></div>';
+    var stagedefault='<div class="cell-ne cell-hazstage" data-item="cdmStageHS2" data-itemid="'+h.cdmStageHS2.ID+'" data-itemtitle="'+h.cdmStageHS2.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStageHS2.ID+'.svg" alt="'+h.cdmStageHS2.Title+'"></div>';
+    var stagehover='<div class="cell-ne cell-hazstage center" data-item="cdmStageHS2" data-itemid="'+h.cdmStageHS2.ID+'" data-itemtitle="'+h.cdmStageHS2.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStageHS2.ID+'.svg" alt="'+h.cdmStageHS2.Title+'"><div>'+h.cdmStageHS2.Title+'</div></div>';
     var typedefault='<div class="cell-e cell-haztype" data-hazard="'+hi+'" data-item="cdmHazardType" data-itemid="'+h.cdmHazardType.ID+'" data-itemtitle="'+h.cdmHazardType.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+h.cdmHazardType.ID+'.svg" alt="'+h.cdmHazardType.Title+'"></div>';
     var typehover='<div class="cell-e cell-haztype center" data-hazard="'+hi+'" data-item="cdmHazardType" data-itemid="'+h.cdmHazardType.ID+'" data-itemtitle="'+h.cdmHazardType.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+h.cdmHazardType.ID+'.svg" alt="'+h.cdmHazardType.Title+'"><div>'+h.cdmHazardType.Title+'</div></div>';
     var owner=writeOwner(h);
