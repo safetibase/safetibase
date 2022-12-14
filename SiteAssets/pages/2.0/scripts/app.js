@@ -21,50 +21,7 @@ function getListItemsByListName(arg) { // function tol get SharePoint list loade
     } else order = '';
     if (limit) {
         limit = '&$top=' + limit;
-    } else limit = '&$top=200';
-
-
-    // var url = appurl + "/_api/web/lists/getByTitle(%27" + listName + "%27)/items" + selection + filter + expansion + order + limit
-    // var response = response || [];
-    // function MakeAJAX() {
-    //     return $.ajax({
-    //         url: url,
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json; odata=verbose"
-    //         },
-    //         success: function(data) {
-    //             response = response.concat(data.d.results);
-    //             if (data.d.__next) {
-    //                 console.log("LOOP");
-    //                 url = data.d.__next;
-    //                 MakeAJAX();
-    //             } else {
-    //                 console.log("NOT LOOP");
-    //                 finalData = {d: {results: response}}
-    //                 console.log(finalData);
-    //                 return finalData;
-    //             }
-    //         },
-    //         error: function(error) {
-    //             console.log("Hit Error")
-    //             console.log(error);
-    //         },
-    //     });
-    // }
-
-    // const res = MakeAJAX();
-    // console.log(res);
-    // return res;
-
-
-
-
-
-
-
-
-
+    } else limit = '&$top=1000';
     return $.ajax({
         url: appurl + "/_api/web/lists/getByTitle(%27" + listName + "%27)/items" + selection + filter + expansion + order + limit,
         method: "GET",
@@ -86,30 +43,6 @@ function getListFields(l){
     });
 
 }
-
-// function getListFields(l){
-//     var appurl = _spPageContextInfo.webAbsoluteUrl;
-
-//     return $.ajax({
-//         url: appurl + "/_api/web/lists/getbytitle('"+l+"')/fields?select=Title,FieldTypeKind&$filter=Hidden eq false and ReadOnlyField eq false",
-//         method: "GET",
-//         headers: {
-//             "Accept": "application/json; odata=verbose"
-//         },
-//         // success: function(data) {
-//         //     if (data.d.__next) {
-//         //         url = data.d.__next;
-//         //         GetListItems();
-//         //     } else {
-//         //         console.log("Finished getting " + l);
-//         //     }
-//         // },
-//         // error: function(error) {
-//         //     console.log("Hit Error :(")
-//         //     console.log(error);
-//         // }
-//     });
-// }
 
 
 function getJsonFromTxt(file){

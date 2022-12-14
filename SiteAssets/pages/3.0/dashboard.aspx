@@ -14,13 +14,12 @@
 	<script src="../../resources/toastr.min.js"></script>
 
 	<script src="../2.0/scripts/app.js"></script>
-	<script src="scripts/jquery.multiselect.js"></script>
-	<script src="scripts/PROCESS.CONTROLLER.js"></script>
-	<script src="scripts/HELPERS.js"></script>
-	<script src="scripts/ELEMENTS.CONTROLLER.js"></script>
-	<script src="scripts/CDM.DATA.CONTROLLER.js"></script>
-	<script src="scripts/DATA.FORMAT.CONTROLLER2.js"></script>
-	<script src="scripts/INIT.PAGE.js"></script>
+	<script src="../3.0/scripts/PROCESS.CONTROLLER.js"></script>
+	<script src="../3.0/scripts/HELPERS.js"></script>
+	<script src="../3.0/scripts/ELEMENTS.CONTROLLER.js"></script>
+	<script src="../3.0/scripts/CDM.DATA.CONTROLLER.js"></script>
+	<script src="../3.0/scripts/DATA.FORMAT.CONTROLLER.js"></script>
+	<script src="../3.0/scripts/INIT.PAGE.js"></script>
 	
 
 	<link rel="stylesheet" href="../../resources/jquery-ui.min.css">
@@ -29,8 +28,7 @@
 
 	<!-- <link rel="stylesheet" href="../../scripts/1.0/css/dashboard.css"> -->
 	<link rel="stylesheet" href="../2.0/scripts/user.dashboard.layout.1.css">
-	<link rel="stylesheet" href="scripts/hazards.list.css">
-	<link rel="stylesheet" href="styles/jquery.multiselect.css">
+	<link rel="stylesheet" href="../3.0/scripts/hazards.list.css">
 
 	<link rel="stylesheet" href="../2.0/scripts/app.css">
 

@@ -12,15 +12,15 @@
 	<script src="../../resources/fontawesome-all.js"></script>
 	<script src="../../resources/toastr.min.js"></script>
 
-	<script src="scripts/app.js"></script>
+	<script src="../../pages/2.0/scripts/app.js"></script>
 
-	<script src="scripts/data.controller.1.js"></script>
-	<script src="scripts/db.controller.1.js"></script>
+	<script src="../../pages/2.0/scripts/data.controller.1.js"></script>
+	<script src="../../pages/2.0/scripts/db.controller.1.js"></script>
 	<!-- <script src="../../scripts/1.0/js/dashboard.controller.js"></script> -->
-	<script src="scripts/main.controller.1.js"></script>
-	<script src="scripts/edit.hazard.controller.js"></script>
-	<script src="scripts/nav.controller.1.js"></script>
-	<script src="scripts/ui.controller.1.js"></script>
+	<script src="../../pages/2.0/scripts/main.controller.1.js"></script>
+	<script src="../../pages/2.0/scripts/edit.hazard.controller.js"></script>
+	<script src="../../pages/2.0/scripts/nav.controller.1.js"></script>
+	<script src="../../pages/2.0/scripts/ui.controller.1.js"></script>
 	<!-- <script src="../../scripts/1.0/js/db.controller.1.js"></script> -->
 
 	<link rel="stylesheet" href="../../resources/jquery-ui.min.css">
@@ -28,9 +28,9 @@
 	<link rel="stylesheet" href="../../resources/toastr.min.css">
 
 	<!-- <link rel="stylesheet" href="../../scripts/1.0/css/dashboard.css"> -->
-	<link rel="stylesheet" href="scripts/user.dashboard.layout.1.css">
+	<link rel="stylesheet" href="../../pages/2.0/scripts/user.dashboard.layout.1.css">
 
-	<link rel="stylesheet" href="scripts/app.css">
+	<link rel="stylesheet" href="../../pages/2.0/scripts/app.css">
 
 
 	<meta name="GENERATOR" content="Microsoft SharePoint" />
