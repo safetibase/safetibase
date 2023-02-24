@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-6F6A6E0482F944BAA30EECFED4A74F45">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-6F6A6E0482F944BAA30EECFED4A74F45" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmSites" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmSites" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmSites/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmSites/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmSites/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{4B0330EE-6F43-4FC7-9C10-F8A88678CE1E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmSites/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmDescription" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmDescription" Name="cdmDescription" Type="Note" ID="{45e4d456-6057-4a64-a159-c48651fbaf13}" Group="" Version="2" StaticName="cdmDescription" SourceID="{{listid:cdmSites}}" ColName="ntext2" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

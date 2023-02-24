@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-6C7CC8CBE001428F8D392F5C9C18C1CC">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-6C7CC8CBE001428F8D392F5C9C18C1CC" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="Contacts" Description="Use the Contacts list for information about people that your team works with." DocumentTemplate="" OnQuickLaunch="true" TemplateType="105" Url="Lists/Contacts" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-7e6d-4186-9ba8-c047ac750105" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/Contacts/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/Contacts/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/Contacts/NewForm.aspx" ImageUrl="/_layouts/15/images/itcontct.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x0106" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{35E6C748-BDED-40B2-B8C7-EBCE9F29C0AE}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All contacts" Url="{site}/Lists/Contacts/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/contacts.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="Title" />
+                  <FieldRef Name="FirstName" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="Attachments" />
+                <FieldRef Name="FirstName" />
+                <FieldRef Name="Title" />
+                <FieldRef Name="Company" />
+                <FieldRef Name="WorkPhone" />
+                <FieldRef Name="Email" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="fdc8216d-dabf-441d-8ac0-f6c626fbdc24" Name="LastNamePhonetic" DisplayName="Last Name Phonetic" />
+            <pnp:FieldRef ID="4a722dd4-d406-4356-93f9-2550b8f50dd0" Name="FirstName" DisplayName="First Name" />
+            <pnp:FieldRef ID="ea8f7ca9-2a0e-4a89-b8bf-c51a6af62c73" Name="FirstNamePhonetic" DisplayName="First Name Phonetic" />
+            <pnp:FieldRef ID="475c2610-c157-4b91-9e2d-6855031b3538" Name="FullName" DisplayName="Full Name" />
+            <pnp:FieldRef ID="fce16b4c-fe53-4793-aaab-b4892e736d15" Name="Email" DisplayName="Email Address" />
+            <pnp:FieldRef ID="038d1503-4629-40f6-adaf-b47d1ab2d4fe" Name="Company" DisplayName="Company" />
+            <pnp:FieldRef ID="034aae88-6e9a-4e41-bc8a-09b6c15fcdf4" Name="CompanyPhonetic" DisplayName="Company Phonetic" />
+            <pnp:FieldRef ID="c4e0f350-52cc-4ede-904c-dd71a3d11f7d" Name="JobTitle" DisplayName="Job Title" />
+            <pnp:FieldRef ID="fd630629-c165-4513-b43c-fdb16b86a14d" Name="WorkPhone" DisplayName="Business Phone" />
+            <pnp:FieldRef ID="2ab923eb-9880-4b47-9965-ebf93ae15487" Name="HomePhone" DisplayName="Home Phone" />
+            <pnp:FieldRef ID="2a464df1-44c1-4851-949d-fcd270f0ccf2" Name="CellPhone" DisplayName="Mobile Number" />
+            <pnp:FieldRef ID="9d1cacc8-f452-4bc1-a751-050595ad96e1" Name="WorkFax" DisplayName="Fax Number" />
+            <pnp:FieldRef ID="fc2e188e-ba91-48c9-9dd3-16431afddd50" Name="WorkAddress" DisplayName="Address" />
+            <pnp:FieldRef ID="6ca7bd7f-b490-402e-af1b-2813cf087b1e" Name="WorkCity" DisplayName="City" />
+            <pnp:FieldRef ID="ceac61d3-dda9-468b-b276-f4a6bb93f14f" Name="WorkState" DisplayName="State/Province" />
+            <pnp:FieldRef ID="9a631556-3dac-49db-8d2f-fb033b0fdc24" Name="WorkZip" DisplayName="ZIP/Postal Code" />
+            <pnp:FieldRef ID="3f3a5c85-9d5a-4663-b925-8b68a678ea3a" Name="WorkCountry" DisplayName="Country/Region" />
+            <pnp:FieldRef ID="a71affd2-dcc7-4529-81bc-2fe593154a5f" Name="WebPage" DisplayName="Web Page" />
+            <pnp:FieldRef ID="9da97a8a-1da5-4a77-98d3-4bc10456e700" Name="Comments" DisplayName="Notes" />
+          </pnp:FieldRefs>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

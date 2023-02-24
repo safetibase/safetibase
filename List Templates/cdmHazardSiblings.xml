@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-CFEE66432D7F41B7ABCF5114DA359C4A">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-CFEE66432D7F41B7ABCF5114DA359C4A" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHazardSiblings" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSiblings" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSiblings/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSiblings/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSiblings/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{392C4C80-16FE-49F4-BE32-0CF5A4277110}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmHazardSiblings/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazard" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field Type="Lookup" DisplayName="cdmHazard" Required="FALSE" EnforceUniqueValues="FALSE" List="d4918cd9-adb7-4f20-9ea0-547dc232c4bf" ShowField="ID" UnlimitedLengthInDocumentLibrary="FALSE" ID="{e6db8d91-360d-4e8d-a31b-74137551e085}" SourceID="{{listid:cdmHazardSiblings}}" StaticName="cdmHazard" Name="cdmHazard" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

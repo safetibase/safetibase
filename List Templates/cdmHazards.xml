@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-F0E71FF9B1A74773BE1E1B3D2B6A642D">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-F0E71FF9B1A74773BE1E1B3D2B6A642D" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmHazards" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="100" Url="Lists/cdmHazards" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="50" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazards/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazards/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazards/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{8A5E6772-6226-4631-8F03-8C7C36345ABA}" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmHazards/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="cdmReviews" />
+                <FieldRef Name="cdmIniRisk" />
+                <FieldRef Name="cdmResRisk" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="cdmSiblings" />
+                <FieldRef Name="CurrentReviewOwner" />
+                <FieldRef Name="Created" />
+                <FieldRef Name="Author" />
+                <FieldRef Name="cdmGeometry" />
+                <FieldRef Name="cdmStage" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+            <View Name="{7B5F67D1-D5B0-4BBE-9FCF-537277CBF311}" MobileView="TRUE" Type="HTML" DisplayName="my hazards" Url="{site}/Lists/cdmHazards/my hazards.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+                <Where>
+                  <Eq>
+                    <FieldRef Name="Author" />
+                    <Value Type="Integer">
+                      <UserID Type="Integer" />
+                    </Value>
+                  </Eq>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="cdmReviews" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+            <View Name="{76ED5F83-01B7-412F-9C17-A262CE31E3DF}" MobileView="TRUE" Type="HTML" DisplayName="mods" Url="{site}/Lists/cdmHazards/mods.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="CurrentReviewOwner" />
+                <FieldRef Name="Modified" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+            </View>
+            <View Name="{B1B2A398-7C8A-4398-A7FF-2FA9B46D56C2}" DefaultView="TRUE" MobileView="TRUE" Type="HTML" DisplayName="LatestModified" Url="{site}/Lists/cdmHazards/LatestModified.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="Modified" Ascending="FALSE" />
+                </OrderBy>
+                <Where>
+                  <Neq>
+                    <FieldRef Name="cdmResidualRiskScore" />
+                    <Value Type="Number">25</Value>
+                  </Neq>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="Modified" />
+                <FieldRef Name="Editor" />
+                <FieldRef Name="Created" />
+                <FieldRef Name="Author" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmEntityTitle" />
+                <FieldRef Name="cdmGeometry" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmIniRisk" />
+                <FieldRef Name="cdmInitialRAG" />
+                <FieldRef Name="cdmInitialRisk" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmLastReviewSnapshot" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmLinks" />
+                <FieldRef Name="cdmParent" />
+                <FieldRef Name="cdmPWElement" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmRAGSuggestion" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmRelatedRAMS" />
+                <FieldRef Name="cdmResidualRAG" />
+                <FieldRef Name="cdmResidualRisk" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmResRisk" />
+                <FieldRef Name="cdmReviews" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmSiblings" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmSMMitigationSuggestion" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="CurrentReviewOwner" />
+                <FieldRef Name="LegacyID" />
+                <FieldRef Name="cdmhs2residualriskowner" />
+                <FieldRef Name="cdmPWStructure_x003a__x0020_UAID" />
+                <FieldRef Name="ContentType" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmHS2RailSystemsContracts" />
+                <FieldRef Name="cdmPASRiskClassification" />
+                <FieldRef Name="cdmStageExtra" />
+                <FieldRef Name="cdmResidualRiskOwner" />
+                <FieldRef Name="cdmContract" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+              <CustomFormatter />
+              <ViewData />
+            </View>
+            <View Name="{9D710D2E-8EE8-42EB-B8D7-C100B08136F6}" Type="HTML" DisplayName="Safetibase export" Url="{site}/Lists/cdmHazards/Safetibase export.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query />
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardType" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmStageMitigationSuggestion" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmCurrentStatus" />
+                <FieldRef Name="cdmHazardCoordinates" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmLastReviewDate" />
+                <FieldRef Name="cdmLastReviewer" />
+                <FieldRef Name="cdmLastReviewStatus" />
+                <FieldRef Name="cdmLastReviewType" />
+                <FieldRef Name="cdmRAMS" />
+                <FieldRef Name="cdmTW" />
+                <FieldRef Name="CurrentMitigationOwner" />
+                <FieldRef Name="CurrentReviewOwner" />
+                <FieldRef Name="Created" />
+                <FieldRef Name="Author" />
+                <FieldRef Name="Modified" />
+                <FieldRef Name="Editor" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <ViewStyle ID="17" />
+              <JSLink>clienttemplates.js</JSLink>
+              <CustomFormatter>{"additionalRowClass":{"operator":":","operands":[{"operator":"==","operands":[{"operator":"%","operands":["@rowIndex",2]},0]},"sp-css-backgroundColor-neutralBackground",{"operator":":","operands":[{"operator":"==","operands":[{"operator":"%","operands":["@rowIndex",2]},1]},"sp-css-backgroundColor-noFill",""]}]},"rowClassTemplateId":"BgColorAlternateRows"}</CustomFormatter>
+              <ViewData />
+            </View>
+            <View Name="{76666059-5D21-4862-8997-D18F804DC9CF}" Type="HTML" DisplayName="Export for BIM" Url="{site}/Lists/cdmHazards/Export for BIM.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query />
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="cdmPWStructure" />
+                <FieldRef Name="cdmStage" />
+                <FieldRef Name="cdmHazardTags" />
+                <FieldRef Name="cdmHazardDescription" />
+                <FieldRef Name="cdmRiskDescription" />
+                <FieldRef Name="cdmInitialRiskScore" />
+                <FieldRef Name="cdmMitigationDescription" />
+                <FieldRef Name="cdmHazardOwner" />
+                <FieldRef Name="cdmResidualRiskScore" />
+                <FieldRef Name="cdmUniclass" />
+                <FieldRef Name="cdmHazardCoordinates" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <Aggregations Value="Off" />
+              <JSLink>clienttemplates.js</JSLink>
+              <ViewData />
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field DisplayName="cdmHazardDescription" Name="cdmHazardDescription" Type="Note" ID="{fd1cb645-5319-40b6-87af-711ff90dbf2f}" Group="Custom Columns" Version="4" StaticName="cdmHazardDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext2" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>To be defined</Default>
+            </Field>
+            <Field DisplayName="cdmTW" Name="cdmTW" Type="Text" ID="{c7f2841e-01b2-48cd-96d0-4f0d79e6b246}" Group="" Version="2" StaticName="cdmTW" SourceID="{{listid:cdmHazards}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="cdmRAMS" Name="cdmRAMS" Type="Text" ID="{4bc8648e-4c39-492c-bb7c-09424c6f08cc}" Group="" Version="3" StaticName="cdmRAMS" SourceID="{{listid:cdmHazards}}" ColName="nvarchar5" RowOrdinal="0" Indexed="TRUE" AutoIndexed="TRUE" />
+            <Field DisplayName="cdmRiskDescription" Name="cdmRiskDescription" Type="Note" ID="{6a0f6d8c-0311-4dbc-9d18-b48f28819770}" Group="Custom Columns" Version="4" StaticName="cdmRiskDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext3" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting risk assessment</Default>
+            </Field>
+            <Field DisplayName="cdmMitigationDescription" Name="cdmMitigationDescription" Type="Note" ID="{9572e6e2-3448-42b6-a520-cb0564aaeefe}" Group="Custom Columns" Version="4" StaticName="cdmMitigationDescription" SourceID="{{listid:cdmHazards}}" ColName="ntext4" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting mitigation</Default>
+            </Field>
+            <Field DisplayName="cdmResidualRiskScore" Name="cdmResidualRiskScore" Type="Number" ID="{94b36b6b-ef1d-44c1-93dd-108b21169499}" Group="Custom Columns" Version="8" StaticName="cdmResidualRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float1" RowOrdinal="0" Decimals="0" Description="" CustomFormatter="" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="TRUE" Percentage="FALSE">
+              <Default>25</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewType" Name="cdmLastReviewType" Type="Text" ID="{7cf1d059-2d23-4133-975c-9ed3039d5cf2}" Group="Custom Columns" Version="12" StaticName="cdmLastReviewType" SourceID="{{listid:cdmHazards}}" ColName="nvarchar6" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Review</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewDate" Name="cdmLastReviewDate" Type="DateTime" ID="{d19ff85f-cc00-4cb7-a8e9-b4ae481727a9}" Group="" Version="2" StaticName="cdmLastReviewDate" SourceID="{{listid:cdmHazards}}" ColName="datetime1" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewSnapshot" Name="cdmLastReviewSnapshot" Type="Note" ID="{fe00b704-1987-4e21-a63b-680f99b0bce0}" Group="" Version="2" StaticName="cdmLastReviewSnapshot" SourceID="{{listid:cdmHazards}}" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="cdmLastReviewer" Name="cdmLastReviewer" Type="Text" ID="{ff116ef6-d81e-4bf2-81e6-bf0c736ac5bd}" Group="" Version="2" StaticName="cdmLastReviewer" SourceID="{{listid:cdmHazards}}" ColName="nvarchar7" RowOrdinal="0" />
+            <Field DisplayName="cdmStageMitigationSuggestion" Name="cdmStageMitigationSuggestion" Type="Note" ID="{e842431a-13b1-4791-acc8-f87f48baae79}" Group="Custom Columns" Version="4" StaticName="cdmStageMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext6" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="">
+              <Default>Awaiting assessment</Default>
+            </Field>
+            <Field DisplayName="cdmLastReviewStatus" Name="cdmLastReviewStatus" Type="Text" ID="{d7ee1ed5-4bde-4ab4-bba0-de0c455c80e9}" Group="Custom Columns" Version="10" StaticName="cdmLastReviewStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar8" RowOrdinal="0" MaxLength="255" Description="">
+              <Default>Not started</Default>
+            </Field>
+            <Field Decimals="0" Description="" DisplayName="cdmInitialRiskScore" Type="Number" ID="{b94481ca-a100-4c54-a7d8-e8be8741a778}" Name="cdmInitialRiskScore" Group="Custom Columns" Version="5" StaticName="cdmInitialRiskScore" SourceID="{{listid:cdmHazards}}" ColName="float2" RowOrdinal="0" CustomFormatter="" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Percentage="FALSE">
+              <Default>25</Default>
+            </Field>
+            <Field DisplayName="cdmInitialRAG" Name="cdmInitialRAG" Type="Note" ID="{4015159d-ec18-4d45-9026-a1d32ba26728}" Group="" Version="2" StaticName="cdmInitialRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext7" RowOrdinal="0" />
+            <Field DisplayName="cdmResidualRAG" Name="cdmResidualRAG" Type="Note" ID="{3f88f954-8dfb-409a-bfc8-59bfcd718f55}" Group="" Version="2" StaticName="cdmResidualRAG" SourceID="{{listid:cdmHazards}}" ColName="ntext8" RowOrdinal="0" />
+            <Field DisplayName="cdmHazardCoordinates" Name="cdmHazardCoordinates" Type="Note" ID="{dfefa5c4-3852-4c9b-8048-a52248b3fe91}" Group="Custom Columns" StaticName="cdmHazardCoordinates" SourceID="{{listid:cdmHazards}}" ColName="ntext9" RowOrdinal="0" Version="6" />
+            <Field DisplayName="cdmSMMitigationSuggestion" Name="cdmSMMitigationSuggestion" Type="Note" ID="{def5c2bc-c8d2-461d-8f5c-151b611b0dba}" Group="" StaticName="cdmSMMitigationSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext10" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmHazardTags" Name="cdmHazardTags" Type="Note" ID="{2f0f077a-d197-49cd-85f2-8280e4873ed5}" Group="" StaticName="cdmHazardTags" SourceID="{{listid:cdmHazards}}" ColName="ntext11" RowOrdinal="0" Version="4" />
+            <Field DisplayName="cdmEntityTitle" Name="cdmEntityTitle" Type="Text" ID="{81955ea4-69a0-4838-a1c4-86f96dcdb838}" Group="" Version="2" StaticName="cdmEntityTitle" SourceID="{{listid:cdmHazards}}" ColName="nvarchar9" RowOrdinal="0" />
+            <Field DisplayName="cdmRelatedRAMS" Name="cdmRelatedRAMS" Type="Note" ID="{45c56b2b-4631-47f7-b8b2-46f150158fce}" Group="" Version="2" StaticName="cdmRelatedRAMS" SourceID="{{listid:cdmHazards}}" ColName="ntext12" RowOrdinal="0" />
+            <Field Decimals="0" Description="" DisplayName="cdmParent" Type="Number" ID="{7ebd7d2f-38c7-48ab-8f17-8f0c807abd80}" Name="cdmParent" Group="" Version="3" StaticName="cdmParent" SourceID="{{listid:cdmHazards}}" ColName="float3" RowOrdinal="0" Indexed="TRUE">
+              <Default>0</Default>
+            </Field>
+            <Field DisplayName="cdmRAGSuggestion" Name="cdmRAGSuggestion" Type="Note" ID="{0d4becaa-a559-4f9c-a8fd-8829636b6534}" Group="" Version="2" StaticName="cdmRAGSuggestion" SourceID="{{listid:cdmHazards}}" ColName="ntext13" RowOrdinal="0" />
+            <Field DisplayName="cdmUniclass" Name="cdmUniclass" Type="Note" ID="{0775945e-d4eb-4c9a-88e8-edd807d30031}" Group="" Version="2" StaticName="cdmUniclass" SourceID="{{listid:cdmHazards}}" ColName="ntext14" RowOrdinal="0" />
+            <Field DisplayName="cdmLinks" Name="cdmLinks" Type="Note" ID="{306e210c-b16b-46b2-8cfe-217540f01cdc}" Group="" Version="2" StaticName="cdmLinks" SourceID="{{listid:cdmHazards}}" ColName="ntext15" RowOrdinal="0" />
+            <Field MaxLength="255" Description="" DisplayName="cdmCurrentStatus" Type="Text" ID="{0d5f6f4d-de7d-4cb6-80da-28c4f3a8d379}" Name="cdmCurrentStatus" Group="" Version="5" StaticName="cdmCurrentStatus" SourceID="{{listid:cdmHazards}}" ColName="nvarchar10" RowOrdinal="0" Indexed="TRUE">
+              <Default>Requires mitigation</Default>
+            </Field>
+            <Field MaxLength="255" Description="" DisplayName="cdmInitialRisk" Type="Text" ID="{4a191eda-367a-4310-adb7-bf0bb2bcb36e}" Name="cdmInitialRisk" Group="" Version="3" StaticName="cdmInitialRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar11" RowOrdinal="0" Indexed="TRUE" AutoIndexed="TRUE">
+              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+            </Field>
+            <Field MaxLength="255" Description="" DisplayName="cdmResidualRisk" Type="Text" ID="{bff95fae-a81a-4687-9861-c5f534b5d201}" Name="cdmResidualRisk" Group="" Version="3" StaticName="cdmResidualRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar12" RowOrdinal="0" Indexed="TRUE" AutoIndexed="TRUE">
+              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+            </Field>
+            <Field DisplayName="cdmReviews" Name="cdmReviews" Type="Note" ID="{a0659470-8c4a-49c1-8ccc-8e2732508b6e}" Group="" Version="2" StaticName="cdmReviews" SourceID="{{listid:cdmHazards}}" ColName="ntext16" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmIniRisk" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{0f444de6-51e8-4fae-a5d5-20d596f51cfb}" SourceID="{{listid:cdmHazards}}" StaticName="cdmIniRisk" Name="cdmIniRisk" ColName="ntext17" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmResRisk" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{aa04408f-297d-4638-b709-9382007ec06a}" SourceID="{{listid:cdmHazards}}" StaticName="cdmResRisk" Name="cdmResRisk" ColName="ntext18" RowOrdinal="0" />
+            <Field Type="User" DisplayName="CurrentMitigationOwner" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="ImnName" UserSelectionMode="PeopleOnly" UserSelectionScope="0" ID="{ccabb862-9182-4a7f-b66f-a692e647f589}" SourceID="{{listid:cdmHazards}}" StaticName="CurrentMitigationOwner" Name="CurrentMitigationOwner" ColName="int1" RowOrdinal="0" Version="2" />
+            <Field Type="Note" DisplayName="cdmSiblings" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{fc735ef3-740e-4e85-9b20-f3899e799801}" SourceID="{{listid:cdmHazards}}" StaticName="cdmSiblings" Name="cdmSiblings" ColName="ntext19" RowOrdinal="0" />
+            <Field Type="User" DisplayName="CurrentReviewOwner" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="ImnName" UserSelectionMode="PeopleOnly" UserSelectionScope="0" ID="{aaa7300b-6f3f-4b09-9c29-939336c413e9}" SourceID="{{listid:cdmHazards}}" StaticName="CurrentReviewOwner" Name="CurrentReviewOwner" ColName="int2" RowOrdinal="0" />
+            <Field Type="Note" DisplayName="cdmGeometry" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{85de46bd-6b4f-4ed8-81f0-f4c7d461bcf1}" SourceID="{{listid:cdmHazards}}" StaticName="cdmGeometry" Name="cdmGeometry" ColName="ntext20" RowOrdinal="0" Description="Contains data related to a digital model's geometry" />
+            <Field Type="Number" DisplayName="LegacyID" Description="ID of hazard in previous CDM hazards Register" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Decimals="0" ID="{46bb7b20-7249-4764-8734-cfcba685390c}" SourceID="{{listid:cdmHazards}}" StaticName="LegacyID" Name="LegacyID" ColName="float4" RowOrdinal="0" />
+            <Field DisplayName="cdmhs2residualriskowner" Format="Dropdown" IsModern="TRUE" MaxLength="255" Name="cdmhs2residualriskowner" Title="cdmhs2residualriskowner" Type="Text" ID="{fb99cece-4d2c-49db-865e-ca5113f384e3}" SourceID="{{listid:cdmHazards}}" StaticName="cdmhs2residualriskowner" ColName="nvarchar13" RowOrdinal="0" />
+            <Field AppendOnly="FALSE" DisplayName="cdmHS2RailSystemsContracts" Format="Dropdown" IsModern="TRUE" IsolateStyles="FALSE" Name="cdmHS2RailSystemsContracts" RichText="FALSE" RichTextMode="Compatible" Title="cdmHS2RailSystemsContracts" Type="Note" ID="{ddbe1015-3fb0-42ea-b5a0-a1db493919b1}" SourceID="{{listid:cdmHazards}}" StaticName="cdmHS2RailSystemsContracts" ColName="ntext21" RowOrdinal="0" />
+            <Field AppendOnly="FALSE" DisplayName="cdmPASRiskClassification" Format="Dropdown" IsModern="TRUE" IsolateStyles="FALSE" Name="cdmPASRiskClassification" RichText="FALSE" RichTextMode="Compatible" Title="cdmPASRiskClassification" Type="Note" ID="{77a1b12d-6499-4d90-9d35-f381bd4baf75}" SourceID="{{listid:cdmHazards}}" StaticName="cdmPASRiskClassification" ColName="ntext22" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmSite" ID="{7b79167a-5276-4b21-b051-705ce32a470f}" Name="cdmSite" WebId="{siteid}" Group="" Version="7" StaticName="cdmSite" SourceID="{{siteid}}" ColName="int3" RowOrdinal="0" List="{listid:cdmSites}" Indexed="TRUE" />
+            <Field ClientSideComponentId="00000000-0000-0000-0000-000000000000" DisplayName="cdmPWStructure" Format="Dropdown" Indexed="FALSE" List="{listid:cdmPWStructures}" Name="cdmPWStructure" ShowField="Title" Title="cdmPWStructure" Type="Lookup" ID="{2218fe73-5e88-4445-8d5d-92a690a91d2a}" Version="12" StaticName="cdmPWStructure" SourceID="{{siteid}}" ColName="int4" RowOrdinal="0" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardOwner" ID="{3332b703-0e14-46b9-873a-8523ab00c081}" Name="cdmHazardOwner" WebId="{siteid}" Group="" StaticName="cdmHazardOwner" SourceID="{{siteid}}" ColName="int5" RowOrdinal="0" List="{listid:cdmCompanies}" Indexed="TRUE" Version="19" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardType" ID="{ef5eba98-ebd2-4a6d-a31d-e982c450c380}" Name="cdmHazardType" WebId="{siteid}" Group="" StaticName="cdmHazardType" SourceID="{{siteid}}" ColName="int6" RowOrdinal="0" List="{listid:cdmHazardTypes}" Version="16" />
+            <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int7" RowOrdinal="0" List="{listid:cdmPWElementTerms}" Version="16" />
+            <Field Type="Lookup" DisplayName="cdmStage" Required="FALSE" EnforceUniqueValues="FALSE" List="{listid:cdmStages}" ShowField="Title" UnlimitedLengthInDocumentLibrary="FALSE" ID="{35bcb6ba-f446-4253-8d74-0ec4fc2f4fc9}" SourceID="{{listid:cdmHazards}}" StaticName="cdmStage" Name="cdmStage" ColName="int9" RowOrdinal="0" Group="" Version="16" Indexed="TRUE" />
+            <Field ClientSideComponentId="00000000-0000-0000-0000-000000000000" DisplayName="cdmPWStructure: UAID" FieldRef="2218fe73-5e88-4445-8d5d-92a690a91d2a" Format="Dropdown" IsModern="TRUE" List="{listid:cdmPWStructures}" Name="cdmPWStructure_x003a__x0020_UAID" ShowField="UAID" Title="cdmPWStructure: UAID" Type="Lookup" ID="{58a99dff-46ab-44bb-b599-ee0e05249cd7}" SourceID="{{listid:cdmHazards}}" StaticName="cdmPWStructure_x003a__x0020_UAID" ReadOnly="TRUE" Version="2" Required="FALSE" Group="" UnlimitedLengthInDocumentLibrary="FALSE" />
+            <Field DisplayName="cdmStageExtra" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:cdmStagesExtra}" Name="cdmStageExtra" ShowField="Title" Title="cdmStageExtra" Type="Lookup" ID="{34e94431-e4f3-451c-a727-2f9a1c0ceb1f}" SourceID="{{listid:cdmHazards}}" StaticName="cdmStageExtra" ColName="int10" RowOrdinal="0" />
+            <Field DisplayName="cdmResidualRiskOwner" Format="Dropdown" IsModern="TRUE" MaxLength="255" Name="cdmResidualRiskOwner" Title="cdmResidualRiskOwner" Type="Text" ID="{805f1550-fca1-4826-b02d-748c6cb8bcba}" SourceID="{{listid:cdmHazards}}" StaticName="cdmResidualRiskOwner" ColName="nvarchar14" RowOrdinal="0" />
+            <Field AppendOnly="FALSE" DisplayName="cdmContract" Format="Dropdown" IsModern="TRUE" IsolateStyles="FALSE" Name="cdmContract" RichText="FALSE" RichTextMode="Compatible" Title="cdmContract" Type="Note" ID="{d4ef6fea-5672-4f7f-b9a7-1d6bb863d1ea}" SourceID="{{listid:cdmHazards}}" StaticName="cdmContract" ColName="ntext23" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

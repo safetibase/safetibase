@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-A78EE03D7911461BA3B54FD3B1B2043E">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-A78EE03D7911461BA3B54FD3B1B2043E" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmCompanies" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmCompanies" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmCompanies/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmCompanies/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmCompanies/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{D4920006-A992-4583-96BC-0C9526D444C6}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmCompanies/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="ID" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmCompanyRole" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+              <CustomFormatter />
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ClientSideComponentId="00000000-0000-0000-0000-000000000000" DisplayName="cdmCompanyRole" Format="Dropdown" Indexed="FALSE" List="{listid:cdmCompanyRoles}" Name="cdmCompanyRole" ShowField="Title" Title="cdmCompanyRole" Type="Lookup" ID="{10960898-3756-4cef-90da-bf26697fddd2}" Version="2" StaticName="cdmCompanyRole" SourceID="{{listid:cdmCompanies}}" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

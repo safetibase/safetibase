@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-A9FB769CBB73449ABB810AE8CD322422">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-A9FB769CBB73449ABB810AE8CD322422" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="Tasks" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="171" Url="Lists/Tasks" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="f9ce21f8-f437-4f7e-8bc6-946378c850f0" ContentTypesEnabled="true" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/Tasks/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/Tasks/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/Tasks/NewForm.aspx" ImageUrl="/_layouts/15/images/ittask.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x0108" Default="true" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{E3C4E8F4-C176-4055-A9C5-DE48B3F3C5C5}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Tasks" Url="{site}/Lists/Tasks/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+              <ViewFields>
+                <FieldRef Name="Checkmark" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="AssignedTo" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
+              <ViewData>
+                <FieldRef Name="PercentComplete" Type="StrikeThroughPercentComplete" />
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{0998C107-E5F9-4046-A58B-94F4D95FBED2}" MobileView="TRUE" Type="HTML" DisplayName="Late Tasks" Url="{site}/Lists/Tasks/late.aspx" Level="1" BaseViewID="2" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+              <Query>
+                <Where>
+                  <And>
+                    <Or>
+                      <IsNull>
+                        <FieldRef Name="PercentComplete" />
+                      </IsNull>
+                      <Neq>
+                        <FieldRef Name="PercentComplete" />
+                        <Value Type="Number">1</Value>
+                      </Neq>
+                    </Or>
+                    <Lt>
+                      <FieldRef Name="DueDate" />
+                      <Value Type="DateTime">
+                        <Today />
+                      </Value>
+                    </Lt>
+                  </And>
+                </Where>
+                <OrderBy>
+                  <FieldRef Name="DueDate" />
+                  <FieldRef Name="Priority" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="Checkmark" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="AssignedTo" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
+              <ViewData>
+                <FieldRef Name="PercentComplete" Type="StrikeThroughPercentComplete" />
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{8731469C-642E-41F1-8567-CA2E17D72E8E}" MobileView="TRUE" Type="HTML" DisplayName="Upcoming" Url="{site}/Lists/Tasks/Upcoming.aspx" Level="1" BaseViewID="3" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+              <Query>
+                <Where>
+                  <And>
+                    <Or>
+                      <IsNull>
+                        <FieldRef Name="PercentComplete" />
+                      </IsNull>
+                      <Neq>
+                        <FieldRef Name="PercentComplete" />
+                        <Value Type="Number">1</Value>
+                      </Neq>
+                    </Or>
+                    <Geq>
+                      <FieldRef Name="DueDate" />
+                      <Value Type="DateTime">
+                        <Today />
+                      </Value>
+                    </Geq>
+                  </And>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="Checkmark" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="AssignedTo" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
+              <ViewData>
+                <FieldRef Name="PercentComplete" Type="StrikeThroughPercentComplete" />
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{6BF603C3-3B85-4908-A49F-2D76DA35D2B1}" MobileView="TRUE" Type="HTML" DisplayName="Completed" Url="{site}/Lists/Tasks/completed.aspx" Level="1" BaseViewID="4" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+              <Query>
+                <Where>
+                  <Geq>
+                    <FieldRef Name="PercentComplete" />
+                    <Value Type="Number">1.0</Value>
+                  </Geq>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="Checkmark" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="AssignedTo" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
+              <ViewData>
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{09A24E4F-AF17-400C-B825-D11168D9358B}" MobileView="TRUE" Type="HTML" DisplayName="My Tasks" Url="{site}/Lists/Tasks/MyItems.aspx" Level="1" BaseViewID="5" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issues.png?rev=47">
+              <Query>
+                <Where>
+                  <In>
+                    <FieldRef Name="AssignedTo" LookupId="TRUE" />
+                    <Values>
+                      <Value Type="Integer">
+                        <UserID />
+                      </Value>
+                    </Values>
+                  </In>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="Checkmark" />
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="AssignedTo" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
+              <ViewData>
+                <FieldRef Name="PercentComplete" Type="StrikeThroughPercentComplete" />
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{1AD18CD6-07AB-47FC-B298-B57F1F2EF573}" Type="GANTT" DisplayName="Gantt Chart" Url="{site}/Lists/Tasks/gantt.aspx" Level="1" BaseViewID="8" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="StartDate" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="PercentComplete" />
+                <FieldRef Name="Predecessors" />
+                <FieldRef Name="AssignedTo" />
+                <FieldRef Name="GUID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+              <ViewData>
+                <FieldRef Name="Title" Type="GanttTitle" />
+                <FieldRef Name="StartDate" Type="GanttStartDate" />
+                <FieldRef Name="DueDate" Type="GanttEndDate" />
+                <FieldRef Name="PercentComplete" Type="GanttPercentComplete" />
+                <FieldRef Name="Predecessors" Type="GanttPredecessors" />
+                <FieldRef Name="ParentID" Type="HierarchyParentID" />
+                <FieldRef Name="DueDate" Type="TimelineDueDate" />
+              </ViewData>
+            </View>
+            <View Name="{D19E0764-0E63-4D94-8D96-D97F7B6F9F96}" Type="CALENDAR" TabularView="FALSE" DisplayName="Calendar" Url="{site}/Lists/Tasks/calendar.aspx" Level="1" BaseViewID="9" ContentTypeID="0x" MobileUrl="_layouts/15/mobile/viewdaily.aspx" ImageUrl="/_layouts/15/images/events.png?rev=47">
+              <Query>
+                <Where>
+                  <DateRangesOverlap>
+                    <FieldRef Name="StartDate" />
+                    <FieldRef Name="DueDate" />
+                    <Value Type="DateTime">
+                      <Month />
+                    </Value>
+                  </DateRangesOverlap>
+                </Where>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="StartDate" />
+                <FieldRef Name="DueDate" />
+                <FieldRef Name="Title" />
+                <FieldRef Name="Description" />
+              </ViewFields>
+              <ViewData>
+                <FieldRef Name="Title" Type="CalendarMonthTitle" />
+                <FieldRef Name="Title" Type="CalendarWeekTitle" />
+                <FieldRef Name="Location" Type="CalendarWeekLocation" />
+                <FieldRef Name="Title" Type="CalendarDayTitle" />
+                <FieldRef Name="Location" Type="CalendarDayLocation" />
+              </ViewData>
+            </View>
+          </pnp:Views>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="c3a92d97-2b77-4a25-9698-3ab54874bc6f" Name="Predecessors" DisplayName="Predecessors" />
+            <pnp:FieldRef ID="a8eb573e-9e11-481a-a8c9-1104a54b2fbd" Name="Priority" DisplayName="Priority" />
+            <pnp:FieldRef ID="c15b34c3-ce7d-490a-b133-3f4de8801b76" Name="Status" DisplayName="Task Status" />
+            <pnp:FieldRef ID="d2311440-1ed6-46ea-b46d-daa643dc3886" Name="PercentComplete" DisplayName="% Complete" />
+            <pnp:FieldRef ID="53101f38-dd2e-458c-b245-0c236cc13d1a" Name="AssignedTo" DisplayName="Assigned To" />
+            <pnp:FieldRef ID="7662cd2c-f069-4dba-9e35-082cf976e170" Name="Body" DisplayName="Description" />
+            <pnp:FieldRef ID="64cd368d-2f95-4bfc-a1f9-8d4324ecb007" Name="StartDate" DisplayName="Start Date" />
+            <pnp:FieldRef ID="cd21b4c2-6841-4f9e-a23a-738a65f99889" Name="DueDate" DisplayName="Due Date" />
+            <pnp:FieldRef ID="d2a04afc-9a05-48c8-a7fa-fa98f9496141" Name="RelatedItems" DisplayName="Related Items" />
+          </pnp:FieldRefs>
+          <pnp:FieldDefaults>
+            <pnp:FieldDefault FieldName="PercentComplete">0</pnp:FieldDefault>
+            <pnp:FieldDefault FieldName="StartDate" />
+          </pnp:FieldDefaults>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

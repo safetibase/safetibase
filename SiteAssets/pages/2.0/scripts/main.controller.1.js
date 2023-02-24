@@ -1,5 +1,5 @@
 main = {
-    setup_userdash: function (data, fset) {
+    setup_userdash: function(data, fset) {
         $('#mainTitle').html('Welcome to our hazards register');
         $('#mainArea').html('');
         var tlist = data.d.results;
@@ -70,7 +70,7 @@ main = {
                 var tpw = it.cdmPWStructure.Title;
                 var tw = it.cdmTW;
                 var ra = it.cdmRAMS;
-                var sg = it.cdmStage.Title;
+                var sg = it.cdmStageExtra.Title;
                 var ho = it.cdmHazardOwner.Title;
                 var hoi = it.cdmHazardOwner.ID;
                 var ec = it.cdmPWElement.ID;
@@ -143,7 +143,7 @@ main = {
             };
             var catsOptions = {
                 // responsive: true,
-                onClick: function (evt, item) {
+                onClick: function(evt, item) {
                     if (item[0]._index > -1) {
                         var cid = ids[item[0]._index];
                         var cn = lbls[item[0]._index];
@@ -191,7 +191,7 @@ main = {
 
 
     },
-    setup_welcome: function () {
+    setup_welcome: function() {
         // tposdata.getCount('cdmHazards','Hazards on system');
         $('#mainTitle').html('Welcome to our hazards register');
         $('#mainArea').html('');
@@ -199,27 +199,27 @@ main = {
         var fr1 = '<div class="filter-row">System users</div><div class="filter-row" id="tpos_users"></div>';
         var fr2 = '<div class="filter-row">Hazard stats</div><div class="filter-row" id="tpos_hazardstats"></div>';
 
-        
-        var newDate=new Date('2018/08/29');
-        var today = parseInt(new Date(newDate).getTime()); 
+
+        var newDate = new Date('2018/08/29');
+        var today = parseInt(new Date(newDate).getTime());
         var daysToSubtract = -2;
-        var minusDays=daysToSubtract*(86400000);
+        var minusDays = daysToSubtract * (86400000);
 
-        var yd=today-(86400000);
-        var yw=today-(7*86400000);
-        var ym=today-(30*86400000);
+        var yd = today - (86400000);
+        var yw = today - (7 * 86400000);
+        var ym = today - (30 * 86400000);
 
-        var ydd=new Date(yd);
-        var ywd=new Date(yw);
-        var ymd=new Date(ym);
+        var ydd = new Date(yd);
+        var ywd = new Date(yw);
+        var ymd = new Date(ym);
 
-        var ydu=ukdate(ydd);
-        var ywu=ukdate(ywd);
-        var ymu=ukdate(ymd);
+        var ydu = ukdate(ydd);
+        var ywu = ukdate(ywd);
+        var ymu = ukdate(ymd);
 
-        var ydi=ydd.toISOString();
-        var ywi=ywd.toISOString();
-        var ymi=ymd.toISOString();
+        var ydi = ydd.toISOString();
+        var ywi = ywd.toISOString();
+        var ymi = ymd.toISOString();
 
 
         var fr3 = '<div class="filter-row">Hazards added since yesterday</div><div class="filter-row" id="tpos_yesterdayhazards"></div>';
@@ -230,9 +230,9 @@ main = {
 
 
         tposdata.getQuickCount('cdmHazards', 1, '', 'Hazards on system', 'tpos_hazardstats', 'blue', 1);
-        tposdata.getQuickCount('cdmHazards', 10, 'Created ge datetime\'' + ydi + '\'', 'Hazards added since '+ydu, 'tpos_yesterdayhazards', 'blue', 1);
-        tposdata.getQuickCount('cdmHazards', 100, 'Created ge datetime\'' + ywi + '\'', 'Hazards added since '+ywu, 'tpos_lastweekhazards', 'blue', 1);
-        tposdata.getQuickCount('cdmHazards', 1000, 'Created ge datetime\'' + ymi + '\'', 'Hazards added since '+ymu, 'tpos_lastmonthhazards', 'blue', 1);
+        tposdata.getQuickCount('cdmHazards', 10, 'Created ge datetime\'' + ydi + '\'', 'Hazards added since ' + ydu, 'tpos_yesterdayhazards', 'blue', 1);
+        tposdata.getQuickCount('cdmHazards', 100, 'Created ge datetime\'' + ywi + '\'', 'Hazards added since ' + ywu, 'tpos_lastweekhazards', 'blue', 1);
+        tposdata.getQuickCount('cdmHazards', 1000, 'Created ge datetime\'' + ymi + '\'', 'Hazards added since ' + ymu, 'tpos_lastmonthhazards', 'blue', 1);
         tposdata.getQuickCount('cdmHazards', 2, 'Author/ID eq \'' + uid() + '\'', 'Hazards identified by you', 'tpos_hazardstats', 'green', 1);
         tposdata.getQuickCount('cdmHazards', 20, 'Created ge datetime\'' + ydi + '\' and Author/ID eq \'' + uid() + '\'', 'Hazards identified by you', 'tpos_yesterdayhazards', 'green', 1);
         tposdata.getQuickCount('cdmHazards', 3, 'cdmPWStructure/ID ne null', 'Permanent works hazards', 'tpos_hazardstats', '', 1);
@@ -241,14 +241,14 @@ main = {
         tposdata.getQuickCount('cdmHazards', 6, 'cdmHazardOwner/ID eq null', 'Unassigned hazards', 'tpos_hazardstats', 'red', 1);
         tposdata.getQuickCount('cdmHazards', 7, 'cdmResidualRiskScore gt 9', 'High (residual) risk', 'tpos_hazardstats', 'red', 1);
         tposdata.getQuickCount('cdmUsers', 1, 'cdmUserRole/Title eq \'Designer\'', 'Designers', 'tpos_users', '', 1);
-        tposdata.getQuickCount('cdmUsers', 2, 'cdmUserRole/Title eq \'Sub contractor rep\'', 'Sub contractor reps', 'tpos_users', '', 1);
-        tposdata.getQuickCount('cdmUsers', 3, 'cdmUserRole/Title eq \'Design house manager\'', 'Design house managers', 'tpos_users', '', 1);
-        tposdata.getQuickCount('cdmUsers', 4, 'cdmUserRole/Title eq \'Site manager\'', 'Site managers', 'tpos_users', '', 1);
+        tposdata.getQuickCount('cdmUsers', 2, 'cdmUserRole/Title eq \'Construction Engineer\'', 'Construction Engineers', 'tpos_users', '', 1);
+        tposdata.getQuickCount('cdmUsers', 3, 'cdmUserRole/Title eq \'Design Manager\'', 'Design Managers', 'tpos_users', '', 1);
+        tposdata.getQuickCount('cdmUsers', 4, 'cdmUserRole/Title eq \'Construction Manager\'', 'Construction Managers', 'tpos_users', '', 1);
         tposdata.getQuickCount('cdmUsers', 5, 'cdmUserRole/Title eq \'Lead designer\'', 'Lead designers', 'tpos_users', '', 1);
         tposdata.getQuickCount('cdmCompanies', 1, '', 'Companies', 'tpos_users', 'blue', 1);
         $('#tpos-main').removeClass('hide');
     },
-    setup_user:function(userrole, company, site) {
+    setup_user: function(userrole, company, site) {
         $('#mainTitle').html('Your dashboard');
         $('#mainArea').html('');
         var fr1 = '<div class="filter-row">To do</div><div class="filter-row" id="tpos_hazards"></div>';
@@ -273,12 +273,12 @@ main = {
         // $('#mainArea').html();
 
     },
-    new_hazard: function () {
+    new_hazard: function() {
         $('.tpos-btn').removeClass('tpos-btn-active');
         $('.add').addClass('tpos-btn-active');
         $('#mainTitle').html('Identify a hazard');
         $('#mainArea').html('');
-        $('#mainArea').load('../../pages/2.0/html/frm.new_hazard.1.html', function () {
+        $('#mainArea').load('../../pages/2.0/html/frm.new_hazard.1.html', function() {
             $('.selectnext').hide();
             tposdata.get('cdmSites', '', '', 'sel_sites');
 
@@ -310,7 +310,7 @@ function mkUnique(data, wpid, wpwidth, wptitle, navme, xtra) {
     for (var i = 0; i < arr.length; i++) {
         counts[arr[i]] = 1 + (counts[arr[i]] || 0);
     }
-    var array = $.map(counts, function (value, index) {
+    var array = $.map(counts, function(value, index) {
         return [value];
     });
 
@@ -325,7 +325,7 @@ function mkUnique(data, wpid, wpwidth, wptitle, navme, xtra) {
 function hybridToArray(nodes) {
     var arr = [];
     var set = nodes;
-    set.forEach(function (i) {
+    set.forEach(function(i) {
         arr.push(i);
     });
     return arr;
@@ -370,10 +370,10 @@ function pwBarChart(lbl, pwa, wpid, wpwidth, wptitle, navme, xtraa) {
             display: false
         },
         maxBarThickness: 20,
-        onAnimationComplete: function () {
+        onAnimationComplete: function() {
             recallMason();
         },
-        onClick: function (evt, item) {
+        onClick: function(evt, item) {
             if (item[0]._index > -1) {
                 var rid = pwa[item[0]._index];
                 var rn = lbl[item[0]._index];

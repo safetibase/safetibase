@@ -1,6 +1,5 @@
 <div class="tpos-info">Hazards applicable to one or many permanent works, temporary works and/or RAMS can be recorded in one go.</div>
-<div class="tpos-info">Start by describing the hazard (something with the potential to cause harm). Optionally, describe the risk (what harm could
-    come to whom/what) and your mitigation (methods of minimising the risk).</div>
+<div class="tpos-info">Start by describing the hazard (something with the potential to cause harm). Optionally, describe the risk (what harm could come to whom/what) and your mitigation (methods of minimising the risk).</div>
 <div class="tpos-info">Leave the risk and/or mitigation fields empty if you are not yet sure.</div>
 <div class="input-panel" id="hazard">
     <div class="tpos-lbl">Describe the hazard</div>
@@ -223,20 +222,19 @@
 
 </div>
 
-<div class="tpos-info">Then select a site. Please note that you can only select one site at a time.</div>
+<div class="tpos-info">Then select a sublot. Please note that you can only select one sublot at a time.</div>
 
 
 <div class="select-panel" id="sites">
-    <div class="tpos-lbl">Select a site</div>
+    <div class="tpos-lbl">Select a sublot</div>
     <div class="tpos-select" id="div_sel_sites"></div>
     <div>
-        <input class="hide" type="text" name="" id="sctSite" value="0" placeholder="Select a site" />
+        <input class="hide" type="text" name="" id="sctSite" value="0" placeholder="Select a sublot" />
     </div>
 </div>
 
 <div class="selectnext" id="next">
-    <div class="tpos-info">Select any applicable structure (to record permanent works hazards) by clicking on it. Use the search box to quickly
-        find the correct option(s).</div>
+    <div class="tpos-info">Select any applicable structure (to record permanent works hazards) by clicking on it. Use the search box to quickly find the correct option(s).</div>
 
     <div class="tpos-info">Once you've selected a structure and wish to add another one, simply click the structure search box again.</div>
 
@@ -258,12 +256,11 @@
 </div>
 
 <div class="selectnext">
-    <div class="tpos-info">If you wish to record the same hazard for structures, temporary works and/or RAMS for another site, you can select a
-        new site be clicking the sites search box. Selecting another site will empty all previously selected options and
-        provide new site relevant options.</div>
+    <div class="tpos-info">If you wish to record the same hazard for structures, temporary works and/or RAMS for another sublot, you can select a new sublot be clicking the sublots search box. Selecting another sublot will empty all previously selected options and provide new
+        sublot relevant options.</div>
 
     <div class="selection-panel" id="selection_panel">
-        <div class="tpos-lbl">Selected site</div>
+        <div class="tpos-lbl">Selected sub lot</div>
         <div id="selectedsite" class="tpos-selection"></div>
         <div id="pwstructurespanel">
             <div id="selectedstructures" class="tpos-selection"></div>
@@ -275,9 +272,8 @@
             <div id="selectedrams" class="tpos-selection"></div>
         </div>
     </div>
-    <div class="tpos-info">Once you've selected at least one works designs and/or RAMS, the hazard can be saved. Should you have selected more than
-        one works and/or RAMS, the hazard will be saved for all of them, i.e. the system will save the described hazard for
-        each works design and/or RAMS specified. Each recorded hazard will contain the same metadata as specified by you.</div>
+    <div class="tpos-info">Once you've selected at least one works designs and/or RAMS, the hazard can be saved. Should you have selected more than one works and/or RAMS, the hazard will be saved for all of them, i.e. the system will save the described hazard for each works
+        design and/or RAMS specified. Each recorded hazard will contain the same metadata as specified by you.</div>
 
     <div class="button-row" style="display: none;">
         <!-- <div class="tpos-left-btn sv-cancel">Cancel</div> -->
@@ -301,7 +297,7 @@
         <div class="cell-cell" id="h_0_cdmOwner" title="Owner">Mott MacDonald</div>
     </div>
     <div class="cell width-200">
-        <div class="cell-cell" id="h_0_cdmSite" title="Site">SL1</div>
+        <div class="cell-cell" id="h_0_cdmSite" title="Sub Lot">SL1</div>
         <div class="cell-cell" id="h_0_cdmPWStructure" title="Structure">A425 Leamington Road Reinstatement</div>
         <div class="cell-cell" id="h_0_cdmPWElement" title="Element">Children's Play Equipment</div>
     </div>
@@ -349,43 +345,31 @@
     <div class="cell vwhover">
         <div class="fld">
             <div class="lbl">The hazard</div>
-            <div class="cell-cell" id="h_0_cdmHazardDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo inventore dicta aliquid voluptates, placeat reprehenderit
-                vel quas perferendis maiores a iste veniam, iure perspiciatis unde quisquam sed! Repellat, dolorum ad.</div>
+            <div class="cell-cell" id="h_0_cdmHazardDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo inventore dicta aliquid voluptates, placeat reprehenderit vel quas perferendis maiores a iste veniam, iure perspiciatis unde quisquam sed! Repellat, dolorum ad.</div>
 
         </div>
         <div class="fld">
             <div class="lbl">The risk</div>
-            <div class="cell-cell" id="h_0_cdmRiskDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fugiat excepturi ducimus, pariatur deleniti
-                dolore autem totam quo quidem! Assumenda eius impedit obcaecati vel necessitatibus dolor ullam perferendis,
-                quis voluptatem!</div>
+            <div class="cell-cell" id="h_0_cdmRiskDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fugiat excepturi ducimus, pariatur deleniti dolore autem totam quo quidem! Assumenda eius impedit obcaecati vel necessitatibus dolor ullam perferendis, quis voluptatem!</div>
 
         </div>
         <div class="fld">
             <div class="lbl">Our mitigation</div>
-            <div class="cell-cell" id="h_0_cdmMitigation">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe nulla minus alias quisquam sint officia rerum,
-                provident sunt nostrum sapiente numquam enim quam unde atque tempore repudiandae dolore eum assumenda. Lorem
-                ipsum dolor sit amet, consectetur adipisicing elit. Officiis eius laudantium nobis excepturi, tempore illum
-                perferendis necessitatibus, natus esse delectus quia ea, reiciendis accusantium accusamus repellat quae temporibus
-                deserunt fugiat.</div>
+            <div class="cell-cell" id="h_0_cdmMitigation">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe nulla minus alias quisquam sint officia rerum, provident sunt nostrum sapiente numquam enim quam unde atque tempore repudiandae dolore eum assumenda. Lorem ipsum dolor sit amet,
+                consectetur adipisicing elit. Officiis eius laudantium nobis excepturi, tempore illum perferendis necessitatibus, natus esse delectus quia ea, reiciendis accusantium accusamus repellat quae temporibus deserunt fugiat.</div>
 
         </div>
         <div class="fld">
             <div class="lbl">Designer's mitigation suggestion for Construction</div>
-            <div class="cell-cell" id="h_0_cdmMitigationSuggestion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia
-                amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis
-                cum. eum assumenda.</div>
+            <div class="cell-cell" id="h_0_cdmMitigationSuggestion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis cum. eum assumenda.</div>
         </div>
         <div class="fld">
             <div class="lbl">Initial project control</div>
-            <div class="cell-cell bg-Red" id="h_0_cdmInitialRag">RG10 - Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia
-                amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis
-                cum. eum assumenda.</div>
+            <div class="cell-cell bg-Red" id="h_0_cdmInitialRag">RG10 - Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis cum. eum assumenda.</div>
         </div>
         <div class="fld">
             <div class="lbl">Residual project control</div>
-            <div class="cell-cell bg-Green" id="h_0_cdmResidualRAG">GG48 - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia
-                amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis
-                cum. eum assumenda.</div>
+            <div class="cell-cell bg-Green" id="h_0_cdmResidualRAG">GG48 - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex labore nesciunt voluptas magnam ratione mollitia amet quae tempore fugit eveniet reiciendis similique, delectus unde aut quos doloremque maxime perspiciatis cum. eum assumenda.</div>
         </div>
 
     </div>
@@ -406,7 +390,7 @@
         <div class="cell width-100">
             <div class="cell-cell lbl">Last review</div>
             <div class="cell-cell" id="h_0_cdmLastReviewDate">16/08/2018</div>
-            <div class="cell-cell" id="h_0_cdmLastReviewer">Site manager</div>
+            <div class="cell-cell" id="h_0_cdmLastReviewer">Construction Manager</div>
         </div>
         <div class="cell width-100">
             <div class="cell-cell lbl">Current status</div>
@@ -458,7 +442,7 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
     });
 
@@ -561,7 +545,7 @@
         }
 
 
-        $('.qrremove').click(function () {
+        $('.qrremove').click(function() {
             var crc = $(this).parent().parent();
             var crs = $(this).parent().siblings();
             $(this).parent().remove();
@@ -668,7 +652,7 @@
         var tw = [];
         var rams = [];
         var title1 = new Date();
-        var title10=title1.getTime()+'^'+title1.getDate()+'^'+title1.getMonth()+1+'^'+title1.getFullYear();
+        var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
         //var title2=uid();
         var title = title10.toString() + '^' + uid();
         var hz = $('#cdmHazardDescription').val();
@@ -708,8 +692,8 @@
         }
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
-        var riskscoreval=trisks[0];
-        var rscv=parseInt(riskscoreval,10);
+        var riskscoreval = trisks[0];
+        var rscv = parseInt(riskscoreval, 10);
         console.log(pw);
         console.log(tw);
         console.log(rams);
@@ -728,13 +712,13 @@
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
                 tdata.push('cdmHazardType|1');
-                tdata.push('cdmInitialRiskScore|'+rscv);
-                tdata.push('cdmResidualRiskScore|'+rscv);
+                tdata.push('cdmInitialRiskScore|' + rscv);
+                tdata.push('cdmResidualRiskScore|' + rscv);
 
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
                 tdata.push('cdmPWStructure|' + pw[ps][1]);
-                tdata.push('cdmStage|' + pw[ps][2]);
+                tdata.push('cdmStageExtra|' + pw[ps][2]);
                 newhazards.push(tdata);
             }
 
@@ -751,15 +735,15 @@
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
                 tdata.push('cdmHazardType|1');
-                tdata.push('cdmInitialRiskScore|'+rscv);
-                tdata.push('cdmResidualRiskScore|'+rscv);
+                tdata.push('cdmInitialRiskScore|' + rscv);
+                tdata.push('cdmResidualRiskScore|' + rscv);
 
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
 
                 tdata.push('cdmTW|' + tw[ts][1]);
                 tdata.push('cdmEntityTitle|' + tw[ts][0]);
-                tdata.push('cdmStage|1');
+                tdata.push('cdmStageExtra|1');
                 newhazards.push(tdata);
 
             }
@@ -778,14 +762,14 @@
                 tdata.push('cdmInitialRisk|' + risks);
                 tdata.push('cdmResidualRisk|' + risks);
                 tdata.push('cdmHazardType|1');
-                tdata.push('cdmInitialRiskScore|'+rscv);
-                tdata.push('cdmResidualRiskScore|'+rscv);
+                tdata.push('cdmInitialRiskScore|' + rscv);
+                tdata.push('cdmResidualRiskScore|' + rscv);
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
 
                 tdata.push('cdmRAMS|' + rams[ras][1]);
                 tdata.push('cdmEntityTitle|' + rams[ras][0]);
-                tdata.push('cdmStage|1');
+                tdata.push('cdmStageExtra|1');
                 newhazards.push(tdata);
 
             }
@@ -793,17 +777,39 @@
 
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
-            tposdata.set('cdmHazards', newhazards[dd],'qmsg');
+            tposdata.set('cdmHazards', newhazards[dd], 'qmsg');
         }
         $('#div_sel_structures').html('');
-            $('#div_sel_tw').html('');
-            $('#div_sel_rams').html('');
-            $('#sel_cdmSites').val('');
-            $('#selectedtw').html('');
-            $('#selectedrams').html('');
-            $('#selectedstructures').html('');
+        $('#div_sel_tw').html('');
+        $('#div_sel_rams').html('');
+        $('#sel_cdmSites').val('');
+        $('#selectedtw').html('');
+        $('#selectedrams').html('');
+        $('#selectedstructures').html('');
         $('.button-row').hide();
 
 
     }
-</script>
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">5555552-1749435080-740</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">647a5f21-8ac0-4d35-836e-8a06cf6d1485</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://mottmac.sharepoint.com/teams/pj-a814/ps-mastertest/_layouts/15/DocIdRedir.aspx?ID=5555552-1749435080-740, 5555552-1749435080-740</mso:_dlc_DocIdUrl>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">James Holland</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">James Holland</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:ContentTypeId msdt:dt="string">0x01010099965F53203ACF48BB8E1D5839CF1A3F</mso:ContentTypeId>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+<mso:TaxCatchAll msdt:dt="string"></mso:TaxCatchAll>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

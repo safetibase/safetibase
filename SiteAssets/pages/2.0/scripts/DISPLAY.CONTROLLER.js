@@ -1,8 +1,8 @@
 function writeHazard(h){
     var hi=h.ID;
     var ref='<div class="cell-ne cell-hazref lg" data-itemid="'+hi+'" data-itemtitle="'+h.Title+'">Ref: '+hi+'</div>';
-    var stagedefault='<div class="cell-ne cell-hazstage" data-item="cdmStage" data-itemid="'+h.cdmStage.ID+'" data-itemtitle="'+h.cdmStage.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStage.ID+'.svg" alt="'+h.cdmStage.Title+'"></div>';
-    var stagehover='<div class="cell-ne cell-hazstage center" data-item="cdmStage" data-itemid="'+h.cdmStage.ID+'" data-itemtitle="'+h.cdmStage.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStage.ID+'.svg" alt="'+h.cdmStage.Title+'"><div>'+h.cdmStage.Title+'</div></div>';
+    var stagedefault='<div class="cell-ne cell-hazstage" data-item="cdmStageExtra" data-itemid="'+h.cdmStageExtra.ID+'" data-itemtitle="'+h.cdmStageExtra.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStageExtra.ID+'.svg" alt="'+h.cdmStageExtra.Title+'"></div>';
+    var stagehover='<div class="cell-ne cell-hazstage center" data-item="cdmStageExtra" data-itemid="'+h.cdmStageExtra.ID+'" data-itemtitle="'+h.cdmStageExtra.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+h.cdmStageExtra.ID+'.svg" alt="'+h.cdmStageExtra.Title+'"><div>'+h.cdmStageExtra.Title+'</div></div>';
     var typedefault='<div class="cell-e cell-haztype" data-hazard="'+hi+'" data-item="cdmHazardType" data-itemid="'+h.cdmHazardType.ID+'" data-itemtitle="'+h.cdmHazardType.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+h.cdmHazardType.ID+'.svg" alt="'+h.cdmHazardType.Title+'"></div>';
     var typehover='<div class="cell-e cell-haztype center" data-hazard="'+hi+'" data-item="cdmHazardType" data-itemid="'+h.cdmHazardType.ID+'" data-itemtitle="'+h.cdmHazardType.Title+'"><img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+h.cdmHazardType.ID+'.svg" alt="'+h.cdmHazardType.Title+'"><div>'+h.cdmHazardType.Title+'</div></div>';
     var owner=writeOwner(h);

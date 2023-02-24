@@ -111,19 +111,12 @@ tposdata = {
         }
         oListItem.update();
         ctx().load(oListItem);
-        ctx().executeQueryAsync(function () {
-            //toastr.success('item saved');
-            if (callback) {
-                var fn = window[callback];
-                fn(oListItem.get_id());
-            }
-
-        }, function (sender,args) {
-            var e = args.get_stackTrace();
-            var m = args.get_message();
-        
-            toastr.warning('something went wrong: '+m);
-        });
+        ctx().executeQueryAsync();
+        //toastr.success('item saved');
+        if (callback) {
+            var fn = window[callback];
+            fn(oListItem.get_id());
+        }
     },
     update: function (lst, data, callback) {
         var ml = list(lst);
@@ -139,17 +132,13 @@ tposdata = {
         }
         oListItem.update();
         ctx().load(oListItem);
-        ctx().executeQueryAsync(function () {
-            //toastr.success('item saved');
-            if (callback=='frmedit_updateview') {
-                // var fn = window[callback];
-                // fn(oListItem);
-                tposdata.get('cdmHazards','ID eq \'' + hzd + '\'',null,'frmedit_updateview');
-            }
-
-        }, function () {
-            toastr.warning('something went wrong');
-        });
+        ctx().executeQueryAsync();
+        //toastr.success('item saved');
+        if (callback=='frmedit_updateview') {
+            // var fn = window[callback];
+            // fn(oListItem);
+            tposdata.get('cdmHazards','ID eq \'' + hzd + '\'',null,'frmedit_updateview');
+        }
     },
 
     getCount: function (lst, title, clr, callback) {

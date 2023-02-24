@@ -8,7 +8,7 @@ ConvertTo-HashtableFromPsCustomObject - Converts an object into a hashtable
 
 Get-TopologicalSort - Sorts a hashtable containg items and their dependencies
 
-Get-ClonedObject - Used by Get-TopologicalSort function
+Get-ClonedObject - Used by Get-ssssTopologicalSort function
 
 Install-RequiredModules - Check is ImportExcel and SharePointPnP modules are installed
 
@@ -124,8 +124,10 @@ function Install-RequiredModules {
     # Check if required modules are installed. Otherwise install them.
     Write-Host "`nChecking Dependant Modules...`n"
 
-    $RequiredModules = "ImportExcel","SharePointPnPPowerShellOnline"
+    $RequiredModules = "ImportExcel"
     $output = "ok"
+
+    Install-Module -Name "PnP.PowerShell" -RequiredVersion 1.10.0 -scope CurrentUser
 
     foreach ($mod in $RequiredModules){
 

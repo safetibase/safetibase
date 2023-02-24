@@ -34,7 +34,7 @@
 
 # enter url to SharePoint site where SafetIbase is to be deployed.
 
-$SPsite = "https://teanent.sharepoint.com/teams/pj-b1234"
+$SPsite = "https://mottmac.sharepoint.com/teams/pj-a814/ps-configtest"
 
 #---------------------------------------
 # Fixed inputs
@@ -83,6 +83,8 @@ Try{
     $connect = Connect-PnPOnline -Url $SPsite -ReturnConnection
 }
 
+
+Get-PnPSiteCollectionAdmin -Connection $connect
 #---------------------------------------
 # CREATE LISTS (USING THE PROVISIONING TEMPLATE)
 #---------------------------------------
@@ -110,9 +112,9 @@ $ListOrder = $ListsInOrder | Where-Object {$_} #remove empty strings
 #Create all lists from templates
 Foreach ($item in $ListOrder){
     
-    $TempalteName = "$($TemplatePath)$($item)Template.xml"
+    $TempalteName = "$($TemplatePath)$($item).xml"
     Write-Host "Creating $($item)..."
-    Apply-PnPProvisioningTemplate -Path $TempalteName -ErrorAction Continue -Verbose
+    Invoke-PnPSiteTemplate -Path $TempalteName -ErrorAction Continue -Verbose
     Write-Host "Done`n"
 } 
 
@@ -129,82 +131,41 @@ Set-PnPField -List 'cdmStages' -Identity 'Title' -Values @{Indexed=$true}
 
 # Optional - Can be done in SharePoint
 
-#---------------------------------------
-# Get Lists to populate and sort them
-#---------------------------------------
 
 #Get lists from Excel file tab names
 $Sheets = Get-ExcelSheetInfo -Path $ExcelListPath
               
-# Add a property to stor the lists which need to be populated before each list
-$Sheets | Add-Member -MemberType NoteProperty -Name "Dependencies" -Value @()
 
-#Get dependency list
+Foreach($SheetName in $Sheets) {
 
-foreach ($lst in $Sheets){
-    
-    #Write-Host "List $($lst.Name)\n"
-    $cdmLookupFields = Get-PnPField -List $lst.Name | Where-Object {$_.Title -like 'cdm*' -and $_.FieldTypeKind -eq 'Lookup' }
-    foreach ($fld in $cdmLookupFields){
-        #Write-Host "Lookup field $($fld.Title)"
-        $depList = Get-PnPList -Identity $fld.LookupList
-        #Write-host "Dependant List $($depList.Title)"
-        if($lst.Dependencies -notcontains $depList.Title){
-            $lst.Dependencies += $depList.Title
-        }
-    }
-}
+$ImportedSheet = Import-Excel -Path $ExcelListPath -DataOnly -WorksheetName $SheetName.Name -ErrorAction SilentlyContinue
 
-#convert dependecy list to hashtable
-$ListHash = @{}
-foreach ($l in $Sheets){
-    $ListHash["$($l.Name)"]=$l.Dependencies
-}
 
-#Sort list based on dependancies
-$SortedList = Get-TopologicalSort $ListHash
+    Foreach($line in $ImportedSheet) {
 
-$SortedList2 = @()
-foreach ($ts in $SortedList){
-    if($Sheets.Name -contains $ts){
-        $SortedList2 += $ts
-    }
-}
 
-#---------------------------------------
-# Populate lists from Excel file
-#---------------------------------------
-        
-foreach ($sheet in $SortedList2){
-    
-    #Import Sheet
-    $ImportedSheet = Import-Excel -Path $ExcelListPath -DataOnly -WorksheetName $sheet -ErrorAction SilentlyContinue
-    
-    #Find lookup fields and replace values with ID of item looked up
-    $LookupFields = Get-PnPField -List $sheet | Where-Object {$_.Title -like 'cdm*' -and $_.FieldTypeKind -eq 'Lookup' }
-    foreach ($lkp in $LookupFields){
-        $list = Get-PnPList -Identity $lkp.LookupList
-        $Lookups = Get-PnPListItem $list
-        # loop through imported row. Replace lookup value with item ID.
-        foreach ($r in $ImportedSheet){
-            $r."$($lkp.InternalName)"= ($Lookups | Where-Object {$_.FieldValues.Title -eq $r."$($lkp.InternalName)"}).Id
-        }
-    }
+        if($SheetName.Name -eq "XtraButtons"){
 
-    #Import all rows
-    
+            $hashTable = @{Title =$line.Title; URL= $line.URL}
+
+            Add-PnPListItem -List $SheetName.Name -Values $hashTable
+
+
+
+        }else{
+
+            $hashTable = @{Title =$line.Title}
+
               
-    #Loop through Rows
-    foreach ($row in $ImportedSheet){     
-       
-        #Add list item
-        
-        $ItemHash = $row | ConvertTo-HashtableFromPsCustomObject
-        $NewItem = Add-PnPListItem -List "$($sheet)" -ContentType 'Item' -Values $ItemHash -Verbose
+            Add-PnPListItem -List $SheetName.Name -Values $hashTable
+
+
         }
-        if($ImportSheet.Count -gt 0){
-            Write-Host "`n $($sheet) List populated`n" -ForegroundColor Green
-        }
+
+
+    }
+
+
 }
 
 #---------------------------------------

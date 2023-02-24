@@ -1,5 +1,5 @@
 nav = {
-    setup: function (data, fset) {
+    setup: function(data, fset) {
 
         var tlist = data.d.results;
         var tcnt = ui_msg.results(tlist);
@@ -33,14 +33,14 @@ nav = {
                     actions += ui.mkBTN('edit', 'design', 'Edit/mitigate design hazards', 'editHazard', '');
                     actions += ui.mkBTN('review', 'design', 'Peer review design hazards', 'prHazard', '');
                 }
-                if (fv == 'Sub contractor rep') {
+                if (fv == 'Construction Engineer') {
                     actions += ui.mkBTN('edit', 'rams', 'Edit/mitigate RAMS hazards', 'editHazard', '');
                     actions += ui.mkBTN('review', 'rams', 'Peer review RAMS hazards', 'prHazard', '');
                 }
-                if (fv == 'Design house manager') {
-                    actions += ui.mkBTN('review', 'design', 'Undertake design house reviews', 'reviewHazard', '');
+                if (fv == 'Design Manager') {
+                    actions += ui.mkBTN('review', 'design', 'Undertake design manager reviews', 'reviewHazard', '');
                 }
-                if (fv == 'Site manager') {
+                if (fv == 'Construction Manager') {
                     actions += ui.mkBTN('review', 'design', 'Undertake pre-construction reviews', 'reviewHazard', '');
                     actions += ui.mkBTN('review', 'rams', 'Undertake RAMS hazard reviews', 'reviewHazard', '');
                 }
@@ -64,37 +64,38 @@ nav = {
         $('#tpos-nav').addClass('fadeIn');
         $('#tpos-nav').removeClass('hide');
 
-        $('.dataset').click(function () {
-            var hc=$(this).hasClass('active');
+        $('.dataset').click(function() {
+            var hc = $(this).hasClass('active');
             $('.dataset').removeClass('active');
             $('.tpos-btn').removeClass('tpos-btn-active');
             // $('.add').addClass('tpos-btn-active');
-    
-            if(hc==0){
+
+            if (hc == 0) {
                 var rid = $(this).attr('id');
                 console.log(rid);
                 $(this).addClass('active');
                 var role = $('#' + rid + '_fld_cdmUserRoleTitle').html();
                 var comp = $('#' + rid + '_fld_cdmCompanyTitle').html();
                 var site = $('#' + rid + '_fld_cdmSiteTitle').html();
-                main.setup_user(role,comp,site);
-            }if(hc==1){
+                main.setup_user(role, comp, site);
+            }
+            if (hc == 1) {
                 main.setup_welcome();
             }
         });
-        $('.add').click(function(){
-            var hc=$(this).hasClass('tpos-btn-active');
+        $('.add').click(function() {
+            var hc = $(this).hasClass('tpos-btn-active');
             $('.dataset').removeClass('active');
             $('.tpos-btn').removeClass('tpos-btn-active');
-            if(hc==0){
+            if (hc == 0) {
                 $('.add').addClass('tpos-btn-active');
                 main.new_hazard();
             }
-            if(hc==1){
+            if (hc == 1) {
                 $(this).removeClass('tpos-btn-active');
                 main.setup_welcome();
             }
-        
+
         });
 
 
@@ -116,5 +117,5 @@ nav = {
 //         main.setup_welcome();
 //     }
 
-    
+
 // }

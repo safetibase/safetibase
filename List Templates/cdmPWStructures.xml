@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-8EE6A71AE06441AE99E9A2C195F9D4CB">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-8EE6A71AE06441AE99E9A2C195F9D4CB" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+      <pnp:Lists>
+        <pnp:ListInstance Title="cdmPWStructures" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmPWStructures" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmPWStructures/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmPWStructures/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmPWStructures/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{28E306F8-CC70-4E6B-81D2-2E256B171156}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmPWStructures/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query>
+                <OrderBy>
+                  <FieldRef Name="ID" />
+                </OrderBy>
+              </Query>
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="cdmSite" />
+                <FieldRef Name="cdmDescription" />
+                <FieldRef Name="UAID" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+              <CustomFormatter />
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field ClientSideComponentId="00000000-0000-0000-0000-000000000000" DisplayName="cdmDescription" Format="Dropdown" MaxLength="255" Name="cdmDescription" Title="cdmDescription" Type="Text" ID="{d0c97758-5335-43f8-a463-17b39081e606}" Version="8" StaticName="cdmDescription" SourceID="{{listid:cdmPWStructures}}" ColName="nvarchar4" RowOrdinal="0" />
+            <Field DisplayName="UAID" Format="Dropdown" IsModern="TRUE" MaxLength="255" Name="UAID" Title="UAID" Type="Text" ID="{e45ff59b-5384-4184-9649-f6409f82165c}" SourceID="{{listid:cdmPWStructures}}" StaticName="UAID" ColName="nvarchar5" RowOrdinal="0" />
+            <Field DisplayName="cdmSite" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:cdmSites}" Name="cdmSite" ShowField="Title" Title="cdmSite" Type="Lookup" ID="{dafa9a5d-fe06-496a-8cca-4aa5da2d6b41}" SourceID="{{listid:cdmPWStructures}}" StaticName="cdmSite" ColName="int1" RowOrdinal="0" />
+          </pnp:Fields>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

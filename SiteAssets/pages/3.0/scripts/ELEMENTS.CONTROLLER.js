@@ -21,7 +21,7 @@ function closepops(){
     $('#pops').html('');
     $('#pops').remove();
 }
-
+ 
 // GLOBAL NAV SUB MENU
 function gimmesubs(title,content,cl){
     $('#subs').html('');
@@ -48,7 +48,7 @@ function closesubs(){
 
 
 // GLOBAL NAV
-function global_nav(){
+function global_nav(cdmSites, allHazardsData){
     var myvar = '<div id="tpos-global-nav" class="tpos-global-nav">'+
     '    <div class="tgn-btn" data-action="init">home</div>'+
     // '    <div class="tgn-btn" data-action="systemstats">system stats</div>'+
@@ -66,8 +66,8 @@ function global_nav(){
 
     // oldmenu.replaceWith(myvar);
     // $('#zz12_TopNavigationMenu').replaceWith(myvar);
-    activateGlobalNav();
-}
+    activateGlobalNav(cdmSites, allHazardsData);
+} 
 
 // BUTTONS
 function urbutton(data,trg){
@@ -192,7 +192,7 @@ function mkSelect (lst, data, fset, trg) {
         if (st) {
             $('tr:not(:contains(' + st + '))').each(function () {
                 var t = $(this).html();
-                //console.log(t);
+                ////console.log(t);
                 if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                     $(this).hide();
                 }
@@ -208,18 +208,21 @@ function mkSelect (lst, data, fset, trg) {
     });
     $('#sel_' + lst).click(function () {
         var st = $(this).val().toLowerCase();
-        $('tr').each(function () {
-            if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
-                if ($(this).is(":visible")) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
+        toastr.success(st);
+        if (!st || st == '') {
+            $('tr').each(function () {
+                if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
+                    if ($(this).is(":visible")) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
                 }
-            }
 
-        });
+            });
+        }
+
     });
-
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();

@@ -1,21 +1,21 @@
 ui = {
-    mkUserActionBtn: function (fn, v, title) {
+    mkUserActionBtn: function(fn, v, title) {
         var t = '<div class="tpos-btn" data-action="' + v + '" onclick="' + fn + '(' + v + ')">' + title + '</div>';
         return t;
     },
-    mkAddHazardBtn: function (fn, v, title) {
+    mkAddHazardBtn: function(fn, v, title) {
         var t = '<div class="tpos-btn" data-action="' + v + '" onclick="' + fn + '(' + v + ')" title="' + title + '"><img width="16" src="../../pages/2.0/img/add.svg"> <img width="32" src="../../pages/2.0/img/toxic-sign.svg"></div>'
         return t;
     },
-    mkMitigateHazardBtn: function (fn, v, title) {
+    mkMitigateHazardBtn: function(fn, v, title) {
         var t = '<div class="tpos-btn" data-action="' + v + '" onclick="' + fn + '(' + v + ')" title="' + title + '"><img width="16" src="../../pages/2.0/img/tools.svg"> <img width="32" src="../../pages/2.0/img/toxic-sign.svg"></div>'
         return t;
     },
-    mkReviewHazardBtn: function (fn, v, title) {
+    mkReviewHazardBtn: function(fn, v, title) {
         var t = '<div class="tpos-btn" data-action="' + v + '" onclick="' + fn + '(' + v + ')" title="' + title + '"><img width="16" src="../../pages/2.0/img/edit.svg"> <img width="32" src="../../pages/2.0/img/toxic-sign.svg"></div>'
         return t;
     },
-    mkBTN: function (action, entity, title, fn, v) {
+    mkBTN: function(action, entity, title, fn, v) {
         var actionimg = ['<img width="16" src="../../pages/2.0/img/signing-the-contract.svg">', '<img width="16" src="../../pages/2.0/img/note-interface-symbol.svg">', '<img width="16" src="../../pages/2.0/img/add.svg">'];
         var entityimg = '<img width="32" src="../../pages/2.0/img/toxic-sign.svg">';
         var typeimg = ['<img width="24" src="../../pages/2.0/img/drawing-tool.svg">', '<img width="24" src="../../pages/2.0/img/helmet.svg">'];
@@ -44,15 +44,15 @@ ui = {
         var t = '<div class="tpos-btn ' + action + '" data-action="' + v + '">' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
         return t;
     },
-    mkTextInput: function (fldid, placeholder) {
+    mkTextInput: function(fldid, placeholder) {
         var t = '<div id="' + fldid + '" class="tpos-input" contenteditable="true" placeholder="test placeholder text"></div>';
         return t;
     },
-    mkSaveBtn: function (btnid) {
+    mkSaveBtn: function(btnid) {
         var t = '<div class="tpos-btn save" id="btn_' + btnid + '" ><img width="16" src="../../pages/2.0/img/save-icon.svg"><div>Save</div></div>';
         return t;
     },
-    mkDataBox: function (id, v, title, clr) {
+    mkDataBox: function(id, v, title, clr) {
         var color = '';
         if (clr) {
             color = 'databox-clr-' + clr;
@@ -60,7 +60,7 @@ ui = {
         var t = '<div class="databox  ' + color + '" id="' + id + '"><div class="databox-content">' + v + '</div><div class="databox-title">' + title + '</div></div>';
         return t;
     },
-    mkSmallDataBox: function (id, v, title, clr) {
+    mkSmallDataBox: function(id, v, title, clr) {
         var color = '';
         if (clr) {
             color = 'databox-clr-' + clr;
@@ -68,7 +68,7 @@ ui = {
         var t = '<div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
         return t;
     },
-    mkSelect: function (lst, data, fset, trg) {
+    mkSelect: function(lst, data, fset, trg) {
         var tlist = data.d.results;
         $('#div_' + trg).hide();
         $('#div_' + trg).html('');
@@ -83,20 +83,20 @@ ui = {
         $('#div_' + trg).html('<table class="tpos-select-table">' + options + '</table>');
         $('#div_' + trg).show();
         $('#mainArea').addClass('addheight');
-        $('#sel_' + lst).bind('keyup change', function (ev) {
+        $('#sel_' + lst).bind('keyup change', function(ev) {
             var st = $(this).val().toLowerCase();
             $('#val_' + lst).html('0');
             $('#sctSite').val('0');
             sSite = 0;
             if (st) {
-                $('tr:not(:contains(' + st + '))').each(function () {
+                $('tr:not(:contains(' + st + '))').each(function() {
                     var t = $(this).html();
                     //console.log(t);
                     if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                         $(this).hide();
                     }
                 });
-                $('tr:contains(' + st + ')').each(function () {
+                $('tr:contains(' + st + ')').each(function() {
                     if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                         $(this).show();
                     }
@@ -105,11 +105,11 @@ ui = {
                 // $('tr td:contains(' + st + ')').show();
             }
         });
-        $('#sel_' + lst).click(function () {
+        $('#sel_' + lst).click(function() {
             var st = $(this).val().toLowerCase();
             toastr.success(st);
             if (!st || st == '') {
-                $('tr').each(function () {
+                $('tr').each(function() {
                     if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                         $(this).show();
                     }
@@ -118,7 +118,7 @@ ui = {
             }
 
         });
-        $('.tpos-' + lst + '-select-value').click(function () {
+        $('.tpos-' + lst + '-select-value').click(function() {
             var dvid = $(this).data('value');
             var dv = $('#dv_' + lst + '_' + dvid).html();
             $('#sel_' + lst).val(dv);
@@ -128,22 +128,22 @@ ui = {
             routeSelection(lst, dvid, dv);
         });
     },
-    mkTbl: function (id, cl, content) {
+    mkTbl: function(id, cl, content) {
         var t = '<table id="tbl_' + id + '" class="' + cl + '">' + content + '</table>';
         return t;
     },
-    mkTblRow: function (id, cl, content) {
+    mkTblRow: function(id, cl, content) {
         var t = '<tr id="row_' + id + '" class="' + cl + '">' + content + '</tr>';
         return t;
     },
-    mkTblCell: function (id, cl, content) {
+    mkTblCell: function(id, cl, content) {
         var t = '<td id="cell_' + id + '" class="' + cl + '"><div class="content-wrapper">' + content + '</div></td>';
         return t;
     }
 };
 
 ui_msg = {
-    results: function (data) {
+    results: function(data) {
         var t = data.length;
         if (t == 0) {
             toastr.warning('no records found');
@@ -159,13 +159,13 @@ ui_msg = {
 };
 
 ui_h = {
-    row: function (data, flds) {
+    row: function(data, flds) {
         var t = '<div class="row row-hazard tpos-border-right-Amber" id=></div>'
     }
 };
 
 page = {
-    scroll: function (trg) {
+    scroll: function(trg) {
         $('#space').remove();
         $('#tpos-page').append('<div id="space" class="space"></div>');
         $('#s4-workspace').scrollTop(0);
@@ -176,7 +176,7 @@ page = {
         }, 1000);
 
     },
-    scrollthis: function (trg) {
+    scrollthis: function(trg) {
         $('#space').remove();
         $('#mainArea').append('<div id="space" class="space"></div>');
         $('#mainArea').scrollTop(0);
@@ -188,7 +188,7 @@ page = {
 
     },
 
-    scrollme: function (trg) {
+    scrollme: function(trg) {
         //toastr.success(trg);
         $('#space').remove();
         $('#tpos-page').append('<div id="space" class="space"></div>');
@@ -200,7 +200,7 @@ page = {
         }, delay);
         return false;
     },
-    scrollmefaster: function (trg) {
+    scrollmefaster: function(trg) {
         //toastr.success(trg);
         $('#space').remove();
         $('#tpos-page').append('<div id="space" class="space"></div>');
@@ -217,11 +217,11 @@ page = {
 };
 
 hazards = {
-    list: function (data, ftv) {
+    list: function(data, ftv) {
         $('#mainArea').html('');
         var d = data.d.results;
         var dc = d.length;
-        var vs=[];
+        var vs = [];
         for (var cc = 0; cc < dc; cc++) {
             var h = d[cc];
             var hi = h.ID;
@@ -229,49 +229,49 @@ hazards = {
             var ar_created = 'Created ';
             var ar_modified = '';
             var ar_reviewed = '';
-            
-            $.each(h, function (key, element) {
+
+            $.each(h, function(key, element) {
                 if (key != '__metadata' && key != 'Title') {
-                    
+
                     cell += hazards.cell(hi, key, element);
-                    
+
                 }
 
 
             });
             // var row = hazards.row(hi, cell);
-            var row=test(h);
+            var row = test(h);
             // var row=vw_hazard.ref(h);
             $('#mainArea').append(row);
         }
         toggleCollapse();
         // rightClick('.row-hazard');
-        var tpos_search='<div class="filter-row"><input id="tpos_search" placeholder="Search here" /></div>';
+        var tpos_search = '<div class="filter-row"><input id="tpos_search" placeholder="Search here" /></div>';
         $('#mainArea').prepend(tpos_search);
-        $('#tpos_search').keyup(function(){
+        $('#tpos_search').keyup(function() {
 
             var q = $('#tpos_search').val();
-            if(q!=''&&q!=' '){
-                var f = $("div.row-hazard:Contains('" + q +"')");
-        
+            if (q != '' && q != ' ') {
+                var f = $("div.row-hazard:Contains('" + q + "')");
+
                 $("div.row-hazard").css("display", "none")
                     .filter(f)
                     .css("display", "block");
-    
-            }else{
+
+            } else {
                 $("div.row-hazard").css("display", "block");
             }
-        
+
         });
         manageEdits();
     },
-    item_edit:function(e){
-        var i=e.attr('id');
-        var is=i.split('_');
-        var hi=is[1];
-        hzd=hi;
-        var f=is[2];
-        toastr.success('field: '+f+' of hazard: '+hi);
+    item_edit: function(e) {
+        var i = e.attr('id');
+        var is = i.split('_');
+        var hi = is[1];
+        hzd = hi;
+        var f = is[2];
+        toastr.success('field: ' + f + ' of hazard: ' + hi);
         frmedit.router(f);
         // to edit owner, we need the hazard category to determine if design or rams
         // var hc=$('#h_'+hi+' .row-header').html();
@@ -281,7 +281,7 @@ hazards = {
         //         var ov=$('#h_'+hi+'_cdmHazardOwner').val();
         //         hazards.edit_cdmHazardOwner(hc,ov,hi);
         //     }
-    
+
         // }
         // if(hc=='RAMS hazard'){
         //     tposdata.get('cdmCompanies','cdmCompanyRole/Title eq \'Design house\'',null,'frmsel_owner');
@@ -296,19 +296,19 @@ hazards = {
         //     hazards.edit_cdmHazardOwner(hc,ov,hi);
         // }
     },
-    edit_cdmHazardOwner:function(hc,ov,hi){
-        if(hc=='Permanent works design hazard'||hc=='Temporary works design hazard'){
-            tposdata.get('cdmCompanies','cdmCompanyRole/Title eq \'Design house\'',null,'frmsel_owner');
+    edit_cdmHazardOwner: function(hc, ov, hi) {
+        if (hc == 'Permanent works design hazard' || hc == 'Temporary works design hazard') {
+            tposdata.get('cdmCompanies', 'cdmCompanyRole/Title eq \'Design house\'', null, 'frmsel_owner');
         }
-        if(hc=='RAMS hazard'){
+        if (hc == 'RAMS hazard') {
 
         }
     },
-    row: function (id, cell) {
+    row: function(id, cell) {
         var t = '<div class="row row-hazard tpos-border-right-Amber" id="h_' + id + '">' + cell + '</div>';
         return t;
     },
-    cell: function (id, key, element) {
+    cell: function(id, key, element) {
         if (key == 'Created' || key == 'Modified') {
             element = ukdate(element);
         }
@@ -332,10 +332,10 @@ hazards = {
 
         return t;
     },
-    aval:function(id,key,value){
+    aval: function(id, key, value) {
 
         var e = isObject(value);
-        if(e==false){return value;}else{
+        if (e == false) { return value; } else {
             return value.ID;
         }
 
@@ -343,41 +343,46 @@ hazards = {
 };
 
 function test(h) {
-    var hi=h.ID;
-    var entitytype='Permanent works design hazard';
-    var entitytypeclr='pwd';
-    var p=h.cdmPWStructure.Title;
-    var t=h.cdmTW;
-    var r=h.cdmRAMS;
-    var e=h.cdmPWElement.Title;
-    if(!e){e='<div id="h_'+hi+'_cdmPWElement" class="clr_5">No element</div>';}
-    var entity=p+' _ '+e;
-    var entitytitle=h.cdmEntityTitle;
-    if(t){entitytype='Temporary works design hazard';entity=entitytitle;entitytypeclr='twd';}
-    if(r){entitytype='RAMS hazard';entity=entitytitle;entitytypeclr='ra';}
-    var stt=h.cdmStage.Title;
-    var sti=h.cdmStage.ID;
-    var htt=h.cdmHazardType.Title;
-    var hti=h.cdmHazardType.ID;
-    var o=h.cdmHazardOwner.Title;
-    var oi=h.cdmHazardOwner.ID;
-    if(!oi){o='<div class="clr_5">Unassigned</div>';oi=0;}
-    var si=h.cdmSite.ID;
-    var st=h.cdmSite.Title;
-    var hd=h.cdmHazardDescription;
-    var hds=shortText(hd);
-    var rd=h.cdmRiskDescription;
-    var rds=shortText(rd);
-    var md=h.cdmMitigationDescription;
-    var mds=shortText(md);
-    var dmd=h.cdmMitigationSuggestion;
-    var dmds=shortText(dmd);
-    var smd=h.cdmSMMitigationSuggestion;
-    var smds=shortText(smd);
-    var rr=h.cdmResidualRisk;
-    
-    if(rr){
-        var $rc=decodeRisk('Residual',rr,1);
+    var hi = h.ID;
+    var entitytype = 'Permanent works design hazard';
+    var entitytypeclr = 'pwd';
+    var p = h.cdmPWStructure.Title;
+    var t = h.cdmTW;
+    var r = h.cdmRAMS;
+    var e = h.cdmPWElement.Title;
+    if (!e) { e = '<div id="h_' + hi + '_cdmPWElement" class="clr_5">No element</div>'; }
+    var entity = p + ' _ ' + e;
+    var entitytitle = h.cdmEntityTitle;
+    if (t) { entitytype = 'Temporary works design hazard';
+        entity = entitytitle;
+        entitytypeclr = 'twd'; }
+    if (r) { entitytype = 'RAMS hazard';
+        entity = entitytitle;
+        entitytypeclr = 'ra'; }
+    var stt = h.cdmStageExtra.Title;
+    var sti = h.cdmStageExtra.ID;
+    var htt = h.cdmHazardType.Title;
+    var hti = h.cdmHazardType.ID;
+    var o = h.cdmHazardOwner.Title;
+    var oi = h.cdmHazardOwner.ID;
+    if (!oi) { o = '<div class="clr_5">Unassigned</div>';
+        oi = 0; }
+    var si = h.cdmSite.ID;
+    var st = h.cdmSite.Title;
+    var hd = h.cdmHazardDescription;
+    var hds = shortText(hd);
+    var rd = h.cdmRiskDescription;
+    var rds = shortText(rd);
+    var md = h.cdmMitigationDescription;
+    var mds = shortText(md);
+    var dmd = h.cdmMitigationSuggestion;
+    var dmds = shortText(dmd);
+    var smd = h.cdmSMMitigationSuggestion;
+    var smds = shortText(smd);
+    var rr = h.cdmResidualRisk;
+
+    if (rr) {
+        var $rc = decodeRisk('Residual', rr, 1);
         var bclr = 'tpos-border-right-Green';
         if ($rc == 'clr_5') {
             bclr = 'tpos-border-right-Red';
@@ -385,336 +390,336 @@ function test(h) {
         if ($rc == 'clr_4') {
             bclr = 'tpos-border-right-Amber';
         }
-    
-    }
-    if(!rr){rr='';}
-    var ir=h.cdmInitialRisk;
-    if(!ir){ir='';}
 
-    var cd=ukdate(h.Created);
-    var mdt=ukdate(h.Modified);
-    var now=new Date();
-    var isonow=now.toISOString();
-    var isomdt=new Date(h.Modified).toISOString();
-    var mmdt=new Date(h.Modified);
-    //console.log(isonow+' - '+isomdt);
-    var tdMod=getTimeDiff(h.Modified);
-    var tdclass='mod';
-    if(tdMod<24){tdclass='mod24';}
-    if(tdMod<9){tdclass='mod9';}
-    if(tdMod<3){tdclass='mod3';}
-    if(tdMod<1){tdclass='mod1';}
-    var au=h.Author.Title;
-    var ed=h.Editor.Title;
-    var aui=h.Author.ID;
-    var edi=h.Editor.ID;
-    var lrd=h.cdmLastReviewDate;
-    var lrv=h.cdmLastReviewer;
-    var cs=h.cdmCurrentStatus;
-    if(!lrd){
-        lrd=' - ';
-        lrv=' - ';
     }
-    var irag=h.cdmInitialRAG;
-    var rrag=h.cdmResidualRAG;
+    if (!rr) { rr = ''; }
+    var ir = h.cdmInitialRisk;
+    if (!ir) { ir = ''; }
+
+    var cd = ukdate(h.Created);
+    var mdt = ukdate(h.Modified);
+    var now = new Date();
+    var isonow = now.toISOString();
+    var isomdt = new Date(h.Modified).toISOString();
+    var mmdt = new Date(h.Modified);
+    //console.log(isonow+' - '+isomdt);
+    var tdMod = getTimeDiff(h.Modified);
+    var tdclass = 'mod';
+    if (tdMod < 24) { tdclass = 'mod24'; }
+    if (tdMod < 9) { tdclass = 'mod9'; }
+    if (tdMod < 3) { tdclass = 'mod3'; }
+    if (tdMod < 1) { tdclass = 'mod1'; }
+    var au = h.Author.Title;
+    var ed = h.Editor.Title;
+    var aui = h.Author.ID;
+    var edi = h.Editor.ID;
+    var lrd = h.cdmLastReviewDate;
+    var lrv = h.cdmLastReviewer;
+    var cs = h.cdmCurrentStatus;
+    if (!lrd) {
+        lrd = ' - ';
+        lrv = ' - ';
+    }
+    var irag = h.cdmInitialRAG;
+    var rrag = h.cdmResidualRAG;
     // var gmissingmsg='<div class="clr_5">Awaiting assessment</div>';
     // if(!irag){}
 
 
 
 
-    var myvar = '<div class="row row-hazard '+bclr+'" id="h_'+hi+'">'+
-    '    <div class="row-header '+entitytypeclr+'">'+entitytype+'</div>'+
-    '    <div class="row vwdefault">'+
-    '        <table class="tpos-tbl">'+
-    '            <tr>'+
-    '                <td class="width-150">'+
-    '                    <div class="cell-cell lg">Ref: '+hi+'</div>'+
-    '                    <div class="cell-cell">'+
-    '                        <div class="cell-cell-img" title="'+stt+'">'+
-    '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+sti+'.svg" alt="'+stt+'">'+
-    '                        </div>'+
-    '                        <div class="cell-cell-img" title="'+htt+'">'+
-    '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+hti+'.svg" alt="'+htt+'">'+
-    '                        </div>'+
-    '                    </div>'+
-    '                    <div class="cell-cell" title="h_'+hi+'_Owner">'+o+'</div>'+
-    ''+
-    '                </td>'+
-    '                <td class="width-200">'+
-    '                    <div class="cell-cell" title="Site">'+st+'</div>'+
-    '                    <div class="cell-cell" id="h_0_cdmPWStructure" title="Entity">'+entity+'</div>'+
-    // '                    <div class="cell-cell" id="h_0_cdmPWElement" title="Element">Children\'s Play Equipment</div>'+
-    ''+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_cdmHazardDescription">'+hds+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_cdmRiskDescription">'+rds+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_cdmMitigation">'+mds+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_cdmMitigationSuggestion">'+dmds+'</div>'+
-                        '<div class="cell-cell" id="h_'+hi+'_sm_cdmMitigationSuggestion">'+smds+'</div>'+
-    ''+
-    ''+
-    '                </td>'+
-    '                <td class="width-250">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_created">Created '+cd+' by '+au +'</div>'+
-    '                    <div class="cell-cell '+tdclass+'" id="h_'+hi+'_sm_modded">Modified '+mdt+' by '+ed +'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_reviewed">Reviewed '+lrd+' by '+lrv +'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_sm_status">Status: '+cs+'</div>'+
+    var myvar = '<div class="row row-hazard ' + bclr + '" id="h_' + hi + '">' +
+        '    <div class="row-header ' + entitytypeclr + '">' + entitytype + '</div>' +
+        '    <div class="row vwdefault">' +
+        '        <table class="tpos-tbl">' +
+        '            <tr>' +
+        '                <td class="width-150">' +
+        '                    <div class="cell-cell lg">Ref: ' + hi + '</div>' +
+        '                    <div class="cell-cell">' +
+        '                        <div class="cell-cell-img" title="' + stt + '">' +
+        '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' + sti + '.svg" alt="' + stt + '">' +
+        '                        </div>' +
+        '                        <div class="cell-cell-img" title="' + htt + '">' +
+        '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' + hti + '.svg" alt="' + htt + '">' +
+        '                        </div>' +
+        '                    </div>' +
+        '                    <div class="cell-cell" title="h_' + hi + '_Owner">' + o + '</div>' +
+        '' +
+        '                </td>' +
+        '                <td class="width-200">' +
+        '                    <div class="cell-cell" title="Site">' + st + '</div>' +
+        '                    <div class="cell-cell" id="h_0_cdmPWStructure" title="Entity">' + entity + '</div>' +
+        // '                    <div class="cell-cell" id="h_0_cdmPWElement" title="Element">Children\'s Play Equipment</div>'+
+        '' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_cdmHazardDescription">' + hds + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_cdmRiskDescription">' + rds + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_cdmMitigation">' + mds + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_cdmMitigationSuggestion">' + dmds + '</div>' +
+        '<div class="cell-cell" id="h_' + hi + '_sm_cdmMitigationSuggestion">' + smds + '</div>' +
+        '' +
+        '' +
+        '                </td>' +
+        '                <td class="width-250">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_created">Created ' + cd + ' by ' + au + '</div>' +
+        '                    <div class="cell-cell ' + tdclass + '" id="h_' + hi + '_sm_modded">Modified ' + mdt + ' by ' + ed + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_reviewed">Reviewed ' + lrd + ' by ' + lrv + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_sm_status">Status: ' + cs + '</div>' +
 
-    ''+
-    ''+
-    '                </td>'+
+        '' +
+        '' +
+        '                </td>' +
 
-                        decodeRisk('Residual', rr)+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
-    '    <div class="row vwhover">'+
-    '        <table class="tpos-tbl">'+
-    '            <tr>'+
-    '                <td class="width-100">'+
-    '                    <div class="cell-cell lbl">Reference</div>'+
-    '                </td>'+
-    '                <td class="width-100">'+
-    '                    <div class="cell-cell lbl">Stage'+
-    '                    </div>'+
-    '                </td>'+
-    '                <td class="width-100">'+
-    '                    <div class="cell-cell lbl">Type'+
-    '                    </div>'+
-    '                </td>'+
-    '                <td class="width-100">'+
-    '                    <div class="cell-cell lbl">Owner</div>'+
-    '                </td>'+
-    '                <td class="width-50">'+
-    '                    <div class="cell-cell lbl">Site</div>'+
-    '                </td>'+
-    '                <td class="width-600">'+
-    '                    <div class="cell-cell lbl">Entity</div>'+
-    '                </td>'+
+        decodeRisk('Residual', rr) +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+        '    <div class="row vwhover">' +
+        '        <table class="tpos-tbl">' +
+        '            <tr>' +
+        '                <td class="width-100">' +
+        '                    <div class="cell-cell lbl">Reference</div>' +
+        '                </td>' +
+        '                <td class="width-100">' +
+        '                    <div class="cell-cell lbl">Stage' +
+        '                    </div>' +
+        '                </td>' +
+        '                <td class="width-100">' +
+        '                    <div class="cell-cell lbl">Type' +
+        '                    </div>' +
+        '                </td>' +
+        '                <td class="width-100">' +
+        '                    <div class="cell-cell lbl">Owner</div>' +
+        '                </td>' +
+        '                <td class="width-50">' +
+        '                    <div class="cell-cell lbl">Site</div>' +
+        '                </td>' +
+        '                <td class="width-600">' +
+        '                    <div class="cell-cell lbl">Entity</div>' +
+        '                </td>' +
 
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-100 fld-txt">'+
-    '                    <div class="cell-cell lg" id="h_'+hi+'_ID">Ref: '+hi+'</div>'+
-    '                </td>'+
-    '                <td class="width-100 fld-txt">'+
-    '                    <div class="cell-cell center">'+
-    '                        <div class="cell-cell-img" id="h_'+hi+'_cdmStage" title="'+stt+'">'+
-    '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/'+sti+'.svg" alt="'+stt+'"><div>'+stt+'</div>'+
-    '                        </div>'+
-    '                    </div>'+
-    '                </td>'+
-    '                <td class="width-100 fld-txt">'+
-    '                    <div class="cell-cell center">'+
-    '                        <div class="cell-cell-img" id="h_'+hi+'_cdmType" title="'+htt+'">'+
-    '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/'+hti+'.svg" alt="'+htt+'"><div>'+htt+'</div>'+
-    '                        </div>'+
-    '                    </div>'+
-    '                </td>'+
-    '                <td class="width-100 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmHazardOwnerTitle" title="Owner">'+o+'</div><input class="hidden-cell" type="number" id="h_'+hi+'_cdmHazardOwner" value="'+oi+'" />'+
-    '                </td>'+
-    '                <td class="width-50 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmSite" title="Site">'+st+'</div>'+
-    '                </td>'+
-    '                <td class="width-600 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmEntityTitle" title="Entity title">'+entity+'</div>'+
-    '                </td>'+
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-100 fld-txt">' +
+        '                    <div class="cell-cell lg" id="h_' + hi + '_ID">Ref: ' + hi + '</div>' +
+        '                </td>' +
+        '                <td class="width-100 fld-txt">' +
+        '                    <div class="cell-cell center">' +
+        '                        <div class="cell-cell-img" id="h_' + hi + '_cdmStage" title="' + stt + '">' +
+        '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' + sti + '.svg" alt="' + stt + '"><div>' + stt + '</div>' +
+        '                        </div>' +
+        '                    </div>' +
+        '                </td>' +
+        '                <td class="width-100 fld-txt">' +
+        '                    <div class="cell-cell center">' +
+        '                        <div class="cell-cell-img" id="h_' + hi + '_cdmType" title="' + htt + '">' +
+        '                            <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' + hti + '.svg" alt="' + htt + '"><div>' + htt + '</div>' +
+        '                        </div>' +
+        '                    </div>' +
+        '                </td>' +
+        '                <td class="width-100 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmHazardOwnerTitle" title="Owner">' + o + '</div><input class="hidden-cell" type="number" id="h_' + hi + '_cdmHazardOwner" value="' + oi + '" />' +
+        '                </td>' +
+        '                <td class="width-50 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmSite" title="Site">' + st + '</div>' +
+        '                </td>' +
+        '                <td class="width-600 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmEntityTitle" title="Entity title">' + entity + '</div>' +
+        '                </td>' +
 
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
-    '    <div class="row vwhover">'+
-    '        <table class="tpos-tbl wbrd">'+
-    '            <tr>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">The hazard</div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">The risk</div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Our mitigation</div>'+
-    '                </td>'+
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+        '    <div class="row vwhover">' +
+        '        <table class="tpos-tbl wbrd">' +
+        '            <tr>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">The hazard</div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">The risk</div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Our mitigation</div>' +
+        '                </td>' +
 
-    ''+
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmHazardDescription">'+hd+'</div>'+
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmRiskDescription">'+rd+'</div>'+
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmMitigationDescription">'+md+'</div>'+
-    '                </td>'+
+        '' +
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmHazardDescription">' + hd + '</div>' +
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmRiskDescription">' + rd + '</div>' +
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmMitigationDescription">' + md + '</div>' +
+        '                </td>' +
 
-    ''+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
-    '    <div class="row vwhover rag">'+
-    '        <table class="tpos-tbl wbrd">'+
-    '            <tr>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl"></div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Initial project controls</div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Residual project controls</div>'+
-    '                </td>'+
+        '' +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+        '    <div class="row vwhover rag">' +
+        '        <table class="tpos-tbl wbrd">' +
+        '            <tr>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl"></div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Initial project controls</div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Residual project controls</div>' +
+        '                </td>' +
 
-    ''+
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-300 fld-txt">'+
-    // '                    <div class="cell-cell" id="h_'+hi+'_cdmMitigationSuggestion">'+dmd+'</div>'+
-    // '                    <div class="cell-cell" id="h_'+hi+'_cdmSMMitigationSuggestion">'+smd+'</div>'+
-    
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    '+decodeRAG(irag)+
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    '+decodeRAG(rrag)+
-    '                </td>'+
+        '' +
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-300 fld-txt">' +
+        // '                    <div class="cell-cell" id="h_'+hi+'_cdmMitigationSuggestion">'+dmd+'</div>'+
+        // '                    <div class="cell-cell" id="h_'+hi+'_cdmSMMitigationSuggestion">'+smd+'</div>'+
 
-    ''+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    ' + decodeRAG(irag) +
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    ' + decodeRAG(rrag) +
+        '                </td>' +
 
-
-    '    <div class="row vwhover">'+
-    '        <table class="tpos-tbl wbrd">'+
-    '            <tr>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Designer\'s / Site manager\'s mitigation suggestion</div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Initial risk</div>'+
-    '                </td>'+
-    '                <td class="width-300">'+
-    '                    <div class="cell-cell lbl">Residual risk</div>'+
-    '                </td>'+
-
-    ''+
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmMitigationSuggestion">'+dmd+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmSMMitigationSuggestion">'+smd+'</div>'+
-    
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="width-250 centered"><table class="tpos-tbl"><tr>'+decodeRisk('Initial',ir)+'</tr></table></div>'+
-    '                </td>'+
-    '                <td class="width-300 fld-txt">'+
-    '                    <div class="width-250 centered"><table class="tpos-tbl"><tr>'+decodeRisk('Residual',rr)+'</tr></table></div>'+
-    '                </td>'+
-
-    ''+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
-// tags and links section
-    '    <div class="row vwhover">'+
-    '        <table class="tpos-tbl wbrd">'+
-    '            <tr>'+
-    '                <td class="width-250">'+
-    '                    <div class="cell-cell lbl">Hazard tags</div>'+
-    '                </td>'+
-    '                <td class="width-250">'+
-    '                    <div class="cell-cell lbl">Uniclass tags</div>'+
-    '                </td>'+
-    '                <td class="width-250">'+
-    '                    <div class="cell-cell lbl">Coordinates</div>'+
-    '                </td>'+
-    '                <td class="width-250">'+
-    '                    <div class="cell-cell lbl">Links</div>'+
-    '                </td>'+
+        '' +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
 
 
-    ''+
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-250 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmHazardTags">'+dmd+'</div>'+
-    
-    '                </td>'+
-    '                <td class="width-250 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmUniclass">'+smd+'</div>'+
-    
-    '                </td>'+
-    '                <td class="width-250 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmHazardCoordinates">'+smd+'</div>'+
-    
-    '                </td>'+
-    '                <td class="width-250 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmLinks">'+smd+'</div>'+
-    
-    '                </td>'+
+        '    <div class="row vwhover">' +
+        '        <table class="tpos-tbl wbrd">' +
+        '            <tr>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Designer\'s / Construction Manager\'s mitigation suggestion</div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Initial risk</div>' +
+        '                </td>' +
+        '                <td class="width-300">' +
+        '                    <div class="cell-cell lbl">Residual risk</div>' +
+        '                </td>' +
 
-    ''+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
+        '' +
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmMitigationSuggestion">' + dmd + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmSMMitigationSuggestion">' + smd + '</div>' +
+
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="width-250 centered"><table class="tpos-tbl"><tr>' + decodeRisk('Initial', ir) + '</tr></table></div>' +
+        '                </td>' +
+        '                <td class="width-300 fld-txt">' +
+        '                    <div class="width-250 centered"><table class="tpos-tbl"><tr>' + decodeRisk('Residual', rr) + '</tr></table></div>' +
+        '                </td>' +
+
+        '' +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+        // tags and links section
+        '    <div class="row vwhover">' +
+        '        <table class="tpos-tbl wbrd">' +
+        '            <tr>' +
+        '                <td class="width-250">' +
+        '                    <div class="cell-cell lbl">Hazard tags</div>' +
+        '                </td>' +
+        '                <td class="width-250">' +
+        '                    <div class="cell-cell lbl">Uniclass tags</div>' +
+        '                </td>' +
+        '                <td class="width-250">' +
+        '                    <div class="cell-cell lbl">Coordinates</div>' +
+        '                </td>' +
+        '                <td class="width-250">' +
+        '                    <div class="cell-cell lbl">Links</div>' +
+        '                </td>' +
 
 
-    '    <div class="row-header '+entitytypeclr+' vwhover">'+
-    '        <table class="tpos-tbl wbrd">'+
-    '            <tr>'+
-    '                <td class="width-150">'+
-    '                    <div class="cell-cell lbl">Created</div>'+
-    '                </td>'+
-    '                <td class="width-150">'+
-    '                    <div class="cell-cell lbl">Modified</div>'+
-    '                </td>'+
-    '                <td class="width-150">'+
-    '                    <div class="cell-cell lbl">Reviewed</div>'+
-    '                </td>'+
-    '                <td class="width-200">'+
-    '                    <div class="cell-cell lbl">Status</div>'+
-    '                </td><td class="width-500"></td>'+
+        '' +
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-250 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmHazardTags">' + dmd + '</div>' +
 
-    ''+
-    '            </tr>'+
-    '            <tr>'+
-    '                <td class="width-150 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_Created">'+cd+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_Author">'+au+'</div>'+
-    '                </td>'+
-    '                <td class="width-150 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_Modified">'+mdt+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_Editor">'+ed+'</div>'+
-    '                </td>'+
-    '                <td class="width-150 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmLastReviewDate">'+lrd+'</div>'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmLastReviewer">'+lrv+'</div>'+
-    '                </td>'+
-    '                <td class="width-150 fld-txt">'+
-    '                    <div class="cell-cell" id="h_'+hi+'_cdmCurrentStatus">'+cs+'</div>'+
-    '                </td><td class="width-500"></td>'+
+        '                </td>' +
+        '                <td class="width-250 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmUniclass">' + smd + '</div>' +
 
-    ''+
-    '            </tr>'+
-    '        </table>'+
-    '    </div>'+
-    '    <div class="vw vwshow vwdefault" id="h_'+hi+'_vw">'+
-    '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything">'+
-    '    </div>'+
-    '    <div class="vw vwhide vwhover" id="h_'+hi+'_vw">'+
-    '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="hide things">'+
-    '    </div><div class="pops" id="pops_'+hi+'">my popup</div>'+
-    ''+
-    '</div>';
+        '                </td>' +
+        '                <td class="width-250 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmHazardCoordinates">' + smd + '</div>' +
+
+        '                </td>' +
+        '                <td class="width-250 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmLinks">' + smd + '</div>' +
+
+        '                </td>' +
+
+        '' +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+
+
+        '    <div class="row-header ' + entitytypeclr + ' vwhover">' +
+        '        <table class="tpos-tbl wbrd">' +
+        '            <tr>' +
+        '                <td class="width-150">' +
+        '                    <div class="cell-cell lbl">Created</div>' +
+        '                </td>' +
+        '                <td class="width-150">' +
+        '                    <div class="cell-cell lbl">Modified</div>' +
+        '                </td>' +
+        '                <td class="width-150">' +
+        '                    <div class="cell-cell lbl">Reviewed</div>' +
+        '                </td>' +
+        '                <td class="width-200">' +
+        '                    <div class="cell-cell lbl">Status</div>' +
+        '                </td><td class="width-500"></td>' +
+
+        '' +
+        '            </tr>' +
+        '            <tr>' +
+        '                <td class="width-150 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_Created">' + cd + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_Author">' + au + '</div>' +
+        '                </td>' +
+        '                <td class="width-150 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_Modified">' + mdt + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_Editor">' + ed + '</div>' +
+        '                </td>' +
+        '                <td class="width-150 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmLastReviewDate">' + lrd + '</div>' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmLastReviewer">' + lrv + '</div>' +
+        '                </td>' +
+        '                <td class="width-150 fld-txt">' +
+        '                    <div class="cell-cell" id="h_' + hi + '_cdmCurrentStatus">' + cs + '</div>' +
+        '                </td><td class="width-500"></td>' +
+
+        '' +
+        '            </tr>' +
+        '        </table>' +
+        '    </div>' +
+        '    <div class="vw vwshow vwdefault" id="h_' + hi + '_vw">' +
+        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything">' +
+        '    </div>' +
+        '    <div class="vw vwhide vwhover" id="h_' + hi + '_vw">' +
+        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="hide things">' +
+        '    </div><div class="pops" id="pops_' + hi + '">my popup</div>' +
+        '' +
+        '</div>';
     return myvar;
-        
+
 }
 
 
@@ -743,8 +748,8 @@ function mkHazardList(data, ftv) {
         var m = h.cdmMitigationDescription;
         var ms = h.cdmMitigationSuggestion;
         var s = h.cdmSite.Title;
-        var st = h.cdmStage.Title;
-        var sti = h.cdmStage.ID;
+        var st = h.cdmStageExtra.Title;
+        var sti = h.cdmStageExtra.ID;
         var tp = h.cdmHazardType.Title;
         var tpi = h.cdmHazardType.ID;
         var pw = h.cdmPWStructure.Title;
@@ -1042,7 +1047,7 @@ function mkHazardList(data, ftv) {
         //ui_h.row();
     }
     //$('#mainArea').html(hlist);
-    $('.vwshow').click(function () {
+    $('.vwshow').click(function() {
         $('.vwdefault').show();
         $('.vwhover').hide();
 
@@ -1051,7 +1056,7 @@ function mkHazardList(data, ftv) {
         $('#' + e + ' .vwdefault').hide();
         $('#' + e + ' .vwhover').show();
     });
-    $('.vwhide').click(function () {
+    $('.vwhide').click(function() {
         $('.vwdefault').show();
         $('.vwhover').hide();
 
@@ -1060,8 +1065,8 @@ function mkHazardList(data, ftv) {
 
 }
 
-function toggleCollapse(){
-    $('.vwshow').click(function () {
+function toggleCollapse() {
+    $('.vwshow').click(function() {
         $('.vwdefault').show();
         $('.vwhover').hide();
         // $('.vwhover').removeClass('animated');
@@ -1076,15 +1081,15 @@ function toggleCollapse(){
         e = e.substring(0, e.length - 3);
         $('#' + e + ' .vwdefault').hide();
         $('#' + e + ' .vwhover').show();
-        $('#' + e ).addClass('animated');
-        $('#' + e ).addClass('fadeIn');
-        $('#'+e).addClass('addmargin');
-        var is=e.split('_');
-        var i=is[1];
+        $('#' + e).addClass('animated');
+        $('#' + e).addClass('fadeIn');
+        $('#' + e).addClass('addmargin');
+        var is = e.split('_');
+        var i = is[1];
         // data.hazardgetitem(i);
         // page.scroll('#'+e);
     });
-    $('.vwhide').click(function () {
+    $('.vwhide').click(function() {
         var e = $(this).attr('id');
         e = e.substring(0, e.length - 3);
         $('.row-hazard').removeClass('addmargin');
@@ -1099,7 +1104,7 @@ function toggleCollapse(){
 
 }
 
-function deCollapse(e){
+function deCollapse(e) {
     $('.vwdefault').show();
     $('.vwhover').hide();
     // $('.vwhover').removeClass('animated');
@@ -1114,50 +1119,50 @@ function deCollapse(e){
     // e = e.substring(0, e.length - 3);
     $('#' + e + ' .vwdefault').hide();
     $('#' + e + ' .vwhover').show();
-    $('#' + e ).addClass('animated');
-    $('#' + e ).addClass('fadeIn');
-    $('#'+e).addClass('addmargin');
+    $('#' + e).addClass('animated');
+    $('#' + e).addClass('fadeIn');
+    $('#' + e).addClass('addmargin');
     toastr.success('back to normal?');
     toggleCollapse();
 }
 
-function manageEdits(){
-    $('.cell-cell').off('click').on('click',function(){
+function manageEdits() {
+    $('.cell-cell').off('click').on('click', function() {
         hazards.item_edit($(this));
     });
 
 }
 
-function decodeRisk(tp,rr,clr){
-    if(!rr){
+function decodeRisk(tp, rr, clr) {
+    if (!rr) {
         return '';
     }
-    var rrrclr='';
-    var rrdata=rr.split('^');
-    var rr1data=rrdata[0].split('-');
-    var rr2data=rrdata[1].split('-');
-    var rr3data=rrdata[2].split('-');
-    var rrsc=rr1data[0];
-    var rrsct=rr1data[1];
-    var rrclr=rr1data[2];
-    var rrs=rr2data[0];
-    var rrst=rr2data[1];
-    var rrl=rr3data[0];
-    var rrlt=rr3data[1];
+    var rrrclr = '';
+    var rrdata = rr.split('^');
+    var rr1data = rrdata[0].split('-');
+    var rr2data = rrdata[1].split('-');
+    var rr3data = rrdata[2].split('-');
+    var rrsc = rr1data[0];
+    var rrsct = rr1data[1];
+    var rrclr = rr1data[2];
+    var rrs = rr2data[0];
+    var rrst = rr2data[1];
+    var rrl = rr3data[0];
+    var rrlt = rr3data[1];
 
-    if(rrclr=='clr_5'){rrrclr='tpos-border-risk-Red';}
-    if(rrclr=='clr_4'){rrrclr='tpos-border-risk-Amber';}
-    if(rrclr=='clr_1'){rrrclr='tpos-border-risk-Green';}
+    if (rrclr == 'clr_5') { rrrclr = 'tpos-border-risk-Red'; }
+    if (rrclr == 'clr_4') { rrrclr = 'tpos-border-risk-Amber'; }
+    if (rrclr == 'clr_1') { rrrclr = 'tpos-border-risk-Green'; }
 
-    var myvar = '<td class="width-200  center "><div class="cell-cell '+rrrclr+'">'+
-'                    <div class="cell-cell">Severity: '+rrs+' - '+rrst+'</div>'+
-'                    <div class="cell-cell lg">'+tp+' risk: '+rrsct+' - '+rrsc+'</div>'+
-'                    <div class="cell-cell">Likelihood: '+rrl+' - '+rrlt+'</div></div>'+
-'                </td><td class="width-50"></td>';
+    var myvar = '<td class="width-200  center "><div class="cell-cell ' + rrrclr + '">' +
+        '                    <div class="cell-cell">Severity: ' + rrs + ' - ' + rrst + '</div>' +
+        '                    <div class="cell-cell lg">' + tp + ' risk: ' + rrsct + ' - ' + rrsc + '</div>' +
+        '                    <div class="cell-cell">Likelihood: ' + rrl + ' - ' + rrlt + '</div></div>' +
+        '                </td><td class="width-50"></td>';
 
-if(clr){return rrclr;}else{
-    return myvar;
-}
+    if (clr) { return rrclr; } else {
+        return myvar;
+    }
 
 
 }
@@ -1176,37 +1181,37 @@ function shortText(str) {
 }
 
 function decodeRAG(str) {
-    var t='';
-    if(!str||str==''||str==undefined){
-        t='<div class="clr_5">Awaiting assessment</div>';
-    }else{
-        var tar=str.split('^');
-        var clr=tar[2];
-        var tit=tar[0];
-        var bod=tar[1];
-        t='<div class="width-290 centered cell-cell tpos-border-risk-'+clr+'">'+tit+' - '+bod+'</div>';
+    var t = '';
+    if (!str || str == '' || str == undefined) {
+        t = '<div class="clr_5">Awaiting assessment</div>';
+    } else {
+        var tar = str.split('^');
+        var clr = tar[2];
+        var tit = tar[0];
+        var bod = tar[1];
+        t = '<div class="width-290 centered cell-cell tpos-border-risk-' + clr + '">' + tit + ' - ' + bod + '</div>';
     }
     return t;
 
 }
 
-function getTimeDiff(oldDate){
-    var newDate=new Date();
-    var fromDate = parseInt(new Date(oldDate).getTime()/1000); 
-    var toDate = parseInt(new Date(newDate).getTime()/1000);
-    var timeDiff = (toDate - fromDate)/3600;  // will give difference in hrs
+function getTimeDiff(oldDate) {
+    var newDate = new Date();
+    var fromDate = parseInt(new Date(oldDate).getTime() / 1000);
+    var toDate = parseInt(new Date(newDate).getTime() / 1000);
+    var timeDiff = (toDate - fromDate) / 3600; // will give difference in hrs
     return timeDiff;
 }
 
-function rightClick(e){
-    $(e).on('contextmenu',function(ee){
+function rightClick(e) {
+    $(e).on('contextmenu', function(ee) {
         ee.preventDefault();
-        var idar=$(this).attr('id');
-        var id=idar.substring(2);
+        var idar = $(this).attr('id');
+        var id = idar.substring(2);
         toastr.success(id);
         // $('#pops_'+id).css('left',ee.pageX);      // <<< use pageX and pageY
         // $('#pops_'+id).css('top',ee.pageY);
-        $('#pops_'+id).css('display','block');     
+        $('#pops_' + id).css('display', 'block');
         // $('#pops_'+id).css("position", "fixed"); 
         //$(this).append('<div class="row ">test</div>')
 
