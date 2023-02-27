@@ -19,7 +19,7 @@ To install SafetIbase on a SharePoint, follow the steps below:
 - Go to your SharePoint site > 'Site Contents' > 'Site Assets'
 - Drag and drop the content of the 'Site Asset' folder from the install files
 - Run the script
-- [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs your are not updating
+- [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs you are not updating
 - [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the url of your site
 - [Optional] Run the script. This will populate the SharePoint lists with the input you provide in the spreadsheet above
 - [Optional] Edit the configData.js file ('Site Contents' > 'Site Assets' > 'files'). This contains a JSON variable with the following keys:
@@ -31,6 +31,7 @@ To install SafetIbase on a SharePoint, follow the steps below:
     2. Accepted by client
   - 'Client Name' - Changes text for the client name
 - To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
+  - It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint site homepage for ease of access.
 -----------------------------------------------------
 CHANGE LOG:
 
