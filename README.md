@@ -22,6 +22,14 @@ To install SafetIbase on a SharePoint, follow the steps below:
 - [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs your are not updating
 - [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the url of your site
 - [Optional] Run the script. This will populate the SharePoint lists with the input you provide in the spreadsheet above
+- [Optional] Edit the configData.js file ('Site Contents' > 'Site Assets' > 'files'). This contains a JSON variable with the following keys:
+  - 'site' - Changes text for the word 'site' (e.g. could be changed to 'sublot')
+  - 'Residual Risk Owner' - Changes text for the phrase 'Residual Risk Owner'
+  - 'Contract' - Changes text for the word 'Contract'
+  - 'Client Review' - This is a boolean which controls whether the workflow goes through client review - this functionality adds an extra couple of steps to the workflow:
+    1. Submitted to client
+    2. Accepted by client
+  - 'Client Name' - Changes text for the client name
 - To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
 -----------------------------------------------------
 CHANGE LOG:
