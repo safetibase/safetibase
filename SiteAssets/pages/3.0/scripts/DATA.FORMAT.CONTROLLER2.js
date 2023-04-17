@@ -43,9 +43,15 @@ formatdatato = {
         $(".fld_cdmUserRoleTitle").show();
         $(".fld_cdmSiteTitle").show();
 
-        var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
+        // if a role is assigned to the user, then the add hazard button should display
+        if (role.includes(1)) {
+            var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
+            $("#user_roles").append('<div class="tborder">' + actions + '</div>');
+        } else {
+            $('#user_roles').html('<div style="text-align: center;">No user roles assigned.</div>')
+        }
+
         var reports = mkBtn("reports", "", "View / export reports", "navtoreports", "");
-        $("#user_roles").append('<div class="tborder">' + actions + '</div>');
         // $('#user_roles').prepend('<div class="navwrapper" id="lastuserquery"></div>');
 
         if (role[0] == 1) {
