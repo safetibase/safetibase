@@ -1,0 +1,201 @@
+<div>
+        <h1>Our Project Controls</h1>
+    </div>
+    <div>
+        <h2>Searching for keywords will result in highlighted text, making it easier to find specific controls.</h2>
+        <p>Just start typing your search terms and then scroll down to find highlighted options.</p>
+        <p>Clicking the control applicable to this hazard, will immediately select it and close this window.</p>
+    </div>
+    <div id="searchrag" class="searchragbox">
+        <div>
+            <input type="text" name="searchragnm" id="searchboxrag" placeholder="Search for ...">
+        </div>
+        <div id="results"></div>
+        <div>
+            <h2>Or ...</h2>
+            <p>
+                If you can't find any applicable project controls, feel free to suggest a new one (or click None found if you have no suggestions).
+            </p>
+            <p>Select a colour and then type your suggestion into the text field. Press Save to submit.</p>
+            <select name="ragclr" id="ragclr">
+                <option value="none">Please select a colour</option>
+                <option value="Red">Red</option>
+                <option value="Amber">Amber</option>
+                <option value="Green">Green</option>
+            </select>
+            <input type="text" name="ragsuggestion" id="ragsuggestion" placeholder="">
+            <div><button class="ui-button ui-widget ui-corner-all svrag" title="Saves your suggestion" id="ragu">Save</button><button class="ui-button ui-widget ui-corner-all svrag" title="Saves the fact that there are no applicable project controls at this point." id="ragn">None found</button></div>
+        </div>
+    </div>
+    
+    <div id="ragtitle"></div>
+    <div id="raginfo"></div>
+    <div id="red"></div>
+    <div id="amber"></div>
+    <div id="green"></div>
+    <table id="rag-table" class="rag-table">
+        <tr>
+            <td style="vertical-align: top;">
+                <table id="ragdatared" class="rag-tbl rag-tbl-red">
+                    <tr>
+                        <td>
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align: top;">
+                <table id="ragdataamber" class="rag-tbl rag-tbl-amber">
+                    <tr>
+                        <td>
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align: top;">
+                <table id="ragdatagreen" class="rag-tbl rag-tbl-green">
+                    <tr>
+                        <td>
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('#searchboxrag').bind('keyup change', function (ev) {
+                    // pull in the new value
+                    var q = $(this).val();
+    
+                    // var q = $('#tpos_search').val();
+                    if(q!=''&&q!=' '){
+                        var f = $(".rag-table tr td:Contains('" + q +"')");
+                
+                        $(".rag-table tr td").css("display", "none")
+                            .filter(f)
+                            .css("display", "block");
+            
+                    }else{
+                        $(".rag-table tr td").css("display", "block");
+                    }
+            
+                });
+    
+    
+            });
+    
+            //     jQuery.fn.highlight = function(pat) {
+            //     function innerHighlight(node, pat) {
+            //      var skip = 0;
+            //      console.log(node);
+            //      if (node.nodeType == 3) {
+            //       var pos = node.data.toUpperCase().indexOf(pat);
+            //       if (pos >= 0) {
+            //        var spannode = document.createElement('span');
+            //        spannode.className = 'highlight';
+            //        var middlebit = node.splitText(pos);
+            //        var endbit = middlebit.splitText(pat.length);
+            //        var middleclone = middlebit.cloneNode(true);
+            //        spannode.appendChild(middleclone);
+            //        middlebit.parentNode.replaceChild(spannode, middlebit);
+            //        skip = 1;
+            //       }
+            //      }
+            //      else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+            //       for (var i = 0; i < node.childNodes.length; ++i) {
+            //        i += innerHighlight(node.childNodes[i], pat);
+            //       }
+            //      }
+            //      return skip;
+            //     }
+            //     return this.each(function() {
+            //      innerHighlight(this, pat.toUpperCase());
+            //     });
+            //    };
+    
+            //    jQuery.fn.removeHighlight = function() {
+            //     function newNormalize(node) {
+            //        for (var i = 0, children = node.childNodes, nodeCount = children.length; i < nodeCount; i++) {
+            //            var child = children[i];
+            //            if (child.nodeType == 1) {
+            //                newNormalize(child);
+            //                continue;
+            //            }
+            //            if (child.nodeType != 3) { continue; }
+            //            var next = child.nextSibling;
+            //            if (next == null || next.nodeType != 3) { continue; }
+            //            var combined_text = child.nodeValue + next.nodeValue;
+            //            new_node = node.ownerDocument.createTextNode(combined_text);
+            //            node.insertBefore(new_node, child);
+            //            node.removeChild(child);
+            //            node.removeChild(next);
+            //            i--;
+            //            nodeCount--;
+            //        }
+            //     }
+    
+            //     return this.find("span.highlight").each(function() {
+            //        var thisParent = this.parentNode;
+            //        thisParent.replaceChild(this.firstChild, this);
+            //        newNormalize(thisParent);
+            //     //thisParent.addClass('highlight');
+            //     }).end();
+            //    };
+        });
+    </script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">5555552-1953831272-186</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">65a9edd2-aae3-4cfe-b025-f3f06adc55f7</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://mottmac.sharepoint.com/teams/pj-a814/ps-master/_layouts/15/DocIdRedir.aspx?ID=5555552-1953831272-186, 5555552-1953831272-186</mso:_dlc_DocIdUrl>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+<mso:TaxCatchAll msdt:dt="string"></mso:TaxCatchAll>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

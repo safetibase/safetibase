@@ -1,0 +1,222 @@
+<div class="risk-panel-xtra" id="inirisk">
+        <div class="tpos-lbl">Initial risk score (optional)</div>
+        <div id="rsc" style="display: none;">25-High-clr_5^5-Catastrophic^5-Definite</div>
+        <div class="riskscoring">
+            <table class="risk-tbl">
+                <tr>
+                    <td colspan="5">Severity</td>
+                </tr>
+                <tr>
+                    <td class="rs sev severity_1 clr_1" data-sev="1-Insignificant" onclick="sev(1)">
+                        <div class="rss">
+                            <div>1</div>
+                            <div>Insignificant</div>
+                        </div>
+                    </td>
+                    <td class="rs sev severity_2 clr_2" data-sev="2-Marginal" onclick="sev(2)">
+                        <div class="rss">
+                            <div>2</div>
+                            <div>Marginal</div>
+                        </div>
+                    </td>
+                    <td class="rs sev severity_3 clr_3" data-sev="3-Moderate" onclick="sev(3)">
+                        <div class="rss">
+                            <div>3</div>
+                            <div>Moderate</div>
+                        </div>
+                    </td>
+                    <td class="rs sev severity_4 clr_4" data-sev="4-Critical" onclick="sev(4)">
+                        <div class="rss">
+                            <div>4</div>
+                            <div>Critical</div>
+                        </div>
+                    </td>
+                    <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5-Catastrophic" onclick="sev(5)">
+                        <div class="rss">
+                            <div>5</div>
+                            <div>Catastrophic</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table class="mini-risk-tbl">
+                            <tr>
+                                <td class="rsc rsc1 clr_1" data-rsk="1-Low-clr_1">1</td>
+                                <td class="rsc rsc2 clr_1" data-rsk="2-Low-clr_1">2</td>
+                                <td class="rsc rsc3 clr_1" data-rsk="3-Low-clr_1">3</td>
+                                <td class="rsc rsc4 clr_1" data-rsk="4-Low-clr_1">4</td>
+                                <td class="rsc rsc5 clr_4" data-rsk="5-Medium-clr_4">5</td>
+                                <td class="rsc rsc6 clr_4" data-rsk="6-Medium-clr_4">6</td>
+                                <td class="rsc rsc8 clr_4" data-rsk="8-Medium-clr_4">8</td>
+                                <td class="rsc rsc9 clr_4" data-rsk="9-Medium-clr_4">9</td>
+                                <td class="rsc rsc10 clr_5" data-rsk="10-High-clr_5">10</td>
+                                <td class="rsc rsc12 clr_5" data-rsk="12-High-clr_5">12</td>
+                                <td class="rsc rsc15 clr_5" data-rsk="15-High-clr_5">15</td>
+                                <td class="rsc rsc16 clr_5" data-rsk="16-High-clr_5">16</td>
+                                <td class="rsc rsc20 clr_5" data-rsk="20-High-clr_5">20</td>
+                                <td class="rsc rsc25 clr_5 clr_5_active" data-rsk="25-High-clr_5">25</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rs lik likelihood_1 clr_1" data-lik="1-Unlikely" onclick="lik(1)">
+                        <div class="rss">
+                            <div>1</div>
+                            <div>Unlikely</div>
+                        </div>
+                    </td>
+                    <td class="rs lik likelihood_2 clr_2" data-lik="2-Seldom" onclick="lik(2)">
+                        <div class="rss">
+                            <div>2</div>
+                            <div>Seldom</div>
+                        </div>
+                    </td>
+                    <td class="rs lik likelihood_3 clr_3" data-lik="3-Occasional" onclick="lik(3)">
+                        <div class="rss">
+                            <div>3</div>
+                            <div>Occasional</div>
+                        </div>
+                    </td>
+                    <td class="rs lik likelihood_4 clr_4" data-lik="4-Likely" onclick="lik(4)">
+                        <div class="rss">
+                            <div>4</div>
+                            <div>Likely</div>
+                        </div>
+                    </td>
+                    <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5-Definite" onclick="lik(5)">
+                        <div class="rss">
+                            <div>5</div>
+                            <div>Definite</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">Likelihood</td>
+                </tr>
+    
+    
+            </table>
+        </div>
+        
+    
+    </div>
+
+    <script>
+        function sev(n) {
+        var lik = $('.liks').data('lik');
+        var likscore = lik.substring(0, 1);
+        console.log(lik);
+        var clr = '';
+
+        var sev = $('.severity_' + n).data('sev');
+        //$('.severity_'+n).removeClass('clr_'+n);
+        $('.sev').removeClass('sevs');
+        $('.sev').removeClass('clr_1_active');
+        $('.sev').removeClass('clr_2_active');
+        $('.sev').removeClass('clr_3_active');
+        $('.sev').removeClass('clr_4_active');
+        $('.sev').removeClass('clr_5_active');
+        $('.severity_' + n).addClass('clr_' + n + '_active');
+        $('.severity_' + n).addClass('sevs');
+
+        var riskscore = parseInt(n, 10) * parseInt(likscore, 10);
+
+        $('.rsc').removeClass('clr_1_active');
+        $('.rsc').removeClass('clr_2_active');
+        $('.rsc').removeClass('clr_3_active');
+        $('.rsc').removeClass('clr_4_active');
+        $('.rsc').removeClass('clr_5_active');
+        if (riskscore < 5) {
+            clr = 'clr_1_active';
+        }
+        if (riskscore >= 5 && riskscore < 10) {
+            clr = 'clr_4_active';
+        }
+        if (riskscore >= 10) {
+            clr = 'clr_5_active';
+        }
+
+        $('.rsc' + riskscore).addClass(clr);
+        var rsk = $('.rsc' + riskscore).data('rsk');
+
+        var frsk = rsk + '^' + sev + '^' + lik;
+        $('#rsc').html(frsk);
+    }
+
+    function lik(n) {
+        var sev = $('.sevs').data('sev');
+        var sevscore = sev.substring(0, 1);
+        // console.log(sev);
+        var clr = '';
+
+        var lik = $('.likelihood_' + n).data('lik');
+        //$('.severity_'+n).removeClass('clr_'+n);
+        $('.lik').removeClass('liks');
+        $('.lik').removeClass('clr_1_active');
+        $('.lik').removeClass('clr_2_active');
+        $('.lik').removeClass('clr_3_active');
+        $('.lik').removeClass('clr_4_active');
+        $('.lik').removeClass('clr_5_active');
+        $('.likelihood_' + n).addClass('clr_' + n + '_active');
+        $('.likelihood_' + n).addClass('liks');
+
+        var riskscore = parseInt(n, 10) * parseInt(sevscore, 10);
+
+        $('.rsc').removeClass('clr_1_active');
+        $('.rsc').removeClass('clr_2_active');
+        $('.rsc').removeClass('clr_3_active');
+        $('.rsc').removeClass('clr_4_active');
+        $('.rsc').removeClass('clr_5_active');
+        if (riskscore < 6) {
+            clr = 'clr_1_active';
+        }
+        if (riskscore >= 6 && riskscore < 10) {
+            clr = 'clr_4_active';
+        }
+        if (riskscore >= 10) {
+            clr = 'clr_5_active';
+        }
+
+        $('.rsc' + riskscore).addClass(clr);
+
+        var rsk = $('.rsc' + riskscore).data('rsk');
+
+        var frsk = rsk + '^' + sev + '^' + lik;
+
+        $('#rsc').html(frsk);
+
+
+    }
+
+    function saversk(fld){
+        var risks = $('#rsc').html();
+        toastr.success(risks);
+        var trisks = risks.split('-');
+        var riskscoreval=trisks[0];
+        var rscv=parseInt(riskscoreval,10);
+        var xfld='';
+        if(fld=='cdmInitialRisk'){xfld='cdmInitialRiskScore';}
+        if(fld=='cdmResidualRisk'){xfld='cdmResidualRiskScore';}
+
+        var tdata=[];
+        tdata.push(fld+'|' + risks);
+        tdata.push(xfld+'|' + rscv);
+        tdata.push('cdmCurrentStatus|Assessment in progress');
+
+        cdmdata.update('cdmHazards',tdata,'frmedit_updateview');
+        $('#pops').remove();
+    }
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">5555552-1953831272-190</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">4e2e6ed1-8c25-421b-be6f-797e4820ebdc</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://mottmac.sharepoint.com/teams/pj-a814/ps-master/_layouts/15/DocIdRedir.aspx?ID=5555552-1953831272-190, 5555552-1953831272-190</mso:_dlc_DocIdUrl>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+<mso:TaxCatchAll msdt:dt="string"></mso:TaxCatchAll>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

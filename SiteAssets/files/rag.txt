@@ -1,0 +1,1387 @@
+[
+ {
+   "RAG": "RG1",
+   "Colour": "Red",
+   "RAGStatement": "Red"
+ },
+ {
+   "RAG": "RG2",
+   "Colour": "Red",
+   "RAGStatement": "Structures located where adequate segregation of members of public and the construction site cannot be reasonably achieved."
+ },
+ {
+   "RAG": "RG3",
+   "Colour": "Red",
+   "RAGStatement": "Demolition of/designs entailing demolition of concrete by hand such as: hand-held breaking of the top sections of concrete piles; scrabbling of concrete (‘stop ends’)."
+ },
+ {
+   "RAG": "RG4",
+   "Colour": "Red",
+   "RAGStatement": "Features entailing access where a working platform or other collective protective measures cannot be deployed."
+ },
+ {
+   "RAG": "RG5",
+   "Colour": "Red",
+   "RAGStatement": "On-site timber treatment with PPA and CCA based preservatives are used (boron or copper salts can be used for cut ends on site)."
+ },
+ {
+   "RAG": "RG6",
+   "Colour": "Red",
+   "RAGStatement": "Entrances, floors, ramps, stairs, etc., not specifically designed to avoid slips and trips during use and maintenance, including effect of rainwater and spillages."
+ },
+ {
+   "RAG": "RG7",
+   "Colour": "Red",
+   "RAGStatement": "The specification of structural steelwork which is not purposely designed to accommodate safety nets."
+ },
+ {
+   "RAG": "RG8",
+   "Colour": "Red",
+   "RAGStatement": "Designs of structures that do not allow for fire containment during construction."
+ },
+ {
+   "RAG": "RG9",
+   "Colour": "Red",
+   "RAGStatement": "The use of isocyanates in confined spaces, or the spraying of isocyanates elsewhere."
+ },
+ {
+   "RAG": "RG10",
+   "Colour": "Red",
+   "RAGStatement": "Use of/designs involving processes requiring the use of acetylene"
+ },
+ {
+   "RAG": "RG11",
+   "Colour": "Red",
+   "RAGStatement": "The use of semi-automatic quick hitch systems on excavator equipment."
+ },
+ {
+   "RAG": "RG12",
+   "Colour": "Red",
+   "RAGStatement": "Installation of any systems/telemetry/lighting etc that requires leaning over/through handrails on edge of water or drops."
+ },
+ {
+   "RAG": "RG13",
+   "Colour": "Red",
+   "RAGStatement": "Dry cutting/breaking and or scabbling of concrete"
+ },
+ {
+   "RAG": "RG14",
+   "Colour": "Red",
+   "RAGStatement": "Use of sand or silica containing material as an abrasive for blasting"
+ },
+ {
+   "RAG": "RG15",
+   "Colour": "Red",
+   "RAGStatement": "The chasing out of concrete / brick / blockwork walls or floors"
+ },
+ {
+   "RAG": "RG16",
+   "Colour": "Red",
+   "RAGStatement": "Hardwood dust as a constituent of MDF"
+ },
+ {
+   "RAG": "RG17",
+   "Colour": "Red",
+   "RAGStatement": "Elemental Lead"
+ },
+ {
+   "RAG": "RG18",
+   "Colour": "Red",
+   "RAGStatement": "Chemical asphyxiants in an indoors, confined, or below ground environment."
+ },
+ {
+   "RAG": "RG19",
+   "Colour": "Red",
+   "RAGStatement": "Dichloromethane, or materials containing dichloromethane in an indoors or below ground environment."
+ },
+ {
+   "RAG": "RG20",
+   "Colour": "Red",
+   "RAGStatement": "Welding of Chromium VI stainless steel / Cadmium plated steel / galvanised (Zinc or Nickel plated) steel in an indoors or confined environment"
+ },
+ {
+   "RAG": "RG21",
+   "Colour": "Red",
+   "RAGStatement": "Preparation of surfaces to be prepared using abrasive blasting"
+ },
+ {
+   "RAG": "RG22",
+   "Colour": "Red",
+   "RAGStatement": "Work practices resulting in the uncontrolled exposure to wood dust"
+ },
+ {
+   "RAG": "RG23",
+   "Colour": "Red",
+   "RAGStatement": "Use of petrol powered equipment in an indoors or confined environment"
+ },
+ {
+   "RAG": "RG24",
+   "Colour": "Red",
+   "RAGStatement": "Dry sweeping, giving rise to dust"
+ },
+ {
+   "RAG": "RG25",
+   "Colour": "Red",
+   "RAGStatement": "On site application of Propiconazole and chromated copper arsenate preservatives"
+ },
+ {
+   "RAG": "RG26",
+   "Colour": "Red",
+   "RAGStatement": "Re-bar cage designs without sufficient support and provision / identification of lifting points for lifting and installation "
+ },
+ {
+   "RAG": "RG27",
+   "Colour": "Red",
+   "RAGStatement": "Cover slab openings that do not have measures for fall prevention incorporated into their design and operation"
+ },
+ {
+   "RAG": "RG28",
+   "Colour": "Red",
+   "RAGStatement": "Use of air lances with known or suspected asbestos contaminated soils. "
+ },
+ {
+   "RAG": "RG29",
+   "Colour": "Red",
+   "RAGStatement": "Designs not allowing adequate separation between vehicular/pedestrian traffic during construction activities."
+ },
+ {
+   "RAG": "RG30",
+   "Colour": "Red",
+   "RAGStatement": "Gates and doors on site hoardings opening outwards into a public area. Except for emergency exits where adequate protection for the public will be in place.  "
+ },
+ {
+   "RAG": "RG31",
+   "Colour": "Red",
+   "RAGStatement": "Use of substances listed as Group 1 carcinogens by the IARC"
+ },
+ {
+   "RAG": "RG32",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs involving processes, materials and substances that includes volatile organic compounds that may be hazardous to health. Use of VOCs in an indoors or below ground environment when not sprayed."
+ },
+ {
+   "RAG": "RG33",
+   "Colour": "Red",
+   "RAGStatement": "Use of/design specification of solvent-based waterproofing systems"
+ },
+ {
+   "RAG": "RG34",
+   "Colour": "Red",
+   "RAGStatement": "Designs that require direct skin exposure to used or unrefined mineral oils"
+ },
+ {
+   "RAG": "RG35",
+   "Colour": "Red",
+   "RAGStatement": "Use of materials classified as causing lung sensitisation in a manner that poses a risk to the worker"
+ },
+ {
+   "RAG": "RG36",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs that require spraying or other application of particulates identified as “harmful” within COSHH and of EH40"
+ },
+ {
+   "RAG": "RG37",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs that require direct exposure to contaminated ground"
+ },
+ {
+   "RAG": "RG38",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs that require direct exposure to biological hazards such as animal waste, fungal growth or sewage"
+ },
+ {
+   "RAG": "RG39",
+   "Colour": "Red",
+   "RAGStatement": "Creating inhalable mists from untreated recycled water"
+ },
+ {
+   "RAG": "RG40",
+   "Colour": "Red",
+   "RAGStatement": "Spraying or other application of substances classified as 'toxic'"
+ },
+ {
+   "RAG": "RG41",
+   "Colour": "Red",
+   "RAGStatement": "Use of substances classified as Group E or D Hazards under COSHH Essentials"
+ },
+ {
+   "RAG": "RG42",
+   "Colour": "Red",
+   "RAGStatement": "Designs entailing repetitive drilling of concrete by hand such as for rebar fixings or architectural fixings"
+ },
+ {
+   "RAG": "RG43",
+   "Colour": "Red",
+   "RAGStatement": "Designs that require dry sweeping and do not allow for wet sweeping or extraction methods"
+ },
+ {
+   "RAG": "RG44",
+   "Colour": "Red",
+   "RAGStatement": "Design of pipework where the only intervention can be achieved by cutting open pipework"
+ },
+ {
+   "RAG": "RG45",
+   "Colour": "Red",
+   "RAGStatement": "Support for elbows and junctions of pipework are encased in concrete"
+ },
+ {
+   "RAG": "RG46",
+   "Colour": "Red",
+   "RAGStatement": "Designs which require excavation with extensive hand tool work"
+ },
+ {
+   "RAG": "RG47",
+   "Colour": "Red",
+   "RAGStatement": "Designs which require prolonged and sustained use of noise producing tools"
+ },
+ {
+   "RAG": "RG48",
+   "Colour": "Red",
+   "RAGStatement": "Designs/Constructions that require workers or operational staff in proximity to noisy operations"
+ },
+ {
+   "RAG": "RG49",
+   "Colour": "Red",
+   "RAGStatement": "Design of workplaces that requires regular work adjacent to noisy processes"
+ },
+ {
+   "RAG": "RG50",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs that require excessive use (prolonged & sustained)  of vibration producing tools and equipment that may lead to hand arm vibration syndrome (HAVS) such as, drilling into concrete or clay spades"
+ },
+ {
+   "RAG": "RG51",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs which require use of vibrating tools in cold and wet environments, such is active water treatement areas"
+ },
+ {
+   "RAG": "RG52",
+   "Colour": "Red",
+   "RAGStatement": "Construction/designs which require workers to adopt bad posture and/or manual handling techniques for prolonged periods of times"
+ },
+ {
+   "RAG": "RG53",
+   "Colour": "Red",
+   "RAGStatement": "Use/specification of heavy components in environments where access prevents suitable lifting techniques (including restricted floor loadings)"
+ },
+ {
+   "RAG": "RG54",
+   "Colour": "Red",
+   "RAGStatement": "The specification and use of heavy components or equipment with no means of mechanically assisted fitting"
+ },
+ {
+   "RAG": "RG55",
+   "Colour": "Red",
+   "RAGStatement": "Hiring or purchasing of tools without the capability of dust control to be attached"
+ },
+ {
+   "RAG": "RG56",
+   "Colour": "Red",
+   "RAGStatement": "Establishment/design of site/layout for which welfare cannot be adequately provided"
+ },
+ {
+   "RAG": "RT1",
+   "Colour": "Red",
+   "RAGStatement": "Designs which have not adequately considered the ground conditions, ground water regime, potentially explosive or toxic gases (hydrogen sulphide H2S or methane CH4), contaminated ground/groundwater or biological contamination"
+ },
+ {
+   "RAG": "RT2",
+   "Colour": "Red",
+   "RAGStatement": "Design of new confined spaces with need for regular/frequent access (with exception of the main operational sewer tunnel design)."
+ },
+ {
+   "RAG": "RT3",
+   "Colour": "Red",
+   "RAGStatement": "Tunnel designs which have not adequately considered the ground conditions, groundwater regime, feasibility of construction and the behaviour of the ground and tunnel to the construction process."
+ },
+ {
+   "RAG": "RT4",
+   "Colour": "Red",
+   "RAGStatement": "Tunnels and especially enlargement and junctions entailing extensive hand tool work."
+ },
+ {
+   "RAG": "RT5",
+   "Colour": "Red",
+   "RAGStatement": "Excavation beneath or adjacent to existing infrastructures without monitoring regimes with trigger levels linked to controls of the work."
+ },
+ {
+   "RAG": "RT6",
+   "Colour": "Red",
+   "RAGStatement": "Construction/design of shafts and tunnels without obtaining relevant information relating to existing underground utility services, unexploded ordnance, other tunnels, mine workings, basements, wells, boreholes, piles and other underground features."
+ },
+ {
+   "RAG": "RT7",
+   "Colour": "Red",
+   "RAGStatement": "Designs involving connections to existing underground structures without detailed investigation and planning to provide adequate knowledge of the design and or construction of the existing works."
+ },
+ {
+   "RAG": "RT8",
+   "Colour": "Red",
+   "RAGStatement": "Use of / design specification of sprayed concrete mixes that use alkaline accelerators (may cause burns or blindness) or using dry mix shotcrete."
+ },
+ {
+   "RAG": "RT9",
+   "Colour": "Red",
+   "RAGStatement": "Foamed concrete using ‘incinerator bottom ash aggregate’ (IBAA) or aluminium compounds as foaming agents (hydrogen gas production risk)."
+ },
+ {
+   "RAG": "RT10",
+   "Colour": "Red",
+   "RAGStatement": "Specification of open face TBM without means of controlling the quantity of dust produced."
+ },
+ {
+   "RAG": "RT11",
+   "Colour": "Red",
+   "RAGStatement": "Use of/design specification of solvent-based: waterproofing systems (including membrane jointing); paints and thinners and isocyanates."
+ },
+ {
+   "RAG": "RT12",
+   "Colour": "Red",
+   "RAGStatement": "Use of/design specification of mobile or fixed Internal Combustion (IC) plant, which is not or cannot be fitted with emission suppression devices and exhaust filters"
+ },
+ {
+   "RAG": "RT13",
+   "Colour": "Red",
+   "RAGStatement": "Designs which require blasting using explosives."
+ },
+ {
+   "RAG": "RT14",
+   "Colour": "Red",
+   "RAGStatement": "(Designs that require) in situ welding, burning or grinding which require the use of oxygen and or acetylene or a combination of these including oxy-propane and oxy-acetylene mixes – particularly in compressed air environments."
+ },
+ {
+   "RAG": "RT15",
+   "Colour": "Red",
+   "RAGStatement": "Entry of persons into shafts and tunnels other than for construction related activities."
+ },
+ {
+   "RAG": "RT16",
+   "Colour": "Red",
+   "RAGStatement": "Designs that require working under unsupported ground"
+ },
+ {
+   "RAG": "RT17",
+   "Colour": "Red",
+   "RAGStatement": "Designs or processes that do not have 2 means of isolation. "
+ },
+ {
+   "RAG": "RO1",
+   "Colour": "Red",
+   "RAGStatement": "Drainage manholes and similar inspection pits – no step irons to be specified (considered to encourage unsafe and unplanned access)."
+ },
+ {
+   "RAG": "RO2",
+   "Colour": "Red",
+   "RAGStatement": "Designs/layout of facilities which do not allow sufficient space for the intervention of emergency services and the assembly of evacuating workers."
+ },
+ {
+   "RAG": "RO3",
+   "Colour": "Red",
+   "RAGStatement": "Designs not allowing adequate separation between vehicular/pedestrian traffic during use and maintenance of Thames Water assets."
+ },
+ {
+   "RAG": "RO4",
+   "Colour": "Red",
+   "RAGStatement": "Design of environments involving adverse lighting, noise, vibration, temperature, wetness, humidity and draughts or chemical and or biological conditions during use and maintenance operations (unless designed for remote controlled vehicle access)."
+ },
+ {
+   "RAG": "RO5",
+   "Colour": "Red",
+   "RAGStatement": "Operational plant positioned without consideration of access for inspection or maintenance"
+ },
+ {
+   "RAG": "RO6",
+   "Colour": "Red",
+   "RAGStatement": "Work sites with inadequate space for plant, personnel and adoption of safe working practices"
+ },
+ {
+   "RAG": "RO7",
+   "Colour": "Red",
+   "RAGStatement": "Work stations which place workers into physical or mental strain for short or prolonged periods of time"
+ },
+ {
+   "RAG": "RO8",
+   "Colour": "Red",
+   "RAGStatement": "Design of plant and processes where maintenance or replacement of pumps or other consumables must be performed in restricted or confined environments"
+ },
+ {
+   "RAG": "RA1",
+   "Colour": "Red",
+   "RAGStatement": "Fragile surfaces requiring access, including roof lights and roofing assemblies."
+ },
+ {
+   "RAG": "RA2",
+   "Colour": "Red",
+   "RAGStatement": "Constructing/designing roof mounted services requiring access (for maintenance, etc.), without provision for safe access (such as barriers)."
+ },
+ {
+   "RAG": "RA3",
+   "Colour": "Red",
+   "RAGStatement": "Glazing that cannot be accessed safely; all glazing should be anticipated as requiring cleaning and replacement, so a safe system of access is essential."
+ },
+ {
+   "RAG": "RA4",
+   "Colour": "Red",
+   "RAGStatement": "Constructing/designing lighting and other services that cannot be accessed safely and which are anticipated as requiring cleaning and replacement, so a safe system of access is essential"
+ },
+ {
+   "RAG": "AG1",
+   "Colour": "Amber",
+   "RAGStatement": "External/internal manholes/inspection chambers in heavily used vehicle access zones or circulation areas."
+ },
+ {
+   "RAG": "AG2",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs requiring large, complex or conflicting lifting operations."
+ },
+ {
+   "RAG": "AG3",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs with potential for bad posture and manual handling of components, materials and equipment, >20kgs, during construction, use and maintenance operations."
+ },
+ {
+   "RAG": "AG4",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs involving hazardous systems/processes, such as, electricity, hot water and steam, piped gases/liquids, hot/cold surfaces, protruding edges, etc., under use and maintenance conditions."
+ },
+ {
+   "RAG": "AG5",
+   "Colour": "Amber",
+   "RAGStatement": "Features and processes that give rise to the creation of dust, such as, dry cutting, blasting, chasing out of concrete/brick/block work walls or floors for the installation of services."
+ },
+ {
+   "RAG": "AG6",
+   "Colour": "Amber",
+   "RAGStatement": "Establishment/design of working sites where one way traffic systems and segregation of vehicles and pedestrians cannot be established"
+ },
+ {
+   "RAG": "AG7",
+   "Colour": "Amber",
+   "RAGStatement": "Establishment/design of site layout that does not allow for adequate room for delivery and/or storage of materials, including specific components."
+ },
+ {
+   "RAG": "AG8",
+   "Colour": "Amber",
+   "RAGStatement": "Establishment/design of site/layout for which it is likely to be difficult to provide adequate welfare facilities on site."
+ },
+ {
+   "RAG": "AG9",
+   "Colour": "Amber",
+   "RAGStatement": "Establishment/design of site traffic routes that do not allow for ‘one way’ systems and/or vehicular traffic segregated from site personnel."
+ },
+ {
+   "RAG": "AG10",
+   "Colour": "Amber",
+   "RAGStatement": "Traffic management designs and implementation that rely on traffic cones only to protect personnel from impact by errant vehicles (including the provision of solid barriers instead)."
+ },
+ {
+   "RAG": "AG11",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs that require the use of vibrating tools and equipment that may lead to hand arm vibration syndrome (HAVS), vibration white finger (VWF) or whole body vibration, such as drilling into concrete or use of clay spades."
+ },
+ {
+   "RAG": "AG12",
+   "Colour": "Amber",
+   "RAGStatement": "Hand-digging in close proximity to live buried services."
+ },
+ {
+   "RAG": "AG13",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design of curtain walls or panel systems without provision for tying of scaffolds."
+ },
+ {
+   "RAG": "AG14",
+   "Colour": "Amber",
+   "RAGStatement": "Design/installation of ‘Lip’ detail (including trip hazards) at the top of pre-cast concrete staircases"
+ },
+ {
+   "RAG": "AG15",
+   "Colour": "Amber",
+   "RAGStatement": "Block work wall lifts >3.5 metres high using retarded mortar mixes."
+ },
+ {
+   "RAG": "AG16",
+   "Colour": "Amber",
+   "RAGStatement": "Specification and installation of large and heavy equipment where mechanical lifting aids can be used"
+ },
+ {
+   "RAG": "AG17",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design that requires the need to work and or operate in a ‘confined space’."
+ },
+ {
+   "RAG": "AG18",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design that requires on-site welding of stainless steel in an outdoor well ventilated environment "
+ },
+ {
+   "RAG": "AG19",
+   "Colour": "Amber",
+   "RAGStatement": "Use/specification of formaldehyde containing materials that compromise indoor air quality"
+ },
+ {
+   "RAG": "AG20",
+   "Colour": "Amber",
+   "RAGStatement": "Use of/designs that require the use of large piling rigs and cranes near ‘live’ railways and overhead electric power lines."
+ },
+ {
+   "RAG": "AG21",
+   "Colour": "Amber",
+   "RAGStatement": "Hydro demolition (pressurised water cutting) and water jetting (such as, to remove concrete but retain reinforcement). Hand held breaking performed using continual wet suppression. Machine breaking of concrete"
+ },
+ {
+   "RAG": "AG22",
+   "Colour": "Amber",
+   "RAGStatement": "The specification and use of heavy lintels "
+ },
+ {
+   "RAG": "AG23",
+   "Colour": "Amber",
+   "RAGStatement": "Underground facilities involving work at height requiring frequent access, whether on permanent or temporary structures, for which safe access has not been designed"
+ },
+ {
+   "RAG": "AG24",
+   "Colour": "Amber",
+   "RAGStatement": "The specification and use of insulating materials that have a Global Warming Potential of >5 and an Ozone Depletion Potential of >0."
+ },
+ {
+   "RAG": "AG25",
+   "Colour": "Amber",
+   "RAGStatement": "Use of hardwood or MDF"
+ },
+ {
+   "RAG": "AG26",
+   "Colour": "Amber",
+   "RAGStatement": "Methacrylate based waterproofing"
+ },
+ {
+   "RAG": "AG27",
+   "Colour": "Amber",
+   "RAGStatement": "Use of mineral oil based mould oils"
+ },
+ {
+   "RAG": "AG28",
+   "Colour": "Amber",
+   "RAGStatement": "Use of mildly refined mineral oils"
+ },
+ {
+   "RAG": "AG29",
+   "Colour": "Amber",
+   "RAGStatement": "Use of solvent based cleaners"
+ },
+ {
+   "RAG": "AG30",
+   "Colour": "Amber",
+   "RAGStatement": "Volatile organic solvents in an indoors or restricted environment"
+ },
+ {
+   "RAG": "AG31",
+   "Colour": "Amber",
+   "RAGStatement": "Hand application of isocyanate based materials"
+ },
+ {
+   "RAG": "AG32",
+   "Colour": "Amber",
+   "RAGStatement": "Epoxy resins requiring direct hand application"
+ },
+ {
+   "RAG": "AG33",
+   "Colour": "Amber",
+   "RAGStatement": "Use of materials classified as causing lung or skin sensitisation"
+ },
+ {
+   "RAG": "AG34",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design that requires cutting and welding of mild steel indoors or confined environment"
+ },
+ {
+   "RAG": "AG35",
+   "Colour": "Amber",
+   "RAGStatement": "Working in/over/near water/tidal environment "
+ },
+ {
+   "RAG": "AG36",
+   "Colour": "Amber",
+   "RAGStatement": "Individual handling of re-bar lengths (particulalry 32mm/40mm) for constructing in-situ re-inforcement. "
+ },
+ {
+   "RAG": "AG37",
+   "Colour": "Amber",
+   "RAGStatement": "Use of white diesel powered plant and equipment with filters fitted to exhaust and adequate forced ventilation. "
+ },
+ {
+   "RAG": "AG38",
+   "Colour": "Amber",
+   "RAGStatement": "Lifting pre-cast concrete elements without dedicated lifting / handling points.          Lifting pre-cast concrete elements not using dedicated lifting / handling points."
+ },
+ {
+   "RAG": "AG39",
+   "Colour": "Amber",
+   "RAGStatement": "Spraying of organic solvent (non-isocyanate) material"
+ },
+ {
+   "RAG": "AG40",
+   "Colour": "Amber",
+   "RAGStatement": "Use of substances listed as Group 2A & 2B carcinogens by the IARC"
+ },
+ {
+   "RAG": "AG41",
+   "Colour": "Amber",
+   "RAGStatement": "Use of low volatile organic compounds (a boiling point >150oC)"
+ },
+ {
+   "RAG": "AG42",
+   "Colour": "Amber",
+   "RAGStatement": "Hot bitumen waterproofing "
+ },
+ {
+   "RAG": "AG43",
+   "Colour": "Amber",
+   "RAGStatement": "Use of materials classified as causing skin sensitisation"
+ },
+ {
+   "RAG": "AG44",
+   "Colour": "Amber",
+   "RAGStatement": "Bulk delivery of powders performed under extraction ventilation"
+ },
+ {
+   "RAG": "AG45",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs that require spraying or other application of particulates identified as 'irritant'"
+ },
+ {
+   "RAG": "AG46",
+   "Colour": "Amber",
+   "RAGStatement": "Review of works location if excavation through known contaminated ground is required"
+ },
+ {
+   "RAG": "AG47",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/designs that consider processes for cleaning of work areas prior to occupation"
+ },
+ {
+   "RAG": "AG48",
+   "Colour": "Amber",
+   "RAGStatement": "Use of untreated recycled water"
+ },
+ {
+   "RAG": "AG49",
+   "Colour": "Amber",
+   "RAGStatement": "Spraying or other application of substances identified as ‘harmful’ by inhalation"
+ },
+ {
+   "RAG": "AG50",
+   "Colour": "Amber",
+   "RAGStatement": "Use of substances classified as Group C or B Hazards under COSHH Essentials"
+ },
+ {
+   "RAG": "AG51",
+   "Colour": "Amber",
+   "RAGStatement": "Ensure design allows for the use of drilling rigs or machine drilling"
+ },
+ {
+   "RAG": "AG52",
+   "Colour": "Amber",
+   "RAGStatement": "Machine chasing/cutting out of concrete"
+ },
+ {
+   "RAG": "AG53",
+   "Colour": "Amber",
+   "RAGStatement": "Blasting using non-silica based blasting medium"
+ },
+ {
+   "RAG": "AG54",
+   "Colour": "Amber",
+   "RAGStatement": "On-site timber treatment with solvent based preservatives"
+ },
+ {
+   "RAG": "AG55",
+   "Colour": "Amber",
+   "RAGStatement": "Work practices that capture most wood dust from a process"
+ },
+ {
+   "RAG": "AG56",
+   "Colour": "Amber",
+   "RAGStatement": "Designs/processes that require some cleaning of wood dust"
+ },
+ {
+   "RAG": "AG57",
+   "Colour": "Amber",
+   "RAGStatement": "Preparation of surfaces to be prepared using hand tools"
+ },
+ {
+   "RAG": "AG58",
+   "Colour": "Amber",
+   "RAGStatement": "Designs incorporate specific areas in the pipework where interventions most commonly occur"
+ },
+ {
+   "RAG": "AG59",
+   "Colour": "Amber",
+   "RAGStatement": "Support for straight sections of pipework are encased in concrete"
+ },
+ {
+   "RAG": "AG60",
+   "Colour": "Amber",
+   "RAGStatement": "Powered hand tool work required for any element of excavation"
+ },
+ {
+   "RAG": "AG61",
+   "Colour": "Amber",
+   "RAGStatement": "Designs that cater for the use of tools supported on rigs or other equipment"
+ },
+ {
+   "RAG": "AG62",
+   "Colour": "Amber",
+   "RAGStatement": "Construction programme and operational working areas calculated to ensure workers are not exposed to noisy operations"
+ },
+ {
+   "RAG": "AG63",
+   "Colour": "Amber",
+   "RAGStatement": "Design of workplaces that requires access whilst adjacent to noisy processes"
+ },
+ {
+   "RAG": "AG64",
+   "Colour": "Amber",
+   "RAGStatement": "Construction programmes of vibrating tool to reduce the amount of work required during winter months"
+ },
+ {
+   "RAG": "AG65",
+   "Colour": "Amber",
+   "RAGStatement": "Use/specification of heavy construction components which cannot be handled using mechanical lifting devices (because of access restrictions/floor loadings)"
+ },
+ {
+   "RAG": "AG66",
+   "Colour": "Amber",
+   "RAGStatement": "Use/specification of heavy construction components which cannot be handled using mechanical lifting devices (because of access restrictions/floor loadings)"
+ },
+ {
+   "RAG": "AG67",
+   "Colour": "Amber",
+   "RAGStatement": "Hiring or purchasing of tools without the capability of dust control to be attached"
+ },
+ {
+   "RAG": "AT1",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/specification of multiple concurrent drives from one shaft, unless it is oversized to service concurrent drives"
+ },
+ {
+   "RAG": "AT2",
+   "Colour": "Amber",
+   "RAGStatement": "Review of works location if excavation through known contaminated ground is required"
+ },
+ {
+   "RAG": "AT3",
+   "Colour": "Amber",
+   "RAGStatement": "Construction of/designs involving constructing tunnels on a downward grade in ground where there is a risk of large inflows of water."
+ },
+ {
+   "RAG": "AT4",
+   "Colour": "Amber",
+   "RAGStatement": "Construction of/designs involving the construction of tunnels on steep gradients which give rise to hazard of falling equipment, materials and spoil."
+ },
+ {
+   "RAG": "AT5",
+   "Colour": "Amber",
+   "RAGStatement": "Construction of/designs requiring the construction of headings less than 1.8m diameter that require man-entry for construction."
+ },
+ {
+   "RAG": "AT6",
+   "Colour": "Amber",
+   "RAGStatement": "Construction of/design involving constructing multiple tunnels with live faces in close proximity."
+ },
+ {
+   "RAG": "AT7",
+   "Colour": "Amber",
+   "RAGStatement": "Designs that would require working under compressed air for ground support"
+ },
+ {
+   "RAG": "AT8",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design of boreholes directly on the tunnel alignment as backfill may not be watertight."
+ },
+ {
+   "RAG": "AT9",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design of tunnels in close proximity to existing tunnels, piles, diaphragm walls, foundations, wells, etc."
+ },
+ {
+   "RAG": "AT10",
+   "Colour": "Amber",
+   "RAGStatement": "Construction/design that requires cutting and welding in tunnels and shafts"
+ },
+ {
+   "RAG": "AT11",
+   "Colour": "Amber",
+   "RAGStatement": "Step irons in drainage manholes and similar inspection pits as they are considered to encourage unsafe and unplanned access"
+ },
+ {
+   "RAG": "AT12",
+   "Colour": "Amber",
+   "RAGStatement": "Specification/use of combustible materials and mineral oils which increase the fire risks underground."
+ },
+ {
+   "RAG": "AT13",
+   "Colour": "Amber",
+   "RAGStatement": "Specification of additives that are not classified as corrosive, toxic or harmful."
+ },
+ {
+   "RAG": "AT14",
+   "Colour": "Amber",
+   "RAGStatement": "Use of IC Plant which is fitted with exhaust filtration"
+ },
+ {
+   "RAG": "AT15",
+   "Colour": "Amber",
+   "RAGStatement": "Specification of open conveyor systems and hoppers without means on controlling dusts raised"
+ },
+ {
+   "RAG": "AT16",
+   "Colour": "Amber",
+   "RAGStatement": "Designs which identify the potential hazards of ground contamination and incorporate safe systems of work with the material"
+ },
+ {
+   "RAG": "AA1",
+   "Colour": "Amber",
+   "RAGStatement": "Specification and construction of shallow steps (including risers) in external paved areas"
+ },
+ {
+   "RAG": "AA2",
+   "Colour": "Amber",
+   "RAGStatement": "Specification and installation of large and heavy glass panels"
+ },
+ {
+   "RAG": "AO1",
+   "Colour": "Amber",
+   "RAGStatement": "Designs that require maintenance of equipment whilst submerged or partially submerged."
+ },
+ {
+   "RAG": "AO2",
+   "Colour": "Amber",
+   "RAGStatement": "Use/specification of heavy operational components which cannot be handled using mechanical lifting devices (because of access restrictions/floor loadings)"
+ },
+ {
+   "RAG": "AO3",
+   "Colour": "Amber",
+   "RAGStatement": "Work sites offer adequate space for plant, personnel, and adoption of safe working practices"
+ },
+ {
+   "RAG": "AO4",
+   "Colour": "Amber",
+   "RAGStatement": "Work stations have areas where workers can rest from a strained working position"
+ },
+ {
+   "RAG": "AO5",
+   "Colour": "Amber",
+   "RAGStatement": "Design of working environments which have no natural light and no feed of fresh air"
+ },
+ {
+   "RAG": "AO6",
+   "Colour": "Amber",
+   "RAGStatement": "Design of plant and processes where maintenance or replacement of pumps or other consumables can be removed without entry to restricted or confined environments"
+ },
+ {
+   "RAG": "GG1",
+   "Colour": "Green",
+   "RAGStatement": "Construction/design that provide safe stopping places for vehicles that will carry out known routine maintenance operations"
+ },
+ {
+   "RAG": "GG2",
+   "Colour": "Green",
+   "RAGStatement": "Construction/designs that will reduce the impact of noise and vibration to local residents."
+ },
+ {
+   "RAG": "GG3",
+   "Colour": "Green",
+   "RAGStatement": "Construction/design to maximise use of construction materials from recycled or secondary sources."
+ },
+ {
+   "RAG": "GG4",
+   "Colour": "Green",
+   "RAGStatement": "Construction/design to minimise off-site disposal of construction waste by reuse/on-site disposal of debris"
+ },
+ {
+   "RAG": "GG5",
+   "Colour": "Green",
+   "RAGStatement": "Construction/design to minimise carbon footprint, such as by minimising energy demand, using more efficient energy supply with low carbon technologies and or zero carbon renewable sources."
+ },
+ {
+   "RAG": "GG6",
+   "Colour": "Green",
+   "RAGStatement": "Construction/designs which consider alternative solutions to hand excavation near live buried services. Use of suction excavation or air lance around underground services. Suction excavation only where there is known or possible contamination with asbestos containing materials"
+ },
+ {
+   "RAG": "GG7",
+   "Colour": "Green",
+   "RAGStatement": "Construction processes which enable segregation of waste streams to facilitate recycling"
+ },
+ {
+   "RAG": "GG8",
+   "Colour": "Green",
+   "RAGStatement": "The specification/use of concrete products with pre-cast stainless steel fixings to avoid drilling."
+ },
+ {
+   "RAG": "GG9",
+   "Colour": "Green",
+   "RAGStatement": "The specification/use of lifting sockets for concrete elements"
+ },
+ {
+   "RAG": "GG10",
+   "Colour": "Green",
+   "RAGStatement": "Specification of the use/use of recycled water for tyre washing and dust suppression."
+ },
+ {
+   "RAG": "GG11",
+   "Colour": "Green",
+   "RAGStatement": "Specification and use of recycled/reclaimed water for welfare facilities"
+ },
+ {
+   "RAG": "GG12",
+   "Colour": "Green",
+   "RAGStatement": "Specification/use of timber from sustainable and legal sources, such as, FSC/PEFC"
+ },
+ {
+   "RAG": "GG13",
+   "Colour": "Green",
+   "RAGStatement": "Specify/implement minimisation of waste due to packaging and take-back schemes"
+ },
+ {
+   "RAG": "GG14",
+   "Colour": "Green",
+   "RAGStatement": "Provision of adequate access and headroom for maintenance and adequate provision for replacing heavy/large components."
+ },
+ {
+   "RAG": "GG15",
+   "Colour": "Green",
+   "RAGStatement": "Thoughtful location of mechanical and or electrical equipment, light fittings, security devices, etc., to facilitate access away from crowded areas."
+ },
+ {
+   "RAG": "GG16",
+   "Colour": "Green",
+   "RAGStatement": "Early installation of permanent means of access, prefabricated staircases with hand rails or edge protection."
+ },
+ {
+   "RAG": "GG17",
+   "Colour": "Green",
+   "RAGStatement": "Ensure early appointment of temporary works co-ordinator for all temporary works"
+ },
+ {
+   "RAG": "GG18",
+   "Colour": "Green",
+   "RAGStatement": "Adequate access for construction vehicles to minimise reversing requirements (one-way systems and turning radii) and vehicular traffic segregated from pedestrians."
+ },
+ {
+   "RAG": "GG19",
+   "Colour": "Green",
+   "RAGStatement": "Encourage the use of engineering controls to minimise the use of personal protective equipment."
+ },
+ {
+   "RAG": "GG20",
+   "Colour": "Green",
+   "RAGStatement": "Off-site fabrication and prefabricated elements to minimise on-site hazards and waste."
+ },
+ {
+   "RAG": "GG21",
+   "Colour": "Green",
+   "RAGStatement": "The provision of edge protection at permanent works where there is a foreseeable risk of falls after handover."
+ },
+ {
+   "RAG": "GG22",
+   "Colour": "Green",
+   "RAGStatement": "Off-site timber treatment if PPA- and CCA-based preservatives are used (Boron or copper salts can be used for cut ends on site).On-site timber treatment using natural, low hazard products"
+ },
+ {
+   "RAG": "GG23",
+   "Colour": "Green",
+   "RAGStatement": "Design specification for and use of safety nets where structural steelwork has been purposely designed to accommodate these."
+ },
+ {
+   "RAG": "GG24",
+   "Colour": "Green",
+   "RAGStatement": "Use of second generation fully automatic quick hitch coupling systems on excavator equipment."
+ },
+ {
+   "RAG": "GG25",
+   "Colour": "Green",
+   "RAGStatement": "Use of advanced scaffold systems and tower assemblies that provide edge protection prior to access to the working platform."
+ },
+ {
+   "RAG": "GG26",
+   "Colour": "Green",
+   "RAGStatement": "Specification of materials which are accredited with Environmental Management Systems BS EN ISO 14001:2007, EMAS"
+ },
+ {
+   "RAG": "GG27",
+   "Colour": "Green",
+   "RAGStatement": "Ethical sourcing of main construction materials in accordance with BES 6001"
+ },
+ {
+   "RAG": "GG28",
+   "Colour": "Green",
+   "RAGStatement": "Construction logistics to reduce un-laden vehicle movements"
+ },
+ {
+   "RAG": "GG29",
+   "Colour": "Green",
+   "RAGStatement": "Use of highly rated materials in the BRE green guide to specification"
+ },
+ {
+   "RAG": "GG30",
+   "Colour": "Green",
+   "RAGStatement": "Use of surfactant based materials in an indoors or restricted environment"
+ },
+ {
+   "RAG": "GG31",
+   "Colour": "Green",
+   "RAGStatement": "Substances not classified as hazardous under European Regulation (EC) No 1272/2008"
+ },
+ {
+   "RAG": "GG32",
+   "Colour": "Green",
+   "RAGStatement": "Substances classified as Group A Hazards under COSHH Essentials (if not already addressed under the above criteria"
+ },
+ {
+   "RAG": "GG33",
+   "Colour": "Green",
+   "RAGStatement": "Wet cutting and sweeping processes"
+ },
+ {
+   "RAG": "GG34",
+   "Colour": "Green",
+   "RAGStatement": "Work performed under local extraction ventilation.Work practices that isolate all wood dust released from a process or off site manufacture or require no cleaning of wood dust."
+ },
+ {
+   "RAG": "GG35",
+   "Colour": "Green",
+   "RAGStatement": "Use of pelletised or granular solids, or bulk delivery of liquids"
+ },
+ {
+   "RAG": "GG36",
+   "Colour": "Green",
+   "RAGStatement": "Concrete designs that incorporate \"soft eyes\" for cut-outs. Or shutter in rebar to minimise the amount of breaking out required "
+ },
+ {
+   "RAG": "GG37",
+   "Colour": "Green",
+   "RAGStatement": "Cover slab openings that incorporate integrated grilles or cast-in sockets for handrails "
+ },
+ {
+   "RAG": "GG38",
+   "Colour": "Green",
+   "RAGStatement": "Elements with pre-cast inserts to reduce on-site use of vibrating tools and equipment (e.g. for securing architectural fixings), or use of remotely operated plant"
+ },
+ {
+   "RAG": "GG39",
+   "Colour": "Green",
+   "RAGStatement": "Off-site pre-fabrication to reduce the amount of on-site welding. Construction/design enables any welding to be performed in a controlled environment, such as the fitters workshop"
+ },
+ {
+   "RAG": "GG40",
+   "Colour": "Green",
+   "RAGStatement": "Use of pre-fabricated re-bar cages rather than individual handling of bars. Consider off-site pre-fabrication. (Pre-fabricated cages must have identified lifting points and appropriate re-inforcement whilst in temporary state). "
+ },
+ {
+   "RAG": "GG41",
+   "Colour": "Green",
+   "RAGStatement": "Use of electrically powered plant and equipment "
+ },
+ {
+   "RAG": "GG42",
+   "Colour": "Green",
+   "RAGStatement": "Provide details of anchor specification, drilling sizes, drilling depth, minimum, embedment depth etc to detail drawings to ensure site installation matches the design criteria."
+ },
+ {
+   "RAG": "GG43",
+   "Colour": "Green",
+   "RAGStatement": "Spraying of water-based paints"
+ },
+ {
+   "RAG": "GG44",
+   "Colour": "Green",
+   "RAGStatement": "Use of substances not listed as carcinogens by the IARC"
+ },
+ {
+   "RAG": "GG45",
+   "Colour": "Green",
+   "RAGStatement": "Substances not classified as hazardous under European Regulation (EC) No 1272/2008"
+ },
+ {
+   "RAG": "GG46",
+   "Colour": "Green",
+   "RAGStatement": "Emulsified bitumen waterproofing or heat welded polyethylene sheet waterproofing"
+ },
+ {
+   "RAG": "GG47",
+   "Colour": "Green",
+   "RAGStatement": "Use of severely refined mineral oils or synthetic oils"
+ },
+ {
+   "RAG": "GG48",
+   "Colour": "Green",
+   "RAGStatement": "Use of materials not known to cause an allergic reaction"
+ },
+ {
+   "RAG": "GG49",
+   "Colour": "Green",
+   "RAGStatement": "Application of retarders on formwork to weaken the concrete surface. Use of chemical scabbling"
+ },
+ {
+   "RAG": "GG50",
+   "Colour": "Green",
+   "RAGStatement": "Specify the use of robot spraying of sprayed concrete, where the environment permits"
+ },
+ {
+   "RAG": "GG51",
+   "Colour": "Green",
+   "RAGStatement": "Establish previous uses of the land for all excavations"
+ },
+ {
+   "RAG": "GG52",
+   "Colour": "Green",
+   "RAGStatement": "Construction/designs that ensure deep cleans by specialist contractors prior to occupation"
+ },
+ {
+   "RAG": "GG53",
+   "Colour": "Green",
+   "RAGStatement": "Specification of the use/use of treated recycled water for tyre washing dust suppression for welfare facilities"
+ },
+ {
+   "RAG": "GG54",
+   "Colour": "Green",
+   "RAGStatement": "Spraying or other application of substances identified as 'irritants'"
+ },
+ {
+   "RAG": "GG55",
+   "Colour": "Green",
+   "RAGStatement": "Substances classified as Group A Hazards under COSHH Essentials"
+ },
+ {
+   "RAG": "GG56",
+   "Colour": "Green",
+   "RAGStatement": "Designs incorporate pre-cast inserts to reduce on-site drilling Designs that specify the use of spit guns for fixing The specification/use of concrete products with pre-cast stainless steel fixings to avoid drilling"
+ },
+ {
+   "RAG": "GG57",
+   "Colour": "Green",
+   "RAGStatement": "Precasting channels into concrete where services are required"
+ },
+ {
+   "RAG": "GG58",
+   "Colour": "Green",
+   "RAGStatement": "Off-site blasting wherever possible"
+ },
+ {
+   "RAG": "GG59",
+   "Colour": "Green",
+   "RAGStatement": "Specification of pre-cut wood should be made wherever possible.                             Use of HSE document WIS30 to specify lower hazard wood suitable for the application"
+ },
+ {
+   "RAG": "GG60",
+   "Colour": "Green",
+   "RAGStatement": "Construction/design enables any preparation to be performed in a controlled environment, such as the fitters workshop"
+ },
+ {
+   "RAG": "GG61",
+   "Colour": "Green",
+   "RAGStatement": "All pipework constructed in sections that can be opened and removed where required"
+ },
+ {
+   "RAG": "GG62",
+   "Colour": "Green",
+   "RAGStatement": "Pipework supported by metal framework which can be opened when required"
+ },
+ {
+   "RAG": "GG63",
+   "Colour": "Green",
+   "RAGStatement": "All excavation work designed to be performed by machine"
+ },
+ {
+   "RAG": "GG64",
+   "Colour": "Green",
+   "RAGStatement": "Noisy operations planned when the main structure can act to contain noise, or are built with specific noise enclosures in place"
+ },
+ {
+   "RAG": "GG65",
+   "Colour": "Green",
+   "RAGStatement": "Design of workplaces that isolates operatives from noisy processes"
+ },
+ {
+   "RAG": "GG66",
+   "Colour": "Green",
+   "RAGStatement": "Construction/designs that prevent the use of vibrating tools and equipment that may lead to HAVS"
+ },
+ {
+   "RAG": "GG67",
+   "Colour": "Green",
+   "RAGStatement": "Programming of significant volumes of vibrating tool usage to warmer months"
+ },
+ {
+   "RAG": "GG68",
+   "Colour": "Green",
+   "RAGStatement": "Fixed plant is designed with sufficient clearance around it for safe access for installation, maintenance and replacement. Provision of adequate access and headroom for maintenance and adequate provision for replacing heavy/large components"
+ },
+ {
+   "RAG": "GG69",
+   "Colour": "Green",
+   "RAGStatement": "The specification and use of foam concrete components (the use of slim metal or hollow concrete lintels being alternatives)"
+ },
+ {
+   "RAG": "GG70",
+   "Colour": "Green",
+   "RAGStatement": "Modular assets which can be accessed and prepared in an open space before lifting into final position"
+ },
+ {
+   "RAG": "GG71",
+   "Colour": "Green",
+   "RAGStatement": "Hiring or purchasing of tools along with the appropriate dust control"
+ },
+ {
+   "RAG": "GG72",
+   "Colour": "Green",
+   "RAGStatement": "Establishment/design of site/layout which can provide suitable welfare for the numbers of workers, including and specific washing & changing facilities for specific tasks"
+ },
+ {
+   "RAG": "GG73",
+   "Colour": "Green",
+   "RAGStatement": "Use/specification of material that do not emit any chemical compounds that may compromise indoor air quality"
+ },
+ {
+   "RAG": "GT1",
+   "Colour": "Green",
+   "RAGStatement": "Alignment provides optimum ground conditions for safe construction and reduced materials."
+ },
+ {
+   "RAG": "GT2",
+   "Colour": "Green",
+   "RAGStatement": "Tunnels and shafts sized to suit:                                                                      Readily available excavation equipment                                                          Provision of subsurface welfare facilities                                                    Maintenance activities (such as, utility tunnels)"
+ },
+ {
+   "RAG": "GT3",
+   "Colour": "Green",
+   "RAGStatement": "Shaft top sites sized suit appropriate capacity crane access and operation."
+ },
+ {
+   "RAG": "GT4",
+   "Colour": "Green",
+   "RAGStatement": "Permanent surface access sites readily accommodate anticipated maintenance plant."
+ },
+ {
+   "RAG": "GT5",
+   "Colour": "Green",
+   "RAGStatement": "Tunnel drive lengths and diameters in accordance with HSE’s \"Tunnelling and Pipejacking - Guidance for Designers\" 2006."
+ },
+ {
+   "RAG": "GT6",
+   "Colour": "Green",
+   "RAGStatement": "Sufficient, continuous, data to provide a reasonable prediction of ground behaviour during excavation."
+ },
+ {
+   "RAG": "GT7",
+   "Colour": "Green",
+   "RAGStatement": "Establish previous uses of the land at shafts and other near surface excavations."
+ },
+ {
+   "RAG": "GT8",
+   "Colour": "Green",
+   "RAGStatement": "Working sites offer adequate space to erect and launch TBMs."
+ },
+ {
+   "RAG": "GT9",
+   "Colour": "Green",
+   "RAGStatement": "Intermediate shaft junctions are designed to create supplementary access and egress during on-going tunnel drives."
+ },
+ {
+   "RAG": "GT10",
+   "Colour": "Green",
+   "RAGStatement": "Fixed plant underground is designed with sufficient clearance around it for safe access for installation, maintenance and replacement"
+ },
+ {
+   "RAG": "GT11",
+   "Colour": "Green",
+   "RAGStatement": "Lighting and signage is readily and safely accessible for maintenance and cleaning."
+ },
+ {
+   "RAG": "GT12",
+   "Colour": "Green",
+   "RAGStatement": "Designs of openings for cross passages, etc. should be clear on measures needed to avoid collapse of tunnels."
+ },
+ {
+   "RAG": "GT13",
+   "Colour": "Green",
+   "RAGStatement": "Compensation grouting scheme design to consider the effect on tunnels and specify exclusion zones."
+ },
+ {
+   "RAG": "GT14",
+   "Colour": "Green",
+   "RAGStatement": "Use of IC Plant which is fitted with all available emission suppression and filtration, including selective catalytic reduction, diesel oxidation catalyst, and diesel particulate filtration"
+ },
+ {
+   "RAG": "GT15",
+   "Colour": "Green",
+   "RAGStatement": "Design of the vertical alignment so that tunnelling is in stable strata that offer the safest tunnelling conditions"
+ },
+ {
+   "RAG": "GT16",
+   "Colour": "Green",
+   "RAGStatement": "Forward probing specified in Works Information."
+ },
+ {
+   "RAG": "GT17",
+   "Colour": "Green",
+   "RAGStatement": "Contract documents for sprayed concrete lined tunnels to mandate the holding of a daily Required Excavation and Support Sequence (RESS) meeting attended by representatives of all parties."
+ },
+ {
+   "RAG": "GT18",
+   "Colour": "Green",
+   "RAGStatement": "Specify the use of robot spraying of sprayed concrete, where the diameter of the tunnel permits."
+ },
+ {
+   "RAG": "GT19",
+   "Colour": "Green",
+   "RAGStatement": "Excavation beneath or adjacent to existing infrastructures that have detailed monitoring regimes with trigger levels linked to controls of the work."
+ },
+ {
+   "RAG": "GT20",
+   "Colour": "Green",
+   "RAGStatement": "Closed systems of tunnelling and material transportation"
+ },
+ {
+   "RAG": "GT21",
+   "Colour": "Green",
+   "RAGStatement": "Designs which incorporate a soil remediation programme before construction work commences"
+ },
+ {
+   "RAG": "GO1",
+   "Colour": "Green",
+   "RAGStatement": "Installed plant to be located where it can be readily accessed to be inspected, maintained, removed and replaced, including sufficient clearance for mechanical handling plant."
+ },
+ {
+   "RAG": "GO2",
+   "Colour": "Green",
+   "RAGStatement": "Practical and safe methods of window cleaning (such as, from the inside)."
+ },
+ {
+   "RAG": "GO3",
+   "Colour": "Green",
+   "RAGStatement": "Designs to provide good levels of natural light and air flow in occupied spaces. Noise and vibration are at very low levels"
+ },
+ {
+   "RAG": "GO4",
+   "Colour": "Green",
+   "RAGStatement": "Energy efficient lighting designs, using photo/timer controls where appropriate"
+ },
+ {
+   "RAG": "GO5",
+   "Colour": "Green",
+   "RAGStatement": "Work sites offer plenty of space for plant, personnel, and adoption of safe working practices"
+ },
+ {
+   "RAG": "GO6",
+   "Colour": "Green",
+   "RAGStatement": "Work stations account for all ergonomic principles, including physiological and psychological needs of the workforce"
+ },
+ {
+   "RAG": "GO7",
+   "Colour": "Green",
+   "RAGStatement": "Design of plant and processes where pumps or other consumables are not located in restricted or confined environments"
+ }
+]

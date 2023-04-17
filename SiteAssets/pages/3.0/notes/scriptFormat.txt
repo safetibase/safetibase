@@ -1,0 +1,8 @@
+INIT.PAGE 
+initialises page
+sets global parameters
+
+
+CALLING DATA
+cdmdata.get(list,filter,order,return format, target) what data should be displayed in which format where on the page?
+

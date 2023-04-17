@@ -1,0 +1,16 @@
+/* ImportHazards page*/
+.forfile {
+    float: left;
+    width: 15%;
+    margin: 5%;
+    padding: 1%;
+    /* background-color: aqua; */
+}
+
+.results {
+    float: left;
+    width: 60%;
+    margin: 5%;
+    padding: 1%;
+    /* background-color: aqua; */
+}
