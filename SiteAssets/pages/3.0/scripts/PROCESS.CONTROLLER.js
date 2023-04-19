@@ -239,6 +239,16 @@ function activateHazardEdits() {
             var flds;
             var fld = "";
             var uce = $("#" + hi + " .uce").hasClass("_1");
+            
+            const userRoles = $(".fld_cdmUserRoleTitle");
+            const userSites = $(".fld_cdmSiteTitle");
+            const userRolesSites = [];
+            for (let i=0; i<userRoles.length; i++) {
+                userRolesSites.push([
+                    $(userRoles[i]).data("elementname"),
+                    $(userSites[i]).data("elementname"),
+                ])
+            }
 
             if (o == '<span class="clr_5">Unassigned</span>') {
                 var warning =
@@ -370,6 +380,30 @@ function activateHazardEdits() {
                             "</textarea></div>";
                         var svBtn =
                             '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmStageMitigationSuggestion\');">Save</div>';
+                        gimmepops(
+                            "Your mitigation suggestion for " + stage,
+                            '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
+                            txtbox +
+                            svBtn
+                        );
+                    }
+                    // To edit the smmitigation we need to test that the user is a site manager of the current site
+                    let canSiteManagerEdit = false;
+                    for (let i=0; i<userRolesSites.length; i++) {
+                        if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
+                            canSiteManagerEdit = true;
+                        }
+                    }
+                    if (fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) {
+                        var existingTxt = $(
+                            "#" + hi + " .cdmSMMitigationSuggestion"
+                        ).html();
+                        var txtbox =
+                            '<div><textarea id="txtform" rows="6" cols="60">' +
+                            existingTxt +
+                            "</textarea></div>";
+                        var svBtn =
+                            '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
