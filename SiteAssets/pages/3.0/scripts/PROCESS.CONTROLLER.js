@@ -294,7 +294,50 @@ function activateHazardEdits() {
                     cdmdata.get("cdmResidualRiskOwners", "", null, "frmsel_ResidualRiskOwner", hc,null,[]);
                 }
                 else if (!uce) {
-                    toastr.error("Not permitted");
+                    const peerReviewStage = $("#" + hi + " .rucp").hasClass('_3');
+                    const designManagerReviewStage = $("#" + hi + " .rucd").hasClass('_3');
+                    const preconstructionReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
+                    const principleDesignerReviewStage = $("#" + hi + " .rucl").hasClass('_3');
+                    const constructionManagerReviewStage = $("#" + hi + " .rucs").hasClass('_3');
+
+                    if (peerReviewStage) {
+                        const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
+                        if (canPeerReview) {
+                            toastr.error('This hazard is under peer review so is locked for editting. Please review this hazard before editting.');
+                        } else {
+                            toastr.error('This hazard is under peer review so is locked for editting. Contact a designer to complete the review.');
+                        }
+                    } else if (designManagerReviewStage) {
+                        const canDesignManagerReview = $("#" + hi + " .ucd").hasClass("_1");
+                        if (canDesignManagerReview) {
+                            toastr.error('This hazard is under design manager review so is locked for editting. Please review this hazard before editting.');
+                        } else {
+                            toastr.error('This hazard is under design manager review so is locked for editting. Contact a designer manager to complete the review.');
+                        }
+                    } else if (preconstructionReviewStage) {
+                        const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
+                        if (canPreconstructionReview) {
+                            toastr.error('This hazard is under pre-construction review so is locked for editting. Please review this hazard before editting.');
+                        } else {
+                            toastr.error('This hazard is under pre-construction review so is locked for editting. Contact a construction manager to complete the review.');
+                        }
+                    } else if (principleDesignerReviewStage) {
+                        const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
+                        if (canPrincipleDesignerReview) {
+                            toastr.error('This hazard is under principle designer review so is locked for editting. Please review this hazard before editting.');
+                        } else {
+                            toastr.error('This hazard is under principle designer review so is locked for editting. Contact a principle designer to complete the review.');
+                        }
+                    } else if (constructionManagerReviewStage) {
+                        const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
+                        if (canConstructionManagerReview) {
+                            toastr.error('This hazard is under construction manager review so is locked for editting. Please review this hazard before editting.');
+                        } else {
+                            toastr.error('This hazard is under construction manager review so is locked for editting. Contact a construction manager to complete the review.');
+                        }
+                    } else {
+                        toastr.error("Not permitted");
+                    }
                 } else {
                     if (fld == "cdmUniclass") {
                         gimmepops(
