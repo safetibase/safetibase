@@ -303,37 +303,37 @@ function activateHazardEdits() {
                     if (peerReviewStage) {
                         const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
                         if (canPeerReview) {
-                            toastr.error('This hazard is under peer review so is locked for editting. Please review this hazard before editting.');
+                            toastr.error('This hazard is under peer review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under peer review so is locked for editting. Contact a designer to complete the review.');
+                            toastr.error('This hazard is under peer review so is locked for editing. Contact a designer to complete the review.');
                         }
                     } else if (designManagerReviewStage) {
                         const canDesignManagerReview = $("#" + hi + " .ucd").hasClass("_1");
                         if (canDesignManagerReview) {
-                            toastr.error('This hazard is under design manager review so is locked for editting. Please review this hazard before editting.');
+                            toastr.error('This hazard is under design manager review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under design manager review so is locked for editting. Contact a designer manager to complete the review.');
+                            toastr.error('This hazard is under design manager review so is locked for editing. Contact a designer manager to complete the review.');
                         }
                     } else if (preconstructionReviewStage) {
                         const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
                         if (canPreconstructionReview) {
-                            toastr.error('This hazard is under pre-construction review so is locked for editting. Please review this hazard before editting.');
+                            toastr.error('This hazard is under pre-construction review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under pre-construction review so is locked for editting. Contact a construction manager to complete the review.');
+                            toastr.error('This hazard is under pre-construction review so is locked for editing. Contact a construction manager to complete the review.');
                         }
                     } else if (principleDesignerReviewStage) {
                         const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
                         if (canPrincipleDesignerReview) {
-                            toastr.error('This hazard is under principle designer review so is locked for editting. Please review this hazard before editting.');
+                            toastr.error('This hazard is under principle designer review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under principle designer review so is locked for editting. Contact a principle designer to complete the review.');
+                            toastr.error('This hazard is under principle designer review so is locked for editing. Contact a principle designer to complete the review.');
                         }
                     } else if (constructionManagerReviewStage) {
                         const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
                         if (canConstructionManagerReview) {
-                            toastr.error('This hazard is under construction manager review so is locked for editting. Please review this hazard before editting.');
+                            toastr.error('This hazard is under construction manager review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under construction manager review so is locked for editting. Contact a construction manager to complete the review.');
+                            toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
                         }
                     } else {
                         toastr.error("Not permitted");
@@ -3666,4 +3666,75 @@ function deCollapse(e) {
     $("#" + e).addClass("addmargin");
     //   toastr.success("back to normal?");
     toggleCollapse();
+}
+
+function archiveButton() {
+    $('.arcazardive-button')
+        .off('click')
+        .on('click', () => {
+
+            const hazardId = $(this).parents(".row-hazard").attr("id").split('_')[1];
+
+            console.log('test')
+            const hazardData = [];
+            hazardData.push(`cdmCurrentStatus|${hazard.cdmCurrentStatus}`);
+            hazardData.push(`cdmEntityTitle|${hazard.cdmEntityTitle}`);
+            hazardData.push(`cdmGeometry|${hazard.cdmGeometry}`);
+            hazardData.push(`cdmHazardCoordinates|${hazard.cdmHazardCoordinates}`);
+            hazardData.push(`cdmHazardDescription|${hazard.cdmHazardOwner}`);
+            hazardData.push(`cdmHazardTags|${hazard.cdmHazardTags}`);
+            hazardData.push(`cdmHazardType|${hazard.cdmHazardType}`);
+            hazardData.push(`cdmIniRisk|${hazard.cdmIniRisk}`);
+            hazardData.push(`cdmInitialRAG|${hazard.cdmInitialRAG}`);
+            hazardData.push(`cdmInitialRisk|${hazard.cdmInitialRisk}`);
+            hazardData.push(`cdmInitialRiskScore|${hazard.cdmInitialRiskScore}`);
+            hazardData.push(`cdmLastReviewDate|${hazard.cdmLastReviewDate}`);
+            hazardData.push(`cdmLastReviewer|${hazard.cdmLastReviewer}`);
+            hazardData.push(`cdmLastReviewSnapShot|${hazard.cdmLastReviewSnapShot}`);
+            hazardData.push(`cdmLastReviewStatus|${hazard.cdmLastReviewStatus}`);
+            hazardData.push(`cdmLastreviewType|${hazard.cdmLastReviewType}`);
+            hazardData.push(`cdmMitigationDescription|${hazard.cdmMitigationDescription}`);
+            hazardData.push(`cdmLinks|${hazard.cdmLinks}`);
+            hazardData.push(`cdmParent|${cdmParent}`);
+            hazardData.push(`cdmPWElement|${hazard.cdmPWElement}`);
+            hazardData.push(`cdmPWStructure|${hazard.cdmPWStructure}`);
+            hazardData.push(`cdmRAGSuggestion|${hazard.cdmRAGSuggestion}`);
+            hazardData.push(`cdmRAMS|${hazard.cdmRAMS}`);
+            hazardData.push(`cdmRelatedRAMS|${hazard.cdmRelatedRAMS}`);
+            hazardData.push(`cdmResidualRAG|${hazard.cdmResidualRAG}`);
+            hazardData.push(`cdmResidualRisk|${hazard.cdmResidualRisk}`);
+            hazardData.push(`cdmResidualRiskScore|${hazard.cdmResidualRiskScore}`);
+            hazardData.push(`cdmResRisk|${hazard.cdmResRisk}`);
+            hazardData.push(`cdmReviews|${hazard.cdmReviews}`);
+            hazardData.push(`cdmRiskDescription|${hazard.cdmRiskDescription}`);
+            hazardData.push(`cdmSiblings|${hazard.cdmSiblings}`);
+            hazardData.push(`cdmSite|${hazard.cdmSite}`);
+            hazardData.push(`cdmStage|${hazard.cdmStage}`);
+            hazardData.push(`cdmSMMitigationSuggestion|${hazard.cdmSMMitigationSuggestion}`);
+            hazardData.push(`cdmTW|${hazard.cdmTW}`);
+            hazardData.push(`cdmStageMitigtaionSuggestion|${hazard.cdmStageMitigationSuggestion}`);
+            hazardData.push(`cdmUniclass|${hazard.cdmUniclass}`);
+            hazardData.push(`CurrentMitigationOwner|${hazard.CurrentMitigationOwner}`);
+            hazardData.push(`CurrentReviewOwner|${hazard.CurrentReviewOwner}`);
+            hazardData.push(`LegacyID|${hazard.LegacyID}`);
+            hazardData.push(`cdmhs2residualriskowner|${hazard.cdmhs2residualriskowner}`);
+            hazardData.push(`cdmPWStructure: UAID|${hazard['cdmPWStructure: UAID']}`);
+            hazardData.push(`cdmHS2RailSystemsContracts|${hazard.cdmHS2RailSystemsContracts}`);
+            hazardData.push(`cdmPASRiskClassification|${hazard.cdmPASRiskClassification}`);
+            hazardData.push(`cdmStageExtra|${hazard.cdmStageExtra}`);
+            hazardData.push(`cdmResidualRiskOwner|${hazard.cdmResidualRiskOwner}`);
+            hazardData.push(`cdmContract|${hazard.cdmContract}`);
+            hazardData.push(`cdmHazardId|${hazard.ID}`);
+
+            const cdmHazardsArchived = list('cdmHazardsArchived');
+            const oListItem = cdmHazardsArchived.getItemById();
+
+            for (let i=0; i<hazardData.length; i++) {
+                const dataSplit = hazardData[i].split('|');
+                oListItem.set(dataSplit[0], dataSplit[1]);
+            }
+            oListItem.update();
+            ctx().load(oListItem);
+            ctx().executeQueryAsync();
+        })
 }
