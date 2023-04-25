@@ -466,7 +466,7 @@ function activateHazardEdits() {
                     const preconstructionReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
                     const principleDesignerReviewStage = $("#" + hi + " .rucl").hasClass('_3');
                     const constructionManagerReviewStage = $("#" + hi + " .rucs").hasClass('_3');
-
+                    
                     if (peerReviewStage) {
                         const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
                         if (canPeerReview) {
@@ -502,6 +502,8 @@ function activateHazardEdits() {
                         } else {
                             toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
                         }
+                    } else if (userRoles.length == 0) {
+                        toastr.error('You do not have a user role assigned so you cannot edit hazards. Ask your system administrator to add you to the system.')
                     } else {
                         toastr.error("Not permitted");
                     }
