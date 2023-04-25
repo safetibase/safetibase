@@ -3,5 +3,6 @@ configData = {
     'Residual Risk Owner': 'Residual Risk Owner',
     'Contract': 'Contract',
     'Client Review': false,
-    'Client Name': ''
+    'Client Name': '',
+    'Archive risks permissions': ['System admin']
 }
