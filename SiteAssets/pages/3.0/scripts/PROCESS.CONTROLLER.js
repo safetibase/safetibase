@@ -144,6 +144,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     document.getElementById('archive-button').addEventListener('click', () => {
                         toastr.warning('Archiving hazards...');
                         getCdmHazardsListItemsAndArchive();
+                        closepops();
                     })
                 } else {
                     toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles or edit the config file.')
@@ -291,7 +292,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                         })
                     
                     if (hazardCounter == 0) {
-                        toastr.error('There are no hazards to archive. To mark as hazard as ready to be archived change its status to "Cancelled".')
+                        toastr.error('There are no hazards to archive. To mark a hazard as ready to be archived change its status to "Cancelled".')
                     }
                 }
             }
