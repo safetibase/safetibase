@@ -492,9 +492,9 @@ function activateHazardEdits() {
                     } else if (principleDesignerReviewStage) {
                         const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
                         if (canPrincipleDesignerReview) {
-                            toastr.error('This hazard is under principle designer review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error('This hazard is under principal designer review so is locked for editing. Please review this hazard before editing.');
                         } else {
-                            toastr.error('This hazard is under principle designer review so is locked for editing. Contact a principle designer to complete the review.');
+                            toastr.error('This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review.');
                         }
                     } else if (constructionManagerReviewStage) {
                         const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
