@@ -502,6 +502,10 @@ function activateHazardEdits() {
                         } else {
                             toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
                         }
+                    } else if (revstatus == 'Accepted') {
+                        toastr.error('This hazard has been accepted so is locked for editing. If necessary you can submit this hazard for client review.')
+                    } else if (revstatus == 'Ready for Review by Client') {
+                        toastr.error('This hazard is under client review so is locked for editing.');
                     } else if (userRoles.length == 0) {
                         toastr.error('You do not have a user role assigned so you cannot edit hazards. Ask your system administrator to add you to the system.')
                     } else {
