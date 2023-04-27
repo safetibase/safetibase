@@ -49,23 +49,8 @@ function closesubs(){
 
 // GLOBAL NAV
 function global_nav(cdmSites, allHazardsData){
-    var myvar = '<div id="tpos-global-nav" class="tpos-global-nav">'+
-    '    <div class="tgn-btn" data-action="init">home</div>'+
-    // '    <div class="tgn-btn" data-action="systemstats">system stats</div>'+
-    // '    <div class="tgn-btn-xtra" data-action="dynamicstats">dynamic stats</div>'+
-    // '    <div class="tgn-btn-xtra" data-action="test1stats">test 1 stats</div>'+
-    '</div>';
-
-
-    // var oldmenuhidden='<div id="oldmenuhidden" class="hide"></div>';
-    var oldmenu=$('#DeltaTopNavigation');
-    // oldmenu.append(oldmenuhidden);
-    // var oldnav=oldmenu.html();
-    // $('#oldmenuhidden').html(oldnav);
-    oldmenu.html(myvar);
-
-    // oldmenu.replaceWith(myvar);
-    // $('#zz12_TopNavigationMenu').replaceWith(myvar);
+    var buttonHtml = '<div id="tpos-global-nav" class="tpos-global-nav"><div class="tgn-btn" data-action="init" style="text-align:left; width:50px;">home</div></div>';
+    document.getElementById('home-button').innerHTML = buttonHtml;
     activateGlobalNav(cdmSites, allHazardsData);
 } 
 

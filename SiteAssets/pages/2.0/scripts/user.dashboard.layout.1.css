@@ -139,6 +139,30 @@ a.ms-tv-header:hover {
     border-bottom: 1px solid rgb(159, 247, 7);
 }
 
+.tpos-area-title-user {
+    font-size: 1.4em;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid rgb(159, 247, 7);
+    flex: 0 0 80%
+}
+
+.tpos-home-div {
+    letter-spacing: 1.5px;
+    font-size: 1.4em;
+    float: right;
+}
+
+.tpos-home-nav {
+    float: right;
+    display: flex;
+    flex: 0 0 auto;
+    padding-left: 1%;
+}
+
+.tpos-global-nav {
+    float: left;
+}
+
 .tpos-area-content {
     width: 96%;
     /* height:89%; */

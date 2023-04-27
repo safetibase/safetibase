@@ -30,7 +30,8 @@ function init() {
     // load the layout for the page
     $('#tpos-page').load('../3.0/html/layout.html', function() {
 
-
+        // set up the home screen nav
+        setUpHomeNav()
         // get the user and their roles and display navigation
         setupleftnav();
         if (disableNavigationLinks) {
@@ -44,8 +45,7 @@ function init() {
         }
 
         // activate_global_nav();
-
-    });
+    })
 
     $('#cdmsearch').on('keypress', function(e) {
         if (e.which === 13) {
@@ -71,8 +71,12 @@ function init() {
     // gimmepops('test','more tests');
 }
 
+function setUpHomeNav() {
+    $('#tpos-home-nav').html('<div class="tpos-home-div" id="home-button"></div>')
+}
+
 function setupleftnav() {
-    $('#tpos-nav').html('<div class="tpos-area-title">' + unm() + '</div><div id="user_roles" class="tpos-area-content"></div>');
+    $('#tpos-nav').html('<div class="tpos-area-title-user">' + unm() + '</div><div id="user_roles" class="tpos-area-content"></div>');
     cdmdata.get('cdmUsers', 'cdmUser/Id eq \'' + uid() + '\'', 'ID asc', 'urbuttons', 'tpos-nav');
 }
 
