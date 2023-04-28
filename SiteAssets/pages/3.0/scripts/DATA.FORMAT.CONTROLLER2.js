@@ -260,11 +260,10 @@ formatdatato = {
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
                                     //console.log("fairinput",flst);
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst)
+                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     activateDatasets(sublot_data, full_dataset);
-                                    global_nav(sublot_data, full_dataset);
                                 }
                             },
                             error: function(error) {
@@ -384,7 +383,7 @@ formatdatato = {
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
                                     //console.log("fairinput",flst);
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst)
+                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, false)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     // activateDatasets(sublot_data, full_dataset);
@@ -403,114 +402,113 @@ formatdatato = {
     },
 
     
-    createTable: function(data, allHazardsMain, lst, trg , lstfilter) {
+    createTable: function(data, allHazardsMain, lst, trg , lstfilter, loadGlobalNav) {
         var allHazards = allHazardsMain;
-        
-        if(lstfilter == undefined){
+        if (lstfilter) console.log(lstfilter.length)
+        if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
-        }
-        else
-        {
+        } else {
             if (lstfilter["cdmStageExtra"].length != 0){
-                //console.log("lstfilter['cdmStageExtra']",lstfilter["cdmStageExtra"])
-            allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
-          }
-          if (lstfilter["cdmPWStructure"].length != 0){
-            //console.log("lstfilter['cdmPWStructure']",lstfilter["cdmPWStructure"])
-        allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
-      }
-      if (lstfilter["cdmCurrentStatus"].length != 0){
-        //console.log("lstfilter",lstfilter)
-    allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
-  } 
-  if (lstfilter["cdmResidualRiskOwner"].length != 0){
-    //console.log("lstfilter",lstfilter)
-allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
-}  
+                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            }
+            if (lstfilter["cdmPWStructure"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
+            }
+            if (lstfilter["cdmCurrentStatus"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
+            } 
+            if (lstfilter["cdmResidualRiskOwner"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
+            }  
         };
-       
-            var tlist = data.d.results;
-            var tcnt = tlist.length;
-            //console.log("createTable",allHazards);
-            var row = "";
 
-            var sa = [];
-            var stit = [];
-            var cnt = 0;
-            for (var cc = 0; cc < tcnt; cc++) {
-                var s = tlist[cc];
-                var st = s.Title;
-                var si = s.ID;
-                row +=
-                    '<tr><td id="s_' +
-                    si +
-                    '" style="vertical-align:middle;">' +
-                    st +
-                    "</td>" +
-                    '<td id="s_pw_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_tw_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ra_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_hr_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ua_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ne_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ur_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    "</tr>";
-                sa.push(si);
-                stit.push(st);
-            }
-            $("#" + trg).html(row);
-            var fa = [
-                
-                "cdmPWStructure/ID ne null",
-                "cdmTW ne null",
-                "cdmRAMS ne null",
-                "cdmResidualRiskScore gt 9",
-                "cdmHazardOwner/ID eq null",
-                "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
-                "startswith(cdmCurrentStatus,'Under')"
-            ];
-            var ft = [
-                "Permanent works design hazards",
-                "Temporary works design hazards",
-                "RAMS hazards",
-                "High (residual) risk hazards",
-                "Unassigned hazards",
-                "Permanent works hazards without element",
-                "Under review"
-            ];
-            var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ne_", "s_ur_"];
-            var fclr = ["pwd", "twd", "ra", "red", "red", "red", "blue"];
-            for (var dd = 0; dd < sa.length; dd++) {
-                for (var ee = 0; ee < fa.length; ee++) {
-                    var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
-                    cdmdata.createDashboardBoxes(
-                        filtered_data,
-                        lst,
-                        cnt,
-                        stit[dd] + " - " + ft[ee],
-                        ftrg[ee] + sa[dd],
-                        fclr[ee],
-                        1
-                    );
-                    cnt = cnt + 1;
-                }
-            }
+        if (loadGlobalNav) {
+            global_nav(data, allHazards)
+        }
+        
+        var tlist = data.d.results;
+        var tcnt = tlist.length;
+        var row = "";
 
-        var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards"/></center><br><br></div>';
+        var sa = [];
+        var stit = [];
+        var cnt = 0;
+        for (var cc = 0; cc < tcnt; cc++) {
+            var s = tlist[cc];
+            var st = s.Title;
+            var si = s.ID;
+            row +=
+                '<tr><td id="s_' +
+                si +
+                '" style="vertical-align:middle;">' +
+                st +
+                "</td>" +
+                '<td id="s_pw_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_tw_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ra_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_hr_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ua_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ne_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ur_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                "</tr>";
+            sa.push(si);
+            stit.push(st);
+        }
+    
+        $("#" + trg).html(row);
+        var fa = [
+            "cdmPWStructure/ID ne null",
+            "cdmTW ne null",
+            "cdmRAMS ne null",
+            "cdmResidualRiskScore gt 9",
+            "cdmHazardOwner/ID eq null",
+            "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
+            "startswith(cdmCurrentStatus,'Under')"
+            ];
+
+        var ft = [
+            "Permanent works design hazards",
+            "Temporary works design hazards",
+            "RAMS hazards",
+            "High (residual) risk hazards",
+            "Unassigned hazards",
+            "Permanent works hazards without element",
+            "Under review"
+        ];
+
+        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ne_", "s_ur_"];
+        var fclr = ["pwd", "twd", "ra", "red", "red", "red", "blue"];
+        for (var dd = 0; dd < sa.length; dd++) {
+            for (var ee = 0; ee < fa.length; ee++) {
+                var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
+                cdmdata.createDashboardBoxes(
+                    filtered_data,
+                    lst,
+                    cnt,
+                    stit[dd] + " - " + ft[ee],
+                    ftrg[ee] + sa[dd],
+                    fclr[ee],
+                    1
+                );
+                cnt = cnt + 1;
+            }
+        }
+
+        var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards/Clear Filters"/></center><br><br></div>';
         $("#stats.tpos-area-content").prepend(refresh_hazards)
         $('.refresh-hazards-btn').click(function() {init()});
 
@@ -519,33 +517,23 @@ allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
             var fdata = [];
             if(filterlst ==[]){
                 fdata = allHazards;
+            } else {
+                for (i=0 ; i< allHazards.length ; i++){
+                    if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmCurrentStatus)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmResidualRiskOwner)) {
+                        fdata.push(allHazards[i]);
+                    }
+                }
             }
-            
-            else{
-            for (i=0 ; i< allHazards.length ; i++){
-                //console.log(allHazards[i].cdmStageExtra.Title);
-            if(  filterlst.includes(allHazards[i].cdmStageExtra.Title))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmPWStructure.Title))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmCurrentStatus))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmResidualRiskOwner))
-            {
-                fdata.push(allHazards[i]);
-            }
-        
-        }
-    }
-            
-            //console.log("fdata",fdata);
-    return fdata;
+            return fdata;
         }
         function filterFullDataset(full_dataset, sublot_id, filter_id) {
             var filteredDataset = [];

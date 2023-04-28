@@ -1,4 +1,4 @@
-var flst = [];
+var flst = {};
 var maindata = [];
 function activateDatasets(cdmSites, allHazardsData) {
     //console.log("actdatasets",allHazardsData);
@@ -151,6 +151,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                 }
 
                 // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column
+                // We request the data again instead of using allHazardsData because the allHazardsData is the result of a request that is limitted to 5000 items. The below request searches the entire
+                // dataset.
                 const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items`;
                 const response = [];
                 function getCdmHazardsListItemsAndArchive() {
@@ -2130,12 +2132,12 @@ function tposcustomfilters( data) {
         //console.log(fcdmCurrentStatusselected);
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
 
- cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
+        cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
       
 
-      //alert("stop");
-      $("#pops").remove();
-});
+        //alert("stop");
+        $("#pops").remove();
+    });
 
   
    

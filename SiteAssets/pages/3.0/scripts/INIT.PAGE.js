@@ -97,7 +97,7 @@ function setupmainareastats(hazardId, cdmSites, allHazardsData) {
             // Passing through 'stats-table-row' in here forwards on the cdmSites data from cdmdata.get() to
             // DATA.FORMAT.CONTROLLER.js - formatdatato.statstablerows()
             if (allHazardsData && cdmSites) {
-                formatdatato.createTable(cdmSites, allHazardsData, "cdmHazards", "statstbl")
+                formatdatato.createTable(cdmSites, allHazardsData, "cdmHazards", "statstbl", {}, true)
             } else {
                 cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl');
             }
