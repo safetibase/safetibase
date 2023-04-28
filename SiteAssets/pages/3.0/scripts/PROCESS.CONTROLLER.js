@@ -135,7 +135,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     userRoles.push($(userRolesPreProcessing[i]).data('elementname'));
                 }
 
-                if (userRoles.some(role => configData['Archive risks permissions'].includes(role))) {
+                if (userRoles.some(role => configData['Archive hazards permissions'].includes(role))) {
                     gimmepops("Archiving Hazards",
                     '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
                     '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
@@ -147,7 +147,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                         closepops();
                     })
                 } else {
-                    toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles or edit the config file.')
+                    toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
                 }
 
                 // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column

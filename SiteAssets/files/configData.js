@@ -4,5 +4,5 @@ configData = {
     'Contract': 'Contract',
     'Client Review': false,
     'Client Name': '',
-    'Archive risks permissions': ['System admin']
+    'Archive hazards permissions': ['System admin']
 }
