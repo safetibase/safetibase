@@ -1908,7 +1908,7 @@ function printHazardRow(h) {
         rucpc +
         '"></div><div title="Principal designer review" class="prm-cell rucl _' +
         rucl +
-        '"></div><div title="Construction Manager review" class="prm-cell rucs _' +
+        '"></div><div title="Client review" class="prm-cell rucs _' +
         rucs +
         '"></div></div>';
 
