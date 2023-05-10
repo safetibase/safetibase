@@ -1044,12 +1044,15 @@ function activateRAMSBtn() {
                         nrdata.push("cdmSMMitigationSuggestion|" + mits);
                         nrdata.push("cdmRAMS|" + raid);
                         nrdata.push("cdmEntityTitle|" + ratx);
-
                         // $('#ramssummary').html(nrdata);
                         $("#val_rams").html('');
                         $("#sel_rams").val('');
                         $("#addramsbtn").hide();
                         tposdata.setRAMS("cdmHazards", nrdata, hzd);
+                    } else if (!raid && !ratx) {
+                        toastr.error('Please ask the system admin to add RAMS data to the system')
+                    } else if (!ratx) {
+                        toastr.error('The selected RAMS is incorrectly formatted. Please ask the system admin to correct the format, removing all whitespace from the RAMS title.')
                     }
 
                 }
