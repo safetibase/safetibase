@@ -64,7 +64,7 @@ function mkSmallDataBox (id, v, title, clr) {
     if (clr) {
         color = 'databox-clr-' + clr;
     }
-    var t = '<div class="databox-small  ' + color + '" id="' + id + '"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
+    var t = '<div class="databox-small  ' + color + '" id="' + id + '" title="Click to view hazards"><div class="databox-small-content">' + v + '</div><div class="databox-small-title">' + title + '</div></div>';
     return t;
 }
 function mkSmallQCDataBox (id, v,bt, title, clr) {
@@ -76,7 +76,7 @@ function mkSmallQCDataBox (id, v,bt, title, clr) {
     return t;
 }
 
-function mkBtn(action, entity, title, v){
+function mkBtn(action, entity, title, v, tooltip){
     var actionimg = ['<img width="16" src="../../pages/2.0/img/signing-the-contract.svg">', '<img width="16" src="../../pages/2.0/img/note-interface-symbol.svg">', '<img width="16" src="../../pages/2.0/img/add.svg">'];
     var entityimg = '<img width="32" src="../../pages/2.0/img/toxic-sign.svg">';
     var typeimg = ['<img width="24" src="../../pages/2.0/img/drawing-tool.svg">', '<img width="24" src="../../pages/2.0/img/helmet.svg">'];
@@ -101,8 +101,13 @@ function mkBtn(action, entity, title, v){
     if (!entity) {
         i3 = '';
     }
-    // var t = '<div class="tpos-btn ' + action + '" data-action="' + v + '" onclick="' + fn + '(' + v + ')" >' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
-    var t = '<div class="tpos-btn ' + action + '" data-action="' + v + '">' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
+    // Added functionality - ability to add an optional tooltip
+    var t;
+    if (tooltip !== undefined) {
+        t = '<div class="tpos-btn ' + action + '" data-action="' + v + '" title="' + tooltip + '" >' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
+    } else {
+        t = '<div class="tpos-btn ' + action + '" data-action="' + v + '" >' + i1 + ' ' + i3 + ' ' + i2 + '<div>' + title + '</div></div>';
+    }
     return t;
 
 }
@@ -117,7 +122,7 @@ function mkReviewButton(action,company,userrole,site,hazardid,title){
 function mkHazardReviewButton(action,currentstatus,laststatus,hazardid,title){
     // var s=site;
     // if(!site){s='';}
-    var t='<div class="tpos-rvbtn" data-item="'+hazardid+'" data-action="'+action+'" data-currentstatus="'+currentstatus+'" data-laststatus="'+laststatus+'">'+title+'</div>';
+    var t='<div class="tpos-rvbtn" data-item="'+hazardid+'" data-action="'+action+'" data-currentstatus="'+currentstatus+'" data-laststatus="'+laststatus+'" title= "Click to advance the hazard in the workflow">'+title+'</div>';
     return t;
 }
 

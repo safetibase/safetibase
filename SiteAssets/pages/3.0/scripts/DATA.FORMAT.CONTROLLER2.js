@@ -34,7 +34,7 @@ formatdatato = {
                 }
             });
 
-            user += '<div id="cdmUser_' + ui + '" class="dataset">' + cell + "</div>";
+            user += '<div id="cdmUser_' + ui + '" class="dataset" title="Click to view role dashboard">' + cell + "</div>";
         }
         $("#user_roles").html("");
         $("#user_roles").html(user);
@@ -61,14 +61,14 @@ formatdatato = {
                 "design",
                 "Edit/mitigate design hazards",
                 "editHazard",
-                "mdh"
+                "Click to edit/update hazards"
             );
             t += mkBtn(
                 "review",
                 "design",
                 "Peer review design hazards",
                 "prHazard",
-                "pdh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -79,14 +79,14 @@ formatdatato = {
                 "rams",
                 "Edit/mitigate RAMS hazards",
                 "editHazard",
-                "mrh"
+                "Click to edit/update hazards"
             );
             t += mkBtn(
                 "review",
                 "rams",
                 "Peer review RAMS hazards",
                 "prHazard",
-                "prh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -97,7 +97,7 @@ formatdatato = {
                 "design",
                 "Undertake design manager reviews",
                 "dmrHazard",
-                "adh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -108,14 +108,14 @@ formatdatato = {
                 "design",
                 "Undertake pre-construction reviews",
                 "pcrHazard",
-                "pcdh"
+                "Click to view hazards for review"
             );
             t += mkBtn(
                 "review",
                 "rams",
                 "Undertake RAMS hazard reviews",
                 "smrHazard",
-                "arh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -126,7 +126,7 @@ formatdatato = {
                 "design",
                 "Undertake lead design reviews",
                 "ldrHazard",
-                "lddh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -146,7 +146,12 @@ formatdatato = {
             var bt = b.Title;
             var bl = b.URL;
 
-            mbtns += mkBtn("xtrabtn", "", bt, bl);
+            if (bl == 'synccsv') {
+                mbtns += mkBtn("xtrabtn", "", bt, bl, 'Click to synchronize client risk review results');
+            }
+            else {
+                mbtns += mkBtn("xtrabtn", "", bt, bl);
+            }
         }
 
         $("#user_roles").append('<div class="tborder">' + mbtns + '</div>');
@@ -1702,7 +1707,7 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucp == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                                 // revbtn=mkHazardReviewButton('completed peer review','Under peer review','Review initiated',h.ID,'Initiate review');
                             }
                         }
@@ -1710,28 +1715,28 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucd == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="dmreview">Undertake design manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
                         if (revstatus == "Under principal designer review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
                             if (ucl == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="ldreview">Undertake principal designer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
                             }
                         }
                         if (revstatus == "Under site manager review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
                             if (ucs == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="smreview">Undertake site manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
                             }
                         }
                         // if (revstatus == "Accepted") {
@@ -1757,21 +1762,21 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
                             if (ucp == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                             }
                         }
                         if (revstatus == "Under design manager review") {
                             (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
                             if (ucd == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="dmreview">Undertake design manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
                         // if (revstatus == "Accepted") {
@@ -1821,14 +1826,14 @@ function printHazardRow(h) {
                         (ruce = 1), (rucp = 3), (rucs = 2);
                         if (ucp == 1) {
                             revbtn =
-                                '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                         }
                     }
                     if (revstatus == "Under Construction Manager review") {
                         (ruce = 1), (rucp = 1), (rucs = 3);
                         if (ucs == 1) {
                             revbtn =
-                                '<div class="tpos-rvbtn" data-action="smreview">Undertake Construction Manager review</div>';
+                                '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
                         }
                     }
                     // if (revstatus == "Accepted") {
@@ -1848,7 +1853,7 @@ function printHazardRow(h) {
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
                     if (configData['Client Review']) {
-                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview">Submit for Client Review</div>';
+                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
                 if (revstatus == `Ready for Review by ${configData['Client Name']}`) {
@@ -2206,12 +2211,12 @@ function printHazardRow(h) {
         '                    <td class="width-300 fld"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
         '                    <td class="width-300 fld">' +
         '                        <div class="cell cdmInitialRisk">' +
-        decodeRisk("Initial", h.cdmInitialRisk) +
+        decodeRisk("Initial", h.cdmInitialRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-300 fld">' +
         '                        <div class="cell cdmResidualRisk">' +
-        decodeRisk("Residual", h.cdmResidualRisk) +
+        decodeRisk("Residual", h.cdmResidualRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
         "                </tr>" +
@@ -2370,7 +2375,7 @@ function printHazardRow(h) {
         '    <div class="vw vwshow vwdefault" id="h_' +
         h.ID +
         '_vw1">' +
-        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything">' +
+        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything" title="Click to see more details">' +
         "    </div>" +
         '    <div class="vw vwhide vwhover" id="h_' +
         h.ID +
@@ -2447,7 +2452,7 @@ function decodeRAG(str) {
         t =
             '<div class="width-290 centered tpos-border-risk-' +
             clr +
-            '">' +
+            '" >' +
             tit +
             " - " +
             bod +
@@ -2456,7 +2461,7 @@ function decodeRAG(str) {
     return t;
 }
 
-function decodeRisk(tp, rr, clr) {
+function decodeRisk(tp, rr, clr, dynamic=false) {
     if (!rr) {
         return "";
     }
@@ -2487,12 +2492,19 @@ function decodeRisk(tp, rr, clr) {
         bclr = "tpos-border-right-Green";
     }
 
+    if (dynamic && tp == 'Initial') { // If dynamic is set to true, then you can click on this so we add a tooltip
+        var tooltip = '" title="Click to set/edit the initial risk score">';
+    } else if (dynamic && tp == 'Residual') {
+        var tooltip = '" title="Click to set/edit the residual risk score">';
+    } else {
+        var tooltip = '">';
+    }
     var myvar =
         '<div class="width-200  center centered "><div class="hide cdmRR">' +
         rr +
         '</div><div class="cell-cell ' +
         rrrclr +
-        '">' +
+        tooltip +
         '                    <div class="cell-cell">Severity: ' +
         rrs +
         " - " +
