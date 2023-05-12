@@ -3,7 +3,7 @@ function gimmepops(title,content,cl){
     $('#pops').html('');
     $('#pops').remove();
 
-    var myvar = '<div id="pops" class="pops animated fadeIn '+cl+'">'+
+    var myvar = '<div id="pops" class="pops">'+
     '		<div class="pops-title">'+title+'</div>'+
     '		<div class="pops-content">'+content+'</div>'+
     '		<div class="pops-footer">'+

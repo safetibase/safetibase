@@ -519,9 +519,11 @@ a.ms-tv-header:hover {
 }
 
 .pops {
-    display: none;
+    display: flex;
+    flex-direction: column;
     width: 650px;
-    height: 350px;
+    height: auto;
+    max-height: fit-content;
     background-color: rgba(0, 0, 0, 0.8);
     border: 2px solid rgb(0, 255, 0);
     color: rgb(255, 255, 255);
@@ -533,7 +535,7 @@ a.ms-tv-header:hover {
     right: 0;
     margin: auto;
     z-index: 1100;
-    /* overflow:auto; */
+    /* overflow: hidden; */
 }
 
 .subs {
@@ -566,10 +568,12 @@ a.ms-tv-header:hover {
 .pops-content {
     padding: 8px;
     min-height: 50px;
+    height: auto;
 }
 
 .pops-footer {
     min-height: 50px;
+    height: auto
 }
 
 #popscontentarea {
@@ -1258,4 +1262,27 @@ a.ms-tv-header:hover {
     width:85px;
     /* float: center; */
     cursor: pointer;
+}
+
+.scoring-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.scoring-table tr {
+    background-color: #0f630073;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.scoring-table th, 
+.scoring-table td {
+    padding: 5px 5px;
+}
+
+.scoring-table tbody tr {
+    border: 1px solid #21E500;
 }

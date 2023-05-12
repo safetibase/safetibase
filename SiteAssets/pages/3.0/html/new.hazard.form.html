@@ -23,7 +23,10 @@ onblur="WaterMarkhazard(this, event);" onfocus="WaterMarkhazard(this, event);"
 onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, event);"></textarea>
 </div>
 <div class="risk-panel" id="inirisk">
-    <div class="tpos-lbl">Initial risk score (optional)</div>
+    <div iclass="block-container">
+        <div class="tpos-initial-risk-lbl">Initial risk score (optional)</div>
+        <img class="expand-risk-matrix"  width=15 src="../../resources/images/information-icon.png" title="Click to expand details" onclick="expandRiskMatrix();">
+    </div>
     <div id="cdmInitialRisk" style="display: none;">25-High-clr_5^5-Catastrophic^5-Definite</div>
     <div class="riskscoring">
         <table class="risk-tbl">
@@ -734,6 +737,85 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('.button-row').hide();
 
 
+    }
+
+    function expandRiskMatrix() {
+        const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
+        
+        const severityTable = 
+            '<table class="scoring-table"> \
+                <tr> \
+                    <td>Likelihood category</td> \
+                    <td>Classification Term</td> \
+                    <td>Description</td> \
+                </tr> \
+                <tr> \
+                    <td>1</td> \
+                    <td>Unlikely</td> \
+                    <td>Improbable, highly unlikely to occur</td> \
+                </tr> \
+                <tr> \
+                    <td>2</td> \
+                    <td>Seldom</td> \
+                    <td>Remote, unlikely to happen but could</td> \
+                </tr> \
+                <tr> \
+                    <td>3</td> \
+                    <td>Occassional</td> \
+                    <td>Occasional, increased chnace or probability, event could happen or occur</td> \
+                </tr> \
+                <tr> \
+                    <td>4</td> \
+                    <td>Likely</td> \
+                    <td>Probable, more likely to happen than not</td> \
+                </tr> \
+                <tr> \
+                    <td>5</td> \
+                    <td>Definite</td> \
+                    <td>Frequent, highly likely to happen, almost certain</td> \
+                </tr> \
+            </table>';
+        
+        const likelihoodTable =
+            '<table class="scoring-table"> \
+                <tr> \
+                    <td>Severity category</td> \
+                    <td>Classification Term</td> \
+                    <td>Description</td> \
+                </tr> \
+                <tr> \
+                    <td>1</td> \
+                    <td>Insignificant</td> \
+                    <td>Minor injuries/ill health, non-first aid</td> \
+                </tr> \
+                <tr> \
+                    <td>2</td> \
+                    <td>Marginal</td> \
+                    <td>Injuries requiring first aid but no lost time</td> \
+                </tr> \
+                <tr> \
+                    <td>3</td> \
+                    <td>Moderate</td> \
+                    <td>Injury or illness incurred at work with 3 or more days lost time from work</td> \
+                </tr> \
+                <tr> \
+                    <td>4</td> \
+                    <td>Critical</td> \
+                    <td>Major injury/single fatality potential or illness with long term health effects, long absence from work</td> \
+                </tr> \
+                <tr> \
+                    <td>5</td> \
+                    <td>Catastrophic</td> \
+                    <td>Multiple fatality potential</td> \
+                </tr> \
+            </table>';
+        
+        popsHtml = openingText +  severityTable + likelihoodTable
+        
+        gimmepops(
+            'Scoring a Hazard',
+            popsHtml
+            )
     }
 </script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
 <!--[if gte mso 9]><xml>

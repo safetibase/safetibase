@@ -395,3 +395,17 @@
 .customfiltersection{
   width:  75%;
 }
+
+.block-container {
+  display: flex;
+  justify-content: center;
+}
+
+.tpos-initial-risk-lbl {
+  display: inline-flex
+}
+
+.expand-risk-matrix {
+  display: inline-flex;
+  cursor: pointer;
+}
