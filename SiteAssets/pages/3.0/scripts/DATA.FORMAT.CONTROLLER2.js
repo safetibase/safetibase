@@ -148,8 +148,9 @@ formatdatato = {
 
             if (bl == 'synccsv') {
                 mbtns += mkBtn("xtrabtn", "", bt, bl, 'Click to synchronize client risk review results');
-            }
-            else {
+            } else if (bl == 'archivehazards') {
+                mbtns += mkBtn("xtrabtn", "", bt, bl, 'Click to archive hazards that have been marked as cancelled');
+            } else {
                 mbtns += mkBtn("xtrabtn", "", bt, bl);
             }
         }
