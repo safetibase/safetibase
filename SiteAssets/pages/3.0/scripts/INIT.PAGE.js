@@ -16,11 +16,11 @@ function init() {
     let pageTitle = "";
     const idParam = urlParams.get("hazardId");
     if (idParam) {
-        pageTitle = `SafetiBase - Hazard ${idParam}`;
+        pageTitle = `<div>SafetIbase - Hazard ${idParam}</div><div class="version-number">V1.5</div>`;
     } else if (urlParams.get("newHazard")) {
-        pageTitle = 'SafetiBase - New Hazard';
+        pageTitle = '<div>SafetIbase - New Hazard</div><div class="version-number">V1.5</div>';
     } else {
-        pageTitle = 'SafetIbase<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
+        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="version-number">V1.5</div><div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>`;
     }
     $('#pageTitle').html(pageTitle);
 

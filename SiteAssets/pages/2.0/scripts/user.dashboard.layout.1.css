@@ -28,7 +28,16 @@ p {
     font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
     color: rgb(255, 255, 255);
     float: left;
+    display: inline-flex
 }
+
+.version-number {
+    font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: xx-small;
+    display: inline-flex;
+    padding-top: 20%;
+  }
 
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item:hover,
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item.ms-core-listMenu-selected:hover,
