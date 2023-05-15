@@ -1295,3 +1295,18 @@ a.ms-tv-header:hover {
 .scoring-table tbody tr {
     border: 1px solid #21E500;
 }
+
+.home-button {
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 1px solid #21E500;
+    float: left;
+    cursor: pointer;
+}
+
+.home-button:hover{
+    background-color: #21E500;
+}

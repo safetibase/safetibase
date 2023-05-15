@@ -336,7 +336,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 }
 
 function activateGlobalNav(cdmSites, allHazardsData) {
-    $(".tgn-btn")
+    $(".home-button")
         .off("click")
         .on("click", function() {
             var action = $(this).data("action");
