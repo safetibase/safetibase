@@ -34,7 +34,7 @@ p {
 .version-number {
     font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
     color: rgb(255, 255, 255);
-    font-size: xx-small;
+    font-size: small;
     display: inline-flex;
     padding-top: 20%;
   }
