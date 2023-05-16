@@ -37,7 +37,13 @@ p {
     font-size: small;
     display: inline-flex;
     padding-top: 20%;
-  }
+}
+
+.information-link {
+    display: inline-flex;
+    padding-top: 10%;
+    cursor: pointer;
+}
 
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item:hover,
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item.ms-core-listMenu-selected:hover,
