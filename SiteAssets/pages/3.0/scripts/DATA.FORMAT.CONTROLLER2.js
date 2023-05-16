@@ -1951,7 +1951,7 @@ function printHazardRow(h) {
     if (h.cdmResidualRiskOwner) { residualRiskOwner = h.cdmResidualRiskOwner; }
     if(h.cdmContract){contracts = h.cdmContract;}
     if(h.cdmPASRiskClassification){PASRiskClassification = h.cdmPASRiskClassification;}
-    if (residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
+    if (configData['Client Name'] === 'HS2' && residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
         hiddenrail =' hide';
     }
     //alert('oo');
@@ -2273,7 +2273,7 @@ function printHazardRow(h) {
         `                    <td class="width-250 fld"><div class="cell cdmResidualRiskOwner pointer" title="Click to manage ${configData['Residual Risk Owner']}">` +
         residualRiskOwner +
         "</div></td>" +
-        `                    <td class="width-250 fld"><div class="cell cdmContract'+hiddenrail+' pointer" title="Click to manage ${configData['Contract']}">` +
+        `                    <td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">` +
         contracts +
         "</div></td>" +
         "                </tr>" +
