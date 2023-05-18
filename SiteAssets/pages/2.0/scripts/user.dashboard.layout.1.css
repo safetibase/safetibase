@@ -1316,3 +1316,8 @@ a.ms-tv-header:hover {
 .home-button:hover{
     background-color: #21E500;
 }
+
+.information-icon {
+    font-size: small;
+    cursor: pointer;
+}

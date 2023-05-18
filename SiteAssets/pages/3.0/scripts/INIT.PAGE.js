@@ -16,11 +16,11 @@ function init() {
     let pageTitle = "";
     const idParam = urlParams.get("hazardId");
     const versionDiv = '<div class="version-number">V1.5</div>';
-    const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><img width=15 height=15 src="../../resources/images/information-icon.png" title="Click for more information"></a>';
+    const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><div class="information-icon">&#9432;</div></a>';
     if (idParam) {
         pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div>${versionDiv}${informationLink}</div>`;
     } else if (urlParams.get("newHazard")) {
-        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div>${versionDIv}${informationLink}</div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div>${versionDiv}${informationLink}</div>`;
     } else {
         const titleDiv = '<div>SafetIbase</div>';
         const searchDiv = '<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
