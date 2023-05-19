@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-E6440A796DE542569EA5D5BB73B99D81">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-E6440A796DE542569EA5D5BB73B99D81" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-0CA0404A5E2B471699E46C73E9ABF42A">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-0CA0404A5E2B471699E46C73E9ABF42A" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="cdmHazardSnapshots" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmHazardSnapshots" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmHazardSnapshots/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmHazardSnapshots/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmHazardSnapshots/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{33E8611C-BD31-444E-9EBA-67ED6FF68C9E}" MobileView="TRUE" Type="HTML" DisplayName="my hazards" Url="{site}/Lists/cdmHazardSnapshots/my hazards.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{93B3027E-AA1B-45F0-8035-DF2DB2B9098F}" MobileView="TRUE" Type="HTML" DisplayName="my hazards" Url="{site}/Lists/cdmHazardSnapshots/my hazards.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -67,7 +67,7 @@
               <Aggregations Value="Off" />
               <JSLink>clienttemplates.js</JSLink>
             </View>
-            <View Name="{71F18538-FA3A-4370-BCE5-555EC77F42E9}" MobileView="TRUE" Type="HTML" DisplayName="mods" Url="{site}/Lists/cdmHazardSnapshots/mods.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{14674C40-678F-4445-BBFD-01CF7F9E5EC3}" MobileView="TRUE" Type="HTML" DisplayName="mods" Url="{site}/Lists/cdmHazardSnapshots/mods.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -98,7 +98,7 @@
               <Aggregations Value="Off" />
               <JSLink>clienttemplates.js</JSLink>
             </View>
-            <View Name="{BD6ED072-93F6-48C5-8C5B-E3CCB3F1FADE}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmHazardSnapshots/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{9F5F4380-0F26-4BC3-8EC8-09A7EEED48D2}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmHazardSnapshots/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -227,6 +227,7 @@
             <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmHazardType" ID="{ef5eba98-ebd2-4a6d-a31d-e982c450c380}" Name="cdmHazardType" WebId="{siteid}" Group="" StaticName="cdmHazardType" SourceID="{{siteid}}" ColName="int7" RowOrdinal="0" List="{listid:cdmHazardTypes}" Version="6" />
             <Field ShowField="Title" Type="Lookup" Description="" DisplayName="cdmPWElement" ID="{20c0a385-74b8-49b1-acff-f1c2ea444646}" Name="cdmPWElement" WebId="{siteid}" Group="" StaticName="cdmPWElement" SourceID="{{siteid}}" ColName="int8" RowOrdinal="0" List="{listid:cdmPWElementTerms}" Version="6" />
             <Field List="d4918cd9-adb7-4f20-9ea0-547dc232c4bf" ShowField="ID" Type="Lookup" Description="" DisplayName="cdmHazard" ID="{de82bd1b-104f-4f61-8b25-3121577077b5}" Name="cdmHazard" WebId="{{siteid}}" Group="" Version="2" StaticName="cdmHazard" SourceID="{{listid:cdmHazardSnapshots}}" ColName="int9" RowOrdinal="0" />
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar16" RowOrdinal="0" />
           </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>

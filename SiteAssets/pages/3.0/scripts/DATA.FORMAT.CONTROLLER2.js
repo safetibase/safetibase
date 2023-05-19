@@ -10,7 +10,7 @@ formatdatato = {
                 "Designer",
                 "Design Manager",
                 "Construction Manager",
-                "Principal designer",
+                "Principal Designer",
                 "Construction Engineer"
             ]; // designer, design manager, Construction Manager, principal designer and Construction Engineer
 
@@ -34,7 +34,7 @@ formatdatato = {
                 }
             });
 
-            user += '<div id="cdmUser_' + ui + '" class="dataset">' + cell + "</div>";
+            user += '<div id="cdmUser_' + ui + '" class="dataset" title="Click to view role dashboard">' + cell + "</div>";
         }
         $("#user_roles").html("");
         $("#user_roles").html(user);
@@ -43,9 +43,15 @@ formatdatato = {
         $(".fld_cdmUserRoleTitle").show();
         $(".fld_cdmSiteTitle").show();
 
-        var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
+        // if a role is assigned to the user, then the add hazard button should display
+        if (role.includes(1)) {
+            var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
+            $("#user_roles").append('<div class="tborder">' + actions + '</div>');
+        } else {
+            $('#user_roles').html('<div style="text-align: center;">No user roles assigned.</div>')
+        }
+
         var reports = mkBtn("reports", "", "View / export reports", "navtoreports", "");
-        $("#user_roles").append('<div class="tborder">' + actions + '</div>');
         // $('#user_roles').prepend('<div class="navwrapper" id="lastuserquery"></div>');
 
         if (role[0] == 1) {
@@ -55,14 +61,14 @@ formatdatato = {
                 "design",
                 "Edit/mitigate design hazards",
                 "editHazard",
-                "mdh"
+                "Click to edit/update hazards"
             );
             t += mkBtn(
                 "review",
                 "design",
                 "Peer review design hazards",
                 "prHazard",
-                "pdh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -73,14 +79,14 @@ formatdatato = {
                 "rams",
                 "Edit/mitigate RAMS hazards",
                 "editHazard",
-                "mrh"
+                "Click to edit/update hazards"
             );
             t += mkBtn(
                 "review",
                 "rams",
                 "Peer review RAMS hazards",
                 "prHazard",
-                "prh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -91,7 +97,7 @@ formatdatato = {
                 "design",
                 "Undertake design manager reviews",
                 "dmrHazard",
-                "adh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -102,14 +108,14 @@ formatdatato = {
                 "design",
                 "Undertake pre-construction reviews",
                 "pcrHazard",
-                "pcdh"
+                "Click to view hazards for review"
             );
             t += mkBtn(
                 "review",
                 "rams",
                 "Undertake RAMS hazard reviews",
                 "smrHazard",
-                "arh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -120,7 +126,7 @@ formatdatato = {
                 "design",
                 "Undertake lead design reviews",
                 "ldrHazard",
-                "lddh"
+                "Click to view hazards for review"
             );
             $("#user_roles").append(t);
         }
@@ -140,7 +146,13 @@ formatdatato = {
             var bt = b.Title;
             var bl = b.URL;
 
-            mbtns += mkBtn("xtrabtn", "", bt, bl);
+            if (bl == 'synccsv') {
+                mbtns += mkBtn("xtrabtn", "", bt, bl, 'Click to synchronize client risk review results');
+            } else if (bl == 'archivehazards') {
+                mbtns += mkBtn("xtrabtn", "", bt, bl, 'Click to archive hazards that have been marked as cancelled');
+            } else {
+                mbtns += mkBtn("xtrabtn", "", bt, bl);
+            }
         }
 
         $("#user_roles").append('<div class="tborder">' + mbtns + '</div>');
@@ -254,11 +266,10 @@ formatdatato = {
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
                                     //console.log("fairinput",flst);
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst)
+                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     activateDatasets(sublot_data, full_dataset);
-                                    global_nav(sublot_data, full_dataset);
                                 }
                             },
                             error: function(error) {
@@ -378,7 +389,7 @@ formatdatato = {
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
                                     //console.log("fairinput",flst);
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst)
+                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, false)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     // activateDatasets(sublot_data, full_dataset);
@@ -397,114 +408,113 @@ formatdatato = {
     },
 
     
-    createTable: function(data, allHazardsMain, lst, trg , lstfilter) {
+    createTable: function(data, allHazardsMain, lst, trg , lstfilter, loadGlobalNav) {
         var allHazards = allHazardsMain;
-        
-        if(lstfilter == undefined){
+        if (lstfilter) console.log(lstfilter.length)
+        if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
-        }
-        else
-        {
+        } else {
             if (lstfilter["cdmStageExtra"].length != 0){
-                //console.log("lstfilter['cdmStageExtra']",lstfilter["cdmStageExtra"])
-            allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
-          }
-          if (lstfilter["cdmPWStructure"].length != 0){
-            //console.log("lstfilter['cdmPWStructure']",lstfilter["cdmPWStructure"])
-        allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
-      }
-      if (lstfilter["cdmCurrentStatus"].length != 0){
-        //console.log("lstfilter",lstfilter)
-    allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
-  } 
-  if (lstfilter["cdmResidualRiskOwner"].length != 0){
-    //console.log("lstfilter",lstfilter)
-allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
-}  
+                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            }
+            if (lstfilter["cdmPWStructure"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
+            }
+            if (lstfilter["cdmCurrentStatus"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
+            } 
+            if (lstfilter["cdmResidualRiskOwner"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
+            }  
         };
-       
-            var tlist = data.d.results;
-            var tcnt = tlist.length;
-            //console.log("createTable",allHazards);
-            var row = "";
 
-            var sa = [];
-            var stit = [];
-            var cnt = 0;
-            for (var cc = 0; cc < tcnt; cc++) {
-                var s = tlist[cc];
-                var st = s.Title;
-                var si = s.ID;
-                row +=
-                    '<tr><td id="s_' +
-                    si +
-                    '" style="vertical-align:middle;">' +
-                    st +
-                    "</td>" +
-                    '<td id="s_pw_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_tw_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ra_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_hr_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ua_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ne_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    '<td id="s_ur_' +
-                    si +
-                    '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                    "</tr>";
-                sa.push(si);
-                stit.push(st);
-            }
-            $("#" + trg).html(row);
-            var fa = [
-                
-                "cdmPWStructure/ID ne null",
-                "cdmTW ne null",
-                "cdmRAMS ne null",
-                "cdmResidualRiskScore gt 9",
-                "cdmHazardOwner/ID eq null",
-                "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
-                "startswith(cdmCurrentStatus,'Under')"
-            ];
-            var ft = [
-                "Permanent works design hazards",
-                "Temporary works design hazards",
-                "RAMS hazards",
-                "High (residual) risk hazards",
-                "Unassigned hazards",
-                "Permanent works hazards without element",
-                "Under review"
-            ];
-            var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ne_", "s_ur_"];
-            var fclr = ["pwd", "twd", "ra", "red", "red", "red", "blue"];
-            for (var dd = 0; dd < sa.length; dd++) {
-                for (var ee = 0; ee < fa.length; ee++) {
-                    var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
-                    cdmdata.createDashboardBoxes(
-                        filtered_data,
-                        lst,
-                        cnt,
-                        stit[dd] + " - " + ft[ee],
-                        ftrg[ee] + sa[dd],
-                        fclr[ee],
-                        1
-                    );
-                    cnt = cnt + 1;
-                }
-            }
+        if (loadGlobalNav) {
+            global_nav(data, allHazards)
+        }
+        
+        var tlist = data.d.results;
+        var tcnt = tlist.length;
+        var row = "";
 
-        var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards"/></center><br><br></div>';
+        var sa = [];
+        var stit = [];
+        var cnt = 0;
+        for (var cc = 0; cc < tcnt; cc++) {
+            var s = tlist[cc];
+            var st = s.Title;
+            var si = s.ID;
+            row +=
+                '<tr><td id="s_' +
+                si +
+                '" style="vertical-align:middle;">' +
+                st +
+                "</td>" +
+                '<td id="s_pw_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_tw_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ra_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_hr_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ua_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ne_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ur_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                "</tr>";
+            sa.push(si);
+            stit.push(st);
+        }
+    
+        $("#" + trg).html(row);
+        var fa = [
+            "cdmPWStructure/ID ne null",
+            "cdmTW ne null",
+            "cdmRAMS ne null",
+            "cdmResidualRiskScore gt 9",
+            "cdmHazardOwner/ID eq null",
+            "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
+            "startswith(cdmCurrentStatus,'Under')"
+            ];
+
+        var ft = [
+            "Permanent works design hazards",
+            "Temporary works design hazards",
+            "RAMS hazards",
+            "High (residual) risk hazards",
+            "Unassigned hazards",
+            "Permanent works hazards without element",
+            "Under review"
+        ];
+
+        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ne_", "s_ur_"];
+        var fclr = ["pwd", "twd", "ra", "red", "red", "red", "blue"];
+        for (var dd = 0; dd < sa.length; dd++) {
+            for (var ee = 0; ee < fa.length; ee++) {
+                var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
+                cdmdata.createDashboardBoxes(
+                    filtered_data,
+                    lst,
+                    cnt,
+                    stit[dd] + " - " + ft[ee],
+                    ftrg[ee] + sa[dd],
+                    fclr[ee],
+                    1
+                );
+                cnt = cnt + 1;
+            }
+        }
+
+        var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards/Clear Filters"/></center><br><br></div>';
         $("#stats.tpos-area-content").prepend(refresh_hazards)
         $('.refresh-hazards-btn').click(function() {init()});
 
@@ -513,33 +523,23 @@ allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
             var fdata = [];
             if(filterlst ==[]){
                 fdata = allHazards;
+            } else {
+                for (i=0 ; i< allHazards.length ; i++){
+                    if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmCurrentStatus)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmResidualRiskOwner)) {
+                        fdata.push(allHazards[i]);
+                    }
+                }
             }
-            
-            else{
-            for (i=0 ; i< allHazards.length ; i++){
-                //console.log(allHazards[i].cdmStageExtra.Title);
-            if(  filterlst.includes(allHazards[i].cdmStageExtra.Title))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmPWStructure.Title))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmCurrentStatus))
-            {
-                fdata.push(allHazards[i]);
-            }
-            if(  filterlst.includes(allHazards[i].cdmResidualRiskOwner))
-            {
-                fdata.push(allHazards[i]);
-            }
-        
-        }
-    }
-            
-            //console.log("fdata",fdata);
-    return fdata;
+            return fdata;
         }
         function filterFullDataset(full_dataset, sublot_id, filter_id) {
             var filteredDataset = [];
@@ -1708,7 +1708,7 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucp == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                                 // revbtn=mkHazardReviewButton('completed peer review','Under peer review','Review initiated',h.ID,'Initiate review');
                             }
                         }
@@ -1716,28 +1716,28 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucd == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="dmreview">Undertake design manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
                         if (revstatus == "Under principal designer review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
                             if (ucl == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="ldreview">Undertake principal designer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
                             }
                         }
                         if (revstatus == "Under site manager review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
                             if (ucs == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="smreview">Undertake site manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
                             }
                         }
                         // if (revstatus == "Accepted") {
@@ -1763,21 +1763,21 @@ function printHazardRow(h) {
                             (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
                             if (ucp == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                             }
                         }
                         if (revstatus == "Under design manager review") {
                             (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
                             if (ucd == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="dmreview">Undertake design manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
                             (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
                         // if (revstatus == "Accepted") {
@@ -1827,14 +1827,14 @@ function printHazardRow(h) {
                         (ruce = 1), (rucp = 3), (rucs = 2);
                         if (ucp == 1) {
                             revbtn =
-                                '<div class="tpos-rvbtn" data-action="peerreview">Undertake peer review</div>';
+                                '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                         }
                     }
                     if (revstatus == "Under Construction Manager review") {
                         (ruce = 1), (rucp = 1), (rucs = 3);
                         if (ucs == 1) {
                             revbtn =
-                                '<div class="tpos-rvbtn" data-action="smreview">Undertake Construction Manager review</div>';
+                                '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
                         }
                     }
                     // if (revstatus == "Accepted") {
@@ -1854,7 +1854,7 @@ function printHazardRow(h) {
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
                     if (configData['Client Review']) {
-                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview">Submit for Client Review</div>';
+                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
                 if (revstatus == `Ready for Review by ${configData['Client Name']}`) {
@@ -1914,7 +1914,7 @@ function printHazardRow(h) {
         rucpc +
         '"></div><div title="Principal designer review" class="prm-cell rucl _' +
         rucl +
-        '"></div><div title="Construction Manager review" class="prm-cell rucs _' +
+        '"></div><div title="Client review" class="prm-cell rucs _' +
         rucs +
         '"></div></div>';
 
@@ -1951,7 +1951,7 @@ function printHazardRow(h) {
     if (h.cdmResidualRiskOwner) { residualRiskOwner = h.cdmResidualRiskOwner; }
     if(h.cdmContract){contracts = h.cdmContract;}
     if(h.cdmPASRiskClassification){PASRiskClassification = h.cdmPASRiskClassification;}
-    if (residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
+    if (configData['Client Name'] === 'HS2' && residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
         hiddenrail =' hide';
     }
     //alert('oo');
@@ -2212,12 +2212,12 @@ function printHazardRow(h) {
         '                    <td class="width-300 fld"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
         '                    <td class="width-300 fld">' +
         '                        <div class="cell cdmInitialRisk">' +
-        decodeRisk("Initial", h.cdmInitialRisk) +
+        decodeRisk("Initial", h.cdmInitialRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-300 fld">' +
         '                        <div class="cell cdmResidualRisk">' +
-        decodeRisk("Residual", h.cdmResidualRisk) +
+        decodeRisk("Residual", h.cdmResidualRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
         "                </tr>" +
@@ -2259,7 +2259,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager during the pre-construction review if required">' +
+        '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager if required">' +
         h.cdmSMMitigationSuggestion +
         "</div>" +
         "                    </td>" +
@@ -2273,7 +2273,7 @@ function printHazardRow(h) {
         `                    <td class="width-250 fld"><div class="cell cdmResidualRiskOwner pointer" title="Click to manage ${configData['Residual Risk Owner']}">` +
         residualRiskOwner +
         "</div></td>" +
-        `                    <td class="width-250 fld"><div class="cell cdmContract'+hiddenrail+' pointer" title="Click to manage ${configData['Contract']}">` +
+        `                    <td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">` +
         contracts +
         "</div></td>" +
         "                </tr>" +
@@ -2376,7 +2376,7 @@ function printHazardRow(h) {
         '    <div class="vw vwshow vwdefault" id="h_' +
         h.ID +
         '_vw1">' +
-        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything">' +
+        '        <img style="width:16px;height:16px;" src="../../pages/2.0/img/dots.svg" alt="show me everything" title="Click to see more details">' +
         "    </div>" +
         '    <div class="vw vwhide vwhover" id="h_' +
         h.ID +
@@ -2453,7 +2453,7 @@ function decodeRAG(str) {
         t =
             '<div class="width-290 centered tpos-border-risk-' +
             clr +
-            '">' +
+            '" >' +
             tit +
             " - " +
             bod +
@@ -2462,7 +2462,7 @@ function decodeRAG(str) {
     return t;
 }
 
-function decodeRisk(tp, rr, clr) {
+function decodeRisk(tp, rr, clr, dynamic=false) {
     if (!rr) {
         return "";
     }
@@ -2493,12 +2493,19 @@ function decodeRisk(tp, rr, clr) {
         bclr = "tpos-border-right-Green";
     }
 
+    if (dynamic && tp == 'Initial') { // If dynamic is set to true, then you can click on this so we add a tooltip
+        var tooltip = '" title="Click to set/edit the initial risk score">';
+    } else if (dynamic && tp == 'Residual') {
+        var tooltip = '" title="Click to set/edit the residual risk score">';
+    } else {
+        var tooltip = '">';
+    }
     var myvar =
         '<div class="width-200  center centered "><div class="hide cdmRR">' +
         rr +
         '</div><div class="cell-cell ' +
         rrrclr +
-        '">' +
+        tooltip +
         '                    <div class="cell-cell">Severity: ' +
         rrs +
         " - " +

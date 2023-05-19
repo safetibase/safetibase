@@ -6,7 +6,9 @@
 	your dashboard
 </asp:Content>
 <asp:Content ContentPlaceHolderId="PlaceHolderAdditionalPageHead" runat="server">
-		<meta http-equiv="X-UA-Compatible" content="IE=11">
+	<meta name="GENERATOR" content="Microsoft SharePoint"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src="../../resources/jquery-3.3.1.min.js"></script>
 	<script src="../../resources/chartJs/Chart.min.js"></script>
 	<script src="../../resources/jquery-ui.min.js"></script>

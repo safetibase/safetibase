@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-7E424F28B5E645AEACACD56DF21D13F0">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-7E424F28B5E645AEACACD56DF21D13F0" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-A7E14F2A5A3F4DE28D4787859F80046A">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-A7E14F2A5A3F4DE28D4787859F80046A" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="cdmUTags" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmUTags" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmUTags/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmUTags/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmUTags/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{633E53A6-224B-438A-B8B1-A0EFED60CBDE}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmUTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{19AEBE09-F957-4FA5-AE55-79480942F134}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmUTags/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -29,6 +29,7 @@
           <pnp:Fields>
             <Field DisplayName="cdmUTag" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:cdmUniclassTags}" Name="cdmUTag" ShowField="Title" Title="cdmUTag" Type="Lookup" ID="{716dba79-32f7-4fda-8d6c-cead53098b37}" SourceID="{{listid:cdmUTags}}" StaticName="cdmUTag" ColName="int1" RowOrdinal="0" />
             <Field DisplayName="cdmHazard" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:cdmHazardTagCategories}" Name="cdmHazard" ShowField="Title" Title="cdmHazard" Type="Lookup" ID="{e885ab75-6db0-4623-a683-8f5710a3873e}" SourceID="{{listid:cdmUTags}}" StaticName="cdmHazard" ColName="int2" RowOrdinal="0" />
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar5" />
           </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>

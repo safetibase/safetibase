@@ -34,7 +34,7 @@
 
 # enter url to SharePoint site where SafetIbase is to be deployed.
 
-$SPsite = "https://mottmac.sharepoint.com/teams/pj-a814/ps-configtest"
+$SPsite = ""
 
 #---------------------------------------
 # Fixed inputs

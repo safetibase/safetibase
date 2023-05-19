@@ -27,7 +27,7 @@
 # USER INPUTS
 #---------------------------------------
 
-$SPsite = "https://teanent.sharepoint.com/teams/pj-b1234" # Change this to match site
+$SPsite = "" # Change this to match site
 
 #---------------------------------------
 # FIXED INPUTS

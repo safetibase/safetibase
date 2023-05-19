@@ -1,4 +1,4 @@
-﻿$SPsite = "https://mottmac.sharepoint.com/teams/pj-a814/ps-mastertest"
+﻿$SPsite = "" # Fill in Sp site url
 
 Try{
     $connect = Connect-PnPOnline -Url $SPsite -UseWebLogin -ReturnConnection -ErrorAction Stop
@@ -15,7 +15,7 @@ $getAllList = Get-PnPList | Where-Object {($_.RootFolder.ServerRelativeUrl -like
 foreach($listName in $getAllList){
 
 
-$fileName = "C:\Users\HOL95993\SafetIbase list templates\" +$listName.title+ ".xml"
+$fileName = "" +$listName.title+ ".xml" # Fill in path here
 
 Export-PnPListToSiteTemplate -Out $fileName -List $listName.title
 

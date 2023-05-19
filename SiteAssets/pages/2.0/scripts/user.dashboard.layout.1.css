@@ -28,6 +28,21 @@ p {
     font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
     color: rgb(255, 255, 255);
     float: left;
+    display: inline-flex
+}
+
+.version-number {
+    font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: small;
+    display: inline-flex;
+    padding-top: 20%;
+}
+
+.information-link {
+    display: inline-flex;
+    padding-top: 10%;
+    cursor: pointer;
 }
 
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item:hover,
@@ -137,6 +152,30 @@ a.ms-tv-header:hover {
     font-size: 1.4em;
     letter-spacing: 1.5px;
     border-bottom: 1px solid rgb(159, 247, 7);
+}
+
+.tpos-area-title-user {
+    font-size: 1.4em;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid rgb(159, 247, 7);
+    flex: 0 0 80%
+}
+
+.tpos-home-div {
+    letter-spacing: 1.5px;
+    font-size: 1.4em;
+    float: right;
+}
+
+.tpos-home-nav {
+    float: right;
+    display: flex;
+    flex: 0 0 auto;
+    padding-left: 1%;
+}
+
+.tpos-global-nav {
+    float: left;
 }
 
 .tpos-area-content {
@@ -495,9 +534,11 @@ a.ms-tv-header:hover {
 }
 
 .pops {
-    display: none;
+    display: flex;
+    flex-direction: column;
     width: 650px;
-    height: 350px;
+    height: auto;
+    max-height: fit-content;
     background-color: rgba(0, 0, 0, 0.8);
     border: 2px solid rgb(0, 255, 0);
     color: rgb(255, 255, 255);
@@ -509,7 +550,7 @@ a.ms-tv-header:hover {
     right: 0;
     margin: auto;
     z-index: 1100;
-    /* overflow:auto; */
+    /* overflow: hidden; */
 }
 
 .subs {
@@ -542,10 +583,12 @@ a.ms-tv-header:hover {
 .pops-content {
     padding: 8px;
     min-height: 50px;
+    height: auto;
 }
 
 .pops-footer {
     min-height: 50px;
+    height: auto
 }
 
 #popscontentarea {
@@ -1220,5 +1263,61 @@ a.ms-tv-header:hover {
     border: 1px solid #21E500;
     /* width:85px; */
     float: left;
+    cursor: pointer;
+}
+
+.archive-button {
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 1px solid #21E500;
+    width:85px;
+    /* float: center; */
+    cursor: pointer;
+}
+
+.scoring-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.scoring-table tr {
+    background-color: #0f630073;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.scoring-table th, 
+.scoring-table td {
+    padding: 5px 5px;
+}
+
+.scoring-table tbody tr {
+    border: 1px solid #21E500;
+}
+
+.home-button {
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 1px solid #21E500;
+    float: left;
+    cursor: pointer;
+}
+
+.home-button:hover{
+    background-color: #21E500;
+}
+
+.information-icon {
+    font-size: small;
     cursor: pointer;
 }

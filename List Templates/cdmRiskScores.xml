@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-D64E83CDB44E46A78F578790D613BCF9">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-D64E83CDB44E46A78F578790D613BCF9" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-1BE1B2B337554B88849E265C2436C632">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-1BE1B2B337554B88849E265C2436C632" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="cdmRiskScores" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmRiskScores" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmRiskScores/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmRiskScores/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmRiskScores/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{1C22C235-4C2C-48BC-99FC-020E9090B0EB}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmRiskScores/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{2BAE6FE6-4A35-4BB0-93EA-AAEF1112AD3A}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmRiskScores/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -44,6 +44,7 @@
             <Field Decimals="0" Min="1" Max="5" Required="TRUE" Description="" DisplayName="impactscore" Type="Number" ID="{d34f87c0-ea46-42fd-b71f-c8f9d794bbab}" Name="impactscore" Group="" Version="2" StaticName="impactscore" SourceID="{f7fa5372-5aaf-42e7-9ef4-ea9758dc70e5}" ColName="float4" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE">
               <Default>5</Default>
             </Field>
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar9" RowOrdinal="0" />
           </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>

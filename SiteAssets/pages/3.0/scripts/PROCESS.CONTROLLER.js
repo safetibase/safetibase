@@ -1,4 +1,4 @@
-var flst = [];
+var flst = {};
 var maindata = [];
 function activateDatasets(cdmSites, allHazardsData) {
     //console.log("actdatasets",allHazardsData);
@@ -128,6 +128,176 @@ function activateDatasets(cdmSites, allHazardsData) {
                     }
                 });
             }
+            if (ulink == 'archivehazards') {
+                const userRolesPreProcessing = $(".fld_cdmUserRoleTitle");
+                const userRoles = [];
+                for (let i=0; i<userRolesPreProcessing.length; i++) {
+                    userRoles.push($(userRolesPreProcessing[i]).data('elementname'));
+                }
+
+                if (userRoles.some(role => configData['Archive hazards permissions'].includes(role))) {
+                    gimmepops("Archiving Hazards",
+                    '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
+                    '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
+
+                    // Add an event listner to listen for clicks
+                    document.getElementById('archive-button').addEventListener('click', () => {
+                        toastr.warning('Archiving hazards...');
+                        getCdmHazardsListItemsAndArchive();
+                        closepops();
+                    })
+                } else {
+                    toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
+                }
+
+                // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column
+                // We request the data again instead of using allHazardsData because the allHazardsData is the result of a request that is limitted to 5000 items. The below request searches the entire
+                // dataset.
+                const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items`;
+                const response = [];
+                function getCdmHazardsListItemsAndArchive() {
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json; odata=verbose"
+                        },
+                        success: (data) => {
+                            response.push(...data.d.results)
+                            if(data.d.__next) {
+                                url = data.d.__next;
+                                getCdmHazardsListItems()
+                            } else {
+                                var successCounter = 0;
+                                archiveHazards();
+                                if (successCounter > 0) {
+                                    toastr.success(`Successfully deleted ${successCounter} hazards`)
+                                }
+                            }
+                        },
+                        error: {
+                            function(error) {}
+                        }
+                    })
+                    return response
+                }
+
+                function archiveHazards() {
+                    // Find the relevant hazards
+                    const cdmHazardData = response;
+
+                    // Loop over hazards to be archived and extract the relevant information
+                    let hazardCounter = 0;
+                    let succesfulArchives = 0;
+                    const promises = [];
+                    for (let i=0; i<cdmHazardData.length; i++) {
+                        if (cdmHazardData[i].cdmUniclass == 'Cancelled') {
+                            hazardCounter++;
+                            const hazardData = [];
+                            if (cdmHazardData[i].cdmCurrentStatus) hazardData.push(`cdmCurrentStatus|${cdmHazardData[i].cdmCurrentStatus}`);
+                            if (cdmHazardData[i].cdmEntityTitle) hazardData.push(`cdmEntityTitle|${cdmHazardData[i].cdmEntityTitle}`);
+                            if (cdmHazardData[i].cdmGeometry) hazardData.push(`cdmGeometry|${cdmHazardData[i].cdmGeometry}`);
+                            if (cdmHazardData[i].cdmHazardCoordinates) hazardData.push(`cdmHazardCoordinates|${cdmHazardData[i].cdmHazardCoordinates}`);
+                            if (cdmHazardData[i].cdmHazardDescription) hazardData.push(`cdmHazardDescription|${cdmHazardData[i].cdmHazardDescription}`);
+                            if (cdmHazardData[i].cdmHazardOwnerId) hazardData.push(`cdmHazardOwner|${cdmHazardData[i].cdmHazardOwnerId}`);
+                            if (cdmHazardData[i].cdmHazardTags) hazardData.push(`cdmHazardTags|${cdmHazardData[i].cdmHazardTags}`);
+                            if (cdmHazardData[i].cdmHazardTypeId) hazardData.push(`cdmHazardType|${cdmHazardData[i].cdmHazardTypeId}`);
+                            if (cdmHazardData[i].cdmIniRisk) hazardData.push(`cdmIniRisk|${cdmHazardData[i].cdmIniRisk}`);
+                            if (cdmHazardData[i].cdmInitialRAG) hazardData.push(`cdmInitialRAG|${cdmHazardData[i].cdmInitialRAG}`);
+                            if (cdmHazardData[i].cdmInitialRisk) hazardData.push(`cdmInitialRisk|${cdmHazardData[i].cdmInitialRisk}`);
+                            if (cdmHazardData[i].cdmInitialRiskScore) hazardData.push(`cdmInitialRiskScore|${cdmHazardData[i].cdmInitialRiskScore}`);
+                            if (cdmHazardData[i].cdmLastReviewDate) hazardData.push(`cdmLastReviewDate|${cdmHazardData[i].cdmLastReviewDate}`);
+                            if (cdmHazardData[i].cdmLastReviewer) hazardData.push(`cdmLastReviewer|${cdmHazardData[i].cdmLastReviewer}`);
+                            if (cdmHazardData[i].cdmLastReviewSnapShot) hazardData.push(`cdmLastReviewSnapshot|${cdmHazardData[i].cdmLastReviewSnapShot}`);
+                            if (cdmHazardData[i].cdmLastReviewStatus) hazardData.push(`cdmLastReviewStatus|${cdmHazardData[i].cdmLastReviewStatus}`);
+                            if (cdmHazardData[i].cdmLastReviewType) hazardData.push(`cdmLastReviewType|${cdmHazardData[i].cdmLastReviewType}`);
+                            if (cdmHazardData[i].cdmMitigationDescription) hazardData.push(`cdmMitigationDescription|${cdmHazardData[i].cdmMitigationDescription}`);
+                            if (cdmHazardData[i].cdmLinks) hazardData.push(`cdmLinks|${cdmHazardData[i].cdmLinks}`);
+                            if (cdmHazardData[i].cdmParent) hazardData.push(`cdmParent|${cdmHazardData[i].cdmParent}`);
+                            if (cdmHazardData[i].cdmPWElementId) hazardData.push(`cdmPWElement|${cdmHazardData[i].cdmPWElementId}`);
+                            if (cdmHazardData[i].cdmPWStructureId) hazardData.push(`cdmPWStructure|${cdmHazardData[i].cdmPWStructureId}`);
+                            if (cdmHazardData[i].cdmRAGSuggestion) hazardData.push(`cdmRAGSuggestion|${cdmHazardData[i].cdmRAGSuggestion}`);
+                            if (cdmHazardData[i].cdmRAMS) hazardData.push(`cdmRAMS|${cdmHazardData[i].cdmRAMS}`);
+                            if (cdmHazardData[i].cdmRelatedRAMS) hazardData.push(`cdmRelatedRAMS|${cdmHazardData[i].cdmRelatedRAMS}`);
+                            if (cdmHazardData[i].cdmResidualRAG) hazardData.push(`cdmResidualRAG|${cdmHazardData[i].cdmResidualRAG}`);
+                            if (cdmHazardData[i].cdmResidualRisk) hazardData.push(`cdmResidualRisk|${cdmHazardData[i].cdmResidualRisk}`);
+                            if (cdmHazardData[i].cdmResidualRiskScore) hazardData.push(`cdmResidualRiskScore|${cdmHazardData[i].cdmResidualRiskScore}`);
+                            if (cdmHazardData[i].cdmResRisk) hazardData.push(`cdmResRisk|${cdmHazardData[i].cdmResRisk}`);
+                            if (cdmHazardData[i].cdmReviews) hazardData.push(`cdmReviews|${cdmHazardData[i].cdmReviews}`);
+                            if (cdmHazardData[i].cdmRiskDescription) hazardData.push(`cdmRiskDescription|${cdmHazardData[i].cdmRiskDescription}`);
+                            if (cdmHazardData[i].cdmSiblings) hazardData.push(`cdmSiblings|${cdmHazardData[i].cdmSiblings}`);
+                            if (cdmHazardData[i].cdmSiteId) hazardData.push(`cdmSite|${cdmHazardData[i].cdmSiteId}`);
+                            if (cdmHazardData[i].cdmStageId) hazardData.push(`cdmStage|${cdmHazardData[i].cdmStageId}`);
+                            if (cdmHazardData[i].cdmSMMitigationSuggestion) hazardData.push(`cdmSMMitigationSuggestion|${cdmHazardData[i].cdmSMMitigationSuggestion}`);
+                            if (cdmHazardData[i].cdmTW) hazardData.push(`cdmTW|${cdmHazardData[i].cdmTW}`);
+                            if (cdmHazardData[i].cdmStageMitigationSuggestion) hazardData.push(`cdmStageMitigationSuggestion|${cdmHazardData[i].cdmStageMitigationSuggestion}`);
+                            if (cdmHazardData[i].cdmUniclass) hazardData.push(`cdmUniclass|${cdmHazardData[i].cdmUniclass}`);
+                            if (cdmHazardData[i].CurrentMitigationOwnerId)  hazardData.push(`CurrentMitigationOwner|${cdmHazardData[i].CurrentMitigationOwnerId}`);
+                            if (cdmHazardData[i].CurrentReviewOwnerId) hazardData.push(`CurrentReviewOwner|${cdmHazardData[i].CurrentReviewOwnerId}`);
+                            if (cdmHazardData[i].LegacyID) hazardData.push(`LegacyID|${cdmHazardData[i].LegacyID}`);
+                            if (cdmHazardData[i].cdmhs2residualriskowner) hazardData.push(`cdmhs2residualriskowner|${cdmHazardData[i].cdmhs2residualriskowner}`);
+                            if (cdmHazardData[i].cdmHS2RailSystemsContracts) (`cdmHS2RailSystemsContracts|${cdmHazardData[i].cdmHS2RailSystemsContracts}`);
+                            if (cdmHazardData[i].cdmPASRiskClassification) hazardData.push(`cdmPASRiskClassification|${cdmHazardData[i].cdmPASRiskClassification}`);
+                            if (cdmHazardData[i].cdmStageExtraId) hazardData.push(`cdmStageExtra|${cdmHazardData[i].cdmStageExtraId}`);
+                            if (cdmHazardData[i].cdmResidualRiskOwner) hazardData.push(`cdmResidualRiskOwner|${cdmHazardData[i].cdmResidualRiskOwner}`);
+                            if (cdmHazardData[i].cdmContract) hazardData.push(`cdmContract|${cdmHazardData[i].cdmContract}`);
+                            if (cdmHazardData[i].ID) hazardData.push(`cdmHazardId|${cdmHazardData[i].ID}`);
+
+                            // Create a promise to resolve later once the item has been archived
+                            const deferred = new $.Deferred();
+                            promises.push(deferred);
+
+                            // Create the item in the archive list
+                            const cdmHazardsArchived = list('cdmHazardsArchived');
+                            const itemCreateInfo = new SP.ListItemCreationInformation();
+                            let oListItem = cdmHazardsArchived.addItem(itemCreateInfo);
+
+                            for (let j=0; j<hazardData.length; j++) {
+                                const dataSplit = hazardData[j].split('|');
+                                oListItem.set_item(dataSplit[0], dataSplit[1]);
+                            }
+                            oListItem.update();
+                            ctx().load(oListItem);
+                            ctx().executeQueryAsync(onSuccessfulCopy, onUnsuccessfulCopy);
+
+                            function onSuccessfulCopy() {
+                                // Delete the item in the original list
+                                const cdmHazards = list('cdmHazards');
+                                oListItem = cdmHazards.getItemById(cdmHazardData[i].ID);
+                                oListItem.deleteObject();
+                                ctx().executeQueryAsync(onSuccessfulDelete, onUnsuccessfulDelete);
+                            }
+            
+                            function onUnsuccessfulCopy() {
+                                toastr.error(`Could not archive hazard with id ${cdmHazardData[i].ID}`);
+                                deferred.resolve(true);
+                            }
+
+                            function onSuccessfulDelete() {
+                                succesfulArchives++;
+                                deferred.resolve(true);
+                            }
+
+                            function onUnsuccessfulDelete() {
+                                toastr.error(`The hazard with id ${cdmHazardData[i].ID} has been copied to the cdmHazardArchived list, but it could not be deleted`);
+                                deferred.resolve('true');
+                            }
+                        }
+                    }
+                    
+                    // Wait for all promises to resolve and then give success message
+                    $.when(...promises)
+                        .then(() => {
+                            if (promises.length > 0) {
+                                toastr.success(`Successfully archived ${succesfulArchives} hazard(s). Refresh the hazards to see the latest updates.`);
+                            }
+                        })
+                    
+                    if (hazardCounter == 0) {
+                        toastr.error('There are no hazards to archive. To mark a hazard as ready to be archived change its status to "Cancelled".')
+                    }
+                }
+            }
             
         });
 
@@ -166,7 +336,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 }
 
 function activateGlobalNav(cdmSites, allHazardsData) {
-    $(".tgn-btn")
+    $(".home-button")
         .off("click")
         .on("click", function() {
             var action = $(this).data("action");
@@ -239,6 +409,16 @@ function activateHazardEdits() {
             var flds;
             var fld = "";
             var uce = $("#" + hi + " .uce").hasClass("_1");
+            
+            const userRoles = $(".fld_cdmUserRoleTitle");
+            const userSites = $(".fld_cdmSiteTitle");
+            const userRolesSites = [];
+            for (let i=0; i<userRoles.length; i++) {
+                userRolesSites.push([
+                    $(userRoles[i]).data("elementname"),
+                    $(userSites[i]).data("elementname"),
+                ])
+            }
 
             if (o == '<span class="clr_5">Unassigned</span>') {
                 var warning =
@@ -284,7 +464,56 @@ function activateHazardEdits() {
                     cdmdata.get("cdmResidualRiskOwners", "", null, "frmsel_ResidualRiskOwner", hc,null,[]);
                 }
                 else if (!uce) {
-                    toastr.error("Not permitted");
+                    const peerReviewStage = $("#" + hi + " .rucp").hasClass('_3');
+                    const designManagerReviewStage = $("#" + hi + " .rucd").hasClass('_3');
+                    const preconstructionReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
+                    const principleDesignerReviewStage = $("#" + hi + " .rucl").hasClass('_3');
+                    const constructionManagerReviewStage = $("#" + hi + " .rucs").hasClass('_3');
+                    
+                    if (peerReviewStage) {
+                        const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
+                        if (canPeerReview) {
+                            toastr.error('This hazard is under peer review so is locked for editing. Please review this hazard before editing.');
+                        } else {
+                            toastr.error('This hazard is under peer review so is locked for editing. Contact a designer to complete the review.');
+                        }
+                    } else if (designManagerReviewStage) {
+                        const canDesignManagerReview = $("#" + hi + " .ucd").hasClass("_1");
+                        if (canDesignManagerReview) {
+                            toastr.error('This hazard is under design manager review so is locked for editing. Please review this hazard before editing.');
+                        } else {
+                            toastr.error('This hazard is under design manager review so is locked for editing. Contact a designer manager to complete the review.');
+                        }
+                    } else if (preconstructionReviewStage) {
+                        const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
+                        if (canPreconstructionReview) {
+                            toastr.error('This hazard is under pre-construction review so is locked for editing. Please review this hazard before editing.');
+                        } else {
+                            toastr.error('This hazard is under pre-construction review so is locked for editing. Contact a construction manager to complete the review.');
+                        }
+                    } else if (principleDesignerReviewStage) {
+                        const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
+                        if (canPrincipleDesignerReview) {
+                            toastr.error('This hazard is under principal designer review so is locked for editing. Please review this hazard before editing.');
+                        } else {
+                            toastr.error('This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review.');
+                        }
+                    } else if (constructionManagerReviewStage) {
+                        const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
+                        if (canConstructionManagerReview) {
+                            toastr.error('This hazard is under construction manager review so is locked for editing. Please review this hazard before editing.');
+                        } else {
+                            toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
+                        }
+                    } else if (revstatus == 'Accepted') {
+                        toastr.error('This hazard has been accepted so is locked for editing. If necessary you can submit this hazard for client review.')
+                    } else if (revstatus == 'Ready for Review by Client') {
+                        toastr.error('This hazard is under client review so is locked for editing.');
+                    } else if (userRoles.length == 0) {
+                        toastr.error('You do not have a user role assigned so you cannot edit hazards. Ask your system administrator to add you to the system.')
+                    } else {
+                        toastr.error("Not permitted");
+                    }
                 } else {
                     if (fld == "cdmUniclass") {
                         gimmepops(
@@ -370,6 +599,30 @@ function activateHazardEdits() {
                             "</textarea></div>";
                         var svBtn =
                             '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmStageMitigationSuggestion\');">Save</div>';
+                        gimmepops(
+                            "Your mitigation suggestion for " + stage,
+                            '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
+                            txtbox +
+                            svBtn
+                        );
+                    }
+                    // To edit the smmitigation we need to test that the user is a site manager of the current site
+                    let canSiteManagerEdit = false;
+                    for (let i=0; i<userRolesSites.length; i++) {
+                        if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
+                            canSiteManagerEdit = true;
+                        }
+                    }
+                    if (fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) {
+                        var existingTxt = $(
+                            "#" + hi + " .cdmSMMitigationSuggestion"
+                        ).html();
+                        var txtbox =
+                            '<div><textarea id="txtform" rows="6" cols="60">' +
+                            existingTxt +
+                            "</textarea></div>";
+                        var svBtn =
+                            '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
@@ -791,12 +1044,15 @@ function activateRAMSBtn() {
                         nrdata.push("cdmSMMitigationSuggestion|" + mits);
                         nrdata.push("cdmRAMS|" + raid);
                         nrdata.push("cdmEntityTitle|" + ratx);
-
                         // $('#ramssummary').html(nrdata);
                         $("#val_rams").html('');
                         $("#sel_rams").val('');
                         $("#addramsbtn").hide();
                         tposdata.setRAMS("cdmHazards", nrdata, hzd);
+                    } else if (!raid && !ratx) {
+                        toastr.error('Please ask the system admin to add RAMS data to the system')
+                    } else if (!ratx) {
+                        toastr.error('The selected RAMS is incorrectly formatted. Please ask the system admin to correct the format, removing all whitespace from the RAMS title.')
                     }
 
                 }
@@ -1879,12 +2135,12 @@ function tposcustomfilters( data) {
         //console.log(fcdmCurrentStatusselected);
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
 
- cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
+        cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
       
 
-      //alert("stop");
-      $("#pops").remove();
-});
+        //alert("stop");
+        $("#pops").remove();
+    });
 
   
    

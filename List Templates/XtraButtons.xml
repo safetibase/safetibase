@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-7CDADEF4C8004FCCA8673C0E7825E4BA">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-7CDADEF4C8004FCCA8673C0E7825E4BA" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-ED1BF5BA3EA64B538D117CE5AD6CBBFE">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-ED1BF5BA3EA64B538D117CE5AD6CBBFE" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="XtraButtons" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/XtraButtons" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/XtraButtons/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/XtraButtons/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/XtraButtons/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{CAC48131-950A-45C6-A96D-07AA58F8C8AC}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/XtraButtons/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{BD067BD0-92A4-4ED9-B570-D7B2E880E197}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/XtraButtons/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -27,6 +27,7 @@
           </pnp:Views>
           <pnp:Fields>
             <Field DisplayName="URL" Format="Dropdown" MaxLength="255" Name="URL" Title="URL" Type="Text" ID="{e99d4fe6-244c-434a-8ed2-c467f4779323}" SourceID="{{listid:XtraButtons}}" StaticName="URL" ColName="nvarchar4" RowOrdinal="0" />
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar6" />
           </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>
