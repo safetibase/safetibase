@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-A9FB769CBB73449ABB810AE8CD322422">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-A9FB769CBB73449ABB810AE8CD322422" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-FE53D36641CE40C29F46F77A338ED794">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-FE53D36641CE40C29F46F77A338ED794" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="Tasks" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="171" Url="Lists/Tasks" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="f9ce21f8-f437-4f7e-8bc6-946378c850f0" ContentTypesEnabled="true" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/Tasks/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/Tasks/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/Tasks/NewForm.aspx" ImageUrl="/_layouts/15/images/ittask.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
             <pnp:ContentTypeBinding ContentTypeID="0x0108" Default="true" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{E3C4E8F4-C176-4055-A9C5-DE48B3F3C5C5}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Tasks" Url="{site}/Lists/Tasks/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+            <View Name="{8D6C122A-8B9B-42DD-AA1B-D54A11E93970}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Tasks" Url="{site}/Lists/Tasks/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <ViewFields>
                 <FieldRef Name="Checkmark" />
                 <FieldRef Name="LinkTitle" />
@@ -23,7 +23,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{0998C107-E5F9-4046-A58B-94F4D95FBED2}" MobileView="TRUE" Type="HTML" DisplayName="Late Tasks" Url="{site}/Lists/Tasks/late.aspx" Level="1" BaseViewID="2" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+            <View Name="{E13A4161-7A33-4A61-A3D5-437020859DB1}" MobileView="TRUE" Type="HTML" DisplayName="Late Tasks" Url="{site}/Lists/Tasks/late.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <Query>
                 <Where>
                   <And>
@@ -62,7 +62,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{8731469C-642E-41F1-8567-CA2E17D72E8E}" MobileView="TRUE" Type="HTML" DisplayName="Upcoming" Url="{site}/Lists/Tasks/Upcoming.aspx" Level="1" BaseViewID="3" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+            <View Name="{184423D5-9262-48D1-A1D5-7BCAAB273315}" MobileView="TRUE" Type="HTML" DisplayName="Upcoming" Url="{site}/Lists/Tasks/Upcoming.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <Query>
                 <Where>
                   <And>
@@ -97,7 +97,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{6BF603C3-3B85-4908-A49F-2D76DA35D2B1}" MobileView="TRUE" Type="HTML" DisplayName="Completed" Url="{site}/Lists/Tasks/completed.aspx" Level="1" BaseViewID="4" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+            <View Name="{15B2377E-6C3D-45D4-BACF-4063414E28A6}" MobileView="TRUE" Type="HTML" DisplayName="Completed" Url="{site}/Lists/Tasks/completed.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <Query>
                 <Where>
                   <Geq>
@@ -118,7 +118,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{09A24E4F-AF17-400C-B825-D11168D9358B}" MobileView="TRUE" Type="HTML" DisplayName="My Tasks" Url="{site}/Lists/Tasks/MyItems.aspx" Level="1" BaseViewID="5" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issues.png?rev=47">
+            <View Name="{8B8D1564-2729-48B0-8B4E-C49E072D0435}" MobileView="TRUE" Type="HTML" DisplayName="My Tasks" Url="{site}/Lists/Tasks/MyItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <Query>
                 <Where>
                   <In>
@@ -144,7 +144,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{1AD18CD6-07AB-47FC-B298-B57F1F2EF573}" Type="GANTT" DisplayName="Gantt Chart" Url="{site}/Lists/Tasks/gantt.aspx" Level="1" BaseViewID="8" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
+            <View Name="{6698B4BF-A123-4596-92E2-947D1A964D79}" Type="GANTT" DisplayName="Gantt Chart" Url="{site}/Lists/Tasks/gantt.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <ViewFields>
                 <FieldRef Name="LinkTitle" />
                 <FieldRef Name="StartDate" />
@@ -166,7 +166,7 @@
                 <FieldRef Name="DueDate" Type="TimelineDueDate" />
               </ViewData>
             </View>
-            <View Name="{D19E0764-0E63-4D94-8D96-D97F7B6F9F96}" Type="CALENDAR" TabularView="FALSE" DisplayName="Calendar" Url="{site}/Lists/Tasks/calendar.aspx" Level="1" BaseViewID="9" ContentTypeID="0x" MobileUrl="_layouts/15/mobile/viewdaily.aspx" ImageUrl="/_layouts/15/images/events.png?rev=47">
+            <View Name="{3B63E508-D93A-4ECF-B4D9-23A9F4AAE02F}" Type="CALENDAR" RecurrenceRowset="TRUE" DisplayName="Calendar" Url="{site}/Lists/Tasks/calendar.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/issuelst.png?rev=47">
               <Query>
                 <Where>
                   <DateRangesOverlap>
@@ -184,6 +184,8 @@
                 <FieldRef Name="Title" />
                 <FieldRef Name="Description" />
               </ViewFields>
+              <RowLimit Paged="TRUE">100</RowLimit>
+              <JSLink>hierarchytaskslist.js</JSLink>
               <ViewData>
                 <FieldRef Name="Title" Type="CalendarMonthTitle" />
                 <FieldRef Name="Title" Type="CalendarWeekTitle" />
@@ -193,6 +195,9 @@
               </ViewData>
             </View>
           </pnp:Views>
+          <pnp:Fields>
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar7" RowOrdinal="0" />
+          </pnp:Fields>
           <pnp:FieldRefs>
             <pnp:FieldRef ID="c3a92d97-2b77-4a25-9698-3ab54874bc6f" Name="Predecessors" DisplayName="Predecessors" />
             <pnp:FieldRef ID="a8eb573e-9e11-481a-a8c9-1104a54b2fbd" Name="Priority" DisplayName="Priority" />

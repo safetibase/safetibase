@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-0E9B2CBAE0F641028DA1BB973BC2FD47">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-0E9B2CBAE0F641028DA1BB973BC2FD47" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-BF6AF5227C4C4466AAF42CE5CFC22A4F">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-BF6AF5227C4C4466AAF42CE5CFC22A4F" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="Calendar" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="106" Url="Lists/Calendar" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-ec85-4903-972d-ebe475780106" ContentTypesEnabled="true" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/Calendar/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/Calendar/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/Calendar/NewForm.aspx" ImageUrl="/_layouts/15/images/itevent.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
             <pnp:ContentTypeBinding ContentTypeID="0x0102" Default="true" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{6334D0FF-0FA8-454F-A810-8BA041FED8F5}" MobileView="TRUE" Type="HTML" DisplayName="All Events" Url="{site}/Lists/Calendar/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/events.png?rev=47">
+            <View Name="{876067F7-B316-4F6D-839D-A52E3CF8F75A}" MobileView="TRUE" Type="HTML" DisplayName="All Events" Url="{site}/Lists/Calendar/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/events.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="EventDate" />
@@ -27,7 +27,7 @@
               <RowLimit Paged="TRUE">30</RowLimit>
               <JSLink>clienttemplates.js</JSLink>
             </View>
-            <View Name="{B9B1181A-9321-4B41-B998-16A22AB3D63E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="CALENDAR" TabularView="FALSE" RecurrenceRowset="TRUE" DisplayName="Calendar" Url="{site}/Lists/Calendar/calendar.aspx" Level="1" BaseViewID="2" ContentTypeID="0x" MobileUrl="_layouts/15/mobile/viewdaily.aspx" ImageUrl="/_layouts/15/images/events.png?rev=47">
+            <View Name="{6810779B-32B5-4910-8A03-D099AC7C15D0}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="CALENDAR" RecurrenceRowset="TRUE" DisplayName="Calendar" Url="{site}/Lists/Calendar/calendar.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/events.png?rev=47">
               <Query>
                 <Where>
                   <DateRangesOverlap>
@@ -53,6 +53,8 @@
                 <FieldRef Name="MasterSeriesItemID" />
                 <FieldRef Name="fAllDayEvent" />
               </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
               <ViewData>
                 <FieldRef Name="Title" Type="CalendarMonthTitle" />
                 <FieldRef Name="Title" Type="CalendarWeekTitle" />
@@ -61,7 +63,7 @@
                 <FieldRef Name="Location" Type="CalendarDayLocation" />
               </ViewData>
             </View>
-            <View Name="{C04AB862-D547-4B9A-846B-34702A888B6D}" MobileView="TRUE" Type="HTML" RecurrenceRowset="TRUE" DisplayName="Current Events" Url="{site}/Lists/Calendar/MyItems.aspx" Level="1" BaseViewID="3" ContentTypeID="0x" ImageUrl="/_layouts/15/images/events.png?rev=47">
+            <View Name="{7851C3FB-DBD1-4D8D-9A6A-93C4F69F0199}" MobileView="TRUE" Type="HTML" DisplayName="Current Events" Url="{site}/Lists/Calendar/MyItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/events.png?rev=47">
               <Query>
                 <Where>
                   <DateRangesOverlap>
@@ -86,11 +88,13 @@
                 <FieldRef Name="EndDate" />
                 <FieldRef Name="fAllDayEvent" />
               </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
               <JSLink>clienttemplates.js</JSLink>
             </View>
           </pnp:Views>
           <pnp:Fields>
-            <Field ID="{8a4be162-151d-4a11-b9be-e7dc05196d73}" Name="BannerImageUrl" StaticName="BannerImageUrl" DisplayName="Banner Image URL" Type="Note" Sealed="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" AllowDeletion="FALSE" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" ShowInVersionHistory="FALSE" ColName="ntext6" />
+            <Field ID="{8a4be162-151d-4a11-b9be-e7dc05196d73}" Name="BannerImageUrl" StaticName="BannerImageUrl" DisplayName="Banner Image URL" Type="Note" Sealed="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="_Hidden" Description="" AllowDeletion="FALSE" ShowInNewForm="FALSE" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInViewForms="FALSE" ShowInListSettings="FALSE" ShowInVersionHistory="FALSE" ColName="ntext6" RowOrdinal="0" />
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar13" RowOrdinal="0" />
           </pnp:Fields>
           <pnp:FieldRefs>
             <pnp:FieldRef ID="288f5f32-8462-4175-8f09-dd7ba29359a9" Name="Location" DisplayName="Location" />

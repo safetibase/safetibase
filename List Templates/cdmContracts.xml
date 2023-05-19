@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-76E69A6067374015B8F55D3FC081DB12">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-76E69A6067374015B8F55D3FC081DB12" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-EE0C668080B24414B76975FBEE7CA3B3">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-EE0C668080B24414B76975FBEE7CA3B3" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="cdmContracts" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="100" Url="Lists/cdmContracts" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="50" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmContracts/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmContracts/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmContracts/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{C4E83728-774C-4BCD-BC5A-028D39A764F4}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmContracts/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{CA663A23-8D51-4E7E-B2F2-A0FBCA8223AF}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmContracts/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query />
               <ViewFields>
                 <FieldRef Name="LinkTitle" />
@@ -19,6 +19,9 @@
               <JSLink>clienttemplates.js</JSLink>
             </View>
           </pnp:Views>
+          <pnp:Fields>
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar5" />
+          </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>
     </pnp:ProvisioningTemplate>

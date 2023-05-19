@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-CDBC77634D504C1BABD20AD9A53769CC">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-CDBC77634D504C1BABD20AD9A53769CC" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-265B3AAD11E64BFD9B87ECDED9D35C15">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-265B3AAD11E64BFD9B87ECDED9D35C15" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="cdmNotifications" Description="" DocumentTemplate="" TemplateType="100" Url="Lists/cdmNotifications" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/cdmNotifications/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/cdmNotifications/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/cdmNotifications/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=44" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{09F33481-C0F5-4E5D-84EE-964522D5BE32}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmNotifications/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+            <View Name="{A1007D4B-311C-46BD-8FFE-D3346A97F55D}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/cdmNotifications/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="ID" />
@@ -28,6 +28,7 @@
           <pnp:Fields>
             <Field ShowField="Title" Required="TRUE" Type="User" Description="" UserSelectionMode="PeopleOnly" UserSelectionScope="0" DisplayName="cdmRecipient" ID="{4a22ec9f-b687-46bf-a9cb-66c683665057}" Name="cdmRecipient" Group="" Version="2" StaticName="cdmRecipient" SourceID="{{listid:cdmNotifications}}" ColName="int1" RowOrdinal="0" Hidden="FALSE" CanToggleHidden="TRUE" />
             <Field DisplayName="cdmMessage" Name="cdmMessage" Type="Note" ID="{e55d0c81-af73-4364-ad8c-57f72d1ed1c2}" Group="" Version="2" StaticName="cdmMessage" SourceID="{{listid:cdmNotifications}}" ColName="ntext2" RowOrdinal="0" />
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar5" RowOrdinal="0" />
           </pnp:Fields>
         </pnp:ListInstance>
       </pnp:Lists>

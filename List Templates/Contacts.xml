@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
   <pnp:Preferences Generator="PnP.Framework, Version=1.9.1.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
-  <pnp:Templates ID="CONTAINER-TEMPLATE-6C7CC8CBE001428F8D392F5C9C18C1CC">
-    <pnp:ProvisioningTemplate ID="TEMPLATE-6C7CC8CBE001428F8D392F5C9C18C1CC" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
+  <pnp:Templates ID="CONTAINER-TEMPLATE-38FFCF93470C469196B81BD1910B7B1D">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-38FFCF93470C469196B81BD1910B7B1D" Version="1" BaseSiteTemplate="STS#0" Scope="Web">
       <pnp:Lists>
         <pnp:ListInstance Title="Contacts" Description="Use the Contacts list for information about people that your team works with." DocumentTemplate="" OnQuickLaunch="true" TemplateType="105" Url="Lists/Contacts" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-7e6d-4186-9ba8-c047ac750105" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/Contacts/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/Contacts/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/Contacts/NewForm.aspx" ImageUrl="/_layouts/15/images/itcontct.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
           <pnp:ContentTypeBindings>
@@ -10,7 +10,7 @@
             <pnp:ContentTypeBinding ContentTypeID="0x0120" />
           </pnp:ContentTypeBindings>
           <pnp:Views>
-            <View Name="{35E6C748-BDED-40B2-B8C7-EBCE9F29C0AE}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All contacts" Url="{site}/Lists/Contacts/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/contacts.png?rev=47">
+            <View Name="{229CA6CA-7EE4-44AE-AE9D-F541A6B7E961}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All contacts" Url="{site}/Lists/Contacts/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/contacts.png?rev=47">
               <Query>
                 <OrderBy>
                   <FieldRef Name="Title" />
@@ -29,6 +29,9 @@
               <JSLink>clienttemplates.js</JSLink>
             </View>
           </pnp:Views>
+          <pnp:Fields>
+            <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar23" RowOrdinal="0" />
+          </pnp:Fields>
           <pnp:FieldRefs>
             <pnp:FieldRef ID="fdc8216d-dabf-441d-8ac0-f6c626fbdc24" Name="LastNamePhonetic" DisplayName="Last Name Phonetic" />
             <pnp:FieldRef ID="4a722dd4-d406-4356-93f9-2550b8f50dd0" Name="FirstName" DisplayName="First Name" />
