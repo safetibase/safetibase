@@ -129,26 +129,59 @@ function activateDatasets(cdmSites, allHazardsData) {
                 });
             }
             if (ulink == 'archivehazards') {
-                const userRolesPreProcessing = $(".fld_cdmUserRoleTitle");
-                const userRoles = [];
-                for (let i=0; i<userRolesPreProcessing.length; i++) {
-                    userRoles.push($(userRolesPreProcessing[i]).data('elementname'));
-                }
+                // First get the user roles and verify that they are allowed to archive hazards
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                if (userRoles.some(role => configData['Archive hazards permissions'].includes(role))) {
-                    gimmepops("Archiving Hazards",
-                    '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
-                    '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Archive hazards permissions'].includes(x.Title) })
 
-                    // Add an event listner to listen for clicks
-                    document.getElementById('archive-button').addEventListener('click', () => {
-                        toastr.warning('Archiving hazards...');
-                        getCdmHazardsListItemsAndArchive();
-                        closepops();
-                    })
-                } else {
-                    toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
-                }
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        gimmepops("Archiving Hazards",
+                                        '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
+                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
+
+                                        // Add an event listner to listen for clicks
+                                        document.getElementById('archive-button').addEventListener('click', () => {
+                                            toastr.warning('Archiving hazards...');
+                                            getCdmHazardsListItemsAndArchive();
+                                            closepops();
+                                        })
+                                    } else {
+                                        toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
+                        }
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
 
                 // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column
                 // We request the data again instead of using allHazardsData because the allHazardsData is the result of a request that is limitted to 5000 items. The below request searches the entire
