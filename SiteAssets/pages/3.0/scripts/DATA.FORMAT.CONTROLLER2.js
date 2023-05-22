@@ -44,7 +44,7 @@ formatdatato = {
         $(".fld_cdmSiteTitle").show();
 
         // if a role is assigned to the user, then the add hazard button should display
-        if (role.includes(1)) {
+        if (tlist.length > 0) {
             var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
             $("#user_roles").append('<div class="tborder">' + actions + '</div>');
         } else {
