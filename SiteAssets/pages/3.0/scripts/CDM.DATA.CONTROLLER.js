@@ -291,19 +291,31 @@ cdmdata = {
         hListItem.update();
 
         ctx().load(oListItem);
-        ctx().executeQueryAsync();
-        if (callback == "sync") {
-            toastr.success(`Synced ${data.length} hazards`, {positionClass: "toast-top-right"});
+        ctx().executeQueryAsync(onSuccess, onFailure);
+
+        function onSuccess() {
+            if (callback == "sync") {
+                toastr.success(`Synced ${data.length} hazards`, {positionClass: "toast-top-right"});
+            }
+            if (callback == "frmedit_updateview") {
+                // var fn = window[callback];
+                // fn(oListItem);
+                cdmdata.get(
+                    "cdmHazards",
+                    "ID eq '" + hzd + "'",
+                    null,
+                    "frmedit_updateview",null,[]
+                );
+            }
         }
-        if (callback == "frmedit_updateview") {
-            // var fn = window[callback];
-            // fn(oListItem);
-            cdmdata.get(
-                "cdmHazards",
-                "ID eq '" + hzd + "'",
-                null,
-                "frmedit_updateview",null,[]
-            );
+
+        function onFailure() {
+            if (callback == 'sync') {
+                toastr.error('Failed to sync hazards');
+            }
+            if (callback == 'frmedit_updateView') {
+                toastr.error('Failed to update hazard')
+            }
         }
         //// Below returns errors and so doesn't refresh page when it should. Resource throttling.
         //// Patch above refreshes page regardless of whether the executeQueryAsync() works.
