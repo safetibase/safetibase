@@ -22,7 +22,7 @@ To install SafetIbase on a SharePoint, follow the steps below:
 - [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs you are not updating
 - [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the url of your site
 - [Optional] Run the script. This will populate the SharePoint lists with the input you provide in the spreadsheet above
-- [Optional] Edit the configData.js file ('Site Contents' > 'Site Assets' > 'files'). This contains a JSON variable with the following keys:
+- [Optional] Edit the configData.js file ('Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'scripts' > 'configData.js'). This contains a JSON variable with the following keys:
   - 'site' - Changes text for the word 'site' (e.g. could be changed to 'sublot')
   - 'Residual Risk Owner' - Changes text for the phrase 'Residual Risk Owner'
   - 'Contract' - Changes text for the word 'Contract'
@@ -30,10 +30,28 @@ To install SafetIbase on a SharePoint, follow the steps below:
     1. Submitted to client
     2. Accepted by client
   - 'Client Name' - Changes text for the client name
+  - 'Archive hazards permissions' - list of the user roles that can archive hazards.
 - To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
   - It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint site homepage for ease of access.
 -----------------------------------------------------
 CHANGE LOG:
+
+19/05/2023
+-	Tooltips have been added to clickable parts of the UI to improve user experience.
+-	A popup explaining the hazard scoring system has been added to the add a hazard page.
+-	A link to a SafetIbase guidance document has been added to the home screen. This can be reached by clicking the information icon next to the title.
+-	A config file has been added to customise parts of the UI. This is a JavaScript file that contains a JSON object holding the key-value pairs of the configurable elements of the UI. Currently, the parts of the UI that can be configured are the name of sites (e.g., site or sublot), the name of residual risk owners (e.g., residual risk owner or future works owner), the name of future contracts, whether client review is built into the workflow as an additional stage, and the user roles that are authorised to archive hazards. The config file is located at SiteAssets/pages/3.0/scripts/configData.js.
+-	Hazards that are marked as “Cancelled” can now be archived. This removes them from the dashboard to the list cdmHazardsArchived. To mark a hazard as “Cancelled”, expand the hazard, and then click the “Status” field. You will need to populate the cdmStatus list prior to this. We suggest populating it with the options “Open”, “Mitigated”, “Eliminated” and “Cancelled”. To archive the hazards marked as cancelled click the “Archived Cancelled Hazards” button. The set of user roles that are authorised to do this is controlled through the config file.
+-	The construction manager’s mitigation suggestion can now be edited at any point in the workflow. Do so will return the hazard to the start of the workflow.
+-	After filtering hazards and expanding hazards from a certain site, you can return to the filtered results by clicking on the home button.
+-	A bug where the home button would not always load has been fixed. The location of the home button has been changed to the top left of the dashboard.
+-	A bug where the read-only user role could add hazards has been fixed.
+-	More useful error messages are provided when users attempt to use functionality that isn’t permitted.
+-	The SafetIbase logo has been updated.
+-	A bug where the user role “Principal Designer” was not recognised has been fixed.
+-	A bug where some user roles would not be recognised if they were the only role assigned has been fixed.
+- Some users reported the dashboard.aspx file downloaded instead of rendering the site when they clicked on it. This file has been modified to fix this.
+
 
 06/10/20
   -Cleaned up tw.txt & rams.txt
