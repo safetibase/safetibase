@@ -765,10 +765,23 @@ function activateHazardEdits() {
 
                         // $('#pops').css('min-height','250px');
                     }
-                    if (fld == "cdmInitialRisk" || fld == "cdmResidualRisk") {
+                    if (fld == "cdmInitialRisk") {
                         gimmepops("Setting the risk score", '<div id="rsselector"></div>');
                         $("#rsselector").load(
-                            "../3.0/html/risk.selection.panel.html",
+                            "../3.0/html/risk.initial.selection.panel.html",
+                            function() {
+                                $("#inirisk").append(
+                                    '<div class="tpos-left-btn sv-hazard" onclick="saversk(\'' +
+                                    fld +
+                                    "');\">Save</div>"
+                                );
+                            }
+                        );
+                    }
+                    if (fld == "cdmResidualRisk") {
+                        gimmepops("Setting the risk score", '<div id="rsselector"></div>');
+                        $("#rsselector").load(
+                            "../3.0/html/risk.residual.selection.panel.html",
                             function() {
                                 $("#inirisk").append(
                                     '<div class="tpos-left-btn sv-hazard" onclick="saversk(\'' +
