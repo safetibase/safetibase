@@ -495,6 +495,32 @@ function activateHazardEdits() {
                         '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
                     );
                     cdmdata.get("cdmResidualRiskOwners", "", null, "frmsel_ResidualRiskOwner", hc,null,[]);
+                } else if (fld == 'cdmSMMitigationSuggestion') {
+                    let canSiteManagerEdit = false;
+                    for (let i=0; i<userRolesSites.length; i++) {
+                        if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
+                            canSiteManagerEdit = true;
+                        }
+                    }
+                    if (fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) {
+                        var existingTxt = $(
+                            "#" + hi + " .cdmSMMitigationSuggestion"
+                        ).html();
+                        var txtbox =
+                            '<div><textarea id="txtform" rows="6" cols="60">' +
+                            existingTxt +
+                            "</textarea></div>";
+                        var svBtn =
+                            '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
+                        gimmepops(
+                            "Your mitigation suggestion for " + stage,
+                            '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
+                            txtbox +
+                            svBtn
+                        );
+                    } else {
+                        toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located")
+                    }
                 }
                 else if (!uce) {
                     const peerReviewStage = $("#" + hi + " .rucp").hasClass('_3');
@@ -632,30 +658,6 @@ function activateHazardEdits() {
                             "</textarea></div>";
                         var svBtn =
                             '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmStageMitigationSuggestion\');">Save</div>';
-                        gimmepops(
-                            "Your mitigation suggestion for " + stage,
-                            '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                            txtbox +
-                            svBtn
-                        );
-                    }
-                    // To edit the smmitigation we need to test that the user is a site manager of the current site
-                    let canSiteManagerEdit = false;
-                    for (let i=0; i<userRolesSites.length; i++) {
-                        if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
-                            canSiteManagerEdit = true;
-                        }
-                    }
-                    if (fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) {
-                        var existingTxt = $(
-                            "#" + hi + " .cdmSMMitigationSuggestion"
-                        ).html();
-                        var txtbox =
-                            '<div><textarea id="txtform" rows="6" cols="60">' +
-                            existingTxt +
-                            "</textarea></div>";
-                        var svBtn =
-                            '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +

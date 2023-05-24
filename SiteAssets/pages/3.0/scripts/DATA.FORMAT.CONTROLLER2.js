@@ -1544,7 +1544,7 @@ function printHazardRow(h) {
 
     if (revstatus.substring(0, 1) == "U") {
         warning =
-            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing.</div>';
+            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing. Construction managers can still enter a mitigation suggestion.</div>';
         isLocked = 1;
     }
     var uce = 0,
