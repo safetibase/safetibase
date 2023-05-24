@@ -44,7 +44,7 @@ formatdatato = {
         $(".fld_cdmSiteTitle").show();
 
         // if a role is assigned to the user, then the add hazard button should display
-        if (role.includes(1)) {
+        if (tlist.length > 0) {
             var actions = mkBtn("add", "", "Add a hazard", "addHazard", "");
             $("#user_roles").append('<div class="tborder">' + actions + '</div>');
         } else {
@@ -1544,7 +1544,7 @@ function printHazardRow(h) {
 
     if (revstatus.substring(0, 1) == "U") {
         warning =
-            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing.</div>';
+            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing. Construction managers can still enter a mitigation suggestion.</div>';
         isLocked = 1;
     }
     var uce = 0,
@@ -1914,7 +1914,7 @@ function printHazardRow(h) {
         rucpc +
         '"></div><div title="Principal designer review" class="prm-cell rucl _' +
         rucl +
-        '"></div><div title="Client review" class="prm-cell rucs _' +
+        '"></div><div title="Construction manager review" class="prm-cell rucs _' +
         rucs +
         '"></div></div>';
 

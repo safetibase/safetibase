@@ -15,6 +15,7 @@
 	<script src="../../resources/fontawesome-all.js"></script>
 	<script src="../../resources/toastr.min.js"></script>
 
+	<script src="scripts/configData.js"></script>
 	<script src="../2.0/scripts/app.js"></script>
 	<script src="scripts/jquery.multiselect.js"></script>
 	<script src="scripts/PROCESS.CONTROLLER.js"></script>
@@ -23,7 +24,6 @@
 	<script src="scripts/CDM.DATA.CONTROLLER.js"></script>
 	<script src="scripts/DATA.FORMAT.CONTROLLER2.js"></script>
 	<script src="scripts/INIT.PAGE.js"></script>
-	<script src="../../files/configData.js"></script>
 	
 
 	<link rel="stylesheet" href="../../resources/jquery-ui.min.css">
