@@ -231,8 +231,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 </div> -->
 
-<script src="../../../files/configData.js"></script>
-
 <div class="tpos-info">Then select a <span class="siteConfig"></span>. Please note that you can only select one <span class="siteConfig"></span> at a time.</div>
 
 <div class="select-panel" id="sites">
@@ -292,7 +290,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </div>
 
 <script>
-    const siteElements = document.getElementsByClassName("siteConfig")
+    var siteElements = document.getElementsByClassName("siteConfig")
     for (let i=0; i<siteElements.length; i++) {
         siteElements[i].innerHTML = configData['site']
     }
