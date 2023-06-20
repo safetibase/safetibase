@@ -384,6 +384,10 @@ a.ms-tv-header:hover {
     border-collapse: collapse;
 }
 
+.tpos-tbl-user-dashboard {
+    border-collapse: collapse;
+}
+
 .row-header {
     background-color: rgba(0, 0, 0, 0.6);
     color: rgb(255, 255, 255);

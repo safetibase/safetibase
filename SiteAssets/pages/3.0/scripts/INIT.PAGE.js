@@ -134,203 +134,337 @@ function setupuserstats(r, c, s, allHazardsData) {
     if (s) { sphrase = ' and assigned to ' + s; }
     $('#tpos-main').html('<div class="tpos-area-title">Hazards relevant to a ' + r + ' working for ' + c + sphrase + '</div><div id="userstats" class="tpos-area-content"></div>');
     $('#userstats').load('../3.0/html/stats.div.html', function() {
-        var utbl1 = '<div class="row">Hazards last modified by you</div><table class="tpos-tbl"><tr><td id="userhighrisk"></td><td id="usernotassigned"></td></tr></table>';
-        var utbl4 = '<div class="row">Hazards identified and/or last modified by you (regardless of company)</div><div><table class="tpos-tbl"><tr><td id="aa"></td><td id="ea"></td></tr></table></div>';
-        var utbl2 = '<div class="row">' + c + ' hazards by residual risk' + '</div><div><table class="tpos-tbl"><tr><td id="chighrisk"></td><td id="cmediumrisk"></td><td id="clowrisk"></td></tr></table></div>';
-        var utbl3 = '<div class="row">' + c + ' hazards by status' + '</div><div><table class="tpos-tbl"><tr><td id="caa"></td><td id="casses"></td><td id="cpeer"></td><td id="cdhm"></td><td id="cprecon"></td><td id="cld"></td><td id="csm"></td><td id="cacc"></td></tr></table></div>';
-        $('#stats').html('<table class="tpos-tbl" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>' + utbl4 + utbl2 + utbl3);
+        var utbl1 = '<div class="row">Hazards last modified by you</div><table class="tpos-tbl-user-dashboard"><tr><td id="userhighrisk"></td><td id="usernotassigned"></td></tr></table>';
+        var utbl4 = '<div class="row">Hazards identified and/or last modified by you (regardless of company)</div><div><table class="tpos-tbl-user-dashboard"><tr><td id="aa"></td><td id="ea"></td></tr></table></div>';
+        var utbl2 = '<div class="row">' + c + ' hazards by residual risk' + '</div><div><table class="tpos-tbl-user-dashboard"><tr><td id="chighrisk"></td><td id="cmediumrisk"></td><td id="clowrisk"></td></tr></table></div>';
+        var utbl3 = '<div class="row">' + c + ' hazards by status' + '</div><div><table class="tpos-tbl-user-dashboard"><tr><td id="caa"></td><td id="casses"></td><td id="cpeer"></td><td id="cdhm"></td><td id="cprecon"></td><td id="cld"></td><td id="csm"></td><td id="cacc"></td></tr></table></div>';
+        var utbl5 = '<div class="row">Accepted and rejected hazards</div><div><table class="tpos-tbl-user-dashboard"><tr><td id="stats-accepted"></td><td id="stats-rejected"></td></tr></table></div>';
 
 
         // cdmdata.getQuickCount('cdmHazards', 1, 'Author/ID eq ' + uid() + ' and cdmHazardOwner/Title eq \'' + c + '\'', 'Identified by you for ' + c, 'a', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 2, 'Editor/ID eq ' + uid() + ' and cdmHazardOwner/Title eq \'' + c + '\'', 'Last modified by you for ' + c, 'e', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 16, 'Author/ID eq ' + uid(), 'Identified by you', 'aa', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 17, 'Editor/ID eq ' + uid(), 'Last modified by you', 'ea', 'blue', null);
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].Author.ID == uid() && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+
+        // Initially work out whether to simplify the general stats and then simplify on a role by role basis
+        const simplifiedDashboard = 
+            (r == 'Designer' && configData['Simplified designer dashboard']) ||
+            (r == 'Design Manager' && configData['Simplified design manager dashboard']) ||
+            (r == 'Construction Engineer' && configData['Simplified construction engineer dashboard']) ||
+            (r == 'Construction Manager' && configData['Simplified construction manager dashboard']) ||
+            (r == 'Principal Designer' && configData['Simplified principal designer dashboard']) ||
+            (r == 'System admin' && configData['Simplified system admin dashboard'])
+        if (simplifiedDashboard) {
+            $('#stats').html('<table class="tpos-tbl-user-dashboard" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>' + utbl4 + utbl2 + utbl5);
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].Editor.ID == uid()) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            1,
-            "Identified by you for " + c,
-            "a",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].Editor.ID == uid() && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                17,
+                "Last modified by you",
+                "aa",
+                "blue",
+                null
+            );
+
+        } else {
+            $('#stats').html('<table class="tpos-tbl-user-dashboard" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>' + utbl4 + utbl2 + utbl3 + utbl5);
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].Author.ID == uid() && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            2,
-            "Last modified by you for " + c,
-            "e",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].Author.ID == uid()) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                1,
+                "Identified by you for " + c,
+                "a",
+                "blue",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].Editor.ID == uid() && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            16,
-            "Identified by you",
-            "aa",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].Editor.ID == uid()) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                2,
+                "Last modified by you for " + c,
+                "e",
+                "blue",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].Author.ID == uid()) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            17,
-            "Last modified by you",
-            "ea",
-            "blue",
-            null
-        );
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                16,
+                "Identified by you",
+                "aa",
+                "blue",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].Editor.ID == uid()) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                17,
+                "Last modified by you",
+                "ea",
+                "blue",
+                null
+            );
+        }
 
         if (r == 'Designer' || r == 'Construction Engineer') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'Editor/ID ne ' + uid() + ' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Hazards you could peer review', 'c', 'blue', null);
             // cdmdata.getQuickCount('cdmHazards', 4, 'Editor/ID eq ' + uid() + ' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Peer reviews requested by you', 'd', 'blue', null);
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].Editor.ID != uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                            filteredDataset.push(allHazardsData[i]);
+            
+            if ((r == 'Designer' && configData['Simplified designer dashboard']) || (r == 'Construction Engineer' && configData['Simplified construction engineer dashboard'])) {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].Editor.ID != uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                3,
-                "Hazards you could peer review",
-                "c",
-                "blue",
-                null
-            );
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].Editor.ID == uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                            filteredDataset.push(allHazardsData[i]);
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards you could peer review",
+                    "a",
+                    "blue",
+                    null
+                );
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].Editor.ID == uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                4,
-                "Peer reviews requested by you",
-                "d",
-                "blue",
-                null
-            );
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    4,
+                    "Peer reviews requested by you",
+                    "e",
+                    "blue",
+                    null
+                );
+            } else {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].Editor.ID != uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards you could peer review",
+                    "c",
+                    "blue",
+                    null
+                );
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].Editor.ID == uid() && allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    4,
+                    "Peer reviews requested by you",
+                    "d",
+                    "blue",
+                    null
+                );
+            }
         }
         if (r == 'Design Manager') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under design manager review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Hazards you could review', 'c', 'blue', null);
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under design manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                            filteredDataset.push(allHazardsData[i]);
+            if (r == 'Design Manager' && configData['Simplified design manager dashboard']) {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under design manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                3,
-                "Hazards you could review",
-                "c",
-                "blue",
-                null
-            );
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards you could review",
+                    "a",
+                    "blue",
+                    null
+                );
+            } else {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under design manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards you could review",
+                    "c",
+                    "blue",
+                    null
+                );
+            }
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
         if (r == 'Construction Manager') {
-            // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under Construction Manager review\' and cdmSite/Title eq \'' + s + '\'', 'RAMS hazards you could review', 'c', 'blue', null);
-            // cdmdata.getQuickCount('cdmHazards', 4, 'cdmCurrentStatus eq \'Under pre-construction review\' and cdmSite/Title eq \'' + s + '\'', 'Hazards for pre-construction review', 'd', 'blue', null);
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmSite.Title == s) {
-                            filteredDataset.push(allHazardsData[i]);
+            if (configData['Simplified construction manager dashboard']) { // Some users have requested a simplified dashboard to help process hazards quicker
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                3,
-                "RAMS Hazards you could review",
-                "c",
-                "blue",
-                null
-            );
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
-                            filteredDataset.push(allHazardsData[i]);
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    1,
+                    "Hazards for pre-construction review",
+                    "a",
+                    "blue",
+                    null
+                );
+
+            } else {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                4,
-                "Hazards for pre-construction review",
-                "d",
-                "blue",
-                null
-            );
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "RAMS Hazards you could review",
+                    "c",
+                    "blue",
+                    null
+                );
+
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    4,
+                    "Hazards for pre-construction review",
+                    "d",
+                    "blue",
+                    null
+                );
+            }
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
-        if (r == 'Principal designer') {
+        if (r == 'Principal Designer') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under principal designer review\' and cdmSite/Title eq \'' + s + '\'', 'Hazards for principal designer review', 'c', 'blue', null);
-            cdmdata.createDashboardBoxes(
-                (() => {
-                    filteredDataset = [];
-                    for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
-                            filteredDataset.push(allHazardsData[i]);
+            
+            if ((r == 'Principal Designer' && configData['Simplified principal designer dashboard'])) {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
                         }
-                    }
-                    return filteredDataset
-                })(),
-                "cdmHazards",
-                3,
-                "Hazards for principal designer review",
-                "c",
-                "blue",
-                null
-            );
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards for principal designer review",
+                    "a",
+                    "blue",
+                    null
+                );
+            } else {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards for principal designer review",
+                    "c",
+                    "blue",
+                    null
+                );
+            }
             // cdmdata.getQuickCount('cdmHazards',4,'cdmCurrentStatus eq \'Under pre-construction review\' and cdmSite/Title eq \''+s+'\'','Hazards for pre-construction review','d','blue',null);
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
@@ -347,194 +481,305 @@ function setupuserstats(r, c, s, allHazardsData) {
         // cdmdata.getQuickCount('cdmHazards', 13, 'cdmCurrentStatus eq \'Under Construction Manager review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under Construction Manager review', 'csm', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 14, 'cdmCurrentStatus eq \'Accepted\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Accepted', 'cacc', 'green', null);
         // cdmdata.getQuickCount('cdmHazards', 15, 'cdmCurrentStatus eq \'Requires mitigation\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Awaiting assessment', 'caa', 'red', null);
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
-                    }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            5,
-            "High (residual) risk hazards",
-            "chighrisk",
-            "red",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmResidualRiskScore > 5 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
-                    }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            6,
-            "Medium (residual) risk hazards",
-            "cmediumrisk",
-            "amber",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmResidualRiskScore < 6 && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
-                    }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            7,
-            "Low (residual) risk hazards",
-            "clowrisk",
-            "green",
-            null
-        );
 
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+        if (simplifiedDashboard) { // Some users have requested a simplified dashboard to help process hazards quicker
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            8,
-            "Assessment in progress",
-            "casses",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                5,
+                "High (residual) risk hazards",
+                "chighrisk",
+                "red",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 5 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            9,
-            "Under peer review",
-            "cpeer",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Under design manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                6,
+                "Medium (residual) risk hazards",
+                "cmediumrisk",
+                "amber",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore < 6 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            10,
-            "Under design manager review",
-            "cdhm",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                7,
+                "Low (residual) risk hazards",
+                "clowrisk",
+                "green",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Accepted" || allHazardsData[i].cdmCurrentStatus == `Accepted by ${configData['Client Name']}`) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            11,
-            "Under pre-construction review",
-            "cprecon",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                14,
+                "Accepted",
+                "stats-accepted",
+                "green",
+                null
+            );
+
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires Mitigation" && allHazardsData[i].cdmReviews.includes('Rejected')) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            12,
-            "Under principal designer review",
-            "cld",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                15,
+                "Rejected",
+                "stats-rejected",
+                "red",
+                null
+            );
+
+        } else {
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            13,
-            "Under Construction Manager review",
-            "csm",
-            "blue",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Accepted" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                5,
+                "High (residual) risk hazards",
+                "chighrisk",
+                "red",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 5 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            14,
-            "Accepted",
-            "cacc",
-            "green",
-            null
-        );
-        cdmdata.createDashboardBoxes(
-            (() => {
-                filteredDataset = [];
-                for (var i = 0; i < allHazardsData.length; i++) {
-                    if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmHazardOwner.Title == c) {
-                        filteredDataset.push(allHazardsData[i]);
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                6,
+                "Medium (residual) risk hazards",
+                "cmediumrisk",
+                "amber",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmResidualRiskScore < 6 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
                     }
-                }
-                return filteredDataset
-            })(),
-            "cdmHazards",
-            15,
-            "Awaiting assessment",
-            "caa",
-            "red",
-            null
-        );
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                7,
+                "Low (residual) risk hazards",
+                "clowrisk",
+                "green",
+                null
+            );
+    
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                8,
+                "Assessment in progress",
+                "casses",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under peer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                9,
+                "Under peer review",
+                "cpeer",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under design manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                10,
+                "Under design manager review",
+                "cdhm",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                11,
+                "Under pre-construction review",
+                "cprecon",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                12,
+                "Under principal designer review",
+                "cld",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                13,
+                "Under Construction Manager review",
+                "csm",
+                "blue",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Accepted" || allHazardsData[i].cdmCurrentStatus == `Accepted by ${configData['Client Name']}`) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                14,
+                "Accepted",
+                "stats-accepted",
+                "green",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires Mitigation" && allHazardsData[i].cdmReviews.includes('Rejected')) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                15,
+                "Rejected",
+                "stats-rejected",
+                "red",
+                null
+            );
+            cdmdata.createDashboardBoxes(
+                (() => {
+                    filteredDataset = [];
+                    for (var i = 0; i < allHazardsData.length; i++) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            filteredDataset.push(allHazardsData[i]);
+                        }
+                    }
+                    return filteredDataset
+                })(),
+                "cdmHazards",
+                15,
+                "Awaiting assessment",
+                "caa",
+                "red",
+                null
+            );
+        }
     });
 
 
