@@ -1597,7 +1597,7 @@ function printHazardRow(h) {
             var comp = $(uca[cc]).data("elementname");
             var site = $(usa[cc]).data("elementname");
 
-            if (revstatus != "Accepted" && revstatus != `Ready for Review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
+            if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
                 if (hc != "ra") {
                     // if not rams hazard = design hazard
                     if (
@@ -1857,7 +1857,7 @@ function printHazardRow(h) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
-                if (revstatus == `Ready for Review by ${configData['Client Name']}`) {
+                if (revstatus == `Ready for review by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         if (requiresLDReview == 1) {
                             (ruce = 4), (rucp = 4), (rucd = 4), (rucpc = 4), (rucl = 4), (rucs = 4);
