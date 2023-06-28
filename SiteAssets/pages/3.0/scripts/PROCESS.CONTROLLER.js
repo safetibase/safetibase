@@ -716,7 +716,11 @@ function activateHazardEdits() {
                             toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
                         }
                     } else if (revstatus == 'Accepted') {
-                        toastr.error('This hazard has been accepted so is locked for editing. If necessary you can submit this hazard for client review.')
+                        if (configData['Client Review']) {
+                            toastr.error('This hazard has been accepted so is locked for editing. If necessary you can submit this hazard for client review.');
+                        } else {
+                            toastr.error('This hazard has been accepted so is locked for editing.');
+                        }
                     } else if (revstatus == 'Ready for review by Client') {
                         toastr.error('This hazard is under client review so is locked for editing.');
                     } else if (userRoles.length == 0) {
@@ -906,7 +910,6 @@ function activateHazardEdits() {
                                             "|" +
                                             "None^No applicable project control found^NONE"
                                         );
-                                        tdata.push("cdmCurrentStatus|Assessment in progress");
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                                         $("#pops").remove();
                                     }
@@ -950,7 +953,6 @@ function activateHazardEdits() {
                         } else {
                             tdata.push("cdmHazardType|1");
                         }
-                        tdata.push("cdmCurrentStatus|Assessment in progress");
                         toastr.success("Switching hazard type");
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                         $("#pops").remove();
@@ -1678,7 +1680,6 @@ function savetxt(fld) {
     var txt = $("#txtform").val();
     // toastr.success(txt);
     tdata.push(fld + "|" + txt);
-    tdata.push("cdmCurrentStatus|Assessment in progress");
     cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
     $("#pops").remove();
 }

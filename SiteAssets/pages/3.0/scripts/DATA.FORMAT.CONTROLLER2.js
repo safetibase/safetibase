@@ -1540,11 +1540,23 @@ function printHazardRow(h) {
         warning =
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
     }
-    var revstatus = h.cdmCurrentStatus;
 
-    if (revstatus.substring(0, 1) == "U") {
-        warning =
-            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing. Construction managers can still enter a mitigation suggestion.</div>';
+    var revstatus = h.cdmCurrentStatus;
+    // We need to work out which stages of the workflow are editable - this is read from the config file
+    const editableWorkflowStages = [].concat(
+        configData['Peer review editable workflow state'] ? ['Under peer review'] : []
+    ).concat(
+        configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
+    ).concat(
+        configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
+    ).concat(
+        configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
+    ).concat(
+        configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
+    );
+
+    if (revstatus.substring(0, 1) == "U" && !editableWorkflowStages.includes(revstatus)) { // Changed to allow edits at any stage, according to the values on the config file
+        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.</div>`;
         isLocked = 1;
     }
     var uce = 0,
@@ -1617,7 +1629,6 @@ function printHazardRow(h) {
                     if (
                         role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 1 &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
@@ -1795,7 +1806,6 @@ function printHazardRow(h) {
                     if (
                         role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 1 &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
@@ -1855,6 +1865,9 @@ function printHazardRow(h) {
                     }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
+                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing. You can still advance this hazard to client review.</div>';
+                    } else {
+                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                     }
                 }
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
@@ -1867,6 +1880,7 @@ function printHazardRow(h) {
                     } else {
                         (ruce = 4), (rucp = 4), (rucs = 4);
                     }
+                    warning = `<div class="clr_5_active">This hazard is under review by ${configData['Client Name']} and therefore locked for editing.</div>`;
                 }
                 if (revstatus == `Accepted by ${configData['Client Name']}`) {
                     if (hc != "ra") {
@@ -1878,6 +1892,7 @@ function printHazardRow(h) {
                     } else {
                         (ruce = 5), (rucp = 5), (rucs = 5);
                     }
+                    warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                 }
             }
         }
