@@ -1542,20 +1542,8 @@ function printHazardRow(h) {
     }
 
     var revstatus = h.cdmCurrentStatus;
-    // We need to work out which stages of the workflow are editable - this is read from the config file
-    const editableWorkflowStages = [].concat(
-        configData['Peer review editable workflow state'] ? ['Under peer review'] : []
-    ).concat(
-        configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
-    ).concat(
-        configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
-    ).concat(
-        configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
-    ).concat(
-        configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
-    );
 
-    if (revstatus.substring(0, 1) == "U" && !editableWorkflowStages.includes(revstatus)) { // Changed to allow edits at any stage, according to the values on the config file
+    if (revstatus.substring(0, 1) == "U") {
         warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
@@ -1610,13 +1598,62 @@ function printHazardRow(h) {
             var site = $(usa[cc]).data("elementname");
 
             if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
-                if (hc != "ra") {
-                    // if not rams hazard = design hazard
+                // We need to work out which stages of the workflow are editable - this is read from the config file
+                const editableWorkflowStages = [].concat(
+                    configData['Peer review editable workflow state'] ? ['Under peer review'] : []
+                ).concat(
+                    configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
+                ).concat(
+                    configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
+                ).concat(
+                    configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
+                ).concat(
+                    configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
+                );
+
+                let editableWorkflowStage = false;
+                switch (revstatus) {
+                    case 'Under peer review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Designer') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+                    
+                    case 'Under design manager review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Design Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    case 'Under pre-construction review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    case 'Under principal designer review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Principal Designer') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+                    
+                    case 'Under site manager review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    default:
+                        editableWorkflowStage = false;
+                        break;
+                }
+                if (hc != "ra") {// if not rams hazard = design hazard
                     if (
                         (role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
                         isLocked == 0) ||
-                        (role == 'System admin' && configData['Full admin edit rights']) // Can admins make changes at any workflow state? This is in the config file.
+                        (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
+                        editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
                     }
@@ -1798,9 +1835,11 @@ function printHazardRow(h) {
                     }
                 } else {
                     if (
-                        role == "Construction Engineer" &&
+                        (role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 0
+                        isLocked == 0) ||
+                        (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
+                        editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
                     }
