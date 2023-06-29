@@ -1556,7 +1556,7 @@ function printHazardRow(h) {
     );
 
     if (revstatus.substring(0, 1) == "U" && !editableWorkflowStages.includes(revstatus)) { // Changed to allow edits at any stage, according to the values on the config file
-        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.</div>`;
+        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
     var uce = 0,
@@ -1613,9 +1613,10 @@ function printHazardRow(h) {
                 if (hc != "ra") {
                     // if not rams hazard = design hazard
                     if (
-                        role == "Designer" &&
+                        (role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 0
+                        isLocked == 0) ||
+                        (role == 'System admin' && configData['Full admin edit rights']) // Can admins make changes at any workflow state? This is in the config file.
                     ) {
                         uce = 1;
                     }
