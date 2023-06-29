@@ -1071,29 +1071,37 @@ function activateHazardEdits() {
 
                     if (fld == 'cdmSMMitigationSuggestion') {
                         let canSiteManagerEdit = false;
+                        let systemAdmin = false;
                         for (let i=0; i<userRolesSites.length; i++) {
                             if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
                                 canSiteManagerEdit = true;
                             }
+                            if (userRolesSites[i][0] == 'System admin') {
+                                systemAdmin = true;
+                            }
                         }
-                        if (fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) {
-                            var existingTxt = $(
-                                "#" + hi + " .cdmSMMitigationSuggestion"
-                            ).html();
-                            var txtbox =
-                                '<div><textarea id="txtform" rows="6" cols="60">' +
-                                existingTxt +
-                                "</textarea></div>";
-                            var svBtn =
-                                '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
-                            gimmepops(
-                                "Your mitigation suggestion for " + stage,
-                                '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                                txtbox +
-                                svBtn
-                            );
+                        if ((fld == "cdmSMMitigationSuggestion" && canSiteManagerEdit) || systemAdmin) {
+                            if (!configData['Construction manager approval comment populates cdmSMMitigationSuggestion'] || systemAdmin) { // If this is the case you should only be able to edit this field through the approval comment
+                                var existingTxt = $(
+                                    "#" + hi + " .cdmSMMitigationSuggestion"
+                                ).html();
+                                var txtbox =
+                                    '<div><textarea id="txtform" rows="6" cols="60">' +
+                                    existingTxt +
+                                    "</textarea></div>";
+                                var svBtn =
+                                    '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmSMMitigationSuggestion\');">Save</div>';
+                                gimmepops(
+                                    "Your mitigation suggestion for " + stage,
+                                    '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
+                                    txtbox +
+                                    svBtn
+                                );
+                            } else {
+                                toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
+                            }
                         } else {
-                            toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located")
+                            toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located");
                         }
                     }
                     // if (fld == "cdmUniclass") {
@@ -3491,6 +3499,13 @@ function hazardreviewbuttonaction() {
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.1.html",
                         function() {
+                            if (configData['Construction manager approval comment populates cdmSMMitigationSuggestion']) {
+                                document.getElementById('approval-explainer').innerHTML = 'Please carefully review the hazard, the risk, and the mitigation method(s) before accepting or acknowledging the \
+                                residual risk. Should you feel that changes are required, please use the comment box and press the change request button. If you wish to approve the hazard please use the \
+                                comment box to enter your mitigation suggestion (if necessary) and press the approve button.';
+
+                                document.getElementById('cmt').placeholder = 'Enter change requests or your mitigation suggestion here';
+                            }
                             // $("#addramsbtn").hide();
                             // jsonRAMS.get("rams", vn, "sel_rams");
                             $(".tpos-svbtn")
@@ -3538,6 +3553,12 @@ function hazardreviewbuttonaction() {
                                         }
                                     }
                                     if (act === "accept") {
+                                        if (configData['Construction manager approval comment populates cdmSMMitigationSuggestion']) { // For the case where the client want their approval comment to populate the mitigation suggestion
+                                            if (cmt) {
+                                                tdata.push(`cdmSMMitigationSuggestion|${cmt}`);
+                                            }
+                                            cmt = '';
+                                        }
                                         if (!cmt) {
                                             cmt = "no comment";
                                         }
