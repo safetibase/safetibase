@@ -238,10 +238,10 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                         }
 
                                                         if (hazardsToSync.length == 0) {
-                                                            recordSyncAudit(successfulSyncs, unsuccessfulSyncs);
+                                                            recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
                                                         } else {
                                                             $.when(...promises).then(() => {
-                                                                recordSyncAudit(successfulSyncs, unsuccessfulSyncs);
+                                                                recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
                                                             })
                                                         }
                                                     }
@@ -264,25 +264,25 @@ function activateDatasets(cdmSites, allHazardsData) {
                     }
                 });
 
-                async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList) {
+                async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList, filename) {
                     // Function to record the audit information of the hazard sync to the cdmHazardHistory list
                     const cdmHazardHistory = list('cdmHazardHistory');
                     const itemCreateInfo = new SP.ListItemCreationInformation();
                     const oListItem = cdmHazardHistory.addItem(itemCreateInfo);
                     oListItem.set_item('Title', 'synced');
                     if (successfulSyncList.length > 0 && unsuccessfulSyncList.length > 0) {
-                        oListItem.set_item('cdmAction', `Successful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
                     } else if (successfulSyncList.length == 0) {
-                        oListItem.set_item('cdmAction', `Successful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
                     } else if (unsuccessfulSyncList.length == 0) {
-                        oListItem.set_item('cdmAction', `Successful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
+                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
                     }
                     oListItem.update();
                     ctx().load(oListItem);
                     await ctx().executeQueryAsync(onSuccess());
 
                     function onSuccess() {
-                        toastr.success('Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this link: "https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced"', {timeOut: 20000, progressBar: true, opacity: 1});
+                        toastr.success('Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
                     }
 
                     function onFailure() {
