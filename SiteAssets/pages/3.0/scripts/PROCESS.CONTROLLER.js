@@ -282,7 +282,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     await ctx().executeQueryAsync(onSuccess());
 
                     function onSuccess() {
-                        toastr.success('Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
+                        toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
                     }
 
                     function onFailure() {

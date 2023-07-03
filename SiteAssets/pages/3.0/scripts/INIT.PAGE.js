@@ -1,6 +1,6 @@
 $(document).ready(function() {
     SP.SOD.executeFunc('sp.js', 'SP.ClientContext', init);
-    toastr.success('Safetibase has been upgraded to improve functionality. Loading should be smoother, new features have been added and the interface can be easily configured to meet project needs. For a complete list of the upgrades please see the release note <a href="https://safetibase.org/release-notes" target="_blank"><u>here</u></a>.', "Safetibase Upgrade", { timeOut: 0, extendedTimeOut: 0, closeButton: true, positionClass: "toast-top-center", opacity: 1});
+    toastr.success('<br/>Safetibase has been upgraded to improve functionality. Loading should be smoother, new features have been added and the interface can be easily configured to meet project needs. For a complete list of the upgrades please see the release note <a href="https://safetibase.org/release-notes" target="_blank"><u>here</u></a>.', "Safetibase Upgrade", { timeOut: 0, extendedTimeOut: 0, closeButton: true, positionClass: "toast-top-center", opacity: 1});
 });
 
 function init() {
