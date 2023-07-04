@@ -262,11 +262,15 @@ cdmdata = {
             fn(oListItem.get_id());
         }
     },
-    update: function(lst, data, callback) {
+    update: async function(lst, data, callback, id, successCallbackFn, failureCalbackFn) {
         //console.log("Running Update Function")
         var ml = list(lst);
         var itemCreateInfo = new SP.ListItemCreationInformation();
-        var oListItem = ml.getItemById(hzd);
+        if (callback == 'clientSync') {
+            var oListItem = ml.getItemById(id);
+        } else {
+            var oListItem = ml.getItemById(hzd);
+        }
 
         var hl = list("cdmHazardHistory");
         var hitemCreateInfo = new SP.ListItemCreationInformation();
@@ -291,11 +295,15 @@ cdmdata = {
         hListItem.update();
 
         ctx().load(oListItem);
-        ctx().executeQueryAsync(onSuccess, onFailure);
+        await ctx().executeQueryAsync(onSuccess, onFailure);
 
         function onSuccess() {
             if (callback == "sync") {
                 toastr.success(`Synced ${data.length} hazards`, {positionClass: "toast-top-right"});
+            }
+            if (callback == 'clientSync') {
+                toastr.success(`Synced hazard ${id}`);
+                successCallbackFn();
             }
             if (callback == "frmedit_updateview") {
                 // var fn = window[callback];
@@ -313,33 +321,14 @@ cdmdata = {
             if (callback == 'sync') {
                 toastr.error('Failed to sync hazards');
             }
+            if (callback == 'clientSync') {
+                toastr.error(`Failed to sync hazard ${id}`);
+                failureCalbackFn();
+            }
             if (callback == 'frmedit_updateView') {
                 toastr.error('Failed to update hazard')
             }
         }
-        //// Below returns errors and so doesn't refresh page when it should. Resource throttling.
-        //// Patch above refreshes page regardless of whether the executeQueryAsync() works.
-        
-        // ctx().executeQueryAsync(
-        //     function() {
-        //         // toastr.success('item saved');
-        //         if (callback == "frmedit_updateview") {
-        //             // var fn = window[callback];
-        //             // fn(oListItem);
-        //             cdmdata.get(
-        //                 "cdmHazards",
-        //                 "ID eq '" + hzd + "'",
-        //                 null,
-        //                 "frmedit_updateview"
-        //             );
-        //         }
-        //     },
-        //     function(request, error) {
-        //         //console.log(`Error:`);
-        //         //console.log(error);
-        //         toastr.warning("something went wrong");
-        //     }
-        // );
     },
 
     getCount: function(lst, title, clr, callback) {

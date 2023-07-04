@@ -1540,11 +1540,11 @@ function printHazardRow(h) {
         warning =
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
     }
+
     var revstatus = h.cdmCurrentStatus;
 
     if (revstatus.substring(0, 1) == "U") {
-        warning =
-            '<div class="clr_5_active">This hazard is currently under review and therefore locked for editing. Construction managers can still enter a mitigation suggestion.</div>';
+        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
     var uce = 0,
@@ -1597,13 +1597,63 @@ function printHazardRow(h) {
             var comp = $(uca[cc]).data("elementname");
             var site = $(usa[cc]).data("elementname");
 
-            if (revstatus != "Accepted" && revstatus != `Ready for Review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
-                if (hc != "ra") {
-                    // if not rams hazard = design hazard
+            if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
+                // We need to work out which stages of the workflow are editable - this is read from the config file
+                const editableWorkflowStages = [].concat(
+                    configData['Peer review editable workflow state'] ? ['Under peer review'] : []
+                ).concat(
+                    configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
+                ).concat(
+                    configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
+                ).concat(
+                    configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
+                ).concat(
+                    configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
+                );
+
+                let editableWorkflowStage = false;
+                switch (revstatus) {
+                    case 'Under peer review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Designer') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+                    
+                    case 'Under design manager review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Design Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    case 'Under pre-construction review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    case 'Under principal designer review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Principal Designer') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+                    
+                    case 'Under site manager review':
+                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                            editableWorkflowStage = true;
+                        }
+                        break;
+
+                    default:
+                        editableWorkflowStage = false;
+                        break;
+                }
+                if (hc != "ra") {// if not rams hazard = design hazard
                     if (
-                        role == "Designer" &&
+                        (role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 0
+                        isLocked == 0) ||
+                        (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
+                        editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
                     }
@@ -1617,7 +1667,6 @@ function printHazardRow(h) {
                     if (
                         role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 1 &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
@@ -1786,16 +1835,17 @@ function printHazardRow(h) {
                     }
                 } else {
                     if (
-                        role == "Construction Engineer" &&
+                        (role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 0
+                        isLocked == 0) ||
+                        (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
+                        editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
                     }
                     if (
                         role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        isLocked == 1 &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
@@ -1855,9 +1905,12 @@ function printHazardRow(h) {
                     }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
+                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing. You can still advance this hazard to client review.</div>';
+                    } else {
+                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                     }
                 }
-                if (revstatus == `Ready for Review by ${configData['Client Name']}`) {
+                if (revstatus == `Ready for review by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         if (requiresLDReview == 1) {
                             (ruce = 4), (rucp = 4), (rucd = 4), (rucpc = 4), (rucl = 4), (rucs = 4);
@@ -1867,6 +1920,7 @@ function printHazardRow(h) {
                     } else {
                         (ruce = 4), (rucp = 4), (rucs = 4);
                     }
+                    warning = `<div class="clr_5_active">This hazard is under review by ${configData['Client Name']} and therefore locked for editing.</div>`;
                 }
                 if (revstatus == `Accepted by ${configData['Client Name']}`) {
                     if (hc != "ra") {
@@ -1878,6 +1932,7 @@ function printHazardRow(h) {
                     } else {
                         (ruce = 5), (rucp = 5), (rucs = 5);
                     }
+                    warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                 }
             }
         }
@@ -1956,6 +2011,15 @@ function printHazardRow(h) {
     }
     //alert('oo');
     //setUAID(enid);
+
+    // Some clients do not want to record a contract for a hazard. This is recorded in the config file. We won't display the contract in the UI if that's the case.
+    // The below value are inserted in the string variable below
+    let contractTitle = '';
+    let contractValue = '';
+    if (configData['Include contract']) {
+        contractTitle = `<td class="width-250"><div class="lbl ">${configData['Contract']} </div></td>`;
+        contractValue = `<td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">${contracts}</div></td>`;
+    }
     var myvar =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
@@ -2248,9 +2312,7 @@ function printHazardRow(h) {
         '                    <td class="width-250">' +
         `                        <div class="lbl "> ${configData['Residual Risk Owner']} </div>` +
         "                    </td>" +
-        '                    <td class="width-250">' +
-        `                        <div class="lbl ">${configData['Contract']} </div>` +
-        "                    </td>" +
+        contractTitle +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250 fld">' +
@@ -2273,9 +2335,7 @@ function printHazardRow(h) {
         `                    <td class="width-250 fld"><div class="cell cdmResidualRiskOwner pointer" title="Click to manage ${configData['Residual Risk Owner']}">` +
         residualRiskOwner +
         "</div></td>" +
-        `                    <td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">` +
-        contracts +
-        "</div></td>" +
+        contractValue +
         "                </tr>" +
         "            </table>" +
         "        </div>" +
