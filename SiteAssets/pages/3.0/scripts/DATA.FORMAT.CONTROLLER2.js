@@ -2011,6 +2011,15 @@ function printHazardRow(h) {
     }
     //alert('oo');
     //setUAID(enid);
+
+    // Some clients do not want to record a contract for a hazard. This is recorded in the config file. We won't display the contract in the UI if that's the case.
+    // The below value are inserted in the string variable below
+    let contractTitle = '';
+    let contractValue = '';
+    if (configData['Include contract']) {
+        contractTitle = `<td class="width-250"><div class="lbl ">${configData['Contract']} </div></td>`;
+        contractValue = `<td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">${contracts}</div></td>`;
+    }
     var myvar =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
@@ -2303,9 +2312,7 @@ function printHazardRow(h) {
         '                    <td class="width-250">' +
         `                        <div class="lbl "> ${configData['Residual Risk Owner']} </div>` +
         "                    </td>" +
-        '                    <td class="width-250">' +
-        `                        <div class="lbl ">${configData['Contract']} </div>` +
-        "                    </td>" +
+        contractTitle +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250 fld">' +
@@ -2328,9 +2335,7 @@ function printHazardRow(h) {
         `                    <td class="width-250 fld"><div class="cell cdmResidualRiskOwner pointer" title="Click to manage ${configData['Residual Risk Owner']}">` +
         residualRiskOwner +
         "</div></td>" +
-        `                    <td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">` +
-        contracts +
-        "</div></td>" +
+        contractValue +
         "                </tr>" +
         "            </table>" +
         "        </div>" +

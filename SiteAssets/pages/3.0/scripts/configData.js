@@ -17,5 +17,6 @@ configData = {
     'Principal designer review editable workflow state': false, // Do you want to be able to edit hazards at principal designer review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Construction manager review editable workflow state': false, // Do you want to be able to edit hazards at construction manager review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Construction manager approval comment populates cdmSMMitigationSuggestion': false, // Do you want the approval comment from the construction manager's review to populate the site manager's mitigation suggestion
-    'Full admin edit rights': false // Do you want the admin to be able to edit any field, at any point in the workflow?
+    'Full admin edit rights': false, // Do you want the admin to be able to edit any field, at any point in the workflow?
+    'Include contract': true // Do you want to have the option to assign contracts to hazards?
 }
