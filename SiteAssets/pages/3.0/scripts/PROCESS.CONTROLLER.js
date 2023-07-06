@@ -683,37 +683,47 @@ function activateHazardEdits() {
                     if (peerReviewStage) {
                         const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
                         if (canPeerReview) {
-                            toastr.error('This hazard is under peer review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error(`This hazard is under peer review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Peer review editable workflow state']) {
+                            toastr.error(`This hazard is under peer review so is locked for editing for all users except designers. Contact a designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error('This hazard is under peer review so is locked for editing. Contact a designer to complete the review.');
+                            toastr.error(`This hazard is under peer review so is locked for editing. Contact a designer to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (designManagerReviewStage) {
                         const canDesignManagerReview = $("#" + hi + " .ucd").hasClass("_1");
                         if (canDesignManagerReview) {
-                            toastr.error('This hazard is under design manager review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error(`This hazard is under design manager review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Design manager review editable workflow state']) {
+                            toastr.error(`This hazard is under design manager review so is locked for editing for all users except designers. Contact a design manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error('This hazard is under design manager review so is locked for editing. Contact a designer manager to complete the review.');
+                            toastr.error(`This hazard is under design manager review so is locked for editing. Contact a designer manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (preconstructionReviewStage) {
                         const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
                         if (canPreconstructionReview) {
-                            toastr.error('This hazard is under pre-construction review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error(`This hazard is under pre-construction review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Pre-construction review editable workflow state']) {
+                            toastr.error(`This hazard is under pre-construction review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error('This hazard is under pre-construction review so is locked for editing. Contact a construction manager to complete the review.');
+                            toastr.error(`This hazard is under pre-construction review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (principleDesignerReviewStage) {
                         const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
                         if (canPrincipleDesignerReview) {
-                            toastr.error('This hazard is under principal designer review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error(`This hazard is under principal designer review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Principal designer review editable workflow state']) {
+                            toastr.error(`This hazard is under principal designer review so is locked for editing for all users except principal designers. Contact a principal designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error('This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review.');
+                            toastr.error(`This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (constructionManagerReviewStage) {
                         const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
                         if (canConstructionManagerReview) {
-                            toastr.error('This hazard is under construction manager review so is locked for editing. Please review this hazard before editing.');
+                            toastr.error(`This hazard is under construction manager review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Construction manager review editable workflow state']) {
+                            toastr.error(`This hazard is under construction manager review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error('This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review.');
+                            toastr.error(`This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (revstatus == 'Accepted') {
                         if (configData['Client Review']) {
