@@ -516,7 +516,7 @@ formatdatato = {
 
         var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards/Clear Filters"/></center><br><br></div>';
         $("#stats.tpos-area-content").prepend(refresh_hazards)
-        $('.refresh-hazards-btn').click(function() {init()});
+        $('.refresh-hazards-btn').click(function() {init(true)});
 
         function customfilters ( allHazards, filterlst){
             console.log("enterf",filterlst);
