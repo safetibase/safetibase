@@ -348,7 +348,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                 // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column
                 // We request the data again instead of using allHazardsData because the allHazardsData is the result of a request that is limitted to 5000 items. The below request searches the entire
                 // dataset.
-                const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items`;
+                let url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items`;
                 const response = [];
                 function getCdmHazardsListItemsAndArchive() {
                     $.ajax({
@@ -361,7 +361,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             response.push(...data.d.results)
                             if(data.d.__next) {
                                 url = data.d.__next;
-                                getCdmHazardsListItems()
+                                getCdmHazardsListItemsAndArchive()
                             } else {
                                 var successCounter = 0;
                                 archiveHazards();
@@ -403,7 +403,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             if (cdmHazardData[i].cdmInitialRiskScore) hazardData.push(`cdmInitialRiskScore|${cdmHazardData[i].cdmInitialRiskScore}`);
                             if (cdmHazardData[i].cdmLastReviewDate) hazardData.push(`cdmLastReviewDate|${cdmHazardData[i].cdmLastReviewDate}`);
                             if (cdmHazardData[i].cdmLastReviewer) hazardData.push(`cdmLastReviewer|${cdmHazardData[i].cdmLastReviewer}`);
-                            if (cdmHazardData[i].cdmLastReviewSnapShot) hazardData.push(`cdmLastReviewSnapshot|${cdmHazardData[i].cdmLastReviewSnapShot}`);
+                            if (cdmHazardData[i].cdmLastReviewSnapshot) hazardData.push(`cdmLastReviewSnapshot|${cdmHazardData[i].cdmLastReviewSnapshot}`);
                             if (cdmHazardData[i].cdmLastReviewStatus) hazardData.push(`cdmLastReviewStatus|${cdmHazardData[i].cdmLastReviewStatus}`);
                             if (cdmHazardData[i].cdmLastReviewType) hazardData.push(`cdmLastReviewType|${cdmHazardData[i].cdmLastReviewType}`);
                             if (cdmHazardData[i].cdmMitigationDescription) hazardData.push(`cdmMitigationDescription|${cdmHazardData[i].cdmMitigationDescription}`);
@@ -430,13 +430,12 @@ function activateDatasets(cdmSites, allHazardsData) {
                             if (cdmHazardData[i].CurrentMitigationOwnerId)  hazardData.push(`CurrentMitigationOwner|${cdmHazardData[i].CurrentMitigationOwnerId}`);
                             if (cdmHazardData[i].CurrentReviewOwnerId) hazardData.push(`CurrentReviewOwner|${cdmHazardData[i].CurrentReviewOwnerId}`);
                             if (cdmHazardData[i].LegacyID) hazardData.push(`LegacyID|${cdmHazardData[i].LegacyID}`);
-                            if (cdmHazardData[i].cdmhs2residualriskowner) hazardData.push(`cdmhs2residualriskowner|${cdmHazardData[i].cdmhs2residualriskowner}`);
-                            if (cdmHazardData[i].cdmHS2RailSystemsContracts) (`cdmHS2RailSystemsContracts|${cdmHazardData[i].cdmHS2RailSystemsContracts}`);
                             if (cdmHazardData[i].cdmPASRiskClassification) hazardData.push(`cdmPASRiskClassification|${cdmHazardData[i].cdmPASRiskClassification}`);
                             if (cdmHazardData[i].cdmStageExtraId) hazardData.push(`cdmStageExtra|${cdmHazardData[i].cdmStageExtraId}`);
                             if (cdmHazardData[i].cdmResidualRiskOwner) hazardData.push(`cdmResidualRiskOwner|${cdmHazardData[i].cdmResidualRiskOwner}`);
                             if (cdmHazardData[i].cdmContract) hazardData.push(`cdmContract|${cdmHazardData[i].cdmContract}`);
                             if (cdmHazardData[i].ID) hazardData.push(`cdmHazardId|${cdmHazardData[i].ID}`);
+                            if (cdmHazardData[i].Title) hazardData.push(`Title|${cdmHazardData[i].Title}`);
 
                             // Create a promise to resolve later once the item has been archived
                             const deferred = new $.Deferred();
