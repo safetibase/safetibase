@@ -281,7 +281,7 @@ formatdatato = {
             });
         });
     },
-    filterrowsdata: function(sublot_data, ftv, trg, flst ) {
+    filterrowsdata: function(sublot_data, ftv, trg, flst, forExport ) {
 
          $(".refresh-hazards-btn").remove()
     //     var loading_text = `<div class="loading-text"><center><h2>Searching for new hazards. This may take a minute...</h2></center></div>`;
@@ -394,7 +394,7 @@ formatdatato = {
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     // activateDatasets(sublot_data, full_dataset);
                                     // global_nav(sublot_data, full_dataset);
-                                    tposcustomfilters(full_dataset);
+                                    tposcustomfilters(full_dataset, forExport);
                                 }
                             },
                             error: function(error) {

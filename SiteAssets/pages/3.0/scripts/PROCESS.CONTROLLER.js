@@ -492,6 +492,141 @@ function activateDatasets(cdmSites, allHazardsData) {
                     }
                 }
             }
+
+            if (ulink == 'exportbulkupload') {
+                // First lets check that the current user is authorised to do this.
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
+
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        filterExportData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
+                        }
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
+
+                // To save effort we can reuse the code for the extra button for the filters. The outcome of what we want is largely the same except we don't want to filter the data on screen, we
+                // want to filter the export data. We can just change what the apply filters button does to do achieve this. This is done in the tposcustomfilters function.
+                function filterExportData() {
+                    gimmepops("Filter Export Data",
+          
+                    '<p style="color:white">Please select the filters to apply to the export.<p>' +
+                    '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>');
+                    $('#langOpt').multiselect({
+                        columns: 1,
+                        placeholder: 'Select Languages',
+                        search: true,
+                        selectAll: true
+                    });
+                    
+                    cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[], 'export');
+                }
+            }
+
+            if (ulink == 'importbulkupload') {
+                gimmepops(`Import bulk edit CSV`,
+                '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/></div>');
+
+                // Upload the file to SharePoint using the REST API
+                $("#bulk-upload-button").on("click", () => {
+
+                    const csvFile = document.getElementById("csvFileInput");
+                    const fileName = csvFile.files[0].name;
+
+                    if (fileName.split('.')[1] !== 'csv') {
+                        toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
+                    } else {
+                        readFile(csvFile);
+                    }
+                })
+
+                function readFile(file) { // Function to process the data and write it back into the cdmHazards list
+                    var reader = new FileReader(); // Create FileReader object to read the contents of the csv
+                            
+                    reader.onload = () => {
+
+                        // Put the data into an object
+                        rows = reader.result.split("\n");
+                        const headers = rows[0].map(x => x.trim('\r'));
+                        // TODO: include a test here to make sure the structure of the file is as we would expect. I.e do we have all the right columns.
+
+                        const cdmHazards = list('cdmHazards');
+
+                        const promises = []; // Keep an array of deferred promises to resolve later so we know when everything has been updated
+
+                        for (let i=1; i<rows.length; i++) {
+
+                            // Create a promise to resolve later once the item has been archived
+                            const deferred = new $.Deferred();
+                            promises.push(deferred);
+
+                            let row = rows[i].split(',');
+                            for (let j=0; j<row.length; j++) { // Iterate through the row and write to the cdmHazards list
+                                // Validation tests here
+                                const itemCreateInfo = new SP.ListItemCreationInformation();
+                                const oListItem = cdmHazards.addItem(itemCreateInfo);
+                                oListItem.set_item(headers[j], row[j]);
+                            }
+
+                            oListItem.update();
+                            ctx().load(oListItem);
+                            ctx().executeQueryAsync(onSuccess(deferred), onFailure(row[0]));
+
+                        }
+
+                        $.when(...promises).then(() => {
+                            toastr.success('Finished bulk update')
+                        })
+
+                        
+                    }
+
+                    reader.readAsBinaryString(file.files[0]);
+
+                    function onSuccess(deferred) {
+                        deferred.resolve(true)
+                    }
+
+                    function onFailure(id) {
+                        toastr.error(`Failed to update hazard with ID ${id}`)
+                    }
+                }
+
+            }
             
         });
 
@@ -2242,7 +2377,7 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-function tposcustomfilters( data) {
+function tposcustomfilters( data, forExport) {
     // var tlist=[];
     // //console.log('maindata',maindata.length);
     // if (maindata.length = 0 ) {
@@ -2253,46 +2388,51 @@ function tposcustomfilters( data) {
     // }
     var tlist = data;
  
-      var distlistcdmStageExtra=[];
-      var distlistcdmpwstructure =[];
-      var distlistcdmCurrentStatus=[];
-      var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
-      var selectcdmStageExtra = '';
-      var selectcdmpwstructure ='';
-      var selectcdmCurrentStatus ='';
-      var selectcdmResidualRiskOwner ='';
-   
+    var distlistcdmStageExtra=[];
+    var distlistcdmpwstructure =[];
+    var distlistcdmCurrentStatus=[];
+    var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
+    var selectcdmStageExtra = '';
+    var selectcdmpwstructure ='';
+    var selectcdmCurrentStatus ='';
+    var selectcdmResidualRiskOwner ='';
+
+    // Record the ids for the cdmStageExtra and cdmPWStructure fields so we can use them in our odata filter later
+    let cdmPWStructureIds = {};
+    let cdmStageExtraIds = {};
 
     for (var cc = 0; cc < tlist.length; cc++) {
-      var it = tlist[cc];
-      var itid = it.cdmStageExtra.ID;
-      var ittitle = it.cdmStageExtra.Title;
-      var itcdmpwstructureid = it.cdmPWStructure.ID;
-      var itcdmpwstructuretitle = it.cdmPWStructure.Title;
-      var itcdmCurrentStatus = it.cdmCurrentStatus;
-      var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
+        var it = tlist[cc];
+        var itid = it.cdmStageExtra.ID;
+        var ittitle = it.cdmStageExtra.Title;
+        var itcdmpwstructureid = it.cdmPWStructure.ID;
+        var itcdmpwstructuretitle = it.cdmPWStructure.Title;
+        var itcdmCurrentStatus = it.cdmCurrentStatus;
+        var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
 
-      if (!distlistcdmStageExtra.includes(ittitle)){
-        distlistcdmStageExtra.push(ittitle);
-        selectcdmStageExtra += '<option value='+ittitle+'>'+ittitle+'</option>'
-      }
-      if (!distlistcdmpwstructure.includes(itcdmpwstructureid)){
-        distlistcdmpwstructure.push(itcdmpwstructureid);
-        selectcdmpwstructure += '<option value='+itcdmpwstructuretitle+'>'+itcdmpwstructuretitle+'</option>'
-      }
-     
+        if (!distlistcdmStageExtra.includes(ittitle)){
+            distlistcdmStageExtra.push(ittitle);
+            cdmStageExtraIds[ittitle] = 
+            selectcdmStageExtra += '<option value='+ittitle+'>'+ittitle+'</option>'
+        }
+        if (!distlistcdmpwstructure.includes(itcdmpwstructureid)){
+            distlistcdmpwstructure.push(itcdmpwstructureid);
+            cdmPWStructureIds[itcdmpwstructuretitle] = itid;
+            selectcdmpwstructure += '<option value='+itcdmpwstructuretitle+'>'+itcdmpwstructuretitle+'</option>'
+        }
+        
 
-      if (!distlistcdmCurrentStatus.includes(itcdmCurrentStatus)){
-        distlistcdmCurrentStatus.push(itcdmCurrentStatus);
-        selectcdmCurrentStatus += '<option value='+itcdmCurrentStatus+'>'+itcdmCurrentStatus+'</option>'
-      }
-      if (!distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
-        distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
-       
-        selectcdmResidualRiskOwner += '<option value='+itcdmResidualRiskOwner+'>'+itcdmResidualRiskOwner+'</option>'
-        // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
-        // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
-      }
+        if (!distlistcdmCurrentStatus.includes(itcdmCurrentStatus) && (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus))){
+            distlistcdmCurrentStatus.push(itcdmCurrentStatus);
+            selectcdmCurrentStatus += '<option value='+itcdmCurrentStatus+'>'+itcdmCurrentStatus+'</option>'
+        }
+        if (!distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
+            distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
+        
+            selectcdmResidualRiskOwner += '<option value='+itcdmResidualRiskOwner+'>'+itcdmResidualRiskOwner+'</option>'
+            // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
+            // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
+        }
 
      
       //console.log('distlistcdmCurrentStatus',distlistcdmCurrentStatus);
@@ -2300,15 +2440,15 @@ function tposcustomfilters( data) {
     }
     $("#popscontentarea").html('');
     $(".pops-content").append(
-        '<button id="applyfilters" style="float:right">apply filters</button>'+
+        forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right">export</button>'+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner
-      +"</select><br> </div>"
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
+        +"</select><br> </div>"+
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        +"</select><br> </div>"
       
       
     );
@@ -2338,7 +2478,6 @@ function tposcustomfilters( data) {
     });
 
     $('#applyfilters').click(function () {
-        //alert('hi');
         var fcdmStageExtra = [];
         var fcdmStageExtraselected =[];
         fcdmStageExtra=$('#cdmStageExtrafilter').find(':selected');
@@ -2381,20 +2520,47 @@ function tposcustomfilters( data) {
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
-      
+
 
         //alert("stop");
         $("#pops").remove();
+        
     });
+
+    $('#applyfiltersforexport').click(() => {
+        console.log(distlistcdmStageExtra)
+        const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
+        let filterParam = '';
+        for (i=0; i<assetFilterSelected.length; i++) {
+            filterParam += ((filterParam ? '' : ' or ') + `cdmPWStructureId eq ${cdmPWStructureIds[assetFilterSelected[i].innerText]}`);
+        }
+
+        const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
+        for (i=0; i<stageFilterSelected.length; i++) {
+            filterParam += ((filterParam ? '' : ' or ') + `cdmStageExtraId eq ${cdmStageExtraIds[stageFilterSelected[i].innerText]}`);
+        }
+
+        const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
+        for (i=0; i<statusFilterSelected.length; i++) {
+            filterParam += ((filterParam ? '' : ' or ') + `cdmCurrentStatus eq ${statusFilterSelected[i].innerText}`);
+        }
+
+        const link = '';
+        window.open(link,'_blank');
+        window.open(link);
+        $(".pops-title").html("");
+        $(".pops-content").html("");
+        $("#pops").remove();
+    })
 
   
    
     $(".btn-cancel").click(function () {
-      $(".pops-title").html("");
-      $(".pops-content").html("");
-      $("#pops").remove();
+        $(".pops-title").html("");
+        $(".pops-content").html("");
+        $("#pops").remove();
     });
-  }
+}
 
 // function tposSelectcdmPWStructurefilter(lst, data, trg, col) {
 //     var tlist = data.d.results;
