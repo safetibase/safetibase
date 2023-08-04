@@ -559,7 +559,10 @@ function activateDatasets(cdmSites, allHazardsData) {
 
             if (ulink == 'importbulkupload') {
                 gimmepops(`Import bulk edit CSV`,
-                '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/></div>');
+                `Make sure to convert Excel documents to CSV prior to import.
+                <div id="popscontentarea">
+                    <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
+                </div>`);
 
                 // Upload the file to SharePoint using the REST API
                 $("#bulk-upload-button").on("click", () => {
