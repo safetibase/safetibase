@@ -2531,26 +2531,84 @@ function tposcustomfilters( data, forExport) {
     });
 
     $('#applyfiltersforexport').click(() => {
-        console.log(distlistcdmStageExtra)
+
+        let filterParam = {
+            cdmPWStructure: [],
+            cdmStageExtra: [],
+            cdmCurrentStatus: []
+        };
+
         const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
-        let filterParam = '';
         for (i=0; i<assetFilterSelected.length; i++) {
-            filterParam += ((filterParam ? '' : ' or ') + `cdmPWStructureId eq ${cdmPWStructureIds[assetFilterSelected[i].innerText]}`);
+            filterParam.cdmPWStructure.push(assetFilterSelected[i].innerText);
         }
 
         const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
         for (i=0; i<stageFilterSelected.length; i++) {
-            filterParam += ((filterParam ? '' : ' or ') + `cdmStageExtraId eq ${cdmStageExtraIds[stageFilterSelected[i].innerText]}`);
+            filterParam.cdmStageExtra.push(stageFilterSelected[i].innerText);
         }
 
         const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
         for (i=0; i<statusFilterSelected.length; i++) {
-            filterParam += ((filterParam ? '' : ' or ') + `cdmCurrentStatus eq ${statusFilterSelected[i].innerText}`);
+            filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
         }
 
-        const link = '';
-        window.open(link,'_blank');
-        window.open(link);
+        // Declare a flatten function that takes
+        // object as parameter and returns the
+        // flattened object
+        const flattenObj = (ob) => {
+            let result = {};
+            delete ob["__metadata"]
+            for (const i in ob) {
+                if (ob[i] !== null && typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
+                    result[i + '.' + "Title"] = "Title" in ob[i] ? ob[i].Title : null;
+                }
+                // Else store ob[i] in result directly
+                else {
+                    // TODO: Newline characters mess up CSV output. Below I'm removing \n completely.
+                    //Potentially use unusual character when exporting, then substitute newline character back in on import
+                    result[i] = ob[i];
+                }
+            }
+            return result;
+        };
+
+        // function called to filter hazards based on filterParams
+        const filterHazards = (hazard, filterParam) => {
+            var flag = true;
+            if ("cdmPWStructure" in filterParam) {
+                flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title) ? true : false;
+            }
+
+            if ("cdmStageExtra" in filterParam) {
+                flag = filterParam.cdmStageExtra.includes(hazard.cdmStageExtra.Title) ? true : false;
+            }
+
+            if ("cdmCurrentStatus" in filterParam) {
+                flag = filterParam.cdmCurrentStatus.includes(hazard.cdmCurrentStatus) ? true : false;
+            }
+            return flag;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        let header = Object.keys(flattenObj(tlist[0])).join(',');
+        // let values = tlist.filter(element => (filterParam.cdmPWStructure?.includes(element.cdmPWStructure.Title)) && (filterParam.cdmStageExtra?.includes(element.cdmStageExtra.Title)) && (filterParam.cdmCurrentStatus?.includes(element.cdmCurrentStatus)))
+        let values = tlist.filter(element => filterHazards(element, filterParam))
+                            .map(element => Object.values(flattenObj(element)).join(','))
+                            .join('\n');
+
+        csvContent += header + '\n' + values;
+        console.log(csvContent)
+
+        var encodedUri = encodeURI(csvContent)
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `safetibase_export_${Date.now()}.csv`);
+        document.body.appendChild(link);
+
+        link.click(); // Download the data file named "safetibase_export_{timestamp}.csv".
+            
         $(".pops-title").html("");
         $(".pops-content").html("");
         $("#pops").remove();
