@@ -7,10 +7,10 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'proxima_novaregular','Microsoft JhengHei',"Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",sans-serif;
     /* font-size: 62.5%; */
-    font-size: 70%;
-    color: rgb(255, 255, 255);
+    font-size: 80%;
+    color: rgb(0,0,0);
 }
 
 body a,
@@ -20,20 +20,20 @@ h3,
 h4,
 h5,
 p {
-    color: rgb(255, 255, 255);
+    color: rgb(0,0,0);
 }
 
 .ms-core-pageTitle,
 .ms-core-pageTitle a {
-    font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
-    color: rgb(255, 255, 255);
+    font-family: 'proxima_novaregular','Microsoft JhengHei',"Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",sans-serif;
+    color: rgb(0, 0, 0);
     float: left;
     display: inline-flex
 }
 
 .version-number {
-    font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
-    color: rgb(255, 255, 255);
+    font-family: 'proxima_novaregular','Microsoft JhengHei',"Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",sans-serif;
+    color: rgb(0,0,0);
     font-size: small;
     display: inline-flex;
     bottom: 0;
@@ -76,16 +76,16 @@ a.ms-tv-header:hover {
     /* background-color: rgba(0, 0, 0, 0.1);
     color: rgb(0, 0, 0); */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
-    background: #45484d;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    /* FF3.6-15 */
+    background: #fff;
+    /* Old browsers 
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); 
+    FF3.6-15 
     background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
-    /* Chrome10-25,Safari5.1-6 */
+    Chrome10-25,Safari5.1-6
     background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000', GradientType=0);
-    /* IE6-9 */
+    IE6-9 */
 }
 
 #sideNavBox {
@@ -157,13 +157,15 @@ a.ms-tv-header:hover {
 .tpos-area-title {
     font-size: 1.4em;
     letter-spacing: 1.5px;
-    border-bottom: 1px solid rgb(159, 247, 7);
+    min-width: 102%;
+    border-bottom: 1px solid rgb(121, 57, 247);
 }
 
 .tpos-area-title-user {
     font-size: 1.4em;
     letter-spacing: 1.5px;
-    border-bottom: 1px solid rgb(159, 247, 7);
+    min-width: 102%;
+    border-bottom: 1px solid rgb(121, 57, 247);
     flex: 0 0 80%
 }
 
@@ -188,8 +190,8 @@ a.ms-tv-header:hover {
     width: 96%;
     /* height:89%; */
     /* position: relative; */
-    padding: 2% 2% 8% 2%;
-    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2% 4% 8% 2%;
+    background-color: rgba(237, 235, 230, 1.0);
     /* min-height: 10%;
     height:auto;
     overflow: auto; */
@@ -220,7 +222,7 @@ a.ms-tv-header:hover {
 }
 
 .row {
-    margin-top: 0.2%;
+    margin-top: 0.8%;
     position: relative;
 }
 
@@ -231,6 +233,7 @@ a.ms-tv-header:hover {
     border-left: 1px solid rgba(252, 255, 255, 1);
     min-height: 25px;
     overflow: hidden;
+    border-radius: 8px;
     background-color: rgba(252, 255, 255, 1);
     color: rgb(0, 0, 0);
 }
@@ -248,8 +251,8 @@ a.ms-tv-header:hover {
 
 .vw {
     position: absolute;
-    top: 32px;
-    right: 16px;
+    top: 50px;
+    right: 6px;
     cursor: pointer;
 }
 
@@ -300,17 +303,26 @@ a.ms-tv-header:hover {
     color: rgba(0, 0, 0, 1);
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     background: rgba(255, 255, 255, 0.8);
-    /* Old browsers */
-    color: rgb(0, 0, 0);
+    -webkit-box-shadow: 5px 6px 0 0 #000;
+    -moz-box-shadow: 5px 6px 0 0 #000;
+    box-shadow: 5px 6px 0 0 #000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    border: solid 1.5px #000;
     overflow: auto;
 }
 
+.dataset:hover {
+    -webkit-box-shadow: 7px 9px 0 0 #000;
+    -moz-box-shadow: 7px 9px 0 0 #000;
+    box-shadow: 7px 9px 0 0 #000
+}
+
 .active {
-    box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
     background: rgba(0, 0, 0, 0.6);
-    /* Old browsers */
     color: rgb(255, 255, 255);
 }
 
@@ -322,22 +334,33 @@ a.ms-tv-header:hover {
     display: block;
     width: 142px;
     /* float: left; */
-    color: rgba(0, 0, 0, 1);
+    color: rgb(0, 0, 0);
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
-    background: rgb(245, 246, 246);
+    background: rgb(255, 255, 255);
+    -webkit-box-shadow: 5px 6px 0 0 #000;
+    -moz-box-shadow: 5px 6px 0 0 #000;
+    box-shadow: 5px 6px 0 0 #000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    border: solid 1.5px #000;
+    /*
     background: -moz-linear-gradient(-45deg, rgba(245, 246, 246, 1) 0%, rgba(219, 220, 226, 1) 21%, rgba(184, 186, 198, 1) 49%, rgba(221, 223, 227, 1) 80%, rgba(245, 246, 246, 1) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(245, 246, 246, 1) 0%, rgba(219, 220, 226, 1) 21%, rgba(184, 186, 198, 1) 49%, rgba(221, 223, 227, 1) 80%, rgba(245, 246, 246, 1) 100%);
     background: linear-gradient(135deg, rgba(245, 246, 246, 1) 0%, rgba(219, 220, 226, 1) 21%, rgba(184, 186, 198, 1) 49%, rgba(221, 223, 227, 1) 80%, rgba(245, 246, 246, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6', GradientType=1);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6', GradientType=1);*/
 }
 
 .tpos-btn:hover {
     background: -moz-linear-gradient(-45deg, rgba(252, 198, 50, 1) 0%, rgba(252, 228, 113, 1) 62%, rgba(252, 231, 119, 0.7) 68%, rgba(252, 247, 151, 0) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(252, 198, 50, 1) 0%, rgba(252, 228, 113, 1) 62%, rgba(252, 231, 119, 0.7) 68%, rgba(252, 247, 151, 0) 100%);
     background: linear-gradient(135deg, rgba(252, 198, 50, 1) 0%, rgba(252, 228, 113, 1) 62%, rgba(252, 231, 119, 0.7) 68%, rgba(252, 247, 151, 0) 100%);
+    -webkit-box-shadow: 7px 9px 0 0 #000;
+    -moz-box-shadow: 7px 9px 0 0 #000;
+    box-shadow: 7px 9px 0 0 #000;
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcc632', endColorstr='#00fcf797', GradientType=1);
     color: rgba(0, 0, 0, 1);
-    font-weight: bold;
 }
 
 .tpos-btn:active {
@@ -478,7 +501,7 @@ a.ms-tv-header:hover {
 }
 
 .pwd {
-    background-color: rgba(0, 51, 102, 0.8);
+    background-color: rgba(33, 107, 153);
     color: rgb(255, 255, 255);
 }
 
@@ -549,8 +572,8 @@ a.ms-tv-header:hover {
     width: 650px;
     height: auto;
     max-height: fit-content;
-    background-color: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgb(0, 255, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgb(121, 57, 247);
     color: rgb(255, 255, 255);
     /* text-align: center; */
     position: fixed;
@@ -586,7 +609,7 @@ a.ms-tv-header:hover {
 
 .pops-title {
     margin: 5px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     height: 50px;
 }
 
@@ -794,84 +817,81 @@ a.ms-tv-header:hover {
 .databox-small {
     display: block;
     min-height: 50px;
+    min-width:60%;
     width: 80px;
-    border-radius: 5px 5px 5px 5px;
-    background-color: rgba(0, 0, 0, 0.6);
-    float: left;
-    padding: 12px;
+    /*border-radius: 5px 5px 5px 5px;*/
+    background-color: rgba(255, 255, 255, 1);
+    /*float: left;*/
+    padding: 8px;
     color: rgb(255, 255, 255);
     margin: 10px;
     cursor: pointer;
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    -webkit-box-shadow: 5px 6px 0 0 #000;
+    -moz-box-shadow: 5px 6px 0 0 #000;
+    box-shadow: 5px 6px 0 0 #000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    border: solid 1.5px #000;
+    display: inline-block;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+63,ffffff+100&1+0,0.72+63,0+100 */
 }
 
 .databox-small:hover {
-    background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.72) 63%, rgba(255, 255, 255, 0) 100%);
-    /* FF3.6-15 */
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.72) 63%, rgba(255, 255, 255, 0) 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.72) 63%, rgba(255, 255, 255, 0) 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
-    color: rgb(0, 0, 0);
+    -webkit-box-shadow: 7px 9px 0 0 #000;
+    -moz-box-shadow: 7px 9px 0 0 #000;
+    box-shadow: 7px 9px 0 0 #000
 }
 
 .databox-small-title {
     text-align: center;
-    font-size: 0.8em;
+    font-size: 0.9em;
     min-height: 25px;
 }
 
 .databox-small-content {
     text-align: center;
     font-size: 2em;
-    /* min-height:3.2em; */
 }
 
 .databox-clr-red {
-    background-color: rgba(255, 0, 0, 0.6);
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    background-color: rgba(255, 0, 0, 1.0);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-green {
-    background-color: rgba(0, 255, 0, 0.6);
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    background-color: rgba(4, 186, 4, 1.0);
     color: rgb(0, 0, 0);
 }
 
 .databox-clr-amber {
-    background-color: rgba(255, 153, 0, 0.6);
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    background-color: rgba(210, 96, 32, 1.0);
     color: rgb(0, 0, 0);
 }
 
 .databox-clr-blue {
-    background-color: rgba(0, 0, 255, 0.6);
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    background-color: rgba(0, 0, 255, 1.0);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-noclr {
-    background-color: rgba(255, 255, 255, 0.1);
-    /* box-shadow: 1px 1px 2px rgba(255,255,255, 0.6); */
+    background-color: rgba(167, 167, 167, 1.0);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-pwd {
-    background-color: rgba(0, 51, 102, 0.8);
+    background-color: rgba(0, 51, 102, 1.0);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-twd {
-    background-color: rgba(0, 51, 0, 0.8);
+    background-color: rgba(0, 51, 0, 1.0);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-ra {
-    background-color: rgba(102, 0, 102, 0.8);
+    background-color: rgba(102, 0, 102, 1.0);
     color: rgb(255, 255, 255);
 }
 
@@ -884,9 +904,6 @@ a.ms-tv-header:hover {
 }
 
 .tpos-info {
-    /* background-color: rgba(255,255,255,0.1);
-    border:1px solid rgb(255,255,255); */
-    /* padding: 3px; */
     width: 98%;
     overflow: auto;
     margin: 0 0 5px 0;
@@ -916,9 +933,7 @@ a.ms-tv-header:hover {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.8);
     color: rgb(255, 255, 255);
-    /* min-height: 60px; Made by nte80619  */
     min-height: 20px;
-    width: 85%;
     left: 7.5%;
     right: 7.5%;
 }
@@ -1316,15 +1331,15 @@ a.ms-tv-header:hover {
     display: block;
     padding: 5px;
     border-radius: 3px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-align: center;
-    border: 1px solid #21E500;
+    border: 1px solid #000000;
     float: left;
     cursor: pointer;
 }
 
 .home-button:hover{
-    background-color: #21E500;
+    background-color: #d8d8d8;
 }
 
 .information-icon {
