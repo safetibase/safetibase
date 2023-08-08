@@ -49,7 +49,7 @@ function closesubs(){
 
 // GLOBAL NAV
 function global_nav(cdmSites, allHazardsData){
-    var buttonHtml = '<div id="tpos-global-nav" class="tpos-global-nav"><div class="home-button" data-action="init" style="text-align:left; width:50px;">Home</div></div>';
+    var buttonHtml = '<div id="tpos-global-nav" class="tpos-global-nav"><div class="home-button" data-action="init" >Home</div></div>';
     document.getElementById('home-button').innerHTML = buttonHtml;
     activateGlobalNav(cdmSites, allHazardsData);
 } 

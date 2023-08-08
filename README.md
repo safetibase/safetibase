@@ -36,6 +36,14 @@ To install SafetIbase on a SharePoint, follow the steps below:
 -----------------------------------------------------
 CHANGE LOG:
 
+04/07/2023
+- The functionality to allow reviewers/approvers at different stages of the workflow, to edit hazards. This is a configurable feature that can be turned on or off by system admins. 
+- The ability for system admins to edit hazard information at any stage in the workflow. 
+- Implementation of timestamp validation to prevent erroneous sync of hazards reviewed by the client  
+- The ability to configure user role dashboards to display a set of refined visuals. This is a configurable feature that can be turned on or off by system admins.
+- Fixed an issue where hazard reviewed by the client could be synced at any stage in the workflow instead of the Ready for client review stage
+- The audit trail has been enhanced to include comments from the client during hazard sync. The sync file name will also be recorded in the audit trail. 
+
 19/05/2023
 -	Tooltips have been added to clickable parts of the UI to improve user experience.
 -	A popup explaining the hazard scoring system has been added to the add a hazard page.
