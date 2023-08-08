@@ -2400,10 +2400,6 @@ function tposcustomfilters( data, forExport) {
     var selectcdmCurrentStatus ='';
     var selectcdmResidualRiskOwner ='';
 
-    // Record the ids for the cdmStageExtra and cdmPWStructure fields so we can use them in our odata filter later
-    let cdmPWStructureIds = {};
-    let cdmStageExtraIds = {};
-
     for (var cc = 0; cc < tlist.length; cc++) {
         var it = tlist[cc];
         var itid = it.cdmStageExtra.ID;
@@ -2413,26 +2409,24 @@ function tposcustomfilters( data, forExport) {
         var itcdmCurrentStatus = it.cdmCurrentStatus;
         var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
 
-        if (!distlistcdmStageExtra.includes(ittitle)){
+        if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
             distlistcdmStageExtra.push(ittitle);
-            cdmStageExtraIds[ittitle] = 
-            selectcdmStageExtra += '<option value='+ittitle+'>'+ittitle+'</option>'
+            selectcdmStageExtra += '<option value="'+ittitle+'">'+ittitle+'</option>'
         }
-        if (!distlistcdmpwstructure.includes(itcdmpwstructureid)){
-            distlistcdmpwstructure.push(itcdmpwstructureid);
-            cdmPWStructureIds[itcdmpwstructuretitle] = itid;
-            selectcdmpwstructure += '<option value='+itcdmpwstructuretitle+'>'+itcdmpwstructuretitle+'</option>'
-        }
-        
 
-        if (!distlistcdmCurrentStatus.includes(itcdmCurrentStatus) && (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus))){
-            distlistcdmCurrentStatus.push(itcdmCurrentStatus);
-            selectcdmCurrentStatus += '<option value='+itcdmCurrentStatus+'>'+itcdmCurrentStatus+'</option>'
+        if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
+            distlistcdmpwstructure.push(itcdmpwstructureid);
+            selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
         }
-        if (!distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
+
+        if (itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) && (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus))){
+            distlistcdmCurrentStatus.push(itcdmCurrentStatus);
+            selectcdmCurrentStatus += '<option value="'+itcdmCurrentStatus+'">'+itcdmCurrentStatus+'</option>'
+        }
+
+        if (itcdmResidualRiskOwner !== undefined && !distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
             distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
-        
-            selectcdmResidualRiskOwner += '<option value='+itcdmResidualRiskOwner+'>'+itcdmResidualRiskOwner+'</option>'
+            selectcdmResidualRiskOwner += '<option value="'+itcdmResidualRiskOwner+'">'+itcdmResidualRiskOwner+'</option>'
             // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
@@ -2553,62 +2547,99 @@ function tposcustomfilters( data, forExport) {
             filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
         }
 
-        // Declare a flatten function that takes
-        // object as parameter and returns the
-        // flattened object
-        const flattenObj = (ob) => {
-            let result = {};
-            delete ob["__metadata"]
-            for (const i in ob) {
-                if (ob[i] !== null && typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
-                    result[i + '.' + "Title"] = "Title" in ob[i] ? ob[i].Title : null;
-                }
-                // Else store ob[i] in result directly
-                else {
-                    // TODO: Newline characters mess up CSV output. Below I'm removing \n completely.
-                    //Potentially use unusual character when exporting, then substitute newline character back in on import
-                    result[i] = ob[i];
-                }
+        const sanitiseInput = (item) => {
+            if (typeof item === "string") {
+                sanitisedString = item.replace(/(\n)+/g, ' | ');
+                return sanitisedString;
+            } else {
+                return item;
             }
-            return result;
-        };
+        }
 
-        // function called to filter hazards based on filterParams
+        // Maps to excel column names. It also replaces newline characters which would otherwise
+        // mess up the CSV file with ' | ' characters. These need to be removed and replaced with
+        // newlines when the CSV is reimported once changes have been made by the user.
+        const mappingObj = (obj) => {
+            var result = {};
+            result.ID = sanitiseInput(obj.ID);
+            result.Site = sanitiseInput(obj.cdmSite.Title);
+            result["PW Structure"] = sanitiseInput(obj.cdmPWStructure.Title);
+            result.Stage = sanitiseInput(obj.cdmStage.Title);
+            result["Hazard Type"] = sanitiseInput(obj.cdmHazardType.Title);
+            result["Hazard Owner"] = sanitiseInput(obj.cdmHazardOwner.Title);
+            result["Hazard Tags"] = sanitiseInput(obj.cdmHazardTags);
+            result.Entity = sanitiseInput(obj.cdmEntityTitle);
+            result["Hazard Description"] = sanitiseInput(obj.cdmHazardDescription);
+            result["Risk Description"] = sanitiseInput(obj.cdmRiskDescription);
+            result["Mitigation Description"] = sanitiseInput(obj.cdmMitigationDescription);
+            result["Initial Risk"] = sanitiseInput(obj.cdmInitialRisk);
+            result["Residual Risk"] = sanitiseInput(obj.cdmResidualRisk);
+            result["Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
+            result.Status = sanitiseInput(obj.cdmUniclass);
+            result.RAMS = sanitiseInput(obj.cdmRAMS);
+            result["Last Review Status"] = sanitiseInput(obj.cdmLastReviewStatus);
+            result["Last Reviewer"] = sanitiseInput(obj.cdmLastReviewer);
+            result["Last Review Type"] = sanitiseInput(obj.cdmLastReviewType);
+            result["Last Review Date"] = sanitiseInput(obj.cdmLastReviewDate);
+            result["Workflow Status"] = sanitiseInput(obj.cdmCurrentStatus);
+            result.Coordinates = sanitiseInput(obj.cdmHazardCoordinates);
+            result.Geometry = sanitiseInput(obj.cdmGeometry);
+            result.TW = sanitiseInput(obj.cdmTW);
+            result["Residual Risk Owner"] = sanitiseInput(obj.cdmResidualRiskOwner);
+            result["Current Mitigation Owner"] = sanitiseInput(obj.CurrentMitigationOwner.Title);
+            result["Current Review Owner"] = sanitiseInput(obj.CurrentReviewOwner.Title);
+            result["PW Links"] = sanitiseInput(obj.cdmLinks);
+            result.Title = sanitiseInput(obj.Title);
+            result.Created = sanitiseInput(obj.Created);
+            result["Created By"] = sanitiseInput(obj.Author.Title);
+            result.Modified = sanitiseInput(obj.Modified);
+            result["Modified By"] = sanitiseInput(obj.Editor.Title);
+            result.cdmReviews = sanitiseInput(obj.cdmReviews);
+
+            return result
+        }
+
+        // Returns a boolean based on whether a given hazard complies with the filters selected by
+        // the user in the filter pane on export. If no filters are selected for a given filter, it
+        // skips the compliance check as otherwise it would exclude everything.
         const filterHazards = (hazard, filterParam) => {
             var flag = true;
-            if ("cdmPWStructure" in filterParam) {
-                flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title) ? true : false;
+            if (filterParam.cdmPWStructure.length && flag) {
+                flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title);
             }
 
-            if ("cdmStageExtra" in filterParam) {
-                flag = filterParam.cdmStageExtra.includes(hazard.cdmStageExtra.Title) ? true : false;
+            if (filterParam.cdmStageExtra.length && flag) {
+                flag = filterParam.cdmStageExtra.includes(hazard.cdmStageExtra.Title);
             }
 
-            if ("cdmCurrentStatus" in filterParam) {
-                flag = filterParam.cdmCurrentStatus.includes(hazard.cdmCurrentStatus) ? true : false;
+            if (filterParam.cdmCurrentStatus.length && flag) {
+                flag = filterParam.cdmCurrentStatus.includes(hazard.cdmCurrentStatus);
             }
+
             return flag;
         }
 
-        let csvContent = "data:text/csv;charset=utf-8,";
-        let header = Object.keys(flattenObj(tlist[0])).join(',');
-        // let values = tlist.filter(element => (filterParam.cdmPWStructure?.includes(element.cdmPWStructure.Title)) && (filterParam.cdmStageExtra?.includes(element.cdmStageExtra.Title)) && (filterParam.cdmCurrentStatus?.includes(element.cdmCurrentStatus)))
-        let values = tlist.filter(element => filterHazards(element, filterParam))
-                            .map(element => Object.values(flattenObj(element)).join(','))
+        var downloadCSV = (data, fileName) => {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        };
+
+        let csvContent = "";
+        let csvHeader = Object.keys(mappingObj(tlist[0])).join('¬');
+        let csvValues = tlist.filter(element => filterHazards(element, filterParam))
+                            .map(element => Object.values(mappingObj(element)).join('¬'))
                             .join('\n');
+        csvContent += csvHeader + '\n' + csvValues;
 
-        csvContent += header + '\n' + values;
-        console.log(csvContent)
+        downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`)
 
-        var encodedUri = encodeURI(csvContent)
-        var encodedUri = encodeURI(csvContent);
-        var link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `safetibase_export_${Date.now()}.csv`);
-        document.body.appendChild(link);
-
-        link.click(); // Download the data file named "safetibase_export_{timestamp}.csv".
-            
         $(".pops-title").html("");
         $(".pops-content").html("");
         $("#pops").remove();
