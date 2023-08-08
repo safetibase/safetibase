@@ -345,6 +345,7 @@ a.ms-tv-header:hover {
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     border: solid 1.5px #000;
+    cursor: pointer
     /*
     background: -moz-linear-gradient(-45deg, rgba(245, 246, 246, 1) 0%, rgba(219, 220, 226, 1) 21%, rgba(184, 186, 198, 1) 49%, rgba(221, 223, 227, 1) 80%, rgba(245, 246, 246, 1) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(245, 246, 246, 1) 0%, rgba(219, 220, 226, 1) 21%, rgba(184, 186, 198, 1) 49%, rgba(221, 223, 227, 1) 80%, rgba(245, 246, 246, 1) 100%);
@@ -525,6 +526,11 @@ a.ms-tv-header:hover {
     min-height: 50px;
     background-color: rgba(0, 0, 0, 0.4);
     color: rgb(255, 255, 255);
+}
+
+.description {
+    width: 250px
+    ;
 }
 
 
