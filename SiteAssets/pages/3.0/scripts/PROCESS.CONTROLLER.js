@@ -2549,10 +2549,12 @@ function tposcustomfilters( data, forExport) {
 
         const sanitiseInput = (item) => {
             if (typeof item === "string") {
-                sanitisedString = item.replace(/(\n)+/g, ' | ');
+                sanitisedString = `"${item.replace(/(\n)+/g, ' | ').replace(/\"/g, '""')}"`;
                 return sanitisedString;
+            } else if (item) {
+                return `"${item}"`;
             } else {
-                return item;
+                return null;
             }
         }
 
@@ -2564,7 +2566,7 @@ function tposcustomfilters( data, forExport) {
             result.ID = sanitiseInput(obj.ID);
             result.Site = sanitiseInput(obj.cdmSite.Title);
             result["PW Structure"] = sanitiseInput(obj.cdmPWStructure.Title);
-            result.Stage = sanitiseInput(obj.cdmStage.Title);
+            result.Stage = sanitiseInput(obj.cdmStageExtra.Title);
             result["Hazard Type"] = sanitiseInput(obj.cdmHazardType.Title);
             result["Hazard Owner"] = sanitiseInput(obj.cdmHazardOwner.Title);
             result["Hazard Tags"] = sanitiseInput(obj.cdmHazardTags);
@@ -2632,9 +2634,9 @@ function tposcustomfilters( data, forExport) {
         };
 
         let csvContent = "";
-        let csvHeader = Object.keys(mappingObj(tlist[0])).join('¬');
+        let csvHeader = Object.keys(mappingObj(tlist[0])).join(',');
         let csvValues = tlist.filter(element => filterHazards(element, filterParam))
-                            .map(element => Object.values(mappingObj(element)).join('¬'))
+                            .map(element => Object.values(mappingObj(element)).join(','))
                             .join('\n');
         csvContent += csvHeader + '\n' + csvValues;
 
