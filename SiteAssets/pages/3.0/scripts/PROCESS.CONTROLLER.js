@@ -558,75 +558,122 @@ function activateDatasets(cdmSites, allHazardsData) {
             }
 
             if (ulink == 'importbulkupload') {
-                gimmepops(`Import bulk edit CSV`,
-                `Make sure to convert Excel documents to CSV prior to import.
-                <div id="popscontentarea">
-                    <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
-                </div>`);
+                // First lets check that the current user is authorised to do this.
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                // Upload the file to SharePoint using the REST API
-                $("#bulk-upload-button").on("click", () => {
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
 
-                    const csvFile = document.getElementById("csvFileInput");
-                    const fileName = csvFile.files[0].name;
-
-                    if (fileName.split('.')[1] !== 'csv') {
-                        toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
-                    } else {
-                        readFile(csvFile);
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        importData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
+                        }
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
                     }
                 })
+                function importData() {
+                    gimmepops(`Import bulk edit CSV`,
+                    `Make sure to convert Excel documents to CSV prior to import.
+                    <div id="popscontentarea">
+                        <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
+                    </div>`);
 
-                function readFile(file) { // Function to process the data and write it back into the cdmHazards list
-                    var reader = new FileReader(); // Create FileReader object to read the contents of the csv
+                    // Upload the file to SharePoint using the REST API
+                    $("#bulk-upload-button").on("click", () => {
+
+                        const csvFile = document.getElementById("csvFileInput");
+                        const fileName = csvFile.files[0].name;
+
+                        if (fileName.split('.')[1] !== 'csv') {
+                            toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
+                        } else {
+                            readFile(csvFile);
+                        }
+                    })
+
+                    function readFile(file) { // Function to process the data and write it back into the cdmHazards list
+                        var reader = new FileReader(); // Create FileReader object to read the contents of the csv
                             
-                    reader.onload = () => {
+                        reader.onload = () => {
 
-                        // Put the data into an object
-                        rows = reader.result.split("\n");
-                        const headers = rows[0].map(x => x.trim('\r'));
-                        // TODO: include a test here to make sure the structure of the file is as we would expect. I.e do we have all the right columns.
+                            // Put the data into an object
+                            rows = reader.result.split("\n");
+                            const headers = rows[0].map(x => x.trim('\r'));
+                            // TODO: include a test here to make sure the structure of the file is as we would expect. I.e do we have all the right columns.
 
-                        const cdmHazards = list('cdmHazards');
+                            const cdmHazards = list('cdmHazards');
 
-                        const promises = []; // Keep an array of deferred promises to resolve later so we know when everything has been updated
+                            const promises = []; // Keep an array of deferred promises to resolve later so we know when everything has been updated
 
-                        for (let i=1; i<rows.length; i++) {
+                            for (let i=1; i<rows.length; i++) {
 
-                            // Create a promise to resolve later once the item has been archived
-                            const deferred = new $.Deferred();
-                            promises.push(deferred);
+                                // Create a promise to resolve later once the item has been archived
+                                const deferred = new $.Deferred();
+                                promises.push(deferred);
 
-                            let row = rows[i].split(',');
-                            for (let j=0; j<row.length; j++) { // Iterate through the row and write to the cdmHazards list
-                                // Validation tests here
-                                const itemCreateInfo = new SP.ListItemCreationInformation();
-                                const oListItem = cdmHazards.addItem(itemCreateInfo);
-                                oListItem.set_item(headers[j], row[j]);
+                                let row = rows[i].split(',');
+                                for (let j=0; j<row.length; j++) { // Iterate through the row and write to the cdmHazards list
+                                    // Validation tests here
+                                    const itemCreateInfo = new SP.ListItemCreationInformation();
+                                    const oListItem = cdmHazards.addItem(itemCreateInfo);
+                                    oListItem.set_item(headers[j], row[j]);
+                                }
+
+                                oListItem.update();
+                                ctx().load(oListItem);
+                                ctx().executeQueryAsync(onSuccess(deferred), onFailure(row[0]));
+
                             }
 
-                            oListItem.update();
-                            ctx().load(oListItem);
-                            ctx().executeQueryAsync(onSuccess(deferred), onFailure(row[0]));
-
-                        }
-
-                        $.when(...promises).then(() => {
-                            toastr.success('Finished bulk update')
-                        })
+                            $.when(...promises).then(() => {
+                                toastr.success('Finished bulk update')
+                            })
 
                         
+                        }
+
+                        reader.readAsBinaryString(file.files[0]);
+
+                        function onSuccess(deferred) {
+                            deferred.resolve(true)
+                        }
+
+                        function onFailure(id) {
+                            toastr.error(`Failed to update hazard with ID ${id}`)
+                        }
                     }
 
-                    reader.readAsBinaryString(file.files[0]);
-
-                    function onSuccess(deferred) {
-                        deferred.resolve(true)
-                    }
-
-                    function onFailure(id) {
-                        toastr.error(`Failed to update hazard with ID ${id}`)
-                    }
                 }
 
             }
