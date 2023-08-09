@@ -862,17 +862,17 @@ a.ms-tv-header:hover {
 }
 
 .databox-clr-red {
-    background-color: rgba(255, 0, 0, 1.0);
+    background-color: rgba(255, 0, 0, 0.9);
     color: rgb(255, 255, 255);
 }
 
 .databox-clr-green {
-    background-color: rgba(4, 186, 4, 1.0);
+    background-color: rgba(4, 186, 4, 0.9);
     color: rgb(0, 0, 0);
 }
 
 .databox-clr-amber {
-    background-color: rgba(210, 96, 32, 1.0);
+    background-color: rgba(255, 167, 0, 1.0);
     color: rgb(0, 0, 0);
 }
 
