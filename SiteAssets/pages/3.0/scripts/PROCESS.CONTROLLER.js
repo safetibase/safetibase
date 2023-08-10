@@ -2573,41 +2573,10 @@ function tposcustomfilters( data, forExport) {
 
     $('#applyfiltersforexport').click(() => {
 
-        let filterParam = {
-            cdmPWStructure: [],
-            cdmStageExtra: [],
-            cdmCurrentStatus: []
-        };
-
-        const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
-        for (i=0; i<assetFilterSelected.length; i++) {
-            filterParam.cdmPWStructure.push(assetFilterSelected[i].innerText);
-        }
-
-        const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
-        for (i=0; i<stageFilterSelected.length; i++) {
-            filterParam.cdmStageExtra.push(stageFilterSelected[i].innerText);
-        }
-
-        const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
-        for (i=0; i<statusFilterSelected.length; i++) {
-            filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
-        }
-
-        const sanitiseInput = (item) => {
-            if (typeof item === "string") {
-                sanitisedString = `"${item.replace(/(\n)+/g, ' | ').replace(/\"/g, '""')}"`;
-                return sanitisedString;
-            } else if (item) {
-                return `"${item}"`;
-            } else {
-                return null;
-            }
-        }
-
-        // Maps to excel column names. It also replaces newline characters which would otherwise
-        // mess up the CSV file with ' | ' characters. These need to be removed and replaced with
-        // newlines when the CSV is reimported once changes have been made by the user.
+        /*
+        Maps hazard info to column names used in the Export Excel file. It also sanitises
+        the hazard information. This sanitisation will need to be reversed when the
+        CSV is reimported once changes have been made by the user. */
         const mappingObj = (obj) => {
             var result = {};
             result.ID = sanitiseInput(obj.ID);
@@ -2648,9 +2617,10 @@ function tposcustomfilters( data, forExport) {
             return result
         }
 
-        // Returns a boolean based on whether a given hazard complies with the filters selected by
-        // the user in the filter pane on export. If no filters are selected for a given filter, it
-        // skips the compliance check as otherwise it would exclude everything.
+        /*
+        Returns a boolean based on whether a given hazard complies with the filters selected by
+        the user in the filter pane on export. If no filters are selected for a given filter, it
+        skips the compliance check as otherwise it would exclude everything. */
         const filterHazards = (hazard, filterParam) => {
             var flag = true;
             if (filterParam.cdmPWStructure.length && flag) {
@@ -2668,6 +2638,9 @@ function tposcustomfilters( data, forExport) {
             return flag;
         }
 
+        /*
+        Download function for CSV file. Needs to convert to Blob to ensure full dataset is downloaded.
+        If this is not done, the data will be truncated on download. */
         var downloadCSV = (data, fileName) => {
             var a = document.createElement("a");
             document.body.appendChild(a);
@@ -2680,6 +2653,53 @@ function tposcustomfilters( data, forExport) {
             window.URL.revokeObjectURL(url);
         };
 
+        /*
+        Sanitises values for CSV to ensure that newline characters in freetext fields
+         don't cause issues. */
+        const sanitiseInput = (value) => {
+            // If value is string, replace all newlines with ' | ' and double quotes with two double quotes.
+            if (typeof value === "string") {
+                sanitisedString = `"${value.replace(/(\n)+/g, ' | ').replace(/\"/g, '""')}"`;
+                return sanitisedString;
+            } else if (value) {
+                return `"${value}"`;
+            } else {
+                return null;
+            }
+        }
+
+
+        /**
+         * Step 1:
+         * filterParam is populated with the values selected by the user for each filter dropdown.
+         * This is used on export to ensure that only hazards meeting the filter requirements
+         * are exported
+         */ 
+        let filterParam = {
+            cdmPWStructure: [],
+            cdmStageExtra: [],
+            cdmCurrentStatus: []
+        };
+
+        const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
+        for (i=0; i<assetFilterSelected.length; i++) {
+            filterParam.cdmPWStructure.push(assetFilterSelected[i].innerText);
+        }
+
+        const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
+        for (i=0; i<stageFilterSelected.length; i++) {
+            filterParam.cdmStageExtra.push(stageFilterSelected[i].innerText);
+        }
+
+        const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
+        for (i=0; i<statusFilterSelected.length; i++) {
+            filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
+        }
+
+        /**
+         * Step 2:
+         * Create CSV file.
+         */
         let csvContent = "";
         let csvHeader = Object.keys(mappingObj(tlist[0])).join(',');
         let csvValues = tlist.filter(element => filterHazards(element, filterParam))
@@ -2687,6 +2707,10 @@ function tposcustomfilters( data, forExport) {
                             .join('\n');
         csvContent += csvHeader + '\n' + csvValues;
 
+        /**
+         * Step 3:
+         * Download CSV file.
+         */
         downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`)
 
         $(".pops-title").html("");
