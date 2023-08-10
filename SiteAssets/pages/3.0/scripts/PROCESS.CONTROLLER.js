@@ -2654,12 +2654,12 @@ function tposcustomfilters( data, forExport) {
         };
 
         /*
-        Sanitises values for CSV to ensure that newline characters in freetext fields
-         don't cause issues. */
+        Sanitises values for CSV by wrapping values in quotes and ensuring that existing
+        quotation marks don't cause issues by replacing them with double quotes. Null values
+        should not be wrapped in quotes as this causes them to be entered into the CSV as text. */
         const sanitiseInput = (value) => {
-            // If value is string, replace all newlines with ' | ' and double quotes with two double quotes.
             if (typeof value === "string") {
-                sanitisedString = `"${value.replace(/(\n)+/g, ' | ').replace(/\"/g, '""')}"`;
+                sanitisedString = `"${value.replace(/\"/g, '""')}"`;
                 return sanitisedString;
             } else if (value) {
                 return `"${value}"`;
