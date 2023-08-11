@@ -604,8 +604,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                 })
                 function importData() {
                     gimmepops(`Import bulk edit CSV`,
-                    `Make sure to convert Excel documents to CSV prior to import.
-                    <div id="popscontentarea">
+                    `<div id="popscontentarea">
                         <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
                     </div>`);
 
