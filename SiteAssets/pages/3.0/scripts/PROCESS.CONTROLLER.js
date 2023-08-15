@@ -602,13 +602,19 @@ function activateDatasets(cdmSites, allHazardsData) {
                         function(error) {}
                     }
                 })
+
+                /**
+                * Imports data from a CSV file into SharePoint lists.
+                * Handles parsing CSV data, converting to JSON, and updating list items.
+                */
                 function importData() {
+                    // Display a popup for importing CSV data.
                     gimmepops(`Import bulk edit CSV`,
                     `<div id="popscontentarea">
                         <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
                     </div>`);
 
-                    // Upload the file to SharePoint using the REST API
+                    // Upload the CSV file to SharePoint when the button is clicked.
                     $("#bulk-upload-button").on("click", () => {
 
                         const csvFile = document.getElementById("csvFileInput");
@@ -617,60 +623,260 @@ function activateDatasets(cdmSites, allHazardsData) {
                         if (fileName.split('.')[1] !== 'csv') {
                             toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
                         } else {
-                            readFile(csvFile);
+                            processCSVFile(csvFile);
                         }
                     })
 
-                    function readFile(file) { // Function to process the data and write it back into the cdmHazards list
-                        var reader = new FileReader(); // Create FileReader object to read the contents of the csv
-                            
-                        reader.onload = () => {
+                    /**
+                    * Parses a CSV string into a two-dimensional array of rows and columns.
+                    *
+                    * @param {string} strData - The CSV string to be parsed.
+                    * @param {string} strDelimiter - The delimiter used to separate fields in the CSV.
+                    * @returns {string[][]} - A two-dimensional array containing the parsed CSV data.
+                    */
+                    function CSVToArray(strData, strDelimiter) {
+                        // Create a regular expression to parse the CSV values.
+                        var objPattern = new RegExp(
+                            (
+                                // Delimiters, newline characters, and start of line.
+                                "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+                                // Quoted fields.
+                                "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+                                // Non-quoted fields.
+                                "([^\"\\" + strDelimiter + "\\r\\n]*))"
+                            ),
+                            "gi"
+                        );
 
-                            // Put the data into an object
-                            rows = reader.result.split("\n");
-                            const headers = rows[0].map(x => x.trim('\r'));
-                            // TODO: include a test here to make sure the structure of the file is as we would expect. I.e do we have all the right columns.
+                        // Initialize an array to hold the parsed data, starting with an empty row.
+                        var arrData = [[]];
 
-                            const cdmHazards = list('cdmHazards');
+                        // An array to store matched groups from the pattern.
+                        var arrMatches = null;
 
-                            const promises = []; // Keep an array of deferred promises to resolve later so we know when everything has been updated
+                        // Loop through the CSV string, matching the pattern.
+                        while ((arrMatches = objPattern.exec(strData))) {
+                            // Get the delimiter that was found.
+                            var strMatchedDelimiter = arrMatches[1];
 
-                            for (let i=1; i<rows.length; i++) {
-
-                                // Create a promise to resolve later once the item has been archived
-                                const deferred = new $.Deferred();
-                                promises.push(deferred);
-
-                                let row = rows[i].split(',');
-                                for (let j=0; j<row.length; j++) { // Iterate through the row and write to the cdmHazards list
-                                    // Validation tests here
-                                    const itemCreateInfo = new SP.ListItemCreationInformation();
-                                    const oListItem = cdmHazards.addItem(itemCreateInfo);
-                                    oListItem.set_item(headers[j], row[j]);
-                                }
-
-                                oListItem.update();
-                                ctx().load(oListItem);
-                                ctx().executeQueryAsync(onSuccess(deferred), onFailure(row[0]));
-
+                            // If delimiter is not the field delimiter, add a new row.
+                            if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter) {
+                                arrData.push([]); // Start a new row.
                             }
 
-                            $.when(...promises).then(() => {
-                                toastr.success('Finished bulk update')
-                            })
+                            // Determine the matched value, either quoted or unquoted.
+                            var strMatchedValue;
 
-                        
+                            if (arrMatches[2]) {
+                                // Quoted value found; unescape double quotes if present.
+                                strMatchedValue = arrMatches[2].replace(
+                                    new RegExp("\"\"", "g"),
+                                    "\""
+                                );
+                            } else {
+                                // Non-quoted value found.
+                                strMatchedValue = arrMatches[3];
+                            }
+
+                            // Add the value to the current row in the array.
+                            arrData[arrData.length - 1].push(strMatchedValue);
                         }
 
-                        reader.readAsBinaryString(file.files[0]);
+                        // Return the parsed data as a two-dimensional array.
+                        return arrData;
+                    }
 
-                        function onSuccess(deferred) {
-                            deferred.resolve(true)
-                        }
 
-                        function onFailure(id) {
-                            toastr.error(`Failed to update hazard with ID ${id}`)
+                    /**
+                    * Converts a nested array, where index 0 represents the header row, into an array of objects.
+                    *
+                    * @param {Array} csv_array - The nested array where index 0 is the header row.
+                    * @returns {Array<Object>} - An array of objects with keys derived from the header row.
+                    */
+                    function convertCSVArrayToJSON(csv_array) {
+                        csv_header = csv_array[0]
+                        csv_data = csv_array.slice(1)
+                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}))
+                        return csv_objects
+                    }
+
+
+                    /**
+                    * Retrieves data from a collection of SharePoint lists.
+                    *
+                    * @param {Array<string>} listNames - An array of SharePoint list names.
+                    * @returns {Promise<Array>} - A promise that resolves with an array of data from all requested lists.
+                    */
+                    function getMultipleLists(listNames) {
+                        const listDataPromises = listNames.map(listName => getList(listName))
+                        return Promise.all(listDataPromises)
+                    }
+
+                    /**
+                    * Retrieves data from a specified SharePoint list using an AJAX request.
+                    *
+                    * @param {string} listName - The name of the SharePoint list.
+                    * @returns {Promise<Object>} - A promise that resolves with data from the specified list.
+                    */
+                    function getList(listName) {
+                        const listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
+                        return $.ajax({
+                            url: listUrl,
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            }
+                        });
+                    }
+
+                    /**
+                    * Process a CSV file, convert its contents to JSON, and update SharePoint list items.
+                    * @param {File} file - The CSV file to process.
+                    */
+                    async function processCSVFile(file) {
+                        try {
+                            const csvData = await readCSVFile(file);
+                            const csvObjects = convertCSVArrayToJSON(csvData);
+                            const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers"];
+                            const lookupData = await getListDataForLookupColumns(listNames);
+
+                            await updateListItems(csvObjects, lookupData);
+
+                            toastr.success("Finished bulk update");
+                        } catch (error) {
+                            handleProcessingError(error);
                         }
+                    }
+
+                    /**
+                    * Read the contents of a CSV file and parse it into an array of rows.
+                    * 
+                    * @param {File} file - The CSV file to read.
+                    * @returns {string[][]} - Array of rows from the CSV file.
+                    */
+                    async function readCSVFile(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                const csvData = CSVToArray(reader.result, ",");
+                                resolve(csvData);
+                            };
+                            reader.onerror = (error) => reject(error);
+                            reader.readAsText(file.files[0]);
+                        });
+                    }
+
+                    /**
+                    * Get data from SharePoint lists for lookup columns.
+                    * 
+                    * @param {string[]} listNames - Names of lists to retrieve data from.
+                    * @returns {object} - Lookup data from SharePoint lists.
+                    */
+                    async function getListDataForLookupColumns(listNames) {
+                        const arrayOfListData = await getMultipleLists(listNames);
+                        return arrayOfListData.reduce((result, field, index) => ({
+                            ...result,
+                            [listNames[index]]: field.d.results
+                        }), {});
+                    }
+
+                    /**
+                    * Finds ID for Title values which are used in Lookup Columns.
+                    * 
+                    * @param {string[]} lookupList - List of all IDs and Titles in SharePoint List used for Lookup.
+                    * @param {string[]} titleValue - Title value which needs to be matched to find ID.
+                    * @returns {string} - ID of value.
+                    */
+                    function getIDofLookupItem(lookupList, titleValue) {
+                        console.log(lookupList)
+                        return lookupList.filter((lookupItem) => titleValue == lookupItem.Title)[0]?.ID
+                    }
+
+                    /**
+                    * Update SharePoint list items with CSV data.
+                    * 
+                    * @param {object[]} csvObjects - Array of JSON objects from the CSV data.
+                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    */
+                    async function updateListItems(csvObjects, lookupData) {
+                        const promises = csvObjects.map(async (csvObject) => {
+                            const hazardID = csvObject.ID;
+                            if (hazardID) {
+                                const oListItem = list("cdmHazards").getItemById(hazardID);
+                                oListItem.set_item("cdmSite", getIDofLookupItem(lookupData.cdmSites, csvObject.Site))
+                                oListItem.set_item("cdmPWStructure", getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]))
+                                oListItem.set_item("cdmHazardType", getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]))
+                                oListItem.set_item("cdmHazardOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Hazard Owner"]))
+                                oListItem.set_item("cdmHazardTags", csvObject["Hazard Tags"])
+                                oListItem.set_item("cdmHazardDescription", csvObject["Hazard Description"]);
+                                oListItem.set_item("cdmRiskDescription", csvObject["Risk Description"]);
+                                oListItem.set_item("cdmMitigationDescription", csvObject["Mitigation Description"]);
+                                // TODO: The cdmInitialRisk and cdmResidualRisk fields need to be updated based on the "Initial Risk Score", "Initial Severity Score",
+                                // "Initial Likelihood Score", "Residual Risk Score", "Residual Severity Score", "Residual Likelihood Score".
+                                // oListItem.set_item("cdmInitialRisk", csvObject["Initial Risk"]);
+                                // oListItem.set_item("cdmResidualRisk", csvObject["Residual Risk"]);
+                                oListItem.set_item("cdmStageMitigationSuggestion", csvObject["Mitigation Suggestions"]);
+                                oListItem.set_item("cdmUniclass", csvObject.Status)
+                                oListItem.set_item("cdmLastReviewStatus", csvObject["Last Review Status"])
+                                oListItem.set_item("cdmLastReviewer", csvObject["Last Reviewer"])
+                                // TODO: Need to ensure that review data is a valid datetime string
+                                // oListItem.set_item("cdmLastReviewDate", csvObject["Last Review Date"])
+                                oListItem.set_item("cdmCurrentStatus", csvObject["Workflow Status"])
+                                // TODO: "Peer Reviewer" and "Design Manager" field missing - both of these will update the "cdmReviews" field below
+                                // oListItem.set_item("cdmReviews", csvObject.cdmReviews)
+                                oListItem.set_item("cdmHazardCoordinates", csvObject.Coordinates)
+                                oListItem.set_item("cdmResidualRiskOwner", csvObject["Residual Risk Owner"])
+                                oListItem.set_item("CurrentMitigationOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Mitigation Owner"]))
+                                oListItem.set_item("CurrentReviewOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]))
+                                oListItem.set_item("cdmLinks", csvObject["PW Links"])
+                                oListItem.update();
+                                ctx().load(oListItem);
+
+                                return new Promise((resolve, reject) => {
+                                    ctx().executeQueryAsync(
+                                        () => {
+                                            handleSuccess(hazardID);
+                                            resolve(true);
+                                        },
+                                        (sender, args) => {
+                                            handleFailure(hazardID, args);
+                                            reject(args);
+                                        }
+                                    );
+                                });
+                            }
+                        });
+
+                        await Promise.all(promises);
+                    }
+
+                    /**
+                    * Handle a successful update.
+                    * 
+                    * @param {string} hazardID - ID of the updated hazard.
+                    */
+                    function handleSuccess(hazardID) {
+                        toastr.success(`Updated hazard with ID ${hazardID}`);
+                    }
+
+                    /**
+                    * Handle a failure during update.
+                    * 
+                    * @param {string} hazardID - ID of the hazard that failed to update.
+                    * @param {object} args - Arguments containing error details.
+                    */
+                    function handleFailure(hazardID, args) {
+                        toastr.error(`Failed to update hazard with ID ${hazardID}`);
+                    }
+
+                    /**
+                    * Handle errors that occur during processing.
+                    * 
+                    * @param {Error} error - The error that occurred.
+                    */
+                    function handleProcessingError(error) {
+                        console.error("An error occurred:", error);
+                        toastr.error("An error occurred");
                     }
 
                 }
