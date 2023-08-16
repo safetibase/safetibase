@@ -362,6 +362,7 @@ a.ms-tv-header:hover {
     box-shadow: 7px 9px 0 0 #000;
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcc632', endColorstr='#00fcf797', GradientType=1);
     color: rgba(0, 0, 0, 1);
+    cursor: pointer;
 }
 
 .tpos-btn:active {
