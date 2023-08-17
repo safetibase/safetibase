@@ -532,7 +532,6 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 }
                             })
                         }
-                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
                     },
                     error: {
                         function(error) {}
@@ -2653,6 +2652,25 @@ function tposcustomfilters( data, forExport) {
         };
 
         /*
+        Download funtion for the macro template
+        */
+        const downloadTemplate = () => {
+            // First construct the url to the macro template
+            const libraryName = 'SiteAssets/files';
+            const fileName = 'placeholdertemplate.xlsm';
+            const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
+
+            // Create an invisible element with a link to the fileUrl and click this
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = fileUrl;
+            a.download = fileName;
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        /*
         Sanitises values for CSV by wrapping values in quotes and ensuring that existing
         quotation marks don't cause issues by replacing them with double quotes. Null values
         should not be wrapped in quotes as this causes them to be entered into the CSV as text. */
@@ -2710,7 +2728,13 @@ function tposcustomfilters( data, forExport) {
          * Step 3:
          * Download CSV file.
          */
-        downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`)
+        downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`);
+
+        /**
+         * Step 4:
+         * Download the macro template
+         */
+        downloadTemplate();
 
         $(".pops-title").html("");
         $(".pops-content").html("");
