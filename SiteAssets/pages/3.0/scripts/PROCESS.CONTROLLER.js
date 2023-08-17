@@ -2688,7 +2688,7 @@ function tposcustomfilters( data, forExport) {
     }
     $("#popscontentarea").html('');
     $(".pops-content").append(
-        forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right">export</button>'+
+        forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>'+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
@@ -2891,6 +2891,13 @@ function tposcustomfilters( data, forExport) {
             }
         }
 
+        /**
+         * Before we do the export, we need to check that the user has selected a status
+         */
+        if ($('#cdmCurrentStatusfilter').find(':selected').length === 0) {
+            toastr.error('You must select at least one status value to filter on');
+            return;
+        }
 
         /**
          * Step 1:
