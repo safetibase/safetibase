@@ -2863,7 +2863,7 @@ function tposcustomfilters( data, forExport) {
         const downloadTemplate = () => {
             // First construct the url to the macro template
             const libraryName = 'SiteAssets/files';
-            const fileName = 'placeholdertemplate.xlsm';
+            const fileName = 'template.xlsm';
             const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
 
             // Create an invisible element with a link to the fileUrl and click this
@@ -2889,6 +2889,51 @@ function tposcustomfilters( data, forExport) {
             } else {
                 return null;
             }
+        }
+
+        const uploadRollbackToSharepoint = async (data) => {
+            
+            // Function to upload the array buffer to sharepoint
+            const uploadArrayBuffer = async (arrayBuffer) => {
+                
+                // Construct the filename
+                const date = new Date();
+                const dateFormatted = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}T${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+                const fileName = `Export for rollback ${dateFormatted}.csv`;
+
+                // Construct the endpoint
+                const serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                const serverRelativeUrlToFolder = 'SiteAssets/files';
+                const fileCollectionEndpoint = `${serverUrl}/_api/web/getfolderbyserverrelativeurl('${serverRelativeUrlToFolder}')/files/add(overwrite=true, url='${fileName}')`;
+                
+                return $.ajax({
+                    url: fileCollectionEndpoint,
+                    type: 'POST',
+                    data: arrayBuffer,
+                    processData: false,
+                    headers: {
+                        'accept': 'application/json;odata=verbose',
+                        'X-RequestDigest': jQuery('#__REQUESTDIGEST').val()
+                    }
+                })
+            }
+
+            // First lets convert the data to a csv blob
+            const blob = new Blob([data], {type: "text/csv;charset=utf-8"});
+
+            // Now convert the blob to an array buffer that we can upload to sharepoint
+            const arrayBuffer = await blob.arrayBuffer();
+            
+            // Now post the array buffer to sharepoint
+            const file = uploadArrayBuffer(arrayBuffer);
+
+            // Handle the resolved or rejected promise
+            file.then(() => {
+                toastr.success('Successfully saved a rollback csv to SharePoint. Should you need to rollback the data to its current state, import the timestamped rollback csv. Contact an admin if you need support.')
+            }).catch((error) => {
+                console.log(error);
+                toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.')
+            })
         }
 
         /**
@@ -2948,6 +2993,12 @@ function tposcustomfilters( data, forExport) {
          * Download the macro template
          */
         downloadTemplate();
+
+        /**
+         * Step 5:
+         * Save a copy of the csv to SharePoint as a rollback copy
+         */
+        uploadRollbackToSharepoint(csvContent);
 
         $(".pops-title").html("");
         $(".pops-content").html("");
