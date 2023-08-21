@@ -619,133 +619,43 @@ function activateDatasets(cdmSites, allHazardsData) {
                         const csvFile = document.getElementById("csvFileInput");
                         const fileName = csvFile.files[0].name;
 
+                        // Ensure file format is correct
                         if (fileName.split('.')[1] !== 'csv') {
                             toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
                         } else {
-                            processCSVFile(csvFile);
+                            // Perform bulk update
+                            handleBulkUpdateFromCSV(csvFile);
                         }
                     })
 
-                    /**
-                    * Parses a CSV string into a two-dimensional array of rows and columns.
-                    *
-                    * @param {string} strData - The CSV string to be parsed.
-                    * @param {string} strDelimiter - The delimiter used to separate fields in the CSV.
-                    * @returns {string[][]} - A two-dimensional array containing the parsed CSV data.
-                    */
-                    function CSVToArray(strData, strDelimiter) {
-                        // Create a regular expression to parse the CSV values.
-                        var objPattern = new RegExp(
-                            (
-                                // Delimiters, newline characters, and start of line.
-                                "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-                                // Quoted fields.
-                                "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-                                // Non-quoted fields.
-                                "([^\"\\" + strDelimiter + "\\r\\n]*))"
-                            ),
-                            "gi"
-                        );
-
-                        // Initialize an array to hold the parsed data, starting with an empty row.
-                        var arrData = [[]];
-
-                        // An array to store matched groups from the pattern.
-                        var arrMatches = null;
-
-                        // Loop through the CSV string, matching the pattern.
-                        while ((arrMatches = objPattern.exec(strData))) {
-                            // Get the delimiter that was found.
-                            var strMatchedDelimiter = arrMatches[1];
-
-                            // If delimiter is not the field delimiter, add a new row.
-                            if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter) {
-                                arrData.push([]); // Start a new row.
-                            }
-
-                            // Determine the matched value, either quoted or unquoted.
-                            var strMatchedValue;
-
-                            if (arrMatches[2]) {
-                                // Quoted value found; unescape double quotes if present.
-                                strMatchedValue = arrMatches[2].replace(
-                                    new RegExp("\"\"", "g"),
-                                    "\""
-                                );
-                            } else {
-                                // Non-quoted value found.
-                                strMatchedValue = arrMatches[3];
-                            }
-
-                            // Add the value to the current row in the array.
-                            arrData[arrData.length - 1].push(strMatchedValue);
-                        }
-
-                        // Return the parsed data as a two-dimensional array.
-                        return arrData;
-                    }
-
 
                     /**
-                    * Converts a nested array, where index 0 represents the header row, into an array of objects.
-                    *
-                    * @param {Array} csv_array - The nested array where index 0 is the header row.
-                    * @returns {Array<Object>} - An array of objects with keys derived from the header row.
-                    */
-                    function convertCSVArrayToJSON(csv_array) {
-                        csv_header = csv_array[0]
-                        csv_data = csv_array.slice(1)
-                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}))
-                        return csv_objects
-                    }
-
-
-                    /**
-                    * Retrieves data from a collection of SharePoint lists.
-                    *
-                    * @param {Array<string>} listNames - An array of SharePoint list names.
-                    * @returns {Promise<Array>} - A promise that resolves with an array of data from all requested lists.
-                    */
-                    function getMultipleLists(listNames) {
-                        const listDataPromises = listNames.map(listName => getList(listName))
-                        return Promise.all(listDataPromises)
-                    }
-
-                    /**
-                    * Retrieves data from a specified SharePoint list using an AJAX request.
-                    *
-                    * @param {string} listName - The name of the SharePoint list.
-                    * @returns {Promise<Object>} - A promise that resolves with data from the specified list.
-                    */
-                    function getList(listName) {
-                        const listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
-                        return $.ajax({
-                            url: listUrl,
-                            method: 'GET',
-                            headers: {
-                                "Accept": "application/json; odata=verbose"
-                            }
-                        });
-                    }
-
-                    /**
-                    * Process a CSV file, convert its contents to JSON, and update SharePoint list items.
+                    * Process a CSV file and update SharePoint list items accordingly.
+                    * 
                     * @param {File} file - The CSV file to process.
                     */
-                    async function processCSVFile(file) {
+                    async function handleBulkUpdateFromCSV(file) {
                         try {
+                            // Read the content of the CSV file asynchronously
                             const csvData = await readCSVFile(file);
+
+                            // Convert the CSV data to an array of JSON objects
                             const csvObjects = convertCSVArrayToJSON(csvData);
+
+                            // Retrieve lookup data for specified lists
                             const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers"];
                             const lookupData = await getListDataForLookupColumns(listNames);
 
+                            // Update SharePoint list items with CSV data, using lookupData for dropdown fields
                             await updateListItems(csvObjects, lookupData);
 
+                            // Success message displayed when bulk update finishes
                             toastr.success("Finished bulk update");
                         } catch (error) {
                             handleProcessingError(error);
                         }
                     }
+
 
                     /**
                     * Read the contents of a CSV file and parse it into an array of rows.
@@ -765,6 +675,62 @@ function activateDatasets(cdmSites, allHazardsData) {
                         });
                     }
 
+
+                    /**
+                    * Parses a CSV string into a two-dimensional array of rows and columns.
+                    *
+                    * @param {string} strData - The CSV string to be parsed.
+                    * @param {string} strDelimiter - The delimiter used to separate fields in the CSV.
+                    * @returns {string[][]} - A two-dimensional array containing the parsed CSV data.
+                    */
+                    function CSVToArray(strData, strDelimiter) {
+                        // Regular expression pattern to match delimiter, newline characters, and start of line
+                        // along with quoted and non-quoted fields
+                        const regexPattern = new RegExp(
+                            `(${strDelimiter}|\\r?\\n|\\r|^)` +
+                            `(?:"([^"]*(?:""[^"]*)*)"|` +
+                            `([^"${strDelimiter}\\r\\n]*))`,
+                            "gi"
+                        );
+
+                        // Array to hold the parsed CSV data
+                        const parsedData = [[]];
+
+                        let matches;
+                        while ((matches = regexPattern.exec(strData))) {
+                            // Destructure matched values from the pattern
+                            const [, matchedDelimiter, quotedValue, unquotedValue] = matches;
+
+                            // If delimiter is not the field delimiter, start a new row in the parsed data
+                            if (matchedDelimiter && matchedDelimiter !== strDelimiter) {
+                                parsedData.push([]);
+                            }
+
+                            // Determine the value, either quoted or unquoted
+                            const value = quotedValue ? quotedValue.replace(/""/g, "\"") : unquotedValue;
+
+                            // Add the value to the current row in the parsed data
+                            parsedData[parsedData.length - 1].push(value);
+                        }
+
+                        return parsedData;
+                    }
+
+
+                    /**
+                    * Converts a nested array, where index 0 represents the header row, into an array of objects.
+                    *
+                    * @param {Array} csv_array - The nested array where index 0 is the header row.
+                    * @returns {Array<Object>} - An array of objects with keys derived from the header row.
+                    */
+                    function convertCSVArrayToJSON(csv_array) {
+                        csv_header = csv_array[0]
+                        csv_data = csv_array.slice(1)
+                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}))
+                        return csv_objects
+                    }
+
+
                     /**
                     * Get data from SharePoint lists for lookup columns.
                     * 
@@ -772,65 +738,57 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @returns {object} - Lookup data from SharePoint lists.
                     */
                     async function getListDataForLookupColumns(listNames) {
-                        const arrayOfListData = await getMultipleLists(listNames);
-                        return arrayOfListData.reduce((result, field, index) => ({
-                            ...result,
-                            [listNames[index]]: field.d.results
-                        }), {});
+                        // Retrieve data from the specified SharePoint lists concurrently
+                        const listDataPromises = listNames.map(getList);
+                        const arrayOfListData = await Promise.all(listDataPromises);
+
+                        // Convert the array of list data into a lookup data object
+                        const lookupData = listNames.reduce((result, listName, index) => {
+                            result[listName] = arrayOfListData[index].d.results;
+                            return result;
+                        }, {});
+
+                        return lookupData;
                     }
 
+
                     /**
-                    * Finds ID for Title values which are used in Lookup Columns.
-                    * 
-                    * @param {string[]} lookupList - List of all IDs and Titles in SharePoint List used for Lookup.
-                    * @param {string[]} titleValue - Title value which needs to be matched to find ID.
-                    * @returns {string} - ID of value.
+                    * Retrieves data from a specified SharePoint list using an AJAX request.
+                    *
+                    * @param {string} listName - The name of the SharePoint list.
+                    * @returns {Promise<Object>} - A promise that resolves with data from the specified list.
                     */
-                    function getIDofLookupItem(lookupList, titleValue) {
-                        console.log(lookupList)
-                        return lookupList.filter((lookupItem) => titleValue == lookupItem.Title)[0]?.ID
+                    function getList(listName) {
+                        const listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
+                        return $.ajax({
+                            url: listUrl,
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            }
+                        });
                     }
+
 
                     /**
                     * Update SharePoint list items with CSV data.
-                    * 
+                    *
                     * @param {object[]} csvObjects - Array of JSON objects from the CSV data.
                     * @param {object} lookupData - Lookup data from SharePoint lists.
                     */
                     async function updateListItems(csvObjects, lookupData) {
+                        // Create an array of promises for each CSV object
                         const promises = csvObjects.map(async (csvObject) => {
                             const hazardID = csvObject.ID;
-                            if (hazardID) {
-                                const oListItem = list("cdmHazards").getItemById(hazardID);
-                                oListItem.set_item("cdmSite", getIDofLookupItem(lookupData.cdmSites, csvObject.Site))
-                                oListItem.set_item("cdmPWStructure", getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]))
-                                oListItem.set_item("cdmHazardType", getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]))
-                                oListItem.set_item("cdmHazardOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Hazard Owner"]))
-                                oListItem.set_item("cdmHazardTags", csvObject["Hazard Tags"])
-                                oListItem.set_item("cdmHazardDescription", csvObject["Hazard Description"]);
-                                oListItem.set_item("cdmRiskDescription", csvObject["Risk Description"]);
-                                oListItem.set_item("cdmMitigationDescription", csvObject["Mitigation Description"]);
-                                // TODO: The cdmInitialRisk and cdmResidualRisk fields need to be updated based on the "Initial Risk Score", "Initial Severity Score",
-                                // "Initial Likelihood Score", "Residual Risk Score", "Residual Severity Score", "Residual Likelihood Score".
-                                // oListItem.set_item("cdmInitialRisk", csvObject["Initial Risk"]);
-                                // oListItem.set_item("cdmResidualRisk", csvObject["Residual Risk"]);
-                                oListItem.set_item("cdmStageMitigationSuggestion", csvObject["Mitigation Suggestions"]);
-                                oListItem.set_item("cdmUniclass", csvObject.Status)
-                                oListItem.set_item("cdmLastReviewStatus", csvObject["Last Review Status"])
-                                oListItem.set_item("cdmLastReviewer", csvObject["Last Reviewer"])
-                                // TODO: Need to ensure that review data is a valid datetime string
-                                // oListItem.set_item("cdmLastReviewDate", csvObject["Last Review Date"])
-                                oListItem.set_item("cdmCurrentStatus", csvObject["Workflow Status"])
-                                // TODO: "Peer Reviewer" and "Design Manager" field missing - both of these will update the "cdmReviews" field below
-                                // oListItem.set_item("cdmReviews", csvObject.cdmReviews)
-                                oListItem.set_item("cdmHazardCoordinates", csvObject.Coordinates)
-                                oListItem.set_item("cdmResidualRiskOwner", csvObject["Residual Risk Owner"])
-                                oListItem.set_item("CurrentMitigationOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Mitigation Owner"]))
-                                oListItem.set_item("CurrentReviewOwner", getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]))
-                                oListItem.set_item("cdmLinks", csvObject["PW Links"])
-                                oListItem.update();
-                                ctx().load(oListItem);
 
+                            if (hazardID) {
+                                // Retrieve the SharePoint list item by its hazard ID
+                                const oListItem = list("cdmHazards").getItemById(hazardID);
+
+                                // Set fields of the SharePoint list item using the CSV data and lookup information
+                                await setListItemFields(oListItem, csvObject, lookupData);
+
+                                // Return a new promise that wraps the asynchronous query execution
                                 return new Promise((resolve, reject) => {
                                     ctx().executeQueryAsync(
                                         () => {
@@ -846,8 +804,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                             }
                         });
 
+                        // Wait for all promises of the items in the CSV to resolve
                         await Promise.all(promises);
                     }
+
+
 
                     /**
                     * Handle a successful update.
@@ -876,6 +837,299 @@ function activateDatasets(cdmSites, allHazardsData) {
                     function handleProcessingError(error) {
                         console.error("An error occurred:", error);
                         toastr.error("An error occurred");
+                    }
+
+
+                    /**
+                    * Set fields of a SharePoint list item based on CSV data and lookup information.
+                    *
+                    * @param {object} listItem - SharePoint list item object.
+                    * @param {object} csvObject - CSV data for the item.
+                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    */
+                    async function setListItemFields(listItem, csvObject, lookupData) {
+                        const currentListItemValues = await loadListItemValues(listItem);
+
+                        const setFields = [
+                            { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
+                            { field: "cdmPWStructure", value: getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]), allowNull: true },
+                            { field: "cdmHazardType", value: getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]), allowNull: true },
+                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Hazard Owner"]), allowNull: true },
+                            { field: "cdmHazardTags", value: csvObject["Hazard Tags"], allowNull: true },
+                            { field: "cdmHazardDescription", value: csvObject["Hazard Description"], allowNull: true },
+                            { field: "cdmRiskDescription", value: csvObject["Risk Description"], allowNull: true },
+                            { field: "cdmMitigationDescription", value: csvObject["Mitigation Description"], allowNull: true },
+                            { field: "cdmInitialRisk", value: generateRiskSummary(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
+                            { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
+                            { field: "cdmResidualRisk", value: generateRiskSummary(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
+                            { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
+                            { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
+                            { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
+                            { field: "cdmLastReviewStatus", value: csvObject["Last Review Status"], allowNull: true },
+                            { field: "cdmLastReviewer", value: csvObject["Last Reviewer"], allowNull: true },
+                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: false },
+                            // cdmCurrentStatus must be set after cdmReviews as cdmReviews relies on info from previous cdmCurrentStatus value
+                            { field: "cdmReviews", value: generateReviewSummary(currentListItemValues, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: false },
+                            { field: "cdmCurrentStatus", value: csvObject["Workflow Status"], allowNull: false },
+                            { field: "cdmHazardCoordinates", value: parse3DCoordinates(csvObject.Coordinates), allowNull: false },
+                            { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
+                            { field: "CurrentMitigationOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Mitigation Owner"]), allowNull: true },
+                            { field: "CurrentReviewOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]), allowNull: true },
+                            { field: "cdmLinks", value: csvObject["PW Links"], allowNull: true }
+                        ];
+
+                        try {
+                            for (const fieldInfo of setFields) {
+                                setField(listItem, fieldInfo.field, fieldInfo.value, fieldInfo.allowNull);
+                            }
+
+                            listItem.update();
+                            ctx().load(listItem);
+                        } catch (error) {
+                            console.error("Error setting list item fields:", error);
+                        }
+                    }
+
+
+                    /**
+                    * Helper function to set a field of the SharePoint list item
+                    * if the value is valid or null is allowed. Otherwise, display an error.
+                    * 
+                    * @param {object} listItem - SharePoint list item object.
+                    * @param {string} fieldName - The name of the field to set.
+                    * @param {*} fieldValue - The value to set for the field.
+                    * @param {boolean} allowNull - Whether null values are allowed.
+                    */
+                    function setField(listItem, fieldName, fieldValue, allowNull) {
+                        if (allowNull || (fieldValue !== undefined && fieldValue !== null)) {
+                            listItem.set_item(fieldName, fieldValue);
+                        } else {
+                            toastr.error(`Failed to set ${fieldName} for hazard with ID ${csvObject.ID} as value in CSV was invalid`);
+                        }
+                    }
+
+
+                    /**
+                    * Load field values of a SharePoint list item asynchronously.
+                    * 
+                    * @param {object} listItem - The SharePoint list item object to load values for.
+                    * @returns {Promise<object>} A Promise that resolves with the loaded field values.
+                    */
+                    async function loadListItemValues(listItem) {
+                        return new Promise((resolve, reject) => {
+                            ctx().load(listItem);
+                            ctx().executeQueryAsync(
+                                () => {
+                                    resolve(listItem.get_fieldValues());
+                                },
+                                (sender, args) => {
+                                    reject(args);
+                                }
+                            );
+                        });
+                    }
+
+
+                    /**
+                    * Finds the ID for Title values used in Lookup Columns.
+                    * 
+                    * @param {Object[]} lookupList - List of objects mapping the IDs and Titles for each value which
+                    *                                   can be used for a given dropdown down list.
+                    * @param {string} titleValue - Title value to be matched for finding the ID.
+                    * @returns {string|null} - ID of the matched value or null if not found.
+                    */
+                    function getIDofLookupItem(lookupList, titleValue) {
+                        const matchedItem = lookupList.find((lookupItem) => lookupItem.Title === titleValue);
+                        return matchedItem ? matchedItem.ID : null;
+                    }
+
+
+                    /**
+                    * Generates risk score based on severity and likelihood scores.
+                    *
+                    * @param {string} severityScore - The severity score of the risk (1 to 5) as a string.
+                    * @param {string} likelihoodScore - The likelihood score of the risk (1 to 5) as a string.
+                    * @returns {number|null} - Calculated risk score or null if arguments are invalid.
+                    */
+                    function generateRiskScore(severityScore, likelihoodScore) {
+                        // Helper function to check if a value is a valid number between 1 and 5
+                        const isValidScore = (value) => {
+                            return typeof value === 'number' && value >= 1 && value <= 5 && !isNaN(value);
+                        };
+
+                        // Convert the input strings to integers
+                        const severity = parseInt(severityScore, 10);
+                        const likelihood = parseInt(likelihoodScore, 10);
+
+                        // Check if severity and likelihood are valid numbers
+                        if (!isValidScore(severity) || !isValidScore(likelihood)) {
+                            // If scores are invalid then return null
+                            return null;
+                        }
+
+                        return severity * likelihood;
+                    }
+
+
+
+                    /**
+                    * Generates risk summary based on severity and likelihood scores.
+                    *
+                    * @param {string} severityScore - The severity score of the risk (1 to 5) as a string.
+                    * @param {string} likelihoodScore - The likelihood score of the risk (1 to 5) as a string.
+                    * @returns {string|null} - Formatted risk summary or null if arguments are invalid.
+                    */
+                    function generateRiskSummary(severityScore, likelihoodScore) {
+                        // Helper function to check if a value is a valid number between 1 and 5
+                        const isValidScore = (value) => {
+                            return typeof value === 'number' && value >= 1 && value <= 5 && !isNaN(value);
+                        };
+
+                        // Convert the input strings to integers
+                        const severity = parseInt(severityScore, 10);
+                        const likelihood = parseInt(likelihoodScore, 10);
+
+                        // Check if severity and likelihood are valid numbers
+                        if (!isValidScore(severity) || !isValidScore(likelihood)) {
+                            // If scores are invalid then return null
+                            return null;
+                        }
+
+                        /**
+                        * Categorises a risk score into low, medium, or high.
+                        * @param {number} riskScore - The calculated risk score.
+                        * @returns {string} - The risk category.
+                        */
+                        const categoriseRiskScore = (riskScore) => {
+                            if (riskScore < 5) {
+                                return "Low-clr_1";
+                            } else if (riskScore >= 10) {
+                                return "High-clr_5";
+                            } else {
+                                return "Medium-clr_4";
+                            }
+                        };
+
+                        /**
+                        * Categorises a severity score into corresponding labels.
+                        * @param {number} severityScore - The severity score.
+                        * @returns {string} - The severity category label.
+                        */
+                        const categoriseSeverityScore = (severityScore) => {
+                            const severityCategories = {
+                                1: "Insignificant",
+                                2: "Marginal",
+                                3: "Moderate",
+                                4: "Critical",
+                                5: "Catastrophic"
+                            };
+                            return severityCategories[severityScore];
+                        };
+
+                        /**
+                        * Categorises a likelihood score into corresponding labels.
+                        * @param {number} likelihoodScore - The likelihood score.
+                        * @returns {string} - The likelihood category label.
+                        */
+                        const categoriseLikelihoodScore = (likelihoodScore) => {
+                            const likelihoodCategories = {
+                                1: "Unlikely",
+                                2: "Seldom",
+                                3: "Occasional",
+                                4: "Likely",
+                                5: "Definite"
+                            };
+                            return likelihoodCategories[likelihoodScore];
+                        };
+
+                        // Calculate the risk score by multiplying severity and likelihood scores
+                        const riskScore = severityScore * likelihoodScore;
+                        const riskCategory = categoriseRiskScore(riskScore);
+                        const severityCategory = categoriseSeverityScore(severityScore);
+                        const likelihoodCategory = categoriseLikelihoodScore(likelihoodScore);
+
+                        // Create and return the formatted risk summary string
+                        return `${riskScore}-${riskCategory}^${severityScore}-${severityCategory}^${likelihoodScore}-${likelihoodCategory}`;
+                    }
+
+                    /**
+                    * Parses and validates 3D coordinates in string format.
+                    *
+                    * @param {string} coordinates - The 3D coordinates to be parsed and validated (e.g., "x,y,z").
+                    * @returns {string|null} - The original coordinates string if valid, or null if invalid.
+                    */
+                    function parse3DCoordinates(coordinates) {
+                        // If the coordinates string is empty, consider it as valid
+                        if (coordinates.trim() === "") {
+                            return coordinates;
+                        }
+
+                        const [x, y, z] = coordinates.split(',');
+
+                        // Check if x, y, and z are present
+                        if (x !== undefined && y !== undefined && z !== undefined) {
+                            // Validate x, y, and z using regular expressions for numeric values
+                            const numericPattern = /^-?\d+(\.\d+)?$/;
+                            if (numericPattern.test(x) && numericPattern.test(y) && numericPattern.test(z)) {
+                                return coordinates;
+                            }
+                        }
+
+                        return null;
+                    }
+
+                    /**
+                    * Converts a date-time string of format "dd/mm/yyyy hh:mm:ss" to a valid ISO date string.
+                    * 
+                    * @param {string} dateTimeString - The input date-time string in "dd/mm/yyyy hh:mm:ss" format.
+                    * @returns {string|null} The converted ISO date string, or null if conversion fails.
+                    */
+                    function convertToISODate(dateTimeString) {
+                        try {
+                            const [datePart, timePart] = dateTimeString.split(' ');
+                            const [day, month, year] = datePart.split('/').map(Number);
+                            const [hour, minute, second] = timePart.split(':').map(Number);
+
+                            // Create a new Date object with the local time
+                            const localDate = new Date(year, month - 1, day, hour, minute);
+                            const isoDate = localDate.toISOString();
+
+                            return isoDate;
+                        } catch (error) {
+                            console.error("Error converting date-time to ISO format:", error);
+                            return null;
+                        }
+                    }
+
+
+                    /**
+                    * Generates a review summary based on workflow status changes and adds the current date.
+                    * 
+                    * @param {object} previousListItemState - Previous state of the list item.
+                    * @param {string} newWorkflowStatus - New workflow status.
+                    * @param {string} peerReviewer - Peer reviewer's name.
+                    * @param {string} designManager - Design manager's name.
+                    * @returns {string} The updated review summary.
+                    */
+                    function generateReviewSummary(previousListItemState, newWorkflowStatus, peerReviewer, designManager) {
+                        // Extract previous workflow status and review summary
+                        const previousWorkflowStatus = previousListItemState.cdmCurrentStatus;
+                        const previousReviewSummary = previousListItemState.cdmReviews;
+
+                        // Get the current date and format it as "dd/mm/yyyy"
+                        const currentDate = new Date();
+                        const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
+                        // Check conditions and return updated review summary
+                        if (previousWorkflowStatus === "Under peer review" && newWorkflowStatus === "Under design manager review") {
+                            console.log("Done peer review")
+                            return `[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`;
+                        } else if (previousWorkflowStatus === "Under design manager review" && newWorkflowStatus === "Under pre-construction review") {
+                            console.log("Done dm review")
+                            return `[${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`;
+                        } else {
+                            return previousReviewSummary;
+                        }
                     }
 
                 }
