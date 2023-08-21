@@ -36,13 +36,19 @@ p {
     color: rgb(0,0,0);
     font-size: small;
     display: inline-flex;
-    padding-top: 20%;
+    bottom: 0;
+    position: absolute
 }
 
 .information-link {
     display: inline-flex;
     padding-top: 10%;
     cursor: pointer;
+}
+
+.title-container {
+    height: auto;
+    position: relative
 }
 
 .ms-core-listMenu-horizontalBox a.ms-core-listMenu-item:hover,

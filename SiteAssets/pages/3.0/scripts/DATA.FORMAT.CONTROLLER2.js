@@ -281,7 +281,7 @@ formatdatato = {
             });
         });
     },
-    filterrowsdata: function(sublot_data, ftv, trg, flst ) {
+    filterrowsdata: function(sublot_data, ftv, trg, flst, forExport ) {
 
          $(".refresh-hazards-btn").remove()
     //     var loading_text = `<div class="loading-text"><center><h2>Searching for new hazards. This may take a minute...</h2></center></div>`;
@@ -394,7 +394,7 @@ formatdatato = {
                                     // Allows for you to access the dashboard specific to your user roles. 
                                     // activateDatasets(sublot_data, full_dataset);
                                     // global_nav(sublot_data, full_dataset);
-                                    tposcustomfilters(full_dataset);
+                                    tposcustomfilters(full_dataset, forExport);
                                 }
                             },
                             error: function(error) {
@@ -516,7 +516,7 @@ formatdatato = {
 
         var refresh_hazards = '<div><center><input class="refresh-hazards-btn" type="button" value="Refresh Hazards/Clear Filters"/></center><br><br></div>';
         $("#stats.tpos-area-content").prepend(refresh_hazards)
-        $('.refresh-hazards-btn').click(function() {init()});
+        $('.refresh-hazards-btn').click(function() {init(true)});
 
         function customfilters ( allHazards, filterlst){
             console.log("enterf",filterlst);
@@ -1543,8 +1543,27 @@ function printHazardRow(h) {
 
     var revstatus = h.cdmCurrentStatus;
 
+    // To give more useful error messages, we need to work out which stages are editable and which corresponding role can edit.
+    const editableStagesObj = {};
+    if (configData['Peer review editable workflow state']) {
+        editableStagesObj['Under peer review'] = 'Designers';
+    }
+    if (configData['Design manager review editable workflow state']) {
+        editableStagesObj['Under design manager review'] = 'Design managers';
+    }
+    if (configData['Pre-construction review editable workflow state']) {
+        editableStagesObj['Under pre-construction review'] = 'Construction managers';
+    }
+    if (configData['Principal designer review editable workflow state']) {
+        editableStagesObj['Under principal designer review'] = 'Principal designers';
+    }
+    if (configData['Construction manager review editable workflow state']) {
+        editableStagesObj['Under site manager review'] = 'Construction managers';
+    }
+
+
     if (revstatus.substring(0, 1) == "U") {
-        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing.${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
+        warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing. ${editableStagesObj.hasOwnProperty(revstatus) ? editableStagesObj[revstatus] + ' can still make edits at this stage.' : ''} ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
     var uce = 0,

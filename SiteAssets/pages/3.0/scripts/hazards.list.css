@@ -403,6 +403,7 @@
 
 .block-container {
   display: flex;
+  height: auto;
 }
 
 .tpos-initial-risk-lbl {

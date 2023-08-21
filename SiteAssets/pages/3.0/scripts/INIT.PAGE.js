@@ -3,7 +3,7 @@ $(document).ready(function() {
     toastr.success('<br/>Safetibase has been upgraded to improve functionality. Loading should be smoother, new features have been added and the interface can be easily configured to meet project needs. For a complete list of the upgrades please see the release note <a href="https://safetibase.org/release-notes" target="_blank"><u>here</u></a>.', "Safetibase Upgrade", { timeOut: 0, extendedTimeOut: 0, closeButton: true, positionClass: "toast-top-center", opacity: 1});
 });
 
-function init() {
+function init(refresh) {
     $(document).tooltip();
     jQuery.expr[':'].Contains = function(a, i, m) {
         return jQuery(a).text().toUpperCase()
@@ -17,14 +17,14 @@ function init() {
     const idParam = urlParams.get("hazardId");
     const versionDiv = '<div class="version-number">V1.5.1</div>';
     const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><div class="information-icon">&#9432;</div></a>';
-    if (idParam) {
-        pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div>${versionDiv}${informationLink}</div>`;
-    } else if (urlParams.get("newHazard")) {
-        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div>${versionDiv}${informationLink}</div>`;
+    if (idParam && refresh === undefined) {
+        pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
+    } else if (urlParams.get("newHazard") && refresh === undefined) {
+        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
     } else {
         const titleDiv = '<div>SafetIbase</div>';
         const searchDiv = '<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
-        pageTitle = `<div class="block-container">${titleDiv}${versionDiv}${informationLink}</div>${searchDiv}`;
+        pageTitle = `<div class="block-container">${titleDiv}<div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>${searchDiv}`;
     }
     $('#pageTitle').html(pageTitle);
 
@@ -44,7 +44,7 @@ function init() {
 
         setupmainareastats(idParam);
 
-        if (urlParams.get("newHazard") === "true") {
+        if (urlParams.get("newHazard") === "true" && refresh === undefined) {
             setupnewhazard();
         }
 
