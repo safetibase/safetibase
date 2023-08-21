@@ -862,7 +862,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmInitialRisk", value: generateRiskSummary(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
                             { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
                             { field: "cdmResidualRisk", value: generateRiskSummary(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
-                            { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
+                            { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
                             { field: "cdmLastReviewStatus", value: csvObject["Last Review Status"], allowNull: true },
