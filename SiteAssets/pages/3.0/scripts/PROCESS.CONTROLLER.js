@@ -492,6 +492,649 @@ function activateDatasets(cdmSites, allHazardsData) {
                     }
                 }
             }
+
+            if (ulink == 'exportbulkupload') {
+                // First lets check that the current user is authorised to do this.
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
+
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        filterExportData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
+                        }
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
+
+                // To save effort we can reuse the code for the extra button for the filters. The outcome of what we want is largely the same except we don't want to filter the data on screen, we
+                // want to filter the export data. We can just change what the apply filters button does to do achieve this. This is done in the tposcustomfilters function.
+                function filterExportData() {
+                    gimmepops("Filter Export Data",
+          
+                    '<p style="color:white">Please select the filters to apply to the export.<p>' +
+                    '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>');
+                    $('#langOpt').multiselect({
+                        columns: 1,
+                        placeholder: 'Select Languages',
+                        search: true,
+                        selectAll: true
+                    });
+                    
+                    cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[], 'export');
+                }
+            }
+
+            if (ulink == 'importbulkupload') {
+                // First lets check that the current user is authorised to do this.
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
+
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        importData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
+                        }
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
+
+                /**
+                * Imports data from a CSV file into SharePoint lists.
+                * Handles parsing CSV data, converting to JSON, and updating list items.
+                */
+                function importData() {
+                    // Display a popup for importing CSV data.
+                    gimmepops(`Import bulk edit CSV`,
+                    `<div id="popscontentarea">
+                        <input id="csvFileInput" type="file" accept=".csv"/><input id="bulk-upload-button" type="button" value="Upload changes"/>
+                    </div>`);
+
+                    // Upload the CSV file to SharePoint when the button is clicked.
+                    $("#bulk-upload-button").on("click", () => {
+
+                        const csvFile = document.getElementById("csvFileInput");
+                        const fileName = csvFile.files[0].name;
+
+                        // Ensure file format is correct
+                        if (fileName.split('.')[1] !== 'csv') {
+                            toastr.error('Invalid file format. Please convert the file to a csv before uploading.')
+                        } else {
+                            // Perform bulk update
+                            handleBulkUpdateFromCSV(csvFile);
+                        }
+                    })
+
+
+                    /**
+                    * Process a CSV file and update SharePoint list items accordingly.
+                    * 
+                    * @param {File} file - The CSV file to process.
+                    */
+                    async function handleBulkUpdateFromCSV(file) {
+                        try {
+                            // Read the content of the CSV file asynchronously
+                            const csvData = await readCSVFile(file);
+
+                            // Convert the CSV data to an array of JSON objects
+                            const csvObjects = convertCSVArrayToJSON(csvData);
+
+                            // Retrieve lookup data for specified lists
+                            const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers"];
+                            const lookupData = await getListDataForLookupColumns(listNames);
+
+                            // Update SharePoint list items with CSV data, using lookupData for dropdown fields
+                            await updateListItems(csvObjects, lookupData);
+
+                            // Success message displayed when bulk update finishes
+                            toastr.success("Finished bulk update");
+                        } catch (error) {
+                            handleProcessingError(error);
+                        }
+                    }
+
+
+                    /**
+                    * Read the contents of a CSV file and parse it into an array of rows.
+                    * 
+                    * @param {File} file - The CSV file to read.
+                    * @returns {string[][]} - Array of rows from the CSV file.
+                    */
+                    async function readCSVFile(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                const csvData = CSVToArray(reader.result, ",");
+                                resolve(csvData);
+                            };
+                            reader.onerror = (error) => reject(error);
+                            reader.readAsText(file.files[0]);
+                        });
+                    }
+
+
+                    /**
+                    * Parses a CSV string into a two-dimensional array of rows and columns.
+                    *
+                    * @param {string} strData - The CSV string to be parsed.
+                    * @param {string} strDelimiter - The delimiter used to separate fields in the CSV.
+                    * @returns {string[][]} - A two-dimensional array containing the parsed CSV data.
+                    */
+                    function CSVToArray(strData, strDelimiter) {
+                        // Regular expression pattern to match delimiter, newline characters, and start of line
+                        // along with quoted and non-quoted fields
+                        const regexPattern = new RegExp(
+                            `(${strDelimiter}|\\r?\\n|\\r|^)` +
+                            `(?:"([^"]*(?:""[^"]*)*)"|` +
+                            `([^"${strDelimiter}\\r\\n]*))`,
+                            "gi"
+                        );
+
+                        // Array to hold the parsed CSV data
+                        const parsedData = [[]];
+
+                        let matches;
+                        while ((matches = regexPattern.exec(strData))) {
+                            // Destructure matched values from the pattern
+                            const [, matchedDelimiter, quotedValue, unquotedValue] = matches;
+
+                            // If delimiter is not the field delimiter, start a new row in the parsed data
+                            if (matchedDelimiter && matchedDelimiter !== strDelimiter) {
+                                parsedData.push([]);
+                            }
+
+                            // Determine the value, either quoted or unquoted
+                            const value = quotedValue ? quotedValue.replace(/""/g, "\"") : unquotedValue;
+
+                            // Add the value to the current row in the parsed data
+                            parsedData[parsedData.length - 1].push(value);
+                        }
+
+                        return parsedData;
+                    }
+
+
+                    /**
+                    * Converts a nested array, where index 0 represents the header row, into an array of objects.
+                    *
+                    * @param {Array} csv_array - The nested array where index 0 is the header row.
+                    * @returns {Array<Object>} - An array of objects with keys derived from the header row.
+                    */
+                    function convertCSVArrayToJSON(csv_array) {
+                        csv_header = csv_array[0]
+                        csv_data = csv_array.slice(1)
+                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}))
+                        return csv_objects
+                    }
+
+
+                    /**
+                    * Get data from SharePoint lists for lookup columns.
+                    * 
+                    * @param {string[]} listNames - Names of lists to retrieve data from.
+                    * @returns {object} - Lookup data from SharePoint lists.
+                    */
+                    async function getListDataForLookupColumns(listNames) {
+                        // Retrieve data from the specified SharePoint lists concurrently
+                        const listDataPromises = listNames.map(getList);
+                        const arrayOfListData = await Promise.all(listDataPromises);
+
+                        // Convert the array of list data into a lookup data object
+                        const lookupData = listNames.reduce((result, listName, index) => {
+                            result[listName] = arrayOfListData[index].d.results;
+                            return result;
+                        }, {});
+
+                        return lookupData;
+                    }
+
+
+                    /**
+                    * Retrieves data from a specified SharePoint list using an AJAX request.
+                    *
+                    * @param {string} listName - The name of the SharePoint list.
+                    * @returns {Promise<Object>} - A promise that resolves with data from the specified list.
+                    */
+                    function getList(listName) {
+                        const listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
+                        return $.ajax({
+                            url: listUrl,
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            }
+                        });
+                    }
+
+
+                    /**
+                    * Update SharePoint list items with CSV data.
+                    *
+                    * @param {object[]} csvObjects - Array of JSON objects from the CSV data.
+                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    */
+                    async function updateListItems(csvObjects, lookupData) {
+                        // Create an array of promises for each CSV object
+                        const promises = csvObjects.map(async (csvObject) => {
+                            const hazardID = csvObject.ID;
+
+                            if (hazardID) {
+                                // Retrieve the SharePoint list item by its hazard ID
+                                const oListItem = list("cdmHazards").getItemById(hazardID);
+
+                                // Set fields of the SharePoint list item using the CSV data and lookup information
+                                await setListItemFields(oListItem, csvObject, lookupData);
+
+                                // Return a new promise that wraps the asynchronous query execution
+                                return new Promise((resolve, reject) => {
+                                    ctx().executeQueryAsync(
+                                        () => {
+                                            handleSuccess(hazardID);
+                                            resolve(true);
+                                        },
+                                        (sender, args) => {
+                                            handleFailure(hazardID, args);
+                                            reject(args);
+                                        }
+                                    );
+                                });
+                            }
+                        });
+
+                        // Wait for all promises of the items in the CSV to resolve
+                        await Promise.all(promises);
+                    }
+
+
+
+                    /**
+                    * Handle a successful update.
+                    * 
+                    * @param {string} hazardID - ID of the updated hazard.
+                    */
+                    function handleSuccess(hazardID) {
+                        toastr.success(`Updated hazard with ID ${hazardID}`);
+                    }
+
+                    /**
+                    * Handle a failure during update.
+                    * 
+                    * @param {string} hazardID - ID of the hazard that failed to update.
+                    * @param {object} args - Arguments containing error details.
+                    */
+                    function handleFailure(hazardID, args) {
+                        toastr.error(`Failed to update hazard with ID ${hazardID}`);
+                    }
+
+                    /**
+                    * Handle errors that occur during processing.
+                    * 
+                    * @param {Error} error - The error that occurred.
+                    */
+                    function handleProcessingError(error) {
+                        console.error("An error occurred:", error);
+                        toastr.error("An error occurred");
+                    }
+
+
+                    /**
+                    * Set fields of a SharePoint list item based on CSV data and lookup information.
+                    *
+                    * @param {object} listItem - SharePoint list item object.
+                    * @param {object} csvObject - CSV data for the item.
+                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    */
+                    async function setListItemFields(listItem, csvObject, lookupData) {
+                        const currentListItemValues = await loadListItemValues(listItem);
+
+                        const setFields = [
+                            { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
+                            { field: "cdmPWStructure", value: getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]), allowNull: true },
+                            { field: "cdmHazardType", value: getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]), allowNull: true },
+                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Hazard Owner"]), allowNull: true },
+                            { field: "cdmHazardTags", value: csvObject["Hazard Tags"], allowNull: true },
+                            { field: "cdmHazardDescription", value: csvObject["Hazard Description"], allowNull: true },
+                            { field: "cdmRiskDescription", value: csvObject["Risk Description"], allowNull: true },
+                            { field: "cdmMitigationDescription", value: csvObject["Mitigation Description"], allowNull: true },
+                            { field: "cdmInitialRisk", value: generateRiskSummary(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
+                            { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
+                            { field: "cdmResidualRisk", value: generateRiskSummary(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
+                            { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
+                            { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
+                            { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
+                            { field: "cdmLastReviewStatus", value: csvObject["Last Review Status"], allowNull: true },
+                            { field: "cdmLastReviewer", value: csvObject["Last Reviewer"], allowNull: true },
+                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: false },
+                            // cdmCurrentStatus must be set after cdmReviews as cdmReviews relies on info from previous cdmCurrentStatus value
+                            { field: "cdmReviews", value: generateReviewSummary(currentListItemValues, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: false },
+                            { field: "cdmCurrentStatus", value: csvObject["Workflow Status"], allowNull: false },
+                            { field: "cdmHazardCoordinates", value: parse3DCoordinates(csvObject.Coordinates), allowNull: false },
+                            { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
+                            { field: "CurrentMitigationOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Mitigation Owner"]), allowNull: true },
+                            { field: "CurrentReviewOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]), allowNull: true },
+                            { field: "cdmLinks", value: csvObject["PW Links"], allowNull: true }
+                        ];
+
+                        try {
+                            for (const fieldInfo of setFields) {
+                                setField(listItem, fieldInfo.field, fieldInfo.value, fieldInfo.allowNull);
+                            }
+
+                            listItem.update();
+                            ctx().load(listItem);
+                        } catch (error) {
+                            console.error("Error setting list item fields:", error);
+                        }
+                    }
+
+
+                    /**
+                    * Helper function to set a field of the SharePoint list item
+                    * if the value is valid or null is allowed. Otherwise, display an error.
+                    * 
+                    * @param {object} listItem - SharePoint list item object.
+                    * @param {string} fieldName - The name of the field to set.
+                    * @param {*} fieldValue - The value to set for the field.
+                    * @param {boolean} allowNull - Whether null values are allowed.
+                    */
+                    function setField(listItem, fieldName, fieldValue, allowNull) {
+                        if (allowNull || (fieldValue !== undefined && fieldValue !== null)) {
+                            listItem.set_item(fieldName, fieldValue);
+                        } else {
+                            toastr.error(`Failed to set ${fieldName} for hazard with ID ${csvObject.ID} as value in CSV was invalid`);
+                        }
+                    }
+
+
+                    /**
+                    * Load field values of a SharePoint list item asynchronously.
+                    * 
+                    * @param {object} listItem - The SharePoint list item object to load values for.
+                    * @returns {Promise<object>} A Promise that resolves with the loaded field values.
+                    */
+                    async function loadListItemValues(listItem) {
+                        return new Promise((resolve, reject) => {
+                            ctx().load(listItem);
+                            ctx().executeQueryAsync(
+                                () => {
+                                    resolve(listItem.get_fieldValues());
+                                },
+                                (sender, args) => {
+                                    reject(args);
+                                }
+                            );
+                        });
+                    }
+
+
+                    /**
+                    * Finds the ID for Title values used in Lookup Columns.
+                    * 
+                    * @param {Object[]} lookupList - List of objects mapping the IDs and Titles for each value which
+                    *                                   can be used for a given dropdown down list.
+                    * @param {string} titleValue - Title value to be matched for finding the ID.
+                    * @returns {string|null} - ID of the matched value or null if not found.
+                    */
+                    function getIDofLookupItem(lookupList, titleValue) {
+                        const matchedItem = lookupList.find((lookupItem) => lookupItem.Title === titleValue);
+                        return matchedItem ? matchedItem.ID : null;
+                    }
+
+
+                    /**
+                    * Generates risk score based on severity and likelihood scores.
+                    *
+                    * @param {string} severityScore - The severity score of the risk (1 to 5) as a string.
+                    * @param {string} likelihoodScore - The likelihood score of the risk (1 to 5) as a string.
+                    * @returns {number|null} - Calculated risk score or null if arguments are invalid.
+                    */
+                    function generateRiskScore(severityScore, likelihoodScore) {
+                        // Helper function to check if a value is a valid number between 1 and 5
+                        const isValidScore = (value) => {
+                            return typeof value === 'number' && value >= 1 && value <= 5 && !isNaN(value);
+                        };
+
+                        // Convert the input strings to integers
+                        const severity = parseInt(severityScore, 10);
+                        const likelihood = parseInt(likelihoodScore, 10);
+
+                        // Check if severity and likelihood are valid numbers
+                        if (!isValidScore(severity) || !isValidScore(likelihood)) {
+                            // If scores are invalid then return null
+                            return null;
+                        }
+
+                        return severity * likelihood;
+                    }
+
+
+
+                    /**
+                    * Generates risk summary based on severity and likelihood scores.
+                    *
+                    * @param {string} severityScore - The severity score of the risk (1 to 5) as a string.
+                    * @param {string} likelihoodScore - The likelihood score of the risk (1 to 5) as a string.
+                    * @returns {string|null} - Formatted risk summary or null if arguments are invalid.
+                    */
+                    function generateRiskSummary(severityScore, likelihoodScore) {
+                        // Helper function to check if a value is a valid number between 1 and 5
+                        const isValidScore = (value) => {
+                            return typeof value === 'number' && value >= 1 && value <= 5 && !isNaN(value);
+                        };
+
+                        // Convert the input strings to integers
+                        const severity = parseInt(severityScore, 10);
+                        const likelihood = parseInt(likelihoodScore, 10);
+
+                        // Check if severity and likelihood are valid numbers
+                        if (!isValidScore(severity) || !isValidScore(likelihood)) {
+                            // If scores are invalid then return null
+                            return null;
+                        }
+
+                        /**
+                        * Categorises a risk score into low, medium, or high.
+                        * @param {number} riskScore - The calculated risk score.
+                        * @returns {string} - The risk category.
+                        */
+                        const categoriseRiskScore = (riskScore) => {
+                            if (riskScore < 5) {
+                                return "Low-clr_1";
+                            } else if (riskScore >= 10) {
+                                return "High-clr_5";
+                            } else {
+                                return "Medium-clr_4";
+                            }
+                        };
+
+                        /**
+                        * Categorises a severity score into corresponding labels.
+                        * @param {number} severityScore - The severity score.
+                        * @returns {string} - The severity category label.
+                        */
+                        const categoriseSeverityScore = (severityScore) => {
+                            const severityCategories = {
+                                1: "Insignificant",
+                                2: "Marginal",
+                                3: "Moderate",
+                                4: "Critical",
+                                5: "Catastrophic"
+                            };
+                            return severityCategories[severityScore];
+                        };
+
+                        /**
+                        * Categorises a likelihood score into corresponding labels.
+                        * @param {number} likelihoodScore - The likelihood score.
+                        * @returns {string} - The likelihood category label.
+                        */
+                        const categoriseLikelihoodScore = (likelihoodScore) => {
+                            const likelihoodCategories = {
+                                1: "Unlikely",
+                                2: "Seldom",
+                                3: "Occasional",
+                                4: "Likely",
+                                5: "Definite"
+                            };
+                            return likelihoodCategories[likelihoodScore];
+                        };
+
+                        // Calculate the risk score by multiplying severity and likelihood scores
+                        const riskScore = severityScore * likelihoodScore;
+                        const riskCategory = categoriseRiskScore(riskScore);
+                        const severityCategory = categoriseSeverityScore(severityScore);
+                        const likelihoodCategory = categoriseLikelihoodScore(likelihoodScore);
+
+                        // Create and return the formatted risk summary string
+                        return `${riskScore}-${riskCategory}^${severityScore}-${severityCategory}^${likelihoodScore}-${likelihoodCategory}`;
+                    }
+
+                    /**
+                    * Parses and validates 3D coordinates in string format.
+                    *
+                    * @param {string} coordinates - The 3D coordinates to be parsed and validated (e.g., "x,y,z").
+                    * @returns {string|null} - The original coordinates string if valid, or null if invalid.
+                    */
+                    function parse3DCoordinates(coordinates) {
+                        // If the coordinates string is empty, consider it as valid
+                        if (coordinates.trim() === "") {
+                            return coordinates;
+                        }
+
+                        const [x, y, z] = coordinates.split(',');
+
+                        // Check if x, y, and z are present
+                        if (x !== undefined && y !== undefined && z !== undefined) {
+                            // Validate x, y, and z using regular expressions for numeric values
+                            const numericPattern = /^-?\d+(\.\d+)?$/;
+                            if (numericPattern.test(x) && numericPattern.test(y) && numericPattern.test(z)) {
+                                return coordinates;
+                            }
+                        }
+
+                        return null;
+                    }
+
+                    /**
+                    * Converts a date-time string of format "dd/mm/yyyy hh:mm:ss" to a valid ISO date string.
+                    * 
+                    * @param {string} dateTimeString - The input date-time string in "dd/mm/yyyy hh:mm:ss" format.
+                    * @returns {string|null} The converted ISO date string, or null if conversion fails.
+                    */
+                    function convertToISODate(dateTimeString) {
+                        try {
+                            const [datePart, timePart] = dateTimeString.split(' ');
+                            const [day, month, year] = datePart.split('/').map(Number);
+                            const [hour, minute, second] = timePart.split(':').map(Number);
+
+                            // Create a new Date object with the local time
+                            const localDate = new Date(year, month - 1, day, hour, minute);
+                            const isoDate = localDate.toISOString();
+
+                            return isoDate;
+                        } catch (error) {
+                            console.error("Error converting date-time to ISO format:", error);
+                            return null;
+                        }
+                    }
+
+
+                    /**
+                    * Generates a review summary based on workflow status changes and adds the current date.
+                    * 
+                    * @param {object} previousListItemState - Previous state of the list item.
+                    * @param {string} newWorkflowStatus - New workflow status.
+                    * @param {string} peerReviewer - Peer reviewer's name.
+                    * @param {string} designManager - Design manager's name.
+                    * @returns {string} The updated review summary.
+                    */
+                    function generateReviewSummary(previousListItemState, newWorkflowStatus, peerReviewer, designManager) {
+                        // Extract previous workflow status and review summary
+                        const previousWorkflowStatus = previousListItemState.cdmCurrentStatus;
+                        const previousReviewSummary = previousListItemState.cdmReviews;
+
+                        // Get the current date and format it as "dd/mm/yyyy"
+                        const currentDate = new Date();
+                        const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
+                        // Check conditions and return updated review summary
+                        if (previousWorkflowStatus === "Under peer review" && newWorkflowStatus === "Under design manager review") {
+                            console.log("Done peer review")
+                            return `[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`;
+                        } else if (previousWorkflowStatus === "Under design manager review" && newWorkflowStatus === "Under pre-construction review") {
+                            console.log("Done dm review")
+                            return `[${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`;
+                        } else {
+                            return previousReviewSummary;
+                        }
+                    }
+
+                }
+
+            }
             
         });
 
@@ -2242,7 +2885,7 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-function tposcustomfilters( data) {
+function tposcustomfilters( data, forExport) {
     // var tlist=[];
     // //console.log('maindata',maindata.length);
     // if (maindata.length = 0 ) {
@@ -2253,46 +2896,45 @@ function tposcustomfilters( data) {
     // }
     var tlist = data;
  
-      var distlistcdmStageExtra=[];
-      var distlistcdmpwstructure =[];
-      var distlistcdmCurrentStatus=[];
-      var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
-      var selectcdmStageExtra = '';
-      var selectcdmpwstructure ='';
-      var selectcdmCurrentStatus ='';
-      var selectcdmResidualRiskOwner ='';
-   
+    var distlistcdmStageExtra=[];
+    var distlistcdmpwstructure =[];
+    var distlistcdmCurrentStatus=[];
+    var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
+    var selectcdmStageExtra = '';
+    var selectcdmpwstructure ='';
+    var selectcdmCurrentStatus ='';
+    var selectcdmResidualRiskOwner ='';
 
     for (var cc = 0; cc < tlist.length; cc++) {
-      var it = tlist[cc];
-      var itid = it.cdmStageExtra.ID;
-      var ittitle = it.cdmStageExtra.Title;
-      var itcdmpwstructureid = it.cdmPWStructure.ID;
-      var itcdmpwstructuretitle = it.cdmPWStructure.Title;
-      var itcdmCurrentStatus = it.cdmCurrentStatus;
-      var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
+        var it = tlist[cc];
+        var itid = it.cdmStageExtra.ID;
+        var ittitle = it.cdmStageExtra.Title;
+        var itcdmpwstructureid = it.cdmPWStructure.ID;
+        var itcdmpwstructuretitle = it.cdmPWStructure.Title;
+        var itcdmCurrentStatus = it.cdmCurrentStatus;
+        var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
 
-      if (!distlistcdmStageExtra.includes(ittitle)){
-        distlistcdmStageExtra.push(ittitle);
-        selectcdmStageExtra += '<option value='+ittitle+'>'+ittitle+'</option>'
-      }
-      if (!distlistcdmpwstructure.includes(itcdmpwstructureid)){
-        distlistcdmpwstructure.push(itcdmpwstructureid);
-        selectcdmpwstructure += '<option value='+itcdmpwstructuretitle+'>'+itcdmpwstructuretitle+'</option>'
-      }
-     
+        if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
+            distlistcdmStageExtra.push(ittitle);
+            selectcdmStageExtra += '<option value="'+ittitle+'">'+ittitle+'</option>'
+        }
 
-      if (!distlistcdmCurrentStatus.includes(itcdmCurrentStatus)){
-        distlistcdmCurrentStatus.push(itcdmCurrentStatus);
-        selectcdmCurrentStatus += '<option value='+itcdmCurrentStatus+'>'+itcdmCurrentStatus+'</option>'
-      }
-      if (!distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
-        distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
-       
-        selectcdmResidualRiskOwner += '<option value='+itcdmResidualRiskOwner+'>'+itcdmResidualRiskOwner+'</option>'
-        // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
-        // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
-      }
+        if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
+            distlistcdmpwstructure.push(itcdmpwstructureid);
+            selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
+        }
+
+        if (itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) && (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus))){
+            distlistcdmCurrentStatus.push(itcdmCurrentStatus);
+            selectcdmCurrentStatus += '<option value="'+itcdmCurrentStatus+'">'+itcdmCurrentStatus+'</option>'
+        }
+
+        if (itcdmResidualRiskOwner !== undefined && !distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
+            distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
+            selectcdmResidualRiskOwner += '<option value="'+itcdmResidualRiskOwner+'">'+itcdmResidualRiskOwner+'</option>'
+            // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
+            // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
+        }
 
      
       //console.log('distlistcdmCurrentStatus',distlistcdmCurrentStatus);
@@ -2300,15 +2942,15 @@ function tposcustomfilters( data) {
     }
     $("#popscontentarea").html('');
     $(".pops-content").append(
-        '<button id="applyfilters" style="float:right">apply filters</button>'+
+        forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>'+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-      +"</select><br> </div>"+
-      '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner
-      +"</select><br> </div>"
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
+        +"</select><br> </div>"+
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        +"</select><br> </div>"
       
       
     );
@@ -2338,7 +2980,6 @@ function tposcustomfilters( data) {
     });
 
     $('#applyfilters').click(function () {
-        //alert('hi');
         var fcdmStageExtra = [];
         var fcdmStageExtraselected =[];
         fcdmStageExtra=$('#cdmStageExtrafilter').find(':selected');
@@ -2381,20 +3022,251 @@ function tposcustomfilters( data) {
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
-      
+
 
         //alert("stop");
         $("#pops").remove();
+        
     });
+
+    $('#applyfiltersforexport').click(() => {
+
+        /*
+        Maps hazard info to column names used in the Export Excel file. It also sanitises
+        the hazard information. This sanitisation will need to be reversed when the
+        CSV is reimported once changes have been made by the user. */
+        const mappingObj = (obj) => {
+            var result = {};
+            result.ID = sanitiseInput(obj.ID);
+            result.Site = sanitiseInput(obj.cdmSite.Title);
+            result["PW Structure"] = sanitiseInput(obj.cdmPWStructure.Title);
+            result.Stage = sanitiseInput(obj.cdmStageExtra.Title);
+            result["Hazard Type"] = sanitiseInput(obj.cdmHazardType.Title);
+            result["Hazard Owner"] = sanitiseInput(obj.cdmHazardOwner.Title);
+            result["Hazard Tags"] = sanitiseInput(obj.cdmHazardTags);
+            result.Entity = sanitiseInput(obj.cdmEntityTitle);
+            result["Hazard Description"] = sanitiseInput(obj.cdmHazardDescription);
+            result["Risk Description"] = sanitiseInput(obj.cdmRiskDescription);
+            result["Mitigation Description"] = sanitiseInput(obj.cdmMitigationDescription);
+            result["Initial Risk"] = sanitiseInput(obj.cdmInitialRisk);
+            result["Residual Risk"] = sanitiseInput(obj.cdmResidualRisk);
+            result["Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
+            result.Status = sanitiseInput(obj.cdmUniclass);
+            result.RAMS = sanitiseInput(obj.cdmRAMS);
+            result["Last Review Status"] = sanitiseInput(obj.cdmLastReviewStatus);
+            result["Last Reviewer"] = sanitiseInput(obj.cdmLastReviewer);
+            result["Last Review Type"] = sanitiseInput(obj.cdmLastReviewType);
+            result["Last Review Date"] = sanitiseInput(obj.cdmLastReviewDate);
+            result["Workflow Status"] = sanitiseInput(obj.cdmCurrentStatus);
+            result.Coordinates = sanitiseInput(obj.cdmHazardCoordinates);
+            result.Geometry = sanitiseInput(obj.cdmGeometry);
+            result.TW = sanitiseInput(obj.cdmTW);
+            result["Residual Risk Owner"] = sanitiseInput(obj.cdmResidualRiskOwner);
+            result["Current Mitigation Owner"] = sanitiseInput(obj.CurrentMitigationOwner.Title);
+            result["Current Review Owner"] = sanitiseInput(obj.CurrentReviewOwner.Title);
+            result["PW Links"] = sanitiseInput(obj.cdmLinks);
+            result.Title = sanitiseInput(obj.Title);
+            result.Created = sanitiseInput(obj.Created);
+            result["Created By"] = sanitiseInput(obj.Author.Title);
+            result.Modified = sanitiseInput(obj.Modified);
+            result["Modified By"] = sanitiseInput(obj.Editor.Title);
+            result.cdmReviews = sanitiseInput(obj.cdmReviews);
+
+            return result
+        }
+
+        /*
+        Returns a boolean based on whether a given hazard complies with the filters selected by
+        the user in the filter pane on export. If no filters are selected for a given filter, it
+        skips the compliance check as otherwise it would exclude everything. */
+        const filterHazards = (hazard, filterParam) => {
+            var flag = true;
+            if (filterParam.cdmPWStructure.length && flag) {
+                flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title);
+            }
+
+            if (filterParam.cdmStageExtra.length && flag) {
+                flag = filterParam.cdmStageExtra.includes(hazard.cdmStageExtra.Title);
+            }
+
+            if (filterParam.cdmCurrentStatus.length && flag) {
+                flag = filterParam.cdmCurrentStatus.includes(hazard.cdmCurrentStatus);
+            }
+
+            return flag;
+        }
+
+        /*
+        Download function for CSV file. Needs to convert to Blob to ensure full dataset is downloaded.
+        If this is not done, the data will be truncated on download. */
+        var downloadCSV = (data, fileName) => {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        };
+
+        /*
+        Download funtion for the macro template
+        */
+        const downloadTemplate = () => {
+            // First construct the url to the macro template
+            const libraryName = 'SiteAssets/files';
+            const fileName = 'template.xlsm';
+            const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
+
+            // Create an invisible element with a link to the fileUrl and click this
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = fileUrl;
+            a.download = fileName;
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        /*
+        Sanitises values for CSV by wrapping values in quotes and ensuring that existing
+        quotation marks don't cause issues by replacing them with double quotes. Null values
+        should not be wrapped in quotes as this causes them to be entered into the CSV as text. */
+        const sanitiseInput = (value) => {
+            if (typeof value === "string") {
+                sanitisedString = `"${value.replace(/\"/g, '""')}"`;
+                return sanitisedString;
+            } else if (value) {
+                return `"${value}"`;
+            } else {
+                return null;
+            }
+        }
+
+        const uploadRollbackToSharepoint = async (data) => {
+            
+            // Function to upload the array buffer to sharepoint
+            const uploadArrayBuffer = async (arrayBuffer) => {
+                
+                // Construct the filename
+                const date = new Date();
+                const dateFormatted = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}T${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+                const fileName = `Export for rollback ${dateFormatted}.csv`;
+
+                // Construct the endpoint
+                const serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                const serverRelativeUrlToFolder = 'SiteAssets/files';
+                const fileCollectionEndpoint = `${serverUrl}/_api/web/getfolderbyserverrelativeurl('${serverRelativeUrlToFolder}')/files/add(overwrite=true, url='${fileName}')`;
+                
+                return $.ajax({
+                    url: fileCollectionEndpoint,
+                    type: 'POST',
+                    data: arrayBuffer,
+                    processData: false,
+                    headers: {
+                        'accept': 'application/json;odata=verbose',
+                        'X-RequestDigest': jQuery('#__REQUESTDIGEST').val()
+                    }
+                })
+            }
+
+            // First lets convert the data to a csv blob
+            const blob = new Blob([data], {type: "text/csv;charset=utf-8"});
+
+            // Now convert the blob to an array buffer that we can upload to sharepoint
+            const arrayBuffer = await blob.arrayBuffer();
+            
+            // Now post the array buffer to sharepoint
+            const file = uploadArrayBuffer(arrayBuffer);
+
+            // Handle the resolved or rejected promise
+            file.then(() => {
+                toastr.success('Successfully saved a rollback csv to SharePoint. Should you need to rollback the data to its current state, import the timestamped rollback csv. Contact an admin if you need support.')
+            }).catch((error) => {
+                console.log(error);
+                toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.')
+            })
+        }
+
+        /**
+         * Before we do the export, we need to check that the user has selected a status
+         */
+        if ($('#cdmCurrentStatusfilter').find(':selected').length === 0) {
+            toastr.error('You must select at least one status value to filter on');
+            return;
+        }
+
+        /**
+         * Step 1:
+         * filterParam is populated with the values selected by the user for each filter dropdown.
+         * This is used on export to ensure that only hazards meeting the filter requirements
+         * are exported
+         */ 
+        let filterParam = {
+            cdmPWStructure: [],
+            cdmStageExtra: [],
+            cdmCurrentStatus: []
+        };
+
+        const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
+        for (i=0; i<assetFilterSelected.length; i++) {
+            filterParam.cdmPWStructure.push(assetFilterSelected[i].innerText);
+        }
+
+        const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
+        for (i=0; i<stageFilterSelected.length; i++) {
+            filterParam.cdmStageExtra.push(stageFilterSelected[i].innerText);
+        }
+
+        const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
+        for (i=0; i<statusFilterSelected.length; i++) {
+            filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
+        }
+
+        /**
+         * Step 2:
+         * Create CSV file.
+         */
+        let csvContent = "";
+        let csvHeader = Object.keys(mappingObj(tlist[0])).join(',');
+        let csvValues = tlist.filter(element => filterHazards(element, filterParam))
+                            .map(element => Object.values(mappingObj(element)).join(','))
+                            .join('\n');
+        csvContent += csvHeader + '\n' + csvValues;
+
+        /**
+         * Step 3:
+         * Download CSV file.
+         */
+        downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`);
+
+        /**
+         * Step 4:
+         * Download the macro template
+         */
+        downloadTemplate();
+
+        /**
+         * Step 5:
+         * Save a copy of the csv to SharePoint as a rollback copy
+         */
+        uploadRollbackToSharepoint(csvContent);
+
+        $(".pops-title").html("");
+        $(".pops-content").html("");
+        $("#pops").remove();
+    })
 
   
    
     $(".btn-cancel").click(function () {
-      $(".pops-title").html("");
-      $(".pops-content").html("");
-      $("#pops").remove();
+        $(".pops-title").html("");
+        $(".pops-content").html("");
+        $("#pops").remove();
     });
-  }
+}
 
 // function tposSelectcdmPWStructurefilter(lst, data, trg, col) {
 //     var tlist = data.d.results;
