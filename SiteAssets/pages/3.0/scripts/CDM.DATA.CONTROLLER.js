@@ -1,6 +1,6 @@
 var flst =[];
 cdmdata = {
-    get: function(lst, filter, order, format, trg ,flst,wpt) {
+    get: function(lst, filter, order, format, trg ,flst,wpt, forExport) {
         
         //console.log("input",lst,filter,order,format,trg,wpt,flst);
         var fa = [];
@@ -193,7 +193,12 @@ cdmdata = {
                 //var flst = getDistResults(lst,"cdmStageExtra");
                 //console.log(data.length,"length");
                 //tposcustomfilters(lst, data, trg,"cdmStageExtra.Title");
-                formatdatato.filterrowsdata(data, ftv, trg,flst);
+                // if (forExport === undefined) {
+                //     formatdatato.filterrowsdata(data, ftv, trg,flst);
+                // } else {
+                //     formatdatato.filterrowsdata(data, ftv, trg,flst, forExport);
+                // }
+                formatdatato.filterrowsdata(data, ftv, trg,flst, forExport);
             }
             
            
