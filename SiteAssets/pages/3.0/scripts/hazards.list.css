@@ -420,3 +420,8 @@
   display: inline-flex;
   cursor: pointer;
 }
+
+#txtform{
+  background:white;
+  width: 97%
+}

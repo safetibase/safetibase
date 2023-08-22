@@ -2266,7 +2266,7 @@ function printHazardRow(h) {
         "                <tr>" +
         '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
         '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmInitialRAG">' +
+        '                        <div class="cell cdmInitialRAG pointer">' +
         decodeRAG(h.cdmInitialRAG) +
         "</div>" +
         "                    </td>" +
@@ -2294,12 +2294,12 @@ function printHazardRow(h) {
         "                <tr>" +
         '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
         '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmInitialRisk">' +
+        '                        <div class="cell cdmInitialRisk pointer">' +
         decodeRisk("Initial", h.cdmInitialRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmResidualRisk">' +
+        '                        <div class="cell cdmResidualRisk pointer">' +
         decodeRisk("Residual", h.cdmResidualRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
@@ -2381,7 +2381,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmHazardTags">' +
+        '                        <div class="cell cdmHazardTags pointer" title="Click to assign a hazard tag">' +
         haztags +
         "</div>" +
         "                    </td>" +
@@ -2580,7 +2580,7 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
         var tooltip = '">';
     }
     var myvar =
-        '<div class="width-200  center centered "><div class="hide cdmRR">' +
+        '<div class="width-250  center centered "><div class="hide cdmRR">' +
         rr +
         '</div><div class="cell-cell ' +
         rrrclr +
