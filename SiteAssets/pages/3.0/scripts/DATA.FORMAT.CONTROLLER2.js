@@ -2251,9 +2251,9 @@ function printHazardRow(h) {
         "            </table>" +
         "        </div>" +
         '        <div class="row safetyhide bordered-rag" id="rag">' +
-        '            <table class="tpos-tbl wbrd">' +
+        '            <table class="tpos-tbl wbrd collapse">' +
         "                <tr>" +
-        '                    <td class="width-300">' +
+        '                    <td class="width-300 ">' +
         '                        <div class="lbl"></div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
@@ -2264,13 +2264,13 @@ function printHazardRow(h) {
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
-        '                    <td class="width-300 fld black"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
-        '                    <td class="width-300 fld black">' +
+        '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
+        '                    <td class="width-300 assessment">' +
         '                        <div class="cell cdmInitialRAG">' +
         decodeRAG(h.cdmInitialRAG) +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 fld black">' +
+        '                    <td class="width-300 assessment">' +
         '                        <div class="cell cdmResidualRAG">' +
         decodeRAG(h.cdmResidualRAG) +
         "</div>" +
@@ -2279,7 +2279,7 @@ function printHazardRow(h) {
         "            </table>" +
         "        </div>" +
         '        <div class="row bordered-risk">' +
-        '            <table class="tpos-tbl wbrd">' +
+        '            <table class="tpos-tbl wbrd collapse">' +
         "                <tr>" +
         '                    <td class="width-300">' +
         '                        <div class="lbl"></div>' +
@@ -2292,13 +2292,13 @@ function printHazardRow(h) {
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
-        '                    <td class="width-300 fld black"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
-        '                    <td class="width-300 fld black">' +
+        '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
+        '                    <td class="width-300 assessment">' +
         '                        <div class="cell cdmInitialRisk">' +
         decodeRisk("Initial", h.cdmInitialRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 fld black">' +
+        '                    <td class="width-300 assessment">' +
         '                        <div class="cell cdmResidualRisk">' +
         decodeRisk("Residual", h.cdmResidualRisk, undefined, true) +
         "</div>" +
