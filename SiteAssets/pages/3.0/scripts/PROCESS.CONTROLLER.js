@@ -777,6 +777,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {object} lookupData - Lookup data from SharePoint lists.
                     */
                     async function updateListItems(csvObjects, lookupData) {
+                        // Array of success/failure to write to log file afterwards
+                        const importLog = []
                         // Create an array of promises for each CSV object
                         const promises = csvObjects.map(async (csvObject) => {
                             const hazardID = csvObject.ID;
@@ -786,16 +788,20 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 const oListItem = list("cdmHazards").getItemById(hazardID);
 
                                 // Set fields of the SharePoint list item using the CSV data and lookup information
-                                await setListItemFields(oListItem, csvObject, lookupData);
+                                const hazardLog = await setListItemFields(oListItem, csvObject, lookupData);
 
                                 // Return a new promise that wraps the asynchronous query execution
                                 return new Promise((resolve, reject) => {
                                     ctx().executeQueryAsync(
                                         () => {
+                                            importLog.push(hazardLog)
                                             handleSuccess(hazardID);
                                             resolve(true);
                                         },
                                         (sender, args) => {
+                                            const hazardLogError = {}
+                                            Object.keys(hazardLog).map((value) => {hazardLogError[value] = "Error in ExecuteQueryAsync"});
+                                            importLog.push(hazardLogError)
                                             handleFailure(hazardID, args);
                                             reject(args);
                                         }
@@ -806,6 +812,32 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                         // Wait for all promises of the items in the CSV to resolve
                         await Promise.all(promises);
+
+                        /*
+                        Download function for CSV file. Needs to convert to Blob to ensure full dataset is downloaded.
+                        If this is not done, the data will be truncated on download. */
+                        var downloadCSV = (data, fileName) => {
+                            var a = document.createElement("a");
+                            document.body.appendChild(a);
+                            a.style = "display: none";
+                            var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
+                            var url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            a.download = fileName;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        };
+
+                        // Extract header names from the first object
+                        const headers = importLog.length > 0 ? Object.keys(importLog[0]) : [];
+
+                        // Convert data to CSV rows
+                        const csvRows = importLog.map(obj => headers.map(header => obj[header]).join(','));
+
+                        // Combine headers and CSV rows
+                        const csvContent = [headers.join(','), ...csvRows].join('\n');
+                        downloadCSV(csvContent, `bulk_edit_log_${Date.now()}.csv`)
+
                     }
 
 
@@ -850,19 +882,23 @@ function activateDatasets(cdmSites, allHazardsData) {
                     async function setListItemFields(listItem, csvObject, lookupData) {
 
                         /**
-                        * Helper function to set a field of the SharePoint list item
-                        * if the value is valid or null is allowed. Otherwise, display an error.
+                        * Sets a field of a SharePoint list item if the value is valid or if null values are allowed.
+                        * Displays an error message if the value is invalid and null values are not allowed.
                         * 
-                        * @param {object} listItem - SharePoint list item object.
+                        * @param {object} listItem - The SharePoint list item object.
                         * @param {string} fieldName - The name of the field to set.
                         * @param {*} fieldValue - The value to set for the field.
-                        * @param {boolean} allowNull - Whether null values are allowed.
+                        * @param {boolean} allowNull - Indicates whether null values are allowed.
+                        * @returns {object} An object containing the field name and the result of the operation ("Success" or "Error").
                         */
                         function setField(listItem, fieldName, fieldValue, allowNull) {
-                            if (allowNull || (fieldValue !== undefined && fieldValue !== null)) {
+                            if (allowNull || fieldValue !== undefined && fieldValue !== null) {
                                 listItem.set_item(fieldName, fieldValue);
+                                return { [fieldName]: "Success" };
                             } else {
-                                toastr.error(`Failed to set ${fieldName} for hazard with ID ${csvObject.ID} as value in CSV was invalid`);
+                                const errorMessage = `Failed to set ${fieldName}. Invalid value provided.`;
+                                toastr.error(errorMessage);
+                                return { [fieldName]: "Error" };
                             }
                         }
 
@@ -908,16 +944,22 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmLinks", value: csvObject["PW Links"], allowNull: true }
                         ];
 
+                        let hazardLog = {"HazardID": csvObject.ID}
                         try {
                             for (const fieldInfo of setFields) {
-                                setField(listItem, fieldInfo.field, fieldInfo.value, fieldInfo.allowNull);
+                                const result = setField(listItem, fieldInfo.field, fieldInfo.value, fieldInfo.allowNull);
+                                hazardLog = {...hazardLog, ...result}
                             }
 
                             listItem.update();
                             ctx().load(listItem);
                         } catch (error) {
+                            hazardLog = {"HazardID": csvObject.ID}
+                            setFields.forEach((value) => {hazardLog[value.field] = "Error in setting fields"});
                             console.error("Error setting list item fields:", error);
                         }
+
+                        return hazardLog;
                     }
 
 
