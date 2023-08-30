@@ -630,9 +630,9 @@ function activateDatasets(cdmSites, allHazardsData) {
 
 
                     /**
-                    * Process a CSV file and update SharePoint list items accordingly.
+                    * Process a CSV file and perform bulk updates of SharePoint list items based on its content.
                     * 
-                    * @param {File} file - The CSV file to process.
+                    * @param {File} file - The CSV file to be processed for bulk updates.
                     */
                     async function handleBulkUpdateFromCSV(file) {
                         try {
@@ -647,7 +647,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                             const lookupData = await getListDataForLookupColumns(listNames);
 
                             // Update SharePoint list items with CSV data, using lookupData for dropdown fields
-                            await updateListItems(csvObjects, lookupData);
+                            const log = await updateListItems(csvObjects, lookupData);
+
+                            // Download success/error log for updated list items
+                            csvLog = convertLogToCSV(log);
+                            downloadCSV(csvLog, `bulk_edit_log_${Date.now()}.csv`);
 
                             // Success message displayed when bulk update finishes
                             toastr.success("Finished bulk update");
@@ -673,6 +677,47 @@ function activateDatasets(cdmSites, allHazardsData) {
                             reader.onerror = (error) => reject(error);
                             reader.readAsText(file.files[0]);
                         });
+                    }
+
+
+                    /**
+                    * Converts an array of log objects into a CSV format.
+                    *
+                    * @param {object[]} logData - An array of log objects to be converted to CSV. Each log object should be in the format:
+                    *                            {
+                    *                                field1: value1,
+                    *                                field2: value2,
+                    *                                // ...
+                    *                            }
+                    * @returns {string} A CSV-formatted string representing the log data.
+                    */
+                    function convertLogToCSV (logData) {
+                        // Extract header names from the first object
+                        const headers = logData.length > 0 ? Object.keys(logData[0]) : [];
+                        // Convert data to CSV rows
+                        const csvRows = logData.map(obj => headers.map(header => obj[header]).join(','));
+                        // Combine headers and CSV rows
+                        const csvContent = [headers.join(','), ...csvRows].join('\n');
+                        return csvContent;
+                    }
+
+                    /**
+                    * Downloads a CSV file containing the provided data using a Blob to ensure the full dataset is preserved.
+                    * Without using a Blob, downloaded data might be truncated.
+                    * 
+                    * @param {string} data - The CSV data to be downloaded.
+                    * @param {string} fileName - The desired name for the downloaded file.
+                    */
+                    function downloadCSV (data, fileName) {
+                        var a = document.createElement("a");
+                        document.body.appendChild(a);
+                        a.style = "display: none";
+                        var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
+                        var url = window.URL.createObjectURL(blob);
+                        a.href = url;
+                        a.download = fileName;
+                        a.click();
+                        window.URL.revokeObjectURL(url);
                     }
 
 
@@ -771,15 +816,22 @@ function activateDatasets(cdmSites, allHazardsData) {
 
 
                     /**
-                    * Update SharePoint list items with CSV data.
+                    * Updates SharePoint list items using data from a CSV and performs batch operations for improved efficiency.
                     *
-                    * @param {object[]} csvObjects - Array of JSON objects from the CSV data.
-                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    * @param {object[]} csvObjects - An array of JSON objects extracted from the CSV data.
+                    * @param {object} lookupData - Lookup data retrieved from SharePoint lists.
+                    * @returns {object[]} An array containing success/failure information for each item update.
+                    *                    Each object in the array should have the following format:
+                    *                    {
+                    *                        fieldName1: result1,
+                    *                        fieldName2: result2,
+                    *                        // ...
+                    *                    }
                     */
                     async function updateListItems(csvObjects, lookupData) {
                         // Array of success/failure to write to log file afterwards
                         const importLog = []
-                        // Create an array of promises for each CSV object
+                        // Create an array of promises, each handling the update of a SharePoint list item based on CSV data
                         const promises = csvObjects.map(async (csvObject) => {
                             const hazardID = csvObject.ID;
 
@@ -813,31 +865,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                         // Wait for all promises of the items in the CSV to resolve
                         await Promise.all(promises);
 
-                        /*
-                        Download function for CSV file. Needs to convert to Blob to ensure full dataset is downloaded.
-                        If this is not done, the data will be truncated on download. */
-                        var downloadCSV = (data, fileName) => {
-                            var a = document.createElement("a");
-                            document.body.appendChild(a);
-                            a.style = "display: none";
-                            var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
-                            var url = window.URL.createObjectURL(blob);
-                            a.href = url;
-                            a.download = fileName;
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                        };
-
-                        // Extract header names from the first object
-                        const headers = importLog.length > 0 ? Object.keys(importLog[0]) : [];
-
-                        // Convert data to CSV rows
-                        const csvRows = importLog.map(obj => headers.map(header => obj[header]).join(','));
-
-                        // Combine headers and CSV rows
-                        const csvContent = [headers.join(','), ...csvRows].join('\n');
-                        downloadCSV(csvContent, `bulk_edit_log_${Date.now()}.csv`)
-
+                        return importLog;
                     }
 
 
@@ -873,11 +901,20 @@ function activateDatasets(cdmSites, allHazardsData) {
 
 
                     /**
-                    * Set fields of a SharePoint list item based on CSV data and lookup information.
+                    * Sets fields of a SharePoint list item based on CSV data and lookup information,
+                    * handling validation, mapping, and updates.
                     *
-                    * @param {object} listItem - SharePoint list item object.
-                    * @param {object} csvObject - CSV data for the item.
-                    * @param {object} lookupData - Lookup data from SharePoint lists.
+                    * @param {object} listItem - The SharePoint list item object to be updated.
+                    * @param {object} csvObject - CSV data for the item, containing field-value pairs.
+                    * @param {object} lookupData - Lookup data retrieved from SharePoint lists.
+                    * @returns {object} An object providing a log of the update process for the item.
+                    *                   The log should have the following format:
+                    *                   {
+                    *                       HazardID: hazardID,
+                    *                       fieldName1: result1,
+                    *                       fieldName2: result2,
+                    *                       // ...
+                    *                   }
                     */
                     async function setListItemFields(listItem, csvObject, lookupData) {
 
@@ -944,16 +981,21 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmLinks", value: csvObject["PW Links"], allowNull: true }
                         ];
 
+                        // Initialise the hazard log object with the HazardID
                         let hazardLog = {"HazardID": csvObject.ID}
                         try {
+                            // Iterate through the setFields array and update the SharePoint fields
                             for (const fieldInfo of setFields) {
                                 const result = setField(listItem, fieldInfo.field, fieldInfo.value, fieldInfo.allowNull);
+                                // Merge the individual field update result into the hazardLog
                                 hazardLog = {...hazardLog, ...result}
                             }
 
+                            // Update the SharePoint list item and load it into the client context
                             listItem.update();
                             ctx().load(listItem);
                         } catch (error) {
+                            // In case of an error, create an error log entry for each field
                             hazardLog = {"HazardID": csvObject.ID}
                             setFields.forEach((value) => {hazardLog[value.field] = "Error in setting fields"});
                             console.error("Error setting list item fields:", error);
