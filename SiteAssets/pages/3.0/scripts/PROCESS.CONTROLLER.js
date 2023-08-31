@@ -969,11 +969,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
-                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(previousLastReviewStatus, csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
-                            { field: "cdmLastReviewer", value: validateWorkflowFields(previousLastReviewer, csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
+                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(previousLastReviewStatus, csvObject["Last Review Status"], csvObject["Peer Reviewer"]), allowNull: true },
+                            { field: "cdmLastReviewer", value: validateWorkflowFields(previousLastReviewer, csvObject["Last Reviewer"], csvObject["Peer Reviewer"]), allowNull: true },
                             { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: false },
                             { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: false },
-                            { field: "cdmCurrentStatus", value: validateWorkflowFields(previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: false },
+                            { field: "cdmCurrentStatus", value: validateWorkflowFields(previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"]), allowNull: false },
                             { field: "cdmHazardCoordinates", value: validate3DCoordinates(csvObject.Coordinates), allowNull: false },
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
@@ -1210,8 +1210,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {string} designManager - Design manager's name.
                     * @returns {string} The validated and updated field value.
                     */
-                    function validateWorkflowFields(previousValue, newValue, peerReviewer, designManager) {
-                        if (designManager && !peerReviewer || newValue === null) {
+                    function validateWorkflowFields(previousValue, newValue, peerReviewer) {
+                        if (!peerReviewer || newValue === null) {
                             return previousValue;
                         }
 
