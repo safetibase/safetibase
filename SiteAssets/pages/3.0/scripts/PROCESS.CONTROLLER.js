@@ -643,7 +643,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             const csvObjects = convertCSVArrayToJSON(csvData);
 
                             // Retrieve lookup data for specified lists
-                            const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers"];
+                            const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers", "cdmCompanies"];
                             const lookupData = await getListDataForLookupColumns(listNames);
 
                             // Update SharePoint list items with CSV data, using lookupData for dropdown fields
@@ -942,7 +942,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                         // Fetch the name of the current user
                         const currentUser = await getCurrentUser()
                         const currentUserName = currentUser.Title
-                        const currentUserID = currentUser.ID
+                        const currentUserID = currentUser.cdmUserId
 
                         // Retrieve current values of certain fields from the list item
                         const currentListItemValues = await loadListItemValues(listItem);
@@ -958,7 +958,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
                             { field: "cdmPWStructure", value: getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]), allowNull: true },
                             { field: "cdmHazardType", value: getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]), allowNull: true },
-                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Hazard Owner"]), allowNull: true },
+                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmCompanies, csvObject["Hazard Owner"]), allowNull: true },
                             { field: "cdmHazardTags", value: csvObject["Hazard Tags"], allowNull: true },
                             { field: "cdmHazardDescription", value: csvObject["Hazard Description"], allowNull: true },
                             { field: "cdmRiskDescription", value: csvObject["Risk Description"], allowNull: true },
@@ -969,11 +969,17 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
-                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(previousLastReviewStatus, csvObject["Last Review Status"], csvObject["Peer Reviewer"]), allowNull: true },
-                            { field: "cdmLastReviewer", value: validateWorkflowFields(previousLastReviewer, csvObject["Last Reviewer"], csvObject["Peer Reviewer"]), allowNull: true },
+                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
+                            { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
                             { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: false },
                             { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: false },
-                            { field: "cdmCurrentStatus", value: validateWorkflowFields(previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"]), allowNull: false },
+                            { field: "cdmCurrentStatus", value: validateWorkflowFields(csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], 
+                                                                                            // specify validValues argument for allowed newValue values
+                                                                                            ["Requires mitigation", 
+                                                                                            "Assessment in progress", 
+                                                                                            "Under peer review", 
+                                                                                            "Under design manager review", 
+                                                                                            "Under pre-construction review"]), allowNull: false },
                             { field: "cdmHazardCoordinates", value: validate3DCoordinates(csvObject.Coordinates), allowNull: false },
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
@@ -1208,11 +1214,12 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {string} newValue - New value of the field.
                     * @param {string} peerReviewer - Peer reviewer's name.
                     * @param {string} designManager - Design manager's name.
+                    * @param {string[]} validValues - An optional array of valid values that newValue can take.
                     * @returns {string} The validated and updated field value.
                     */
-                    function validateWorkflowFields(previousValue, newValue, peerReviewer) {
-                        if (!peerReviewer || newValue === null) {
-                            return previousValue;
+                    function validateWorkflowFields(newValue, peerReviewer, designManager, validValues) {
+                        if (designManager && !peerReviewer || newValue === null || validValues && validValues.indexOf(newValue) === -1) {
+                            return null;
                         }
 
                         return newValue;
@@ -1231,8 +1238,13 @@ function activateDatasets(cdmSites, allHazardsData) {
                     */
                     function generateReviewSummary(previousReviewSummary, previousWorkflowStatus, newWorkflowStatus, peerReviewer, designManager, currentUserName) {
                         // If the design manager field is populated but the peer reviewer field is empty,
-                        // or if the new workflow status is null, retain the previous review summary
+                        // or if the new workflow status is null, return null
                         if (designManager && !peerReviewer || newWorkflowStatus === null) {
+                            return null;
+                        }
+
+                        // If nothing has changed, return previousReviewSummary
+                        if (previousWorkflowStatus === newWorkflowStatus) {
                             return previousReviewSummary;
                         }
 
@@ -1243,25 +1255,25 @@ function activateDatasets(cdmSites, allHazardsData) {
                         // Define a mapping of transitions between workflow statuses and corresponding review summaries
                         const transitionMap = {
                             "Requires mitigation": {
-                                "Under design manager review": `[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^[${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `[${formattedDate}]${designManager}]completed design manager review]bulk edited^[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^[${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Assessment in progress": {
-                                "Under design manager review": `[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^[${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `[${formattedDate}]${designManager}]completed design manager review]bulk edited^[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^[${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under peer review": {
-                                "Under design manager review": `[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `[${formattedDate}]${designManager}]completed design manager review]bulk edited^[${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
+                                "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under design manager review": {
-                                "Under pre-construction review": `[${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
                             }
                         };
 
                         // Return the updated review summary based on the transition map,
                         // or the previous review summary if no matching transition is found.
-                        return transitionMap[previousWorkflowStatus]?.[newWorkflowStatus] || previousReviewSummary;
+                        return transitionMap[previousWorkflowStatus]?.[newWorkflowStatus] || null;
 
                     }
 
