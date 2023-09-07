@@ -2,12 +2,14 @@
   float: left;
   padding: 1%;
   width: 98%;
-  min-height:20px
+  height: 100%
 }
 .fld {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgb(33, 107, 153);
-  border-radius: 5px
+  border-radius: 5px;
+  height: 1px;
+
 }
 .assessment {
   background-color: rgba(0, 0, 0, 0.1);
@@ -424,4 +426,8 @@
 #txtform{
   background:white;
   width: 97%
+}
+
+.cdmPWElement{
+  height: fit-content
 }
