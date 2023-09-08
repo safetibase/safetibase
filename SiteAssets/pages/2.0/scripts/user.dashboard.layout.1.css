@@ -1235,9 +1235,7 @@ a.ms-tv-header:hover {
     border: solid 1.5px #fff;
     width: 65px;
     float: right;
-    position:  absolute;
-    right: 2%;
-    bottom: 20px;
+    margin: 5px;
 }
 
 .tpos-svbtn:hover {
