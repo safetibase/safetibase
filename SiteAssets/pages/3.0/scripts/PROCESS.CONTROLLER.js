@@ -1015,7 +1015,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
                             { field: "CurrentReviewOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]), allowNull: true },
-                            { field: "cdmLinks", value: csvObject["PW Links"], allowNull: false }
+                            { field: "cdmLinks", value: checkIfStringIsEmpty(csvObject["PW Links"]), allowNull: false }
                         ];
 
                         // Initialise the hazard log object with the HazardID
@@ -1040,6 +1040,21 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                         return hazardLog;
                     }
+
+
+                    /**
+                    * Check if a string is empty and return null if it is.
+                    * 
+                    * @param {string} str - The string to check for emptiness.
+                    * @returns {string|null} - Returns the original string if it's not empty, or null if it's empty.
+                    */
+                    function checkIfStringIsEmpty(str) {
+                        if (str.trim() === '') {
+                            return null;
+                        }
+                        return str;
+                    }
+
 
 
                     /**
