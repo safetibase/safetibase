@@ -935,7 +935,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             } else {
                                 const errorMessage = `Failed to set ${fieldName}. Invalid value provided.`;
                                 toastr.error(errorMessage);
-                                return { [fieldName]: "Error" };
+                                return { [fieldName]: "Invalid Value" };
                             }
                         }
 
@@ -978,7 +978,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
                             { field: "CurrentReviewOwner", value: getIDofLookupItem(lookupData.cdmUsers, csvObject["Current Review Owner"]), allowNull: true },
-                            { field: "cdmLinks", value: csvObject["PW Links"], allowNull: true }
+                            { field: "cdmLinks", value: csvObject["PW Links"], allowNull: false }
                         ];
 
                         // Initialise the hazard log object with the HazardID
