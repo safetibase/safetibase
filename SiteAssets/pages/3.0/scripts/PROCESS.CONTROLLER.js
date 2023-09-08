@@ -642,6 +642,12 @@ function activateDatasets(cdmSites, allHazardsData) {
                             // Convert the CSV data to an array of JSON objects
                             const csvObjects = convertCSVArrayToJSON(csvData);
 
+                            // Check if csvObjects is null, and return early if it is as this indicates an invalid CSV file
+                            if (csvObjects === null) {
+                                toastr.error("Invalid CSV file uploaded. Please make sure you are uploading the output from the excel file downloaded on export")
+                                return;
+                            }
+
                             // Retrieve lookup data for specified lists
                             const listNames = ["cdmSites", "cdmStages", "cdmPWStructures", "cdmStagesExtra", "cdmHazardTypes", "cdmUsers"];
                             const lookupData = await getListDataForLookupColumns(listNames);
@@ -766,13 +772,44 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * Converts a nested array, where index 0 represents the header row, into an array of objects.
                     *
                     * @param {Array} csv_array - The nested array where index 0 is the header row.
-                    * @returns {Array<Object>} - An array of objects with keys derived from the header row.
+                    * @returns {Array<Object>|null} - An array of objects with keys derived from the header row,
+                    *                                or null if the header does not match the expected header,
+                    *                                indicating an invalid CSV file.
                     */
                     function convertCSVArrayToJSON(csv_array) {
-                        csv_header = csv_array[0]
-                        csv_data = csv_array.slice(1)
-                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}))
-                        return csv_objects
+                        csv_header = csv_array[0];
+                        expected_header = ["ID","Site","PW Structure","Hazard Type","Hazard Owner","Hazard Tags","Hazard Description","Risk Description","Mitigation Description","Initial Risk","Initial Risk Score","Initial Severity Score","Initial Likelihood Score","Residual Risk","Residual Risk Score","Residual Severity Score","Residual Likelihood Score","Mitigation Suggestions","Status","Last Review Status","Last Reviewer","Last Review Date","Workflow Status","Peer Reviewer","Design Manager","Coordinates","Residual Risk Owner","Current Mitigation Owner","Current Review Owner","PW Links","cdmReviews"];
+                        if (!compareArrays(csv_header, expected_header)) {
+                            return null;
+                        }
+                        csv_data = csv_array.slice(1);
+                        const csv_objects = csv_data.map(row => row.reduce((result, field, index) => ({...result, [csv_header[index]]: field}), {}));
+                        return csv_objects;
+                    }
+
+
+                    /**
+                    * Compare two arrays to check if their values are equal.
+                    * @param {Array} array1 - The first array to compare.
+                    * @param {Array} array2 - The second array to compare.
+                    * @returns {boolean} - Returns true if the arrays are equal, otherwise false.
+                    */
+                    function compareArrays(array1, array2) {
+                    // Check if the arrays have different lengths.
+                    if (array1.length !== array2.length) {
+                        return false;
+                    }
+
+                    // Iterate through the elements of the first array.
+                    for (let i = 0; i < array1.length; i++) {
+                        // If any pair of elements at the same index are not equal, the arrays are not equal.
+                        if (array1[i] !== array2[i]) {
+                            return false;
+                        }
+                    }
+
+                    // If it hasn't returned false by this point, the arrays are equal.
+                    return true;
                     }
 
 
