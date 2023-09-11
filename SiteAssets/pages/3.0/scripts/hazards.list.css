@@ -412,6 +412,8 @@
 .block-container {
   display: flex;
   height: auto;
+  position:relative;
+  left:20%;
 }
 
 .tpos-initial-risk-lbl {
