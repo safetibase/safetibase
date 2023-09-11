@@ -625,6 +625,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                         } else {
                             // Perform bulk update
                             handleBulkUpdateFromCSV(csvFile);
+                            // Close popup box automatically
+                            $('#pops').html('');
+                            $('#pops').remove();
                         }
                     })
 
