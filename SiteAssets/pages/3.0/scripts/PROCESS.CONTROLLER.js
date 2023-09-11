@@ -644,7 +644,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                             // Check if csvObjects is null, and return early if it is as this indicates an invalid CSV file
                             if (csvObjects === null) {
-                                toastr.error("Invalid CSV file uploaded. Please make sure you are uploading the output from the excel file downloaded on export")
+                                toastr.error("Invalid CSV file uploaded. Please make sure you are uploading the import file generated from the bulk edit template.")
                                 return;
                             }
 
