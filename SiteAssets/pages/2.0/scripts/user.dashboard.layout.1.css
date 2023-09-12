@@ -180,7 +180,7 @@ a.ms-tv-header:hover {
 }
 
 .tpos-home-div {
-    /*letter-spacing: 1.5px;*/
+    letter-spacing: 1.5px;
     font-size: 1.4em;
     float: right;
 }
@@ -190,10 +190,6 @@ a.ms-tv-header:hover {
     display: flex;
     flex: 0 0 auto;
     padding-left: 1%;
-}
-
-.tpos-buttons {
-    display: flex;
 }
 
 .tpos-global-nav {
@@ -1010,7 +1006,7 @@ a.ms-tv-header:hover {
 .qresult {
     border: 1px solid rgb(0, 255, 0);
     background-color: rgba(0, 255, 0, 0.2);
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     padding: 8px;
     font-size: 1.1em;
     width: 65%;
@@ -1373,19 +1369,10 @@ a.ms-tv-header:hover {
     border: 1px solid #000000;
     float: left;
     cursor: pointer;
-    text-decoration: none;
-    margin: 0.2rem;
-}
-
-.home-button:visited {
-    color: #000;
 }
 
 .home-button:hover{
     background-color: #d8d8d8;
-    color: #000;
-    text-decoration: none;
-
 }
 
 .information-icon {
