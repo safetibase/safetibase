@@ -634,7 +634,7 @@ a.ms-tv-header:hover {
 .pops-title {
     margin: 5px;
     font-size: 1.5em;
-    /*height: 50px;*/
+    height: 50px;
 }
 
 .pops-content {
