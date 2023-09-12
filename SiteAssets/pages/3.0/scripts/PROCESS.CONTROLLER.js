@@ -3315,11 +3315,6 @@ function tposcustomfilters( data, forExport) {
         the user in the filter pane on export. If no filters are selected for a given filter, it
         skips the compliance check as otherwise it would exclude everything. */
         const filterHazards = (hazard, filterParam) => {
-            // We need to also filter out RAMS and TW hazards, so we'll add a case here to return false if this is the case
-            if (hazard.cdmRAMS || hazard.cdmTW) {
-                return false;
-            }
-
             var flag = true;
             if (filterParam.cdmPWStructure.length && flag) {
                 flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title);
