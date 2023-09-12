@@ -2,22 +2,16 @@
   float: left;
   padding: 1%;
   width: 98%;
-  min-height:20px
 }
 .fld {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgb(33, 107, 153);
   border-radius: 5px
 }
-.assessment {
+.black {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgb(255, 255, 255);
 }
-
-.collapse {
-  border-collapse: collapse;
-}
-
 .permissions {
   position: absolute;
   top: 10px;

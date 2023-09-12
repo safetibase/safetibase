@@ -576,10 +576,9 @@ a.ms-tv-header:hover {
 .pops {
     display: flex;
     flex-direction: column;
-    min-width: 650px;
-    width:min-content;
-    height: min-content;
-    max-height: 98%;
+    width: 650px;
+    height: auto;
+    max-height: fit-content;
     background-color: rgba(0, 0, 0, 0.9);
     border: 2px solid rgb(121, 57, 247);
     color: rgb(255, 255, 255);
@@ -591,7 +590,7 @@ a.ms-tv-header:hover {
     right: 0;
     margin: auto;
     z-index: 1100;
-    overflow: auto;
+    /* overflow: hidden; */
 }
 
 .subs {
