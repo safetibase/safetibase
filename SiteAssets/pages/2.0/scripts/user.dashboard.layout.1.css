@@ -412,11 +412,11 @@ a.ms-tv-header:hover {
 
 .tpos-tbl {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: collapse;
 }
 
 .tpos-tbl-user-dashboard {
-    border-collapse: separate;
+    border-collapse: collapse;
 }
 
 .row-header {
