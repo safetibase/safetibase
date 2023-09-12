@@ -3118,7 +3118,7 @@ function tposcustomfilters( data, forExport) {
             // First construct the url to the macro template
             const libraryName = 'SiteAssets/files';
             const fileName = 'template.xlsm';
-            const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/_layouts/download.aspx?SourceUrl=${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
+            const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
 
             // Create an invisible element with a link to the fileUrl and click this
             const a = document.createElement("a");
