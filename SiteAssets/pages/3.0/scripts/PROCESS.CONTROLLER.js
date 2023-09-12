@@ -3418,14 +3418,10 @@ function tposcustomfilters( data, forExport) {
 
             // Handle the resolved or rejected promise
             file.then(() => {
-                toastr.success('Successfully saved a rollback csv. Should you need to rollback the data to its current state, contact an admin to import the timestamped rollback csv.', '', {
-                    timeOut: 30000
-                })
+                toastr.success('Successfully saved a rollback csv to SharePoint. Should you need to rollback the data to its current state, import the timestamped rollback csv. Contact an admin if you need support.')
             }).catch((error) => {
                 console.log(error);
-                toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.', '', {
-                    timeOut: 30000
-                })
+                toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.')
             })
         }
 
