@@ -2251,9 +2251,9 @@ function printHazardRow(h) {
         "            </table>" +
         "        </div>" +
         '        <div class="row safetyhide bordered-rag" id="rag">' +
-        '            <table class="tpos-tbl wbrd collapse">' +
+        '            <table class="tpos-tbl wbrd">' +
         "                <tr>" +
-        '                    <td class="width-300 ">' +
+        '                    <td class="width-300">' +
         '                        <div class="lbl"></div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
@@ -2264,13 +2264,13 @@ function printHazardRow(h) {
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
-        '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
-        '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmInitialRAG pointer">' +
+        '                    <td class="width-300 fld"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
+        '                    <td class="width-300 fld">' +
+        '                        <div class="cell cdmInitialRAG">' +
         decodeRAG(h.cdmInitialRAG) +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 assessment">' +
+        '                    <td class="width-300 fld">' +
         '                        <div class="cell cdmResidualRAG">' +
         decodeRAG(h.cdmResidualRAG) +
         "</div>" +
@@ -2279,7 +2279,7 @@ function printHazardRow(h) {
         "            </table>" +
         "        </div>" +
         '        <div class="row bordered-risk">' +
-        '            <table class="tpos-tbl wbrd collapse">' +
+        '            <table class="tpos-tbl wbrd">' +
         "                <tr>" +
         '                    <td class="width-300">' +
         '                        <div class="lbl"></div>' +
@@ -2292,14 +2292,14 @@ function printHazardRow(h) {
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
-        '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
-        '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmInitialRisk pointer">' +
+        '                    <td class="width-300 fld"><div class="txt-centered txt-lbl">Risk Score Assessment</div></td>' +
+        '                    <td class="width-300 fld">' +
+        '                        <div class="cell cdmInitialRisk">' +
         decodeRisk("Initial", h.cdmInitialRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmResidualRisk pointer">' +
+        '                    <td class="width-300 fld">' +
+        '                        <div class="cell cdmResidualRisk">' +
         decodeRisk("Residual", h.cdmResidualRisk, undefined, true) +
         "</div>" +
         "                    </td>" +
@@ -2381,7 +2381,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmHazardTags pointer" title="Click to assign a hazard tag">' +
+        '                        <div class="cell cdmHazardTags">' +
         haztags +
         "</div>" +
         "                    </td>" +
@@ -2580,7 +2580,7 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
         var tooltip = '">';
     }
     var myvar =
-        '<div class="width-250  center centered "><div class="hide cdmRR">' +
+        '<div class="width-200  center centered "><div class="hide cdmRR">' +
         rr +
         '</div><div class="cell-cell ' +
         rrrclr +

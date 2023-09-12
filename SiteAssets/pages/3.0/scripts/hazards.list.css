@@ -2,24 +2,11 @@
   float: left;
   padding: 1%;
   width: 98%;
-  height: 100%
 }
 .fld {
   background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgb(33, 107, 153);
-  border-radius: 5px;
-  height: 1px;
-
-}
-.assessment {
-  background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgb(255, 255, 255);
 }
-
-.collapse {
-  border-collapse: collapse;
-}
-
 .permissions {
   position: absolute;
   top: 10px;
@@ -412,8 +399,6 @@
 .block-container {
   display: flex;
   height: auto;
-  position:relative;
-  left:20%;
 }
 
 .tpos-initial-risk-lbl {
@@ -423,13 +408,4 @@
 .expand-risk-matrix {
   display: inline-flex;
   cursor: pointer;
-}
-
-#txtform{
-  background:white;
-  width: 97%
-}
-
-.cdmPWElement{
-  height: fit-content
 }

@@ -1,6 +1,6 @@
-<!-- <div class="tpos-info">Hazards applicable to one or many permanent works, temporary works and/or RAMS can be recorded in one go.</div>
+<div class="tpos-info">Hazards applicable to one or many permanent works, temporary works and/or RAMS can be recorded in one go.</div>
 <div class="tpos-info">Start by describing the hazard (something with the potential to cause harm). Optionally, describe the risk (what harm could come to whom/what) and your mitigation (methods of minimising the risk).</div>
-<div class="tpos-info">Leave the risk and/or mitigation fields empty if you are not yet sure.</div>  -->
+<div class="tpos-info">Leave the risk and/or mitigation fields empty if you are not yet sure.</div>
 <div class="input-panel" id="hazard">
     <div class="tpos-lbl">Describe the hazard</div>
     <!-- <input class="" type="text" name="input_hazard" id="input_hazard"> -->
@@ -16,7 +16,7 @@ onblur="WaterMarkhazard(this, event);" onfocus="WaterMarkhazard(this, event);"
     onblur="WaterMarkrisk(this, event);" onfocus="WaterMarkrisk(this, event);"></textarea>
 </div>
 <div class="input-panel" id="mitigation">
-    <div class="tpos-lbl">Describe the mitigation (optional)</div>
+    <div class="tpos-lbl">Your mitigation (optional)</div>
     <!-- <input class="" type="text" name="input_hazard" id="input_hazard"> -->
     <textarea name="text_mitigation" id="cdmMitigationDescription" cols="40" rows="5"
     style="color: gray"
@@ -507,11 +507,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 
     }
-    var defaultTextrisk = "The Risk involved in not finding a solution for the hazard should be entered here"
+    var defaultTextrisk = "The Risk involved in not finding a solution for the hazard needs to be entered here"
     +"\n(e.g. Overstressing of dividing wall and dowelled connection to the shaft segmental lining)​";
-    var defaultTexthazard = "Hazard detail and description should be entered here."
+    var defaultTexthazard = "Hazard detail and description is entered over here"
     +"\n(e.g. Document Number - Dividing Wall Arrangement of cover slab different to that assumed in design)​";
-    var defaultTextmitigation = "Identify the changes that you are making to the design to eliminate or reduce this hazard."
+    var defaultTextmitigation = "How the Risk can be mitigated needs to be summarised here"
     +"\n(e.g. ensure the cover slab does not transfer loads to the dividing wall as assumed)​";
  
     document.getElementById("cdmHazardDescription").value = defaultTexthazard;
