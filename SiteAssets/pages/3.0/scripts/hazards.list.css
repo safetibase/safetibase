@@ -4,12 +4,15 @@
   width: 98%;
   height: 100%
 }
+
 .fld {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgb(33, 107, 153);
   border-radius: 5px;
   height: 1px;
-
+}
+.text-align{
+  float: revert;
 }
 .assessment {
   background-color: rgba(0, 0, 0, 0.1);
