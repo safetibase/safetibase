@@ -1341,9 +1341,9 @@ function buildHazardListItem(h) {
         '        <div class="row">' +
         '            <table class="tpos-tbl">' +
         "                <tr>" +
-        '                    <td class="width-300"><div class="lbl">The hazard</div></td>' +
-        '                    <td class="width-300"><div class="lbl">The risk</div></td>' +
-        '                    <td class="width-300"><div class="lbl">Our mitigation</div></td>' +
+        '                    <td class="width-300"><div class="lbl">Hazard</div></td>' +
+        '                    <td class="width-300"><div class="lbl">Risk</div></td>' +
+        '                    <td class="width-300"><div class="lbl">Mitigation</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-300">hazard</td>' +
@@ -1744,7 +1744,7 @@ function printHazardRow(h) {
                         ucs = 1;
                     }
 
-                    // Allows you to initiate review if "Our mitigation" field is already populated from the outset so you don't
+                    // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
                     // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
                     if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1) {
                         revbtn = mkHazardReviewButton(
@@ -2083,12 +2083,12 @@ function printHazardRow(h) {
         h.cdmHazardType.Title +
         '">' +
         "                            </div>" +
+        '<div class="cell">' +
+        h.cdmCurrentStatus + '</div>' +
         "                        </div>" +
-        "                        <div>" +
         '                            <div class="cell cdmHazardOwner">' +
-        o +
-        "</div>" +
-        "                        </div>" +
+        o + ' </div>' +
+
         "                    </td>" +
         '                    <td class="width-200">' +
         '                        <div class="cell">' +
@@ -2101,10 +2101,10 @@ function printHazardRow(h) {
         pwe +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300">' +
-        '                        <div class="cell">' +
-        shortText(h.cdmHazardDescription) +
-        "</div>" +
+        '                    <td class="width-250">' +
+        '<div class="cell"><span class="cell lg text-align">Hazard: </span>' +
+        truncateText(h.cdmHazardDescription) +
+        "</div>" +/*
         '                        <div class="cell">' +
         shortText(h.cdmRiskDescription) +
         "</div>" +
@@ -2113,9 +2113,12 @@ function printHazardRow(h) {
         "</div>" +
         '                        <div class="cell">' +
         shortText(h.cdmMitigationSuggestion) +
-        "</div>" +
+        "</div>" +*/
         "                    </td>" +
         '                    <td class="width-250">' +
+        '<div class="cell"><span class="cell lg text-align">Risk: </span>' +
+        truncateText(h.cdmRiskDescription) +
+        "</div>" + /*
         '                        <div class="cell">' +
         printDate("Created", h.Author.Title, h.Created) +
         "</div>" +
@@ -2126,10 +2129,13 @@ function printHazardRow(h) {
         lstrev +
         "</div>" +
         '                        <div class="cell">' +
-        h.cdmCurrentStatus +
+        h.cdmCurrentStatus + */
+        "                    </td>" +
+        '                    <td class="width-250">' +
+        '<div class="cell"><span class="cell lg text-align">Mitigation: </span>' +
+        truncateText(h.cdmMitigationDescription) +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-25"></td>' +
         '                    <td class="width-200">' +
         decodeRisk("Residual", h.cdmResidualRisk) +
         "</td>" +
@@ -2221,13 +2227,13 @@ function printHazardRow(h) {
         '            <table class="tpos-tbl wbrd">' +
         "                <tr>" +
         '                    <td class="width-300">' +
-        '                        <div class="lbl">The hazard</div>' +
+        '                        <div class="lbl">Hazard</div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
-        '                        <div class="lbl">The risk</div>' +
+        '                        <div class="lbl">Risk</div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
-        '                        <div class="lbl">Our mitigation</div>' +
+        '                        <div class="lbl">Mitigation</div>' +
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
@@ -2488,6 +2494,19 @@ function shortText(str) {
     }
     if (str.length > 50) {
         str = str.substring(0, 47) + '<span title="' + str + '">...</span>';
+    } else {
+        return str;
+    }
+    return str;
+}
+
+function truncateText(str) {
+    //var t=str;
+    if (!str) {
+        str = "";
+    }
+    if (str.length > 150) {
+        str = str.substring(0, 147) + '<span title="' + str + '">...</span>';
     } else {
         return str;
     }
