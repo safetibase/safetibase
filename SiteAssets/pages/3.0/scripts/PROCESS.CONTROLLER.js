@@ -3159,7 +3159,7 @@ function tposcustomfilters( data, forExport) {
             selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
         }
 
-        if (!forExport && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) || (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus) && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus))){
+        if (itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) && (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus))){
             distlistcdmCurrentStatus.push(itcdmCurrentStatus);
             selectcdmCurrentStatus += '<option value="'+itcdmCurrentStatus+'">'+itcdmCurrentStatus+'</option>'
         }
@@ -3175,10 +3175,9 @@ function tposcustomfilters( data, forExport) {
       //console.log('distlistcdmCurrentStatus',distlistcdmCurrentStatus);
       
     }
-
     $("#popscontentarea").html('');
     $(".pops-content").append(
-        (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>')+
+        forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>'+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
@@ -3186,9 +3185,10 @@ function tposcustomfilters( data, forExport) {
         '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>"+
         (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
-        +"</select><br> </div>"     
+        +"</select><br> </div>"
+      
+      
     );
-
     $('#cdmStageExtrafilter').multiselect({
         columns: 1,
         placeholder: 'Select Stage :',
