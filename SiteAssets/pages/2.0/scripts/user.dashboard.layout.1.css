@@ -266,7 +266,7 @@ a.ms-tv-header:hover {
 .vw {
     position: absolute;
     top: 50px;
-    right: 6px;
+    right: 0px;
     cursor: pointer;
 }
 
@@ -458,7 +458,8 @@ a.ms-tv-header:hover {
 }
 
 .width-25 {
-    min-width: 25px;
+    /*min-swith: 25px;*/
+    width: 25px;
 }
 
 .width-50 {
@@ -974,7 +975,7 @@ a.ms-tv-header:hover {
 }
 
 .input-panel {
-    width: 30%;
+    max-width: 33%;
     float: left;
     margin: 5px 0 5px 0;
 }
@@ -1375,6 +1376,7 @@ a.ms-tv-header:hover {
     cursor: pointer;
     text-decoration: none;
     margin: 0.2rem;
+    font-size: 15.4px;
 }
 
 .home-button:visited {
@@ -1391,4 +1393,14 @@ a.ms-tv-header:hover {
 .information-icon {
     font-size: small;
     cursor: pointer;
+}
+
+#cdmHazardDescription {
+    max-width: 94%;
+}
+#cdmRiskDescription {
+    max-width: 94%;
+}
+#cdmMitigationDescription {
+    max-width: 94%;
 }
