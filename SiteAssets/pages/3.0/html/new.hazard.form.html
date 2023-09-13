@@ -23,7 +23,7 @@ onblur="WaterMarkhazard(this, event);" onfocus="WaterMarkhazard(this, event);"
 onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, event);"></textarea>
 </div>
 <div class="risk-panel" id="inirisk">
-    <div class="block-container">
+    <div style="display:flex">
         <div class="tpos-initial-risk-lbl">Initial risk score (optional)</div>
         <div class="information-icon" title="Click to expand details" onclick="expandRiskMatrix();">&#9432;</div>
     </div>
@@ -507,12 +507,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 
     }
-    var defaultTextrisk = "The Risk involved in not finding a solution for the hazard should be entered here"
-    +"\n(e.g. Overstressing of dividing wall and dowelled connection to the shaft segmental lining)​";
-    var defaultTexthazard = "Hazard detail and description should be entered here."
-    +"\n(e.g. Document Number - Dividing Wall Arrangement of cover slab different to that assumed in design)​";
-    var defaultTextmitigation = "Identify the changes that you are making to the design to eliminate or reduce this hazard."
-    +"\n(e.g. ensure the cover slab does not transfer loads to the dividing wall as assumed)​";
+    var defaultTextrisk = "Use this box to explain your scoring of the initial and residual risks if required.​";
+    var defaultTexthazard = "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'";
+    var defaultTextmitigation = "Identify the changes that you are making to the design to eliminate or reduce this hazard.";
  
     document.getElementById("cdmHazardDescription").value = defaultTexthazard;
     document.getElementById("cdmRiskDescription").value = defaultTextrisk;
