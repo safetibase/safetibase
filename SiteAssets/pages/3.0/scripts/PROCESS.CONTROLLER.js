@@ -781,7 +781,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     */
                     function convertCSVArrayToJSON(csv_array) {
                         csv_header = csv_array[0];
-                        expected_header = ["ID","Site","PW Structure","Hazard Type","Hazard Owner","Hazard Tags","Hazard Description","Risk Description","Mitigation Description","Initial Risk","Initial Risk Score","Initial Severity Score","Initial Likelihood Score","Residual Risk","Residual Risk Score","Residual Severity Score","Residual Likelihood Score","Mitigation Suggestions","Status","Last Review Status","Last Reviewer","Last Review Date","Workflow Status","Peer Reviewer","Design Manager","Coordinates","Residual Risk Owner","Current Mitigation Owner","Current Review Owner","PW Links","cdmReviews"];
+                        expected_header = ["ID","Site","PW Structure","Hazard Type","Hazard Owner","Hazard Tags","Hazard Description","Risk Description","Mitigation Description","Initial Risk","Initial Risk Score","Initial Severity Score","Initial Likelihood Score","Residual Risk","Residual Risk Score","Residual Severity Score","Residual Likelihood Score","Designer Mitigation Suggestions","Status","Last Review Status","Last Reviewer","Last Review Date","Workflow Status","Peer Reviewer","Design Manager","Coordinates","Residual Risk Owner","Current Mitigation Owner","Current Review Owner","PW Links","cdmReviews"];
                         if (!compareArrays(csv_header, expected_header)) {
                             return null;
                         }
@@ -882,23 +882,31 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 // Set fields of the SharePoint list item using the CSV data and lookup information
                                 const hazardLog = await setListItemFields(oListItem, csvObject, lookupData);
 
-                                // Return a new promise that wraps the asynchronous query execution
-                                return new Promise((resolve, reject) => {
-                                    ctx().executeQueryAsync(
-                                        () => {
-                                            importLog.push(hazardLog)
-                                            handleSuccess(hazardID);
-                                            resolve(true);
-                                        },
-                                        (sender, args) => {
-                                            const hazardLogError = {}
-                                            Object.keys(hazardLog).map((value) => {hazardLogError[value] = "Error in ExecuteQueryAsync"});
-                                            importLog.push(hazardLogError)
-                                            handleFailure(hazardID, args);
-                                            reject(args);
-                                        }
-                                    );
-                                });
+                                // Check whether any fields couldn't be set. If so then the entire update of the hazard should be abandoned
+                                if (Object.values(hazardLog).includes('Invalid Value')) {
+                                    hazardLog['Update Status'] = 'Update failed due to invalid value(s)';
+                                    importLog.push(hazardLog);
+                                } else {
+                                    // Return a new promise that wraps the asynchronous query execution
+                                    return new Promise((resolve, reject) => {
+                                        ctx().executeQueryAsync(
+                                            () => {
+                                                hazardLog['Update Status'] = 'Update Successful';
+                                                importLog.push(hazardLog);
+                                                handleSuccess(hazardID);
+                                                resolve(true);
+                                            },
+                                            (sender, args) => {
+                                                const hazardLogError = {}
+                                                Object.keys(hazardLog).map((value) => {hazardLogError[value] = "Error in ExecuteQueryAsync"});
+                                                hazardLog['Update Status'] = 'Update failed due to error in ExecuteQueryAsync';
+                                                importLog.push(hazardLogError)
+                                                handleFailure(hazardID, args);
+                                                reject(args);
+                                            }
+                                        );
+                                    });
+                                }
                             }
                         });
 
@@ -1007,7 +1015,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmInitialRiskScore", value: generateRiskScore(csvObject["Initial Severity Score"], csvObject["Initial Likelihood Score"]), allowNull: false },
                             { field: "cdmResidualRisk", value: generateRiskSummary(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
-                            { field: "cdmStageMitigationSuggestion", value: csvObject["Mitigation Suggestions"], allowNull: true },
+                            { field: "cdmStageMitigationSuggestion", value: csvObject["Designer Mitigation Suggestions"], allowNull: true },
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
                             { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
                             { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
@@ -3277,7 +3285,7 @@ function tposcustomfilters( data, forExport) {
             result["Mitigation Description"] = sanitiseInput(obj.cdmMitigationDescription);
             result["Initial Risk"] = sanitiseInput(obj.cdmInitialRisk);
             result["Residual Risk"] = sanitiseInput(obj.cdmResidualRisk);
-            result["Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
+            result["Designer Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
             result.Status = sanitiseInput(obj.cdmUniclass);
             result.RAMS = sanitiseInput(obj.cdmRAMS);
             result["Last Review Status"] = sanitiseInput(obj.cdmLastReviewStatus);
