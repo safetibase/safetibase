@@ -1014,7 +1014,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
                             { field: "cdmPWStructure", value: getIDofLookupItem(lookupData.cdmPWStructures, csvObject["PW Structure"]), allowNull: true },
                             { field: "cdmHazardType", value: getIDofLookupItem(lookupData.cdmHazardTypes, csvObject["Hazard Type"]), allowNull: true },
-                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmCompanies, csvObject["Hazard Owner"]), allowNull: true },
+                            { field: "cdmHazardOwner", value: getIDofLookupItem(lookupData.cdmCompanies, csvObject["Hazard Owner"]), allowNull: false },
                             { field: "cdmHazardTags", value: csvObject["Hazard Tags"], allowNull: true },
                             { field: "cdmHazardDescription", value: csvObject["Hazard Description"], allowNull: true },
                             { field: "cdmRiskDescription", value: csvObject["Risk Description"], allowNull: true },
