@@ -884,8 +884,16 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                                 // Check whether any fields couldn't be set. If so then the entire update of the hazard should be abandoned
                                 if (Object.values(hazardLog).includes('Invalid Value')) {
-                                    hazardLog['Update Status'] = 'Update failed due to invalid value(s)';
-                                    importLog.push(hazardLog);
+                                    const failLog = Object.keys(hazardLog).reduce((acc, key) => {
+                                        if (hazardLog[key] === 'Success') {
+                                            acc[key] = 'Failed';
+                                        } else {
+                                            acc[key] = hazardLog[key]
+                                        }
+                                        return acc
+                                    }, {});
+                                    failLog['Update Status'] = 'Update failed due to invalid value(s)';
+                                    importLog.push(failLog);
                                 } else {
                                     // Return a new promise that wraps the asynchronous query execution
                                     return new Promise((resolve, reject) => {
