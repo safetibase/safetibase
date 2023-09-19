@@ -1027,8 +1027,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
                             { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
                             { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
-                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: false },
-                            { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: false },
+                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"]), allowNull: true },
+                            { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: true },
                             { field: "cdmCurrentStatus", value: validateWorkflowFields(csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], 
                                                                                             // specify validValues argument for allowed newValue values
                                                                                             ["Requires mitigation", 
@@ -1270,7 +1270,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                             return isoDate;
                         } catch (error) {
-                            console.error("Error converting date-time to ISO format:", error);
+                            console.error("Error converting date-time to ISO format:", error); // Although this is an error this is allowed - consider the case where a hazard doesn't have any review
                             return null;
                         }
                     }
