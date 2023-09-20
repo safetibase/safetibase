@@ -1006,7 +1006,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                             cdmCurrentStatus: previousWorkflowStatus,
                             cdmReviews: previousReviewSummary,
                             cdmLastReviewer: previousLastReviewer,
-                            cdmLastReviewStatus: previousLastReviewStatus
+                            cdmLastReviewStatus: previousLastReviewStatus,
+                            cdmLastReviewDate: previousLastReviewDate
                         } = currentListItemValues;
 
                         // Define configurations for various fields incorporating validation conditions
@@ -1027,7 +1028,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
                             { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
                             { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
-                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"], previousLastReviewStatus, csvObject["Last Review Status"]), allowNull: true },
+                            { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"], previousLastReviewStatus, csvObject["Last Review Status"], previousLastReviewDate), allowNull: true },
                             { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: true },
                             { field: "cdmCurrentStatus", value: validateWorkflowFields(csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], 
                                                                                             // specify validValues argument for allowed newValue values
@@ -1258,7 +1259,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {string} dateTimeString - The input date-time string in "dd/mm/yyyy hh:mm:ss" format.
                     * @returns {string|null} The converted ISO date string, or null if conversion fails.
                     */
-                    function convertToISODate(dateTimeString, previousLastReviewStatus, currentLastReviewStatus) {
+                    function convertToISODate(dateTimeString, previousLastReviewStatus, currentLastReviewStatus, previousLastReviewDate) {
                         if (previousLastReviewStatus !== currentLastReviewStatus) { // Only update if the hazard has moved in the workflow
                             try {
                                 const [datePart, timePart] = dateTimeString.split(' ');
@@ -1272,10 +1273,10 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 return isoDate;
                             } catch (error) {
                                 console.error("Error converting date-time to ISO format:", error); // Although this is an error, this is allowed - consider the case where a hazard doesn't have any review
-                                return null;
+                                return previousLastReviewDate;
                             }
                         } else {
-                            return null;
+                            return previousLastReviewDate;
                         }
                     }
 
