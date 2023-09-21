@@ -2087,7 +2087,7 @@ function printHazardRow(h) {
         h.cdmCurrentStatus + '</div>' +
         "                        </div>" +
         '                            <div class="cell cdmHazardOwner">' +
-        o + ' </div>' +
+        o + '</div>' +
 
         "                    </td>" +
         '                    <td class="width-200">' +
@@ -2326,7 +2326,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-20">' +
-        '                        <div class="lbl ramshide">' + lblramshazards + ' </div>' +
+        '                        <div class="lbl ramshide">' + lblramshazards + '</div>' +
         "                    </td>" +
         '                    <td class="width-20">' +
         '                        <div class="lbl ramsonly">Parent </div>' +
