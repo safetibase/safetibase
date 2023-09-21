@@ -654,7 +654,7 @@ a.ms-tv-header:hover {
 
 #popscontentarea {
     overflow: auto;
-    height: 30px;
+    height: auto;
     /* width:50%; */
 }
 
@@ -1402,4 +1402,19 @@ a.ms-tv-header:hover {
 }
 #cdmMitigationDescription {
     max-width: 94%;
+}
+
+#csvFileInput {
+    margin-bottom: 10px;
+    max-width: fit-content;
+}
+
+#pw-link-input {
+    margin-bottom: 10px;
+    max-width: 400px;
+}
+
+.bulk-import-vertical-block {
+    display: flex;
+    flex-direction: column;
 }
