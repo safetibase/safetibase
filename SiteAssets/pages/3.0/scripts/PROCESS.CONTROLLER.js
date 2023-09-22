@@ -993,7 +993,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                         * @returns {object} An object containing the field name and the result of the operation ("Success" or "Error").
                         */
                         function setField(listItem, fieldName, fieldValue, allowNull) {
-                            if (allowNull || fieldValue !== undefined && fieldValue !== null) {
+                            if (fieldValue instanceof Error) {
+                                const errorMessage = `Failed to set ${fieldName}. Invalid value provided.`;
+                                toastr.error(errorMessage);
+                                return { [fieldName]: "Invalid Value" };
+                            } else if (allowNull || fieldValue !== undefined && fieldValue !== null) {
                                 listItem.set_item(fieldName, fieldValue);
                                 return { [fieldName]: "Success" };
                             } else {
@@ -1017,7 +1021,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             cdmLastReviewStatus: previousLastReviewStatus,
                             cdmLastReviewDate: previousLastReviewDate
                         } = currentListItemValues;
-
+                        console.log('previous workflow status', previousWorkflowStatus)
                         // Define configurations for various fields incorporating validation conditions
                         const setFields = [
                             { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
@@ -1034,11 +1038,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmStageMitigationSuggestion", value: csvObject["Designer Mitigation Suggestions"], allowNull: true },
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
-                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
-                            { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"]), allowNull: true },
+                            { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], previousLastReviewStatus), allowNull: true },
+                            { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"], previousLastReviewer), allowNull: true },
                             { field: "cdmLastReviewDate", value: convertToISODate(csvObject["Last Review Date"], previousLastReviewStatus, csvObject["Last Review Status"], previousLastReviewDate), allowNull: true },
                             { field: "cdmReviews", value: generateReviewSummary(previousReviewSummary, previousWorkflowStatus, csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], currentUserName), allowNull: true },
-                            { field: "cdmCurrentStatus", value: validateWorkflowFields(csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], 
+                            { field: "cdmCurrentStatus", value: validateWorkflowFields(csvObject["Workflow Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], previousWorkflowStatus,
                                                                                             // specify validValues argument for allowed newValue values
                                                                                             ["Requires mitigation", 
                                                                                             "Assessment in progress", 
@@ -1301,9 +1305,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {string[]} validValues - An optional array of valid values that newValue can take.
                     * @returns {string} The validated and updated field value.
                     */
-                    function validateWorkflowFields(newValue, peerReviewer, designManager, validValues) {
-                        if (designManager && !peerReviewer || newValue === null || validValues && validValues.indexOf(newValue) === -1) {
-                            return null;
+                    function validateWorkflowFields(newValue, peerReviewer, designManager, previousValue, validValues) {
+                        if (previousValue === "Under design manager review" && !peerReviewer || designManager && !peerReviewer || newValue === null || validValues && validValues.indexOf(newValue) === -1 || newValue == 0) {
+                            toastr.error("Invalid workflow configuration");
+                            return new Error("Invalid workflow configuration");
+                            // return previousValue;
                         }
 
                         return newValue;
