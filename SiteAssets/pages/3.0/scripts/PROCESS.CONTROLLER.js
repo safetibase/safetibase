@@ -1327,14 +1327,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @returns {string} The updated review summary.
                     */
                     function generateReviewSummary(previousReviewSummary, previousWorkflowStatus, newWorkflowStatus, peerReviewer, designManager, currentUserName) {
-                        // If the design manager field is populated but the peer reviewer field is empty,
-                        // or if the new workflow status is null, return null
-                        if (designManager && !peerReviewer || newWorkflowStatus === null) {
-                            return null;
-                        }
 
+                        // If the design manager field is populated but the peer reviewer field is empty,
+                        // or if the new workflow status is null, return previousReviewSummary
                         // If nothing has changed, return previousReviewSummary
-                        if (previousWorkflowStatus === newWorkflowStatus) {
+                        if (previousWorkflowStatus === newWorkflowStatus || designManager && !peerReviewer || newWorkflowStatus === null) {
                             return previousReviewSummary;
                         }
 
@@ -1363,7 +1360,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                         // Return the updated review summary based on the transition map,
                         // or the previous review summary if no matching transition is found.
-                        return transitionMap[previousWorkflowStatus]?.[newWorkflowStatus] || null;
+                        return transitionMap[previousWorkflowStatus]?.[newWorkflowStatus] || previousReviewSummary;
 
                     }
 
