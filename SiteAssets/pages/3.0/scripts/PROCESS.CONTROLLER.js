@@ -1552,27 +1552,43 @@ function activateHazardEdits() {
                         fld = flds[cc];
                     }
                 }
-                if (fld == "cdmResidualRiskOwner") {
-                    const url = `${_spPageContextInfo.webServerRelativeUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$select=cdmCurrentStatus&$filter=ID%20eq%20${hzd}`;
-                    $.ajax({
-                        url: url,
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json; odata=verbose"
-                        },
-                        success: (data) => {
-                            const cdmCurrentStatus = data.d.results[0].cdmCurrentStatus;
-                            if (!['Accepted', `Accepted by ${configData['Client Name']}`, `Ready for review by ${configData['Client Name']}`].includes(cdmCurrentStatus)) {
-                                gimmepops(
-                                    "Assigning a Residual Risk Owner",
-                                    '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
-                                );
-                                cdmdata.get("cdmResidualRiskOwners", "", null, "frmsel_ResidualRiskOwner", hc,null,[]);
-                            } else {
-                                toastr.error(`You cannot update the residual risk owner because the hazard has a current status of "${cdmCurrentStatus}"`);
+                if (fld == "cdmResidualRiskOwner" || fld == "cdmContract") {
+                    if (userRolesSites.length > 0) {
+                        const url = `${_spPageContextInfo.webServerRelativeUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$select=cdmCurrentStatus&$filter=ID%20eq%20${hzd}`;
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: (data) => {
+                                const cdmCurrentStatus = data.d.results[0].cdmCurrentStatus;
+                                const fieldNameDict = {
+                                    "cdmResidualRiskOwner": "residual risk owner",
+                                    "cdmContract": "contract"
+                                }
+                                if (![`Accepted by ${configData['Client Name']}`, `Ready for review by ${configData['Client Name']}`].includes(cdmCurrentStatus)) {
+                                    if (fld == "cdmResidualRiskOwner") {
+                                        gimmepops(
+                                            "Assigning a Residual Risk Owner",
+                                            '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
+                                        );
+                                        cdmdata.get("cdmResidualRiskOwners", "", null, "frmsel_ResidualRiskOwner", hc,null,[]);
+                                    } else {
+                                        gimmepops(
+                                            "Assigning a future works contract",
+                                            '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
+                                        );
+                                        cdmdata.get("cdmContracts", "", null, "frmsel_Contract", hc,null,[]);
+                                    }
+                                } else {
+                                    toastr.error(`You cannot update the ${fieldNameDict[fld]} because the hazard has a current status of "${cdmCurrentStatus}"`);
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        toastr.error('You do not have a user role assigned so you cannot edit hazards. Ask your system administrator to add you to the system.');
+                    }
                 }
                 else if (!uce) {
                     const peerReviewStage = $("#" + hi + " .rucp").hasClass('_3');
