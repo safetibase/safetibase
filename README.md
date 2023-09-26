@@ -46,8 +46,8 @@ To populate the SafetIbase Sharepoint lists, you can manually populate or comple
     - 'Include contract' - This is a Boolean that determines whether contracts can be added to hazards
     - 'Exportable workflow states' - This is a list of workflow states that can be exported during bulk edit.
 
-To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
-It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint site homepage for ease of access.
+- To find your SafetIbase page, go to 'Site Contents'> 'Site Assets'> 'pages'> '3.0'> 'dashboard.aspx.
+  - It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint homepage for ease of access.
 -----------------------------------------------------
 CHANGE LOG:
 
