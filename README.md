@@ -21,9 +21,9 @@ To install SafetIbase on a SharePoint, follow the steps below:
 - From the unzipped file, drag and drop the "Manual Install" file into the PowerShell window
 - If the device has never run PowerShell before, copy the line starting "#set-executionpolicy", paste it into the PowerShell window and remove the leading "#" before running the command.
 - In the User input section, change the "$SPsite URL" to the URL of your SharePoint site
-- Run the script. This will take 10-15 minutes
+- Save and run the script. This will take 10-15 minutes
 - Go to your SharePoint site > 'Site Contents' > 'Site Assets'
-- Drag and drop the content of the 'Site Asset' folder from the zip file into the Sharepoint Site Assets folder
+- Drag and drop the contents of the 'Site Asset' folder from the zip file into the Sharepoint Site Assets folder
 
 To populate the SafetIbase Sharepoint lists, you can manually populate or complete the optional steps below:
 
