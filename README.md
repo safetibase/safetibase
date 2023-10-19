@@ -11,28 +11,43 @@ Requirements:
 - Owner rights on your SharePoint site
 -----------------------------------------------------
 To install SafetIbase on a SharePoint, follow the steps below:
-- Download these files to your C drive (downloading the whole repo from Github using the green 'Code' button on the top right, the select 'Download ZIP')
+
+- Navigate to the SafetIbase GitHub: https://github.com/safetibase/safetibase
+- Download the repo from GitHub to your C drive using the green '<> Code' button on the top right, then select 'Download ZIP')
 - Unblock the zip file (right click > properties > check the 'Unblock' checkbox)
+- Unzip the file (right click > 7 zip > extract files)
+- Open the unzipped file
 - Open PowerShell (PowerShell ISE is the easiest option)
-- Open 'Manual Install.ps1'
-- In the User input section, change the Url to the url of your SharePoint site
+- From the unzipped file, drag and drop the "Manual Install" file into the PowerShell window
+- If the device has never run PowerShell before, copy the line starting "#set-executionpolicy", paste it into the PowerShell window and remove the leading "#" before running the command.
+- In the User input section, change the "$SPsite URL" to the URL of your SharePoint site
+- Save and run the script. This will take 10-15 minutes
 - Go to your SharePoint site > 'Site Contents' > 'Site Assets'
-- Drag and drop the content of the 'Site Asset' folder from the install files
-- Run the script
-- [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specifc data. Delete tabs you are not updating
-- [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the url of your site
+- Drag and drop the contents of the 'Site Asset' folder from the zip file into the Sharepoint Site Assets folder
+
+To populate the SafetIbase Sharepoint lists, you can manually populate or complete the optional steps below:
+
+- [Optional] Fill in the 'SafetIbaseListsContent - UserInput Template.xlsx' spreadsheet with your project specific data. Delete tabs you are not updating
+- [Optional] In PowerShell open 'Add User Inputs.ps1' and in the 'User Input' section, input the URL of your Sharepoint subsite
 - [Optional] Run the script. This will populate the SharePoint lists with the input you provide in the spreadsheet above
 - [Optional] Edit the configData.js file ('Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'scripts' > 'configData.js'). This contains a JSON variable with the following keys:
-  - 'site' - Changes text for the word 'site' (e.g. could be changed to 'sublot')
-  - 'Residual Risk Owner' - Changes text for the phrase 'Residual Risk Owner'
-  - 'Contract' - Changes text for the word 'Contract'
-  - 'Client Review' - This is a boolean which controls whether the workflow goes through client review - this functionality adds an extra couple of steps to the workflow:
-    1. Submitted to client
-    2. Accepted by client
-  - 'Client Name' - Changes text for the client name
-  - 'Archive hazards permissions' - list of the user roles that can archive hazards.
-- To find your SafetIbase page, go to 'Site Contents' > 'Site Assets' > 'pages' > '3.0' > 'dashboard.aspx'
-  - It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint site homepage for ease of access.
+    - 'site' - Changes text for the word 'site' (e.g. could be changed to 'sublot')
+    - 'Residual Risk Owner' - Changes text for the phrase 'Residual Risk Owner'
+    - 'Contract' - Changes text for the word 'Contract'
+    - 'Client Review' - This is a Boolean which controls whether the workflow goes through client review - this functionality adds extra steps to the workflow:
+      1. Submitted to client
+      2. Accepted by client
+    - 'Client Name' - Changes text for the client name
+    - 'Archive hazards permissions' - This is a list of the user roles that can archive hazards.
+    - 'Simplified <role> dashboard' - This is a Boolean which determines if there will be a simplified dashboard for those in the selected role
+    - '<role> review editable workflow state' - This is a Boolean that controls if a hazard can be edited at a particular stage. If false, hazards can only be edited at the start of the workflow.
+    - 'Construction Manager approval comment populates cdmSMMitigationSuggestion' - This is a Boolean, that when true, lets the construction manager's approval comment populate the Site manager's mitigation suggestion box.
+    - 'Full admin edit rights' - This is a Boolean that if true allows an admin to edit any field at any workflow stage
+    - 'Include contract' - This is a Boolean that determines whether contracts can be added to hazards
+    - 'Exportable workflow states' - This is a list of workflow states that can be exported during bulk edit.
+
+- To find your SafetIbase page, go to 'Site Contents'> 'Site Assets'> 'pages'> '3.0'> 'dashboard.aspx.
+  - It is recommended to add a shortcut to 'dashboard.aspx' on the SharePoint homepage for ease of access.
 -----------------------------------------------------
 CHANGE LOG:
 
