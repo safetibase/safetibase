@@ -834,12 +834,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                     */
                     async function getListDataForLookupColumns(listNames) {
                         // Retrieve data from the specified SharePoint lists concurrently
-                        const listDataPromises = listNames.map(getList);
-                        const arrayOfListData = await Promise.all(listDataPromises);
+                        const listData = await Promise.all(listNames.map(getList));
 
                         // Convert the array of list data into a lookup data object
                         const lookupData = listNames.reduce((result, listName, index) => {
-                            result[listName] = arrayOfListData[index].d.results;
+                            result[listName] = listData[index];
                             return result;
                         }, {});
 
@@ -853,15 +852,25 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @param {string} listName - The name of the SharePoint list.
                     * @returns {Promise<Object>} - A promise that resolves with data from the specified list.
                     */
-                    function getList(listName) {
-                        const listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
-                        return $.ajax({
-                            url: listUrl,
-                            method: 'GET',
-                            headers: {
-                                "Accept": "application/json; odata=verbose"
+                    async function getList(listName) {
+                        let listUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27${listName}%27)/items`;
+                        return await getItems(listUrl)
+
+                        async function getItems(url) {
+                            const apiCall = await $.ajax({
+                                url: url,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                }
+                            });
+                            
+                            if (apiCall.d.__next) {
+                                return [...apiCall.d.results, ...await getItems(apiCall.d.__next)];
+                            } else {
+                                return apiCall.d.results;
                             }
-                        });
+                        }
                     }
 
 
@@ -1308,7 +1317,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     * @returns {string} The validated and updated field value.
                     */
                     function validateWorkflowFields(newValue, peerReviewer, designManager, previousValue, validValues) {
-                        if (previousValue === "Under design manager review" && !peerReviewer || designManager && !peerReviewer || newValue === null || validValues && validValues.indexOf(newValue) === -1 || newValue == 0) {
+                        if (previousValue === "Under design manager review" && !peerReviewer || designManager && !peerReviewer || newValue === null || validValues && validValues.indexOf(newValue) === -1 || newValue === 0) {
                             toastr.error("Invalid workflow configuration");
                             return new Error("Invalid workflow configuration");
                             // return previousValue;
