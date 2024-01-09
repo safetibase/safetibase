@@ -190,7 +190,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                                                         } else if (status.includes('Rejected')) {
                                                             if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                tdata = ["cdmCurrentStatus|" + "Requires Mitigation", 'cdmLastReviewStatus|Not Started'];
+                                                                tdata = ["cdmCurrentStatus|" + "Requires mitigation", 'cdmLastReviewStatus|Not Started'];
                                                                 // Update the audit trail with the reason and feedback
                                                                 let comment = '';
                                                                 if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
