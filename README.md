@@ -51,6 +51,16 @@ To populate the SafetIbase Sharepoint lists, you can manually populate or comple
 -----------------------------------------------------
 CHANGE LOG:
 
+19/10/2023
+- Bulk upload feature which allows multiple hazards to be exported, edited, advanced through the workflow, and imported back into the application. Currently, restricted to Design Manager role.
+- Introductory and guidance buttons added to the home page with links to supporting documentation.
+- Usability improvements for updating hazards (making boxes clickable and pointer cursor).
+- A bug where the navigation to the home screen breaks after accessing SafetIbase through iTwin has been resolved.
+- The mouse turns to a pointer to indicate clickable areas when hovering over different elements of the application.
+- The clickable area of the editable fields of hazards have been expanded.
+- Styling of site has been modernised to improve user experience.
+- Cancelled hazards can now only be archived beyond the "Design Manager" Stage.
+
 04/07/2023
 - The functionality to allow reviewers/approvers at different stages of the workflow, to edit hazards. This is a configurable feature that can be turned on or off by system admins. 
 - The ability for system admins to edit hazard information at any stage in the workflow. 
