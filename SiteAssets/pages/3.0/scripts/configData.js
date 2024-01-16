@@ -5,6 +5,7 @@ configData = {
     'Client Review': false, // Does the project require a client review to be included in the workflow?
     'Client Name': 'Client', // What is the name of the client of the project?
     'Archive hazards permissions': ['System admin'], // Which user roles should be authorised to archive hazards. This is given as a list. E.g., ['System admin', 'Designer', 'Construction Manager'].
+    'Sync Client Hazard Permissions': ['System admin'], // Defines who can use 'Sync Client Hazards' button.
     'Simplified designer dashboard': false, // Do you want a simplified user dashboard for designers?
     'Simplified design manager dashboard': false, // Do you want a simplified user dashboard for designer managers?
     'Simplified construction engineer dashboard': false, // Do you want a simplified user dashboard for construction engineers?
