@@ -71,225 +71,259 @@ function activateDatasets(cdmSites, allHazardsData) {
                 
             }
             if (ulink == 'synccsv') {
-                var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle(%27cdmCompanies%27)/items?$select=ID,Title,cdmCompanyRole/Title&$expand=cdmCompanyRole/Title"
+                // First get the user roles and verify that they are allowed to archive hazards
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
                 $.ajax({
-                    url: url,
-                    method: "GET",
+                    url: usersListUrl,
+                    method: 'GET',
                     headers: {
                         "Accept": "application/json; odata=verbose"
                     },
-                    success: function(data) {
-                        var Company_ID = null
-                        for (var i = 0; i < data.d.results.length; i++) {
-                            if (data.d.results[i].Title == configData['Client Name']) {
-                                Company_ID = data.d.results[i].ID
-                            }
-                        }
-                        if (Company_ID) {
-                            console.log(Company_ID)
-                            gimmepops(`Sync ${configData['Client Name']} CSV`,
-                            '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
-                            var csvFile = document.getElementById("csvFileInput");
-                            readFile = function() {
-                                var reader = new FileReader();
-                                reader.onload = function() {
-                                    rows = reader.result.split("\n");
-                                    const csvObject = {};
-                                    for (let i=0; i<rows.length; i++) {
-                                        row = rows[i].split(',');
-                                        for (let j=0; j<row.length; j++) {
-                                            if (i == 0) { // get the column names
-                                                var headers = row.map(x => x.trim('\r'));
-                                                csvObject[row[j].trim('\r')] = [];
-                                            } else {
-                                                csvObject[headers[j]].push(row[j].trim('\r'));
-                                            }
-                                        }
-                                    }
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                                    if (csvObject.hasOwnProperty('Status') && csvObject.hasOwnProperty('ID') && csvObject.hasOwnProperty('Review Timestamp')) { // Make sure the right file format is being used
-                                        // Keep a record of the hazards that are successfully and unsuccessfully synced. Syncing is asynchronous wheras failing a sync is synchronous. To simplify recording the audit
-                                        // information we will iterate over all the provided hazards, find the ones that fail and then attempt the sync ones that pass the validation tests (asynchronous). At the end of
-                                        // this we will record the audit information.
-                                        var successfulSyncs = [];
-                                        var unsuccessfulSyncs = [];
-                                        const hazardsToSync = [];
-                                        
-                                        let apiIdQueryStr = '(';
-                                        const timestamps = [];
-                                        for (let i=0; i<csvObject['Status'].length; i++) {
-                                            if (csvObject['ID'][i] && i == csvObject['Status'].length-1) {
-                                                apiIdQueryStr += `ID eq ${csvObject['ID'][i]})`;
-                                            }
-                                            else if (csvObject['ID'][i]) {
-                                                apiIdQueryStr += `ID eq ${csvObject['ID'][i]} or `;
-                                            }
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Sync Client Hazard Permissions'].includes(x.Title) })
 
-                                            if (csvObject['Review Timestamp'][i]) {
-                                                timestamps.push(csvObject['Review Timestamp'][i]);
-                                            }
-                                        }
-                                        const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=${apiIdQueryStr}`;
-
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle(%27cdmCompanies%27)/items?$select=ID,Title,cdmCompanyRole/Title&$expand=cdmCompanyRole/Title"
                                         $.ajax({
                                             url: url,
-                                            method: 'GET',
+                                            method: "GET",
                                             headers: {
                                                 "Accept": "application/json; odata=verbose"
                                             },
-                                            success: async (data) => {
-                                                const date = new Date();
-                                                const dateNow = ukdate(date);
-
-                                                for (let i=0; i<data.d.results.length; i++) {
-                                                    // First, check that the hazard has not been modified after the review timestamp - this would suggest an error
-                                                    const id = data.d.results[i]['ID'];
-                                                    const csvObjectIndex = csvObject['ID'].indexOf(id.toString());
-
-                                                    // There's an edge case where sync files are missed and then executed in order. If a hazard is in consecutive files then the second sync might be rejected
-                                                    // because its modified date > review timestamp. To mitigate this we will verify the last review is a sync and the last modified date = last sync date.
-                                                    const lastReview = data.d.results[i]['cdmReviews']?.split('^')[0];
-                                                    const lastReviewType = lastReview?.split(']')[2];
-                                                    const lastReviewDateSplit = lastReview?.split(']')[0].split('/');
-                                                    const lastReviewMonth = lastReviewDateSplit[1].length == 1 ? '0' + lastReviewDateSplit[1] : lastReviewDateSplit[1];
-                                                    const lastReviewDate = `${lastReviewDateSplit[2]}/${lastReviewMonth}/${lastReviewDateSplit[0]}`;
-                                                    const lateOrderSync = (lastReviewType == `Accepted by ${configData['Client Name']}` || lastReviewType.includes(`Reopened by ${configData['Client Name']}`) || 
-                                                        lastReviewType.includes(`Rejected by ${configData['Client Name']}`)) && data.d.results[i]['Modified'].split('T')[0].replaceAll('-', '/') == lastReviewDate &&
-                                                        csvObject['Review Timestamp'][csvObjectIndex].split('T')[0].replaceAll('-', '/') > lastReviewDate;
-                                                    if (csvObject['Review Timestamp'][csvObjectIndex] > data.d.results[i]['Modified'] || (csvObject['Review Timestamp'][csvObjectIndex] < data.d.results[i]['Modified'] && lateOrderSync)) {    
-                                                        const status = csvObject['Status'][csvObjectIndex];
-                                                        let history = data.d.results[i]['cdmReviews'];
-                                                        let auditTrailLine;
-                                                        let tdata;
-                                                        let error = false;
-
-                                                        if (status.includes('Accepted')) {
-                                                            if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                tdata = ['cdmCurrentStatus|' + `Accepted by ${configData['Client Name']}`, 'cdmHazardOwner|' + Company_ID, 'cdmLastReviewStatus|Accepted'];
-                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Accepted by ${configData['Client Name']}]` + 'No comment' + '^';
-                                                            } else {
-                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                error = true;
-                                                            }
-
-                                                        } else if (status.includes('Ready for review')) {
-                                                            if (data.d.results[i]['cdmCurrentStatus'] == `Accepted by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                tdata = ['cdmCurrentStatus|' + `Ready for review by ${configData['Client Name']}`, `cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`];
-                                                                // Update the audit trail with the reopen reason
-                                                                let comment = '';
-                                                                if (csvObject.hasOwnProperty('Reopen Reason') && csvObject['Reopen Reason'][csvObjectIndex]) {
-                                                                    comment = csvObject['Reopen Reason'][csvObjectIndex];
-                                                                }
-                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Reopened by ${configData['Client Name']}]` + `Reopen Reason: ${comment}` + '^';
-                                                            } else {
-                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Accepted by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                error = true;
-                                                            }
-
-                                                        } else if (status.includes('Rejected')) {
-                                                            if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                tdata = ["cdmCurrentStatus|" + "Requires mitigation", 'cdmLastReviewStatus|Not Started'];
-                                                                // Update the audit trail with the reason and feedback
-                                                                let comment = '';
-                                                                if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
-                                                                    comment += `Rejection Reason: ${csvObject['Rejection Reason'][csvObjectIndex]}`;
-                                                                }
-                                                                if (csvObject.hasOwnProperty('Rejection Feedback') && csvObject['Rejection Feedback'][csvObjectIndex]) {
-                                                                    comment += ` & Rejection Feedback: ${csvObject['Rejection Feedback'][csvObjectIndex]}`;
-                                                                }
-                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Rejected by ${configData['Client Name']}]` + comment + '^';
-                                                            } else {
-                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                error = true;
-                                                            }
-                                                        }
-
-                                                        if (!error) {
-                                                            history = auditTrailLine + history;
-                                                            tdata.push(`cdmReviews|${history}`);
-                                                            hazardsToSync.push({
-                                                                id: id,
-                                                                tdata: tdata
-                                                            });
-                                                        }
-                                                    } else {
-                                                        toastr.error(`Could not sync hazard with id ${id} because it has been modified after the review by ${configData['Client Name']}. For more details please check the cdmHazardHistory list and filter the Title by "synced".`);
-                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it has been modified after the review by ${configData['Client Name']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                            success: function(data) {
+                                                var Company_ID = null
+                                                for (var i = 0; i < data.d.results.length; i++) {
+                                                    if (data.d.results[i].Title == configData['Client Name']) {
+                                                        Company_ID = data.d.results[i].ID
                                                     }
-                                                    if (i == data.d.results.length-1) {
-                                                        // We'll keep an array of deferred promises which each resolve to true when the hazard is successfully or unsuccessfully written to sharepoint.
-                                                        // When all promises are resolved we can then safely write the audit information
-                                                        const promises = [];
-                                                        for (let j=0; j<hazardsToSync.length; j++) {
-                                                            const deffered = new $.Deferred();
-                                                            promises.push(deffered);
-                                                            await cdmdata.update('cdmHazards', hazardsToSync[j].tdata, 'clientSync', hazardsToSync[j].id,
-                                                            () => {
-                                                                successfulSyncs.push(id)
-                                                                deffered.resolve(true);
-                                                            },
-                                                            () => {
-                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
-                                                                deffered.resolve(true);
-                                                            })
-                                                        }
+                                                }
+                                                if (Company_ID) {
+                                                    console.log(Company_ID)
+                                                    gimmepops(`Sync ${configData['Client Name']} CSV`,
+                                                    '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
+                                                    var csvFile = document.getElementById("csvFileInput");
+                                                    readFile = function() {
+                                                        var reader = new FileReader();
+                                                        reader.onload = function() {
+                                                            rows = reader.result.split("\n");
+                                                            const csvObject = {};
+                                                            for (let i=0; i<rows.length; i++) {
+                                                                row = rows[i].split(',');
+                                                                for (let j=0; j<row.length; j++) {
+                                                                    if (i == 0) { // get the column names
+                                                                        var headers = row.map(x => x.trim('\r'));
+                                                                        csvObject[row[j].trim('\r')] = [];
+                                                                    } else {
+                                                                        csvObject[headers[j]].push(row[j].trim('\r'));
+                                                                    }
+                                                                }
+                                                            }
 
-                                                        if (hazardsToSync.length == 0) {
-                                                            recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
-                                                        } else {
-                                                            $.when(...promises).then(() => {
-                                                                recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
-                                                            })
+                                                            if (csvObject.hasOwnProperty('Status') && csvObject.hasOwnProperty('ID') && csvObject.hasOwnProperty('Review Timestamp')) { // Make sure the right file format is being used
+                                                                // Keep a record of the hazards that are successfully and unsuccessfully synced. Syncing is asynchronous wheras failing a sync is synchronous. To simplify recording the audit
+                                                                // information we will iterate over all the provided hazards, find the ones that fail and then attempt the sync ones that pass the validation tests (asynchronous). At the end of
+                                                                // this we will record the audit information.
+                                                                var successfulSyncs = [];
+                                                                var unsuccessfulSyncs = [];
+                                                                const hazardsToSync = [];
+                                                                
+                                                                let apiIdQueryStr = '(';
+                                                                const timestamps = [];
+                                                                for (let i=0; i<csvObject['Status'].length; i++) {
+                                                                    if (csvObject['ID'][i] && i == csvObject['Status'].length-1) {
+                                                                        apiIdQueryStr += `ID eq ${csvObject['ID'][i]})`;
+                                                                    }
+                                                                    else if (csvObject['ID'][i]) {
+                                                                        apiIdQueryStr += `ID eq ${csvObject['ID'][i]} or `;
+                                                                    }
+
+                                                                    if (csvObject['Review Timestamp'][i]) {
+                                                                        timestamps.push(csvObject['Review Timestamp'][i]);
+                                                                    }
+                                                                }
+                                                                const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=${apiIdQueryStr}`;
+
+                                                                $.ajax({
+                                                                    url: url,
+                                                                    method: 'GET',
+                                                                    headers: {
+                                                                        "Accept": "application/json; odata=verbose"
+                                                                    },
+                                                                    success: async (data) => {
+                                                                        const date = new Date();
+                                                                        const dateNow = ukdate(date);
+
+                                                                        for (let i=0; i<data.d.results.length; i++) {
+                                                                            // First, check that the hazard has not been modified after the review timestamp - this would suggest an error
+                                                                            const id = data.d.results[i]['ID'];
+                                                                            const csvObjectIndex = csvObject['ID'].indexOf(id.toString());
+
+                                                                            // There's an edge case where sync files are missed and then executed in order. If a hazard is in consecutive files then the second sync might be rejected
+                                                                            // because its modified date > review timestamp. To mitigate this we will verify the last review is a sync and the last modified date = last sync date.
+                                                                            const lastReview = data.d.results[i]['cdmReviews']?.split('^')[0];
+                                                                            const lastReviewType = lastReview?.split(']')[2];
+                                                                            const lastReviewDateSplit = lastReview?.split(']')[0].split('/');
+                                                                            const lastReviewMonth = lastReviewDateSplit[1].length == 1 ? '0' + lastReviewDateSplit[1] : lastReviewDateSplit[1];
+                                                                            const lastReviewDate = `${lastReviewDateSplit[2]}/${lastReviewMonth}/${lastReviewDateSplit[0]}`;
+                                                                            const lateOrderSync = (lastReviewType == `Accepted by ${configData['Client Name']}` || lastReviewType.includes(`Reopened by ${configData['Client Name']}`) || 
+                                                                                lastReviewType.includes(`Rejected by ${configData['Client Name']}`)) && data.d.results[i]['Modified'].split('T')[0].replaceAll('-', '/') == lastReviewDate &&
+                                                                                csvObject['Review Timestamp'][csvObjectIndex].split('T')[0].replaceAll('-', '/') > lastReviewDate;
+                                                                            if (csvObject['Review Timestamp'][csvObjectIndex] > data.d.results[i]['Modified'] || (csvObject['Review Timestamp'][csvObjectIndex] < data.d.results[i]['Modified'] && lateOrderSync)) {    
+                                                                                const status = csvObject['Status'][csvObjectIndex];
+                                                                                let history = data.d.results[i]['cdmReviews'];
+                                                                                let auditTrailLine;
+                                                                                let tdata;
+                                                                                let error = false;
+
+                                                                                if (status.includes('Accepted')) {
+                                                                                    if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                        tdata = ['cdmCurrentStatus|' + `Accepted by ${configData['Client Name']}`, 'cdmHazardOwner|' + Company_ID, 'cdmLastReviewStatus|Accepted'];
+                                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Accepted by ${configData['Client Name']}]` + 'No comment' + '^';
+                                                                                    } else {
+                                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                        error = true;
+                                                                                    }
+
+                                                                                } else if (status.includes('Ready for review')) {
+                                                                                    if (data.d.results[i]['cdmCurrentStatus'] == `Accepted by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                        tdata = ['cdmCurrentStatus|' + `Ready for review by ${configData['Client Name']}`, `cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`];
+                                                                                        // Update the audit trail with the reopen reason
+                                                                                        let comment = '';
+                                                                                        if (csvObject.hasOwnProperty('Reopen Reason') && csvObject['Reopen Reason'][csvObjectIndex]) {
+                                                                                            comment = csvObject['Reopen Reason'][csvObjectIndex];
+                                                                                        }
+                                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Reopened by ${configData['Client Name']}]` + `Reopen Reason: ${comment}` + '^';
+                                                                                    } else {
+                                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Accepted by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                        error = true;
+                                                                                    }
+
+                                                                                } else if (status.includes('Rejected')) {
+                                                                                    if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                        tdata = ["cdmCurrentStatus|" + "Requires mitigation", 'cdmLastReviewStatus|Not Started'];
+                                                                                        // Update the audit trail with the reason and feedback
+                                                                                        let comment = '';
+                                                                                        if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
+                                                                                            comment += `Rejection Reason: ${csvObject['Rejection Reason'][csvObjectIndex]}`;
+                                                                                        }
+                                                                                        if (csvObject.hasOwnProperty('Rejection Feedback') && csvObject['Rejection Feedback'][csvObjectIndex]) {
+                                                                                            comment += ` & Rejection Feedback: ${csvObject['Rejection Feedback'][csvObjectIndex]}`;
+                                                                                        }
+                                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Rejected by ${configData['Client Name']}]` + comment + '^';
+                                                                                    } else {
+                                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${data.d.results[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                        error = true;
+                                                                                    }
+                                                                                }
+
+                                                                                if (!error) {
+                                                                                    history = auditTrailLine + history;
+                                                                                    tdata.push(`cdmReviews|${history}`);
+                                                                                    hazardsToSync.push({
+                                                                                        id: id,
+                                                                                        tdata: tdata
+                                                                                    });
+                                                                                }
+                                                                            } else {
+                                                                                toastr.error(`Could not sync hazard with id ${id} because it has been modified after the review by ${configData['Client Name']}. For more details please check the cdmHazardHistory list and filter the Title by "synced".`);
+                                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it has been modified after the review by ${configData['Client Name']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                            }
+                                                                            if (i == data.d.results.length-1) {
+                                                                                // We'll keep an array of deferred promises which each resolve to true when the hazard is successfully or unsuccessfully written to sharepoint.
+                                                                                // When all promises are resolved we can then safely write the audit information
+                                                                                const promises = [];
+                                                                                for (let j=0; j<hazardsToSync.length; j++) {
+                                                                                    const deffered = new $.Deferred();
+                                                                                    promises.push(deffered);
+                                                                                    await cdmdata.update('cdmHazards', hazardsToSync[j].tdata, 'clientSync', hazardsToSync[j].id,
+                                                                                    () => {
+                                                                                        successfulSyncs.push(id)
+                                                                                        deffered.resolve(true);
+                                                                                    },
+                                                                                    () => {
+                                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
+                                                                                        deffered.resolve(true);
+                                                                                    })
+                                                                                }
+
+                                                                                if (hazardsToSync.length == 0) {
+                                                                                    recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
+                                                                                } else {
+                                                                                    $.when(...promises).then(() => {
+                                                                                        recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
+                                                                                    })
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                })
+                                                            } else {
+                                                                toastr.error('Invalid file format')
+                                                            }
                                                         }
+                                                    reader.readAsBinaryString(csvFile.files[0]);
                                                     }
+                                                    $("#sync-hs2-hazards-btn").on("click", readFile);
+                                                } else {
+                                                    toastr.error(`Could not find ${configData['Client Name']} in cdmCompanies List.`)
                                                 }
                                             }
                                         })
                                     } else {
-                                        toastr.error('Invalid file format')
+                                        toastr.error("You don't have the required permissions to complete this action")
                                     }
+                                }          
+                            });
+
+                            async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList, filename) {
+                                // Function to record the audit information of the hazard sync to the cdmHazardHistory list
+                                const cdmHazardHistory = list('cdmHazardHistory');
+                                const itemCreateInfo = new SP.ListItemCreationInformation();
+                                const oListItem = cdmHazardHistory.addItem(itemCreateInfo);
+                                oListItem.set_item('Title', 'synced');
+                                if (successfulSyncList.length > 0 && unsuccessfulSyncList.length > 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                                } else if (successfulSyncList.length == 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                                } else if (unsuccessfulSyncList.length == 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
                                 }
-                            reader.readAsBinaryString(csvFile.files[0]);
+                                oListItem.update();
+                                ctx().load(oListItem);
+                                await ctx().executeQueryAsync(onSuccess());
+
+                                function onSuccess() {
+                                    toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
+                                }
+
+                                function onFailure() {
+                                    toastr.error('Failed to record audit information for this sync');
+                                }
                             }
-                            $("#sync-hs2-hazards-btn").on("click", readFile);
-                        } else {
-                            toastr.error(`Could not find ${configData['Client Name']} in cdmCompanies List.`)
                         }
-                    },
-                    error: function(error) {
-                        //console.log(error);
                     }
-                });
-
-                async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList, filename) {
-                    // Function to record the audit information of the hazard sync to the cdmHazardHistory list
-                    const cdmHazardHistory = list('cdmHazardHistory');
-                    const itemCreateInfo = new SP.ListItemCreationInformation();
-                    const oListItem = cdmHazardHistory.addItem(itemCreateInfo);
-                    oListItem.set_item('Title', 'synced');
-                    if (successfulSyncList.length > 0 && unsuccessfulSyncList.length > 0) {
-                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
-                    } else if (successfulSyncList.length == 0) {
-                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
-                    } else if (unsuccessfulSyncList.length == 0) {
-                        oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
-                    }
-                    oListItem.update();
-                    ctx().load(oListItem);
-                    await ctx().executeQueryAsync(onSuccess());
-
-                    function onSuccess() {
-                        toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
-                    }
-
-                    function onFailure() {
-                        toastr.error('Failed to record audit information for this sync');
-                    }
-                }
+                })
             }
+                
             if (ulink == 'archivehazards') {
                 // First get the user roles and verify that they are allowed to archive hazards
                 const userId = _spPageContextInfo.userId;
