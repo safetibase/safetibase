@@ -3180,6 +3180,8 @@ function tposSelectdropdown(lst, data, trg, col) {
       // $('#h_'+hzd+'_cdmHazardOwner').val(dvid);
       var tdata = [];
       tdata.push(col + "|" + dv);
+      // There's a bug where ampersands are wrongly encoded as &amp;. We will reverse this encoding
+      tdata = tdata.map(x => x.replace("&amp;", "&"))
       cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
       $("#pops").remove();
     });
