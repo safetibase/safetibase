@@ -4575,10 +4575,10 @@ function hazardreviewbuttonaction() {
                                             }).done(r => {
                                                 let item = ((r.d.results[0].cdmRAMS != null));
                                                 if (item) {
-                                                    tdata.push(`"cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState1"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                                    tdata.push("cdmCurrentStatus|Under Construction Manager review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 } else {
                                                     tdata.push(
-                                                        `"cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState2"]}`
+                                                        `cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`
                                                     ); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 }
 
@@ -4803,7 +4803,7 @@ function hazardreviewbuttonaction() {
                                         if (ns === true) {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push(
-                                                `"cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024"
+                                                `cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024"
                                             );
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
@@ -4973,7 +4973,7 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-                                        tdata.push(`"cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                        tdata.push(`cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -5058,7 +5058,7 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-                                        tdata.push(`"cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                        tdata.push(`cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
