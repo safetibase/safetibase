@@ -5,6 +5,7 @@ configData = {
     'Client Review': false, // Does the project require a client review to be included in the workflow?
     'Client Name': 'Client', // What is the name of the client of the project?
     'Archive hazards permissions': ['System admin'], // Which user roles should be authorised to archive hazards. This is given as a list. E.g., ['System admin', 'Designer', 'Construction Manager'].
+    'Sync Client Hazard Permissions': ['System admin'], // Defines who can use 'Sync Client Hazards' button.
     'Simplified designer dashboard': false, // Do you want a simplified user dashboard for designers?
     'Simplified design manager dashboard': false, // Do you want a simplified user dashboard for designer managers?
     'Simplified construction engineer dashboard': false, // Do you want a simplified user dashboard for construction engineers?
@@ -22,7 +23,7 @@ configData = {
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
     
     //Editable workflow config section. Patrick Hsu, 29 Jan 2024
-    /*'Workflow' : { 
+    'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'] // who can review/edit the hazard at this point
@@ -48,8 +49,10 @@ configData = {
             'userRoles': ['Construction Manager'] // who can review/edit the hazard at this point
         } 
 
-    }*/
+    }
 
+    //Test workflow object for playing around 
+    /*
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under design manager review', 
@@ -77,5 +80,5 @@ configData = {
         } 
 
     }
-
+    */
 }
