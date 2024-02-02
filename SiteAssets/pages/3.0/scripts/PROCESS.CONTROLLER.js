@@ -4454,6 +4454,10 @@ function hazardreviewbuttonaction() {
                     $(".pops-content").load(
                         "../3.0/html/review.initiation.form.html",
                         function() {
+                            //Makes initiate review form button configurable. Patrick Hsu, 1 Feb 2024
+                            var skipToReviewState = document.getElementById('skipToReviewState');
+                            skipToReviewState.textContent = "Request " + `${configData["Workflow"][a]["nextWorkFlowState"].substring(6)}`; 
+                            
                             // cdmdata.get('cdmUsers',q,null,'frmsel_peer',null);
                             $(".tpos-svbtn")
                                 .off("click")

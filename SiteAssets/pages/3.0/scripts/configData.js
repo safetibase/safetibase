@@ -23,62 +23,77 @@ configData = {
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
     
     //Editable workflow config section. Patrick Hsu, 29 Jan 2024
-    'Workflow' : { 
-        'initiatereview' : { 
-            'nextWorkFlowState': 'Under peer review', 
-            'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'] // who can review/edit the hazard at this point
-        },
-        'peerreview' : { 
-            'nextWorkFlowState': 'Under design manager review', 
-            'userRoles': ['Designer'] // who can review/edit the hazard at this point
-        },
-        'dmreview' : { 
-            'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager'] // who can review/edit the hazard at this point
-        },
-        'pcreview' : { 
-            'nextWorkFlowState': 'Under principal designer review', 
-            'userRoles': ['Construction Manager'] // who can review/edit the hazard at this point
-        },
-        'ldreview' : { 
-            'nextWorkFlowState': 'Under site manager review', 
-            'userRoles': ['Principal Designer'] // who can review/edit the hazard at this point
-        },
-        'smreview' : { 
-            'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager'] // who can review/edit the hazard at this point
-        } 
-
-    }
-
-    //Test workflow object for playing around 
     /*
     'Workflow' : { 
         'initiatereview' : { 
-            'nextWorkFlowState': 'Under design manager review', 
-            'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'] // who can review/edit the hazard at this point
+            'nextWorkFlowState': 'Under peer review', 
+            'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'] // who can review/edit the hazard at this poinT
         },
         'peerreview' : { 
             'nextWorkFlowState': 'Under design manager review', 
-            'userRoles': ['Designer'] // who can review/edit the hazard at this point
+            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Review Initiated'
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager'] // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Peer review - approved'
         },
         'pcreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager'] // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': ['Design manager review - approved','Design Manager review - approved']
         },
         'ldreview' : { 
             'nextWorkFlowState': 'Under site manager review', 
-            'userRoles': ['Principal Designer'] // who can review/edit the hazard at this point
+            'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Pre-construction review completed'
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager'] // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Principal designer review completed'
         } 
 
     }
+
+    }
     */
+
+    //Test workflow object for playing around 
+    
+    'Workflow' : { 
+        'initiatereview' : { 
+            'nextWorkFlowState': 'Under design manager review', 
+            'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'] // who can review/edit the hazard at this poinT
+        },
+        'peerreview' : { 
+            'nextWorkFlowState': 'Under design manager review', 
+            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Review Initiated'
+        },
+        'dmreview' : { 
+            'nextWorkFlowState': 'Under pre-construction review', 
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Review Initiated'
+        },
+        'pcreview' : { 
+            'nextWorkFlowState': 'Accepted', 
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': ['Design manager review - approved','Design Manager review - approved']
+        },
+        'ldreview' : { 
+            'nextWorkFlowState': 'Under site manager review', 
+            'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Pre-construction review completed'
+        },
+        'smreview' : { 
+            'nextWorkFlowState': 'Accepted', 
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Principal designer review completed'
+        } 
+
+    }
+    
 }
+

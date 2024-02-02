@@ -1675,6 +1675,7 @@ function printHazardRow(h) {
                         editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
+                        console.log("editing");
                     }
                     // //console.log("Role: " + role)
                     // //console.log("comp: " + comp)
@@ -1687,17 +1688,19 @@ function printHazardRow(h) {
                         role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
                         uid() != h.Editor.ID &&
-                        h.cdmLastReviewStatus == "Review initiated"
+                        h.cdmLastReviewStatus == `${configData["Workflow"]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
+                        console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus);
                     }
                     if (
                         role == "Design Manager" &&
                         comp == h.cdmHazardOwner.Title &&
-                        h.cdmLastReviewStatus == "Peer review - approved"
+                        h.cdmLastReviewStatus == `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         //console.log("UCD APPROVED")
                         ucd = 1;
+                        console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus);
                     }
                     if (role === 'Construction Manager') {
                         isSM = 1;
@@ -1708,7 +1711,7 @@ function printHazardRow(h) {
                     if (
                         role == "Construction Manager" &&
                         site == h.cdmSite.Title &&
-                        ((h.cdmLastReviewStatus == "Design manager review - approved") || (h.cdmLastReviewStatus == "Design Manager review - approved"))
+                        ((h.cdmLastReviewStatus == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"][0]}`) || (h.cdmLastReviewStatus == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"][1]}`)) //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         // requiresLDReview == 1
                     ) {
                         ucpc = 1;
@@ -1730,7 +1733,7 @@ function printHazardRow(h) {
                     if (
                         role == "Principal Designer" &&
                         //   site == h.cdmSite.Title &&
-                        h.cdmLastReviewStatus == "Pre-construction review completed" &&
+                        h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
                         ucl = 1;
@@ -1738,7 +1741,7 @@ function printHazardRow(h) {
                     if (
                         role == "Construction Manager" &&
                         site == h.cdmSite.Title &&
-                        h.cdmLastReviewStatus == "Principal designer review completed" &&
+                        h.cdmLastReviewStatus == `${configData["Workflow"]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
                         ucs = 1;
