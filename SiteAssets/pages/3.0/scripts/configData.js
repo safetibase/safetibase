@@ -70,12 +70,12 @@ configData = {
         'peerreview' : { 
             'nextWorkFlowState': 'Under design manager review', 
             'userRoles': ['Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Review Initiated'
+            'cdmLastReviewStatus': 'Review initiated'
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
             'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Review Initiated'
+            'cdmLastReviewStatus': 'Review initiated'
         },
         'pcreview' : { 
             'nextWorkFlowState': 'Accepted', 
