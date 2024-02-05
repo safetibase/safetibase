@@ -4468,7 +4468,7 @@ function hazardreviewbuttonaction() {
                                     }
                                     var tdata = [];
                                     nl =
-                                        nnd + "]" + user + "]" + "requested peer review]" + cmt + "^";
+                                        nnd + "]" + user + "]" + `${configData["Workflow"][a]["cdmReviewHistory"]}` + cmt + "^"; //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                     hist = $("#h_" + hzd + "_cdmReviews").html();
                                     // var regex = new RegExp("^[a-zA-Z\s]+$");
                                     if (hist.length > 12) {
@@ -4554,7 +4554,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed peer review]" +
+                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4678,7 +4678,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed design manager review]" +
+                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4782,7 +4782,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed pre-construction review]" +
+                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4967,7 +4967,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed principal designer review]" +
+                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -5052,7 +5052,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed Construction Manager review]" +
+                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();

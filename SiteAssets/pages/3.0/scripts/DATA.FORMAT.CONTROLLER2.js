@@ -1675,15 +1675,23 @@ function printHazardRow(h) {
                         editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
-                        console.log("editing");
                     }
-                    // //console.log("Role: " + role)
-                    // //console.log("comp: " + comp)
-                    // //console.log("comp_compare: " + h.cdmHazardOwner.Title)
-                    // //console.log("isLocked: " + isLocked)
-                    // //console.log("uid: " + uid())
-                    // //console.log("uid_compare: " + h.Editor.ID)
-                    // //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
+                    console.log("Role: " + role)
+                    console.log("comp: " + comp)
+                    console.log("hazard owner: " + h.cdmHazardOwner.Title)
+                    console.log("site: " + site)
+                    console.log("site owner: " + h.cdmSite.Title)
+                    //console.log("isLocked: " + isLocked)
+                    //console.log("uid: " + uid())
+                    //console.log("uid_compare: " + h.Editor.ID)
+                    console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
+                    console.log("Config Data: " + `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`)
+                    console.log("ucl: " +ucl)
+
+                    console.log(h.cdmLastReviewStatus.length);
+                    console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
+                    console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
+
                     if (
                         role == "Designer" &&
                         comp == h.cdmHazardOwner.Title &&
@@ -1691,7 +1699,6 @@ function printHazardRow(h) {
                         h.cdmLastReviewStatus == `${configData["Workflow"]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
-                        console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus);
                     }
                     if (
                         role == "Design Manager" &&
@@ -1700,7 +1707,6 @@ function printHazardRow(h) {
                     ) {
                         //console.log("UCD APPROVED")
                         ucd = 1;
-                        console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus);
                     }
                     if (role === 'Construction Manager') {
                         isSM = 1;
