@@ -1668,7 +1668,7 @@ function printHazardRow(h) {
                 }
                 if (hc != "ra") {// if not rams hazard = design hazard
                     if (
-                        (role == "Designer" &&
+                        (role == `${configData["Workflow"]["Can Edit"]}` && //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         isLocked == 0) ||
                         (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
@@ -1676,24 +1676,24 @@ function printHazardRow(h) {
                     ) {
                         uce = 1;
                     }
-                    console.log("Role: " + role)
-                    console.log("comp: " + comp)
-                    console.log("hazard owner: " + h.cdmHazardOwner.Title)
-                    console.log("site: " + site)
-                    console.log("site owner: " + h.cdmSite.Title)
+                    //console.log("Role: " + role)
+                    //console.log("comp: " + comp)
+                    //console.log("hazard owner: " + h.cdmHazardOwner.Title)
+                    //console.log("site: " + site)
+                    //console.log("site owner: " + h.cdmSite.Title)
                     //console.log("isLocked: " + isLocked)
                     //console.log("uid: " + uid())
                     //console.log("uid_compare: " + h.Editor.ID)
-                    console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    console.log("Config Data: " + `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`)
-                    console.log("ucl: " +ucl)
-
-                    console.log(h.cdmLastReviewStatus.length);
-                    console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
-                    console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
+                    //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
+                    //console.log("Config Data: " + `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`)
+                    //console.log("ucpc: " + ucpc)
+                    //console.log(h.cdmLastReviewStatus.length);
+                    //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
+                    //console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
+                    //console.log(role == "Principal Designer" && h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && requiresLDReview == 1)
 
                     if (
-                        role == "Designer" &&
+                        role == `${configData["Workflow"]['peerreview']["userRoles"]}` && //Make user roles configurable. Patrick Hsu, 6 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
@@ -1701,23 +1701,23 @@ function printHazardRow(h) {
                         ucp = 1;
                     }
                     if (
-                        role == "Design Manager" &&
+                        role == `${configData["Workflow"]['dmreview']["userRoles"]}` && //Make user roles configurable. Patrick Hsu, 6 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         //console.log("UCD APPROVED")
                         ucd = 1;
                     }
-                    if (role === 'Construction Manager') {
+                    if (role === `${configData["Workflow"]["Senior Manager Flag"]}`) { //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024
                         isSM = 1;
                     }
                     // if (site == h.cdmSite.Title) {
                     //   //console.log("Should Show Button")
                     // }
                     if (
-                        role == "Construction Manager" &&
+                        role == `${configData["Workflow"]['pcreview']["userRoles"]}` && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024
                         site == h.cdmSite.Title &&
-                        ((h.cdmLastReviewStatus == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"][0]}`) || (h.cdmLastReviewStatus == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"][1]}`)) //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        h.cdmLastReviewStatus.toLowerCase() == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         // requiresLDReview == 1
                     ) {
                         ucpc = 1;
@@ -1737,7 +1737,7 @@ function printHazardRow(h) {
                     }
 
                     if (
-                        role == "Principal Designer" &&
+                        role == `${configData["Workflow"]['ldreview']["userRoles"]}` && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024
                         //   site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
@@ -1745,7 +1745,7 @@ function printHazardRow(h) {
                         ucl = 1;
                     }
                     if (
-                        role == "Construction Manager" &&
+                        role == `${configData["Workflow"]['smreview']["userRoles"]}` && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024
                         site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
