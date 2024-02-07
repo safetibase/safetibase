@@ -23,7 +23,7 @@ configData = {
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
  
     //Editable workflow config section. Patrick Hsu, 29 Jan 2024
-    /*
+    
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
@@ -66,10 +66,11 @@ configData = {
     }
 
     }
-    */
+    
 
     //Test workflow object for playing around 
     
+    /*
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under principal designer review', 
@@ -90,26 +91,26 @@ configData = {
         },
         'pcreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed pre-construction review]'
         },
         'ldreview' : { 
             'nextWorkFlowState': 'Under site manager review', 
-            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Pre-construction review completed',
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Pre-construction review completed',
             'cdmReviewHistory': 'completed Construction Manager review]'
         },
-        'Senior Manager Flag': ['Designer'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
+        'Senior Manager Flag': ['Construction Manager'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
         'Can Edit': ['Designer'], //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024
 
     }
     
 }
-
+*/
