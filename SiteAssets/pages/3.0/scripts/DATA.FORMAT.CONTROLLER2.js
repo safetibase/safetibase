@@ -1633,31 +1633,31 @@ function printHazardRow(h) {
                 let editableWorkflowStage = false;
                 switch (revstatus) {
                     case 'Under peer review':
-                        if (editableWorkflowStages.includes(revstatus) && role == 'Designer') {
+                        if (editableWorkflowStages.includes(revstatus) && role == `${configData["Workflow"]['peerreview']["userRoles"]}`) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
                     
                     case 'Under design manager review':
-                        if (editableWorkflowStages.includes(revstatus) && role == 'Design Manager') {
+                        if (editableWorkflowStages.includes(revstatus) && role == `${configData["Workflow"]['dmreview']["userRoles"]}`) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
 
                     case 'Under pre-construction review':
-                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                        if (editableWorkflowStages.includes(revstatus) && role == `${configData["Workflow"]['pcreview']["userRoles"]}`) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
 
                     case 'Under principal designer review':
-                        if (editableWorkflowStages.includes(revstatus) && role == 'Principal Designer') {
+                        if (editableWorkflowStages.includes(revstatus) && role == `${configData["Workflow"]['ldreview']["userRoles"]}`) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
                     
                     case 'Under site manager review':
-                        if (editableWorkflowStages.includes(revstatus) && role == 'Construction Manager') {
+                        if (editableWorkflowStages.includes(revstatus) && role == `${configData["Workflow"]['smreview']["userRoles"]}`) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
