@@ -1577,7 +1577,7 @@ function printHazardRow(h) {
         rucd = 0,
         rucpc = 0,
         rucl = 0,
-        rucs = 0; // current status and requirements 0=not required/gray  2=required/red 1=accepted/completed/green
+        rucs = 0; // current status and requirements 0=not required/gray, 1=accepted/completed/green, 2=required/red, 3=current_stage/yellow 
     var revbtn = "";
     var isRAMSValid = 0;
 
@@ -1765,6 +1765,24 @@ function printHazardRow(h) {
                             "Initiate review"
                         );
                     }
+                    
+                    // Function with array of active workflow states for configurable progress bar stage colours. Patrick Hsu, 13 Feb 2024
+                    function updateProgressBarColour(state){
+                        workflowStates = {
+                            'Assessment in progress': ruce,
+                            'Under peer review': rucp,
+                            'Under design manager review': rucd,
+                            'Under pre-construction review': rucpc,
+                            'Under principal designer review': rucl,
+                            'Under site manager review': rucs
+                        } 
+
+                        for (let stage in workflowStates) {
+                            if (!(`${configData["Workflow"]['workflowStates']}`.includes(state))) {
+                                workflowStates[stage] = 0;
+                            } 
+                        }
+                    }
 
                     if (requiresLDReview == 1) {
                         (ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
@@ -1782,7 +1800,7 @@ function printHazardRow(h) {
                                 );
                             }
                         }
-                        if (revstatus == "Under peer review") {
+                        if (revstatus == "Under peer review") {           
                             (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucp == 1) {
                                 revbtn =
@@ -1792,6 +1810,8 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under design manager review") {
                             (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
+                            updateProgressBarColour(revstatus); //Update progress bar colours to grey out stages that have been (was green) or will be skipped (was red)
+                           
                             if (ucd == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
