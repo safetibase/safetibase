@@ -1766,28 +1766,212 @@ function printHazardRow(h) {
                         );
                     }
                     
-                    // Function with array of active workflow states for configurable progress bar stage colours. Patrick Hsu, 13 Feb 2024
+                    // Function with array of active workflow states for configurable progress bar stage colours. 
+                    // Current stage is 3 (yellow). Previous stages, if found, are 1 (green), else 0 (grey). 
+                    // Future stages, if found, are 2 (red), else 0 (grey). 
+                    // Patrick Hsu, 13-14 Feb 2024
+                    
                     function updateProgressBarColour(state){
-                        workflowStates = {
-                            'Assessment in progress': ruce,
-                            'Under peer review': rucp,
-                            'Under design manager review': rucd,
-                            'Under pre-construction review': rucpc,
-                            'Under principal designer review': rucl,
-                            'Under site manager review': rucs
-                        } 
+                        
+                        var workflowStates = [];
 
-                        for (let stage in workflowStates) {
-                            if (!(`${configData["Workflow"]['workflowStates']}`.includes(state))) {
-                                workflowStates[stage] = 0;
-                            } 
+                        let a = 'initiatereview'
+                        while(`${configData["Workflow"][a]["cdmLastReviewStatus"]}`!=='Accepted')
+
+                        while(cdmCurrentStatus!=='Accepted'){
+                            console.log("current stage:" + cdmCurrentStatus)
+                            workflowStates.push(cdmCurrentStatus)     
                         }
+
+                        switch(state){
+                            case('Assessment in progress'):
+                                ruce = 3;
+                                for (let i=stages.length-1; i>= 0; i--){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 2;
+                                        }   
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 2;
+                                        }  
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 2;
+                                        }
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 2;
+                                        }   
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 2;
+                                        }  
+                                    }
+                                }
+                                break;
+
+                            case('Under peer review'):
+                                rucp = 3;
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        } 
+                                    }
+                                }
+                                for (let i=stages.length-1; i>= 0; i--){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 2;
+                                        }  
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 2;
+                                        }
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 2;
+                                        }   
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 2;
+                                        }  
+                                    }
+                                }
+                                break;  
+
+                            case('Under design manager review'):
+                                rucd = 3;
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        }
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 1;
+                                        }   
+                                    }
+                                }
+                                for (let i=stages.length-1; i>= 0; i--){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 2;
+                                        }
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 2;
+                                        }   
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 2;
+                                        }  
+                                    }
+                                }
+
+                                break;
+
+                            case('Under pre-construction review'):
+                                rucpc = 3;
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        }
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 1;
+                                        }   
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 1;
+                                        }  
+                                    }
+                                }
+                                for (let i=stages.length-1; i>= 0; i--){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 2;
+                                        }   
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 2;
+                                        }  
+                                    }
+                                }
+                                break;   
+                                
+                            case('Under principal designer review'):
+                                rucl = 3;
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        }
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 1;
+                                        }   
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 1;
+                                        } 
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 1;
+                                        } 
+                                    }
+                                }
+                                for (let i=stages.length-1; i>= 0; i--){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 2;
+                                        }  
+                                    }
+                                }
+                                break;  
+
+                            case('Under site manager review'):
+                                rucs = 3;
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        }
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 1;
+                                        }   
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 1;
+                                        }  
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 1;
+                                        } 
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 1;
+                                        }  
+                                    }
+                                }
+                                break; 
+
+                            case('Accepted'):
+                                for (let i=0; i<workflowStates.length; i++){
+                                    while(workflowStates[i]!==state){
+                                        if(workflowStates.includes('Assessment in progress')){
+                                            ruce = 1;
+                                        }
+                                        if(workflowStates.includes('Under peer review')){
+                                            rucp = 1;
+                                        }   
+                                        if(workflowStates.includes('Under design manager review')){
+                                            rucd = 1;
+                                        }  
+                                        if(workflowStates.includes('Under pre-construction review')){
+                                            rucpc = 1;
+                                        } 
+                                        if(workflowStates.includes('Under principal designer review')){
+                                            rucl = 1;
+                                        }  
+                                        if(workflowStates.includes('Under site manager review')){
+                                            rucs = 1;
+                                        }  
+                                    }
+                                }
+
+                        }
+
+
                     }
 
                     if (requiresLDReview == 1) {
-                        (ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
+                        //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                         if (revstatus == "Assessment in progress") {
-                            (ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
+                            //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (uce == 1) {
                                 // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
                                 // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -1801,7 +1985,7 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under peer review") {           
-                            (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
+                            //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             if (ucp == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
@@ -1809,7 +1993,7 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under design manager review") {
-                            (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
+                            //(ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
                             updateProgressBarColour(revstatus); //Update progress bar colours to grey out stages that have been (was green) or will be skipped (was red)
                            
                             if (ucd == 1) {
@@ -1818,21 +2002,21 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
                             if (ucpc == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
                         if (revstatus == "Under principal designer review") {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
                             if (ucl == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
                             }
                         }
                         if (revstatus == "Under site manager review") {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
                             if (ucs == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
@@ -1844,7 +2028,7 @@ function printHazardRow(h) {
                     } else {
                         (ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2);
                         if (revstatus == "Assessment in progress") {
-                            (ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2);
+                            //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2);
                             if (uce == 1) {
                                 // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
                                 // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -1858,21 +2042,21 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under peer review") {
-                            (ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
+                            //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
                             if (ucp == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                             }
                         }
                         if (revstatus == "Under design manager review") {
-                            (ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
+                            //(ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
                             if (ucd == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
                             if (ucpc == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
@@ -1907,9 +2091,9 @@ function printHazardRow(h) {
                     ) {
                         ucs = 1;
                     }
-                    (ruce = 2), (rucp = 2), (rucs = 2);
+                    //(ruce = 2), (rucp = 2), (rucs = 2);
                     if (revstatus == "Assessment in progress") {
-                        (ruce = 3), (rucp = 2), (rucs = 2);
+                        //(ruce = 3), (rucp = 2), (rucs = 2);
                         if (uce == 1) {
                             // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Construction Engineer">Initiate review</div>';
                             // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Construction Engineer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -1923,14 +2107,14 @@ function printHazardRow(h) {
                         }
                     }
                     if (revstatus == "Under peer review") {
-                        (ruce = 1), (rucp = 3), (rucs = 2);
+                        //(ruce = 1), (rucp = 3), (rucs = 2);
                         if (ucp == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                         }
                     }
                     if (revstatus == "Under Construction Manager review") {
-                        (ruce = 1), (rucp = 1), (rucs = 3);
+                        //(ruce = 1), (rucp = 1), (rucs = 3);
                         if (ucs == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
@@ -1945,12 +2129,12 @@ function printHazardRow(h) {
                 if (revstatus == "Accepted") {
                     if (hc != "ra") {
                         if (requiresLDReview == 1) {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 1);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 1);
                         } else {
-                            (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1);
+                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1);
                         }
                     } else {
-                        (ruce = 1), (rucp = 1), (rucs = 1);
+                        //(ruce = 1), (rucp = 1), (rucs = 1);
                     }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';

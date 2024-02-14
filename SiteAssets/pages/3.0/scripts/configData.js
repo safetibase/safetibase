@@ -72,8 +72,6 @@ configData = {
     
     // /*
     'Workflow' : { 
-        'workflowStates' : ['Assessment in progress', /*'Under peer review',*/ 'Under design manager review', 'Under pre-construction review', 'Under principal designer review', 'Under site manager review'], // Define array of active workflow states for configurable progress bar stage colours. Patrick Hsu, 13 Feb 2024
-        
         'initiatereview' : { 
             'nextWorkFlowState': 'Under design manager review', 
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
