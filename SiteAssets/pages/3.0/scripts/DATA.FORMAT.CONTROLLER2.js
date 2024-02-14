@@ -1773,21 +1773,22 @@ function printHazardRow(h) {
                     
                     function updateProgressBarColour(state){
                         
+                        var allStages = ['Assessment in progress','Under peer review','Under design manager review','Under pre-construction review','Under principal designer review','Under site manager review','Accepted']
                         var workflowStates = [];
 
-                        let a = 'initiatereview'
-                        while(`${configData["Workflow"][a]["cdmLastReviewStatus"]}`!=='Accepted')
-
-                        while(cdmCurrentStatus!=='Accepted'){
-                            console.log("current stage:" + cdmCurrentStatus)
-                            workflowStates.push(cdmCurrentStatus)     
+                        let stage = 'initiatereview'
+                        while(`${configData["Workflow"][stage]['currentProgressBar']}`!=='Accepted'){
+                            console.log("current stage:" + stage)
+                            workflowStates.push(`${configData["Workflow"][stage]['currentProgressBar']}`) 
+                            stage = `${configData["Workflow"][stage]['nextProgressBar']}`
+                            
                         }
 
                         switch(state){
                             case('Assessment in progress'):
                                 ruce = 3;
-                                for (let i=stages.length-1; i>= 0; i--){
-                                    while(workflowStates[i]!==state){
+                                for (let i=allStages.length-1; i>= 0; i--){
+                                    while(allStages[i]!==state){
                                         if(workflowStates.includes('Under peer review')){
                                             rucp = 2;
                                         }   
