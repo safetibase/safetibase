@@ -77,7 +77,7 @@ configData = {
             'nextWorkFlowState': 'Under design manager review',
             'nextProgressBar': 'dmreview',
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
-            'cdmReviewHistory': 'completed principal designer review]'
+            'cdmReviewHistory': 'completed design manager review]'
         },
         'peerreview' : { 
             'currentProgressBar': 'Under peer review',

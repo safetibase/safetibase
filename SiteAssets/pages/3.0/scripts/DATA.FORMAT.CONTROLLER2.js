@@ -1787,183 +1787,139 @@ function printHazardRow(h) {
                         switch(state){
                             case('Assessment in progress'):
                                 ruce = 3;
-                                for (let i=allStages.length-1; i>= 0; i--){
-                                    while(allStages[i]!==state){
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 2;
-                                        }   
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 2;
-                                        }  
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 2;
-                                        }
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 2;
-                                        }   
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 2;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 2;
+                                }   
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 2;
+                                }  
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 2;
                                 }
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 2;
+                                }   
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 2;
+                                }  
                                 break;
 
                             case('Under peer review'):
                                 rucp = 3;
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        } 
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
-                                for (let i=stages.length-1; i>= 0; i--){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 2;
-                                        }  
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 2;
-                                        }
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 2;
-                                        }   
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 2;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 2;
+                                }  
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 2;
                                 }
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 2;
+                                }   
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 2;
+                                }  
                                 break;  
 
                             case('Under design manager review'):
                                 rucd = 3;
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        }
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 1;
-                                        }   
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
-                                for (let i=stages.length-1; i>= 0; i--){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 2;
-                                        }
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 2;
-                                        }   
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 2;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 1;
+                                }  
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 2;
                                 }
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 2;
+                                }   
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 2;
+                                }  
 
                                 break;
 
                             case('Under pre-construction review'):
                                 rucpc = 3;
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        }
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 1;
-                                        }   
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 1;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
-                                for (let i=stages.length-1; i>= 0; i--){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 2;
-                                        }   
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 2;
-                                        }  
-                                    }
-                                }
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 1;
+                                }   
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 1;
+                                }  
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 2;
+                                }   
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 2;
+                                }  
                                 break;   
                                 
                             case('Under principal designer review'):
                                 rucl = 3;
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        }
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 1;
-                                        }   
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 1;
-                                        } 
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 1;
-                                        } 
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
-                                for (let i=stages.length-1; i>= 0; i--){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 2;
-                                        }  
-                                    }
-                                }
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 1;
+                                }   
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 1;
+                                } 
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 1;
+                                } 
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 2;
+                                }  
                                 break;  
 
                             case('Under site manager review'):
                                 rucs = 3;
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        }
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 1;
-                                        }   
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 1;
-                                        }  
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 1;
-                                        } 
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 1;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 1;
+                                }   
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 1;
+                                }  
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 1;
+                                } 
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 1;
+                                } 
                                 break; 
 
                             case('Accepted'):
-                                for (let i=0; i<workflowStates.length; i++){
-                                    while(workflowStates[i]!==state){
-                                        if(workflowStates.includes('Assessment in progress')){
-                                            ruce = 1;
-                                        }
-                                        if(workflowStates.includes('Under peer review')){
-                                            rucp = 1;
-                                        }   
-                                        if(workflowStates.includes('Under design manager review')){
-                                            rucd = 1;
-                                        }  
-                                        if(workflowStates.includes('Under pre-construction review')){
-                                            rucpc = 1;
-                                        } 
-                                        if(workflowStates.includes('Under principal designer review')){
-                                            rucl = 1;
-                                        }  
-                                        if(workflowStates.includes('Under site manager review')){
-                                            rucs = 1;
-                                        }  
-                                    }
+                                if(workflowStates.includes('Assessment in progress')){
+                                    ruce = 1;
                                 }
-
+                                if(workflowStates.includes('Under peer review')){
+                                    rucp = 1;
+                                }   
+                                if(workflowStates.includes('Under design manager review')){
+                                    rucd = 1;
+                                }  
+                                if(workflowStates.includes('Under pre-construction review')){
+                                    rucpc = 1;
+                                } 
+                                if(workflowStates.includes('Under principal designer review')){
+                                    rucl = 1;
+                                }  
+                                if(workflowStates.includes('Under site manager review')){
+                                    rucs = 1;
+                                }  
+                                break; 
                         }
 
 
