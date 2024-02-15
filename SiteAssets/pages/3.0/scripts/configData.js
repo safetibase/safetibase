@@ -73,46 +73,35 @@ configData = {
     // /*
     'Workflow' : { 
         'initiatereview' : { 
-            'currentProgressBar': 'Assessment in progress',
             'nextWorkFlowState': 'Under design manager review',
-            'nextProgressBar': 'dmreview',
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
             'cdmReviewHistory': 'completed design manager review]'
         },
         'peerreview' : { 
-            'currentProgressBar': 'Under peer review',
             'nextWorkFlowState': 'Under design manager review', 
-            'nextProgressBar': 'dmreview',
             'userRoles': ['Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed peer review]'
         },
         'dmreview' : { 
-            'currentProgressBar': 'Under design manager review',
             'nextWorkFlowState': 'Under pre-construction review', 
-            'nextProgressBar': 'pcreview',
             'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed design manager review]'
         },
         'pcreview' : { 
-            'currentProgressBar': 'Under pre-construction review',
             'nextWorkFlowState': 'Accepted', 
-            'nextProgressBar': 'ldreview',
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed pre-construction review]'
         },
         'ldreview' : { 
-            'currentProgressBar': 'Under principal designer review',
             'nextWorkFlowState': 'Under site manager review', 
-            'nextProgressBar': 'smreview',
             'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Pre-construction review completed',
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'smreview' : { 
-            'currentProgressBar': 'Under site manager review',
             'nextWorkFlowState': 'Accepted', 
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
