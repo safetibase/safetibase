@@ -1840,7 +1840,7 @@ function printHazardRow(h) {
                         uce = 1;
                     }
                     //console.log("Role: " + role)
-                    console.log(`${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role));
+                    //console.log(`${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role));
                     //console.log("comp: " + comp)
                     //console.log("hazard owner: " + h.cdmHazardOwner.Title)
                     //console.log("site: " + site)
@@ -1848,8 +1848,8 @@ function printHazardRow(h) {
                     //console.log("isLocked: " + isLocked)
                     //console.log("uid: " + uid())
                     //console.log("uid_compare: " + h.Editor.ID)
-                    console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
+                    //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
+                    //console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
                     //console.log("ucpc: " + ucpc)
                     //console.log(h.cdmLastReviewStatus.length);
                     //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
@@ -1930,11 +1930,11 @@ function printHazardRow(h) {
                     }
                     
                     if (requiresLDReview == 1) {
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                         if (revstatus == "Assessment in progress") {
                             //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (uce == 1) {
                                 // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
                                 // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -1949,7 +1949,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under peer review") {           
                             //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucp == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
@@ -1967,7 +1967,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under pre-construction review") {
                             //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucpc == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
@@ -1975,7 +1975,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under principal designer review") {
                             //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucl == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
@@ -1983,7 +1983,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under site manager review") {
                             //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucs == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
@@ -1993,11 +1993,11 @@ function printHazardRow(h) {
                         //     (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 1);
                         // }
                     } else {
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2);
                         if (revstatus == "Assessment in progress") {
                             //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (uce == 1) {
                                 // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
                                 // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -2012,7 +2012,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under peer review") {
                             //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucp == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
@@ -2020,7 +2020,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under design manager review") {
                             //(ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucd == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
@@ -2028,7 +2028,7 @@ function printHazardRow(h) {
                         }
                         if (revstatus == "Under pre-construction review") {
                             //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
-                            updateProgressBarColour(revstatus);
+                            updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucpc == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
@@ -2066,7 +2066,7 @@ function printHazardRow(h) {
                     //(ruce = 2), (rucp = 2), (rucs = 2);
                     if (revstatus == "Assessment in progress") {
                         //(ruce = 3), (rucp = 2), (rucs = 2);
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (uce == 1) {
                             // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Construction Engineer">Initiate review</div>';
                             // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Construction Engineer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -2081,7 +2081,7 @@ function printHazardRow(h) {
                     }
                     if (revstatus == "Under peer review") {
                         //(ruce = 1), (rucp = 3), (rucs = 2);
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (ucp == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
@@ -2089,7 +2089,7 @@ function printHazardRow(h) {
                     }
                     if (revstatus == "Under Construction Manager review") {
                         //(ruce = 1), (rucp = 1), (rucs = 3);
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (ucs == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
@@ -2103,7 +2103,7 @@ function printHazardRow(h) {
             } else {
                 if (revstatus == "Accepted") {
                     if (hc != "ra") {
-                        updateProgressBarColour(revstatus);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                     } else {
                         //(ruce = 1), (rucp = 1), (rucs = 1);
                     }
