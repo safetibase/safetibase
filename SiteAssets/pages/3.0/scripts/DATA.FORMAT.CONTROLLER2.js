@@ -1840,7 +1840,7 @@ function printHazardRow(h) {
                         uce = 1;
                     }
                     //console.log("Role: " + role)
-                    //console.log(`${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role));
+                    console.log(`${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role));
                     //console.log("comp: " + comp)
                     //console.log("hazard owner: " + h.cdmHazardOwner.Title)
                     //console.log("site: " + site)
@@ -1848,8 +1848,8 @@ function printHazardRow(h) {
                     //console.log("isLocked: " + isLocked)
                     //console.log("uid: " + uid())
                     //console.log("uid_compare: " + h.Editor.ID)
-                    //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    //console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
+                    console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
+                    console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
                     //console.log("ucpc: " + ucpc)
                     //console.log(h.cdmLastReviewStatus.length);
                     //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
