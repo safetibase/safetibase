@@ -85,13 +85,13 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager', 'Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed design manager review]'
         },
         'pcreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'userRoles': ['Construction Manager', 'Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed pre-construction review]'
         },

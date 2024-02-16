@@ -1620,30 +1620,26 @@ function printHazardRow(h) {
         // Current stage is 3 (yellow). Previous stages, if found, are 1 (green), else 0 (grey). 
         // Future stages, if found, are 2 (red), else 0 (grey). 
         // Patrick Hsu, 13-14 Feb 2024
-        
         function updateProgressBarColour(state){
-            
             var allStages = {
-                'Assessment in progress': 'initiatereview',
+                'Requires mitigation': 'initiatereview',
                 'Under peer review': 'peerreview',
                 'Under design manager review': 'dmreview',
                 'Under pre-construction review': 'pcreview',
                 'Under principal designer review': 'ldreview',
                 'Under site manager review': 'smreview'
             };
-            var workflowStates = ['Assessment in progress'];
+            var workflowStates = ['Requires mitigation'];
 
             let stage = 'initiatereview'
             while(`${configData["Workflow"][stage]['nextWorkFlowState']}`!=='Accepted'){
-                console.log("current stage:" + stage)
                 workflowStates.push(`${configData["Workflow"][stage]['nextWorkFlowState']}`) 
                 stage = allStages[`${configData["Workflow"][stage]['nextWorkFlowState']}`]
                 
             }
-            console.log[workflowStates]
 
             switch(state){
-                case('Assessment in progress'):
+                case('Requires mitigation'):
                     ruce = 3;
                     if(workflowStates.includes('Under peer review')){
                         rucp = 2;
@@ -1664,7 +1660,7 @@ function printHazardRow(h) {
 
                 case('Under peer review'):
                     rucp = 3;
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under design manager review')){
@@ -1683,7 +1679,7 @@ function printHazardRow(h) {
 
                 case('Under design manager review'):
                     rucd = 3;
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under peer review')){
@@ -1703,7 +1699,7 @@ function printHazardRow(h) {
 
                 case('Under pre-construction review'):
                     rucpc = 3;
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under peer review')){
@@ -1722,7 +1718,7 @@ function printHazardRow(h) {
                     
                 case('Under principal designer review'):
                     rucl = 3;
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under peer review')){
@@ -1741,7 +1737,7 @@ function printHazardRow(h) {
 
                 case('Under site manager review'):
                     rucs = 3;
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under peer review')){
@@ -1759,7 +1755,7 @@ function printHazardRow(h) {
                     break; 
 
                 case('Accepted'):
-                    if(workflowStates.includes('Assessment in progress')){
+                    if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
                     if(workflowStates.includes('Under peer review')){
@@ -1782,7 +1778,6 @@ function printHazardRow(h) {
 
 
         }
-
 
             if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
                 // We need to work out which stages of the workflow are editable - this is read from the config file
@@ -1854,7 +1849,7 @@ function printHazardRow(h) {
                     //console.log("uid: " + uid())
                     //console.log("uid_compare: " + h.Editor.ID)
                     //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    //console.log("Config Data: " + `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`)
+                    //console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
                     //console.log("ucpc: " + ucpc)
                     //console.log(h.cdmLastReviewStatus.length);
                     //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
@@ -1935,6 +1930,7 @@ function printHazardRow(h) {
                     }
                     
                     if (requiresLDReview == 1) {
+                        updateProgressBarColour(revstatus);
                         //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                         if (revstatus == "Assessment in progress") {
                             //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
@@ -1997,7 +1993,8 @@ function printHazardRow(h) {
                         //     (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 1);
                         // }
                     } else {
-                        (ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2);
+                        updateProgressBarColour(revstatus);
+                        //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2);
                         if (revstatus == "Assessment in progress") {
                             //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2);
                             updateProgressBarColour(revstatus);
