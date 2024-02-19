@@ -90,7 +90,7 @@ configData = {
             'cdmReviewHistory': 'completed design manager review]'
         },
         'pcreview' : { 
-            'nextWorkFlowState': 'Accepted', 
+            'nextWorkFlowState': 'Under principal designer review', 
             'userRoles': ['Construction Manager', 'Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed pre-construction review]'

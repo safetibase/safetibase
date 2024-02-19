@@ -1581,11 +1581,11 @@ function printHazardRow(h) {
     var revbtn = "";
     var isRAMSValid = 0;
 
-    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title == "Commission") {
+    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         requiresLDReview = 1;
         // //console.log(requiresLDReview);
     }
-    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title == "Commission") {
+    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         isRAMSValid = 1;
     }
 
@@ -1796,31 +1796,31 @@ function printHazardRow(h) {
                 let editableWorkflowStage = false;
                 switch (revstatus) {
                     case 'Under peer review':
-                        if (editableWorkflowStages.includes(revstatus) && `${configData["Workflow"]['peerreview']["userRoles"]}`.includes(role)) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        if (editableWorkflowStages.includes(revstatus) && [configData["Workflow"]['peerreview']["userRoles"]].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
                     
                     case 'Under design manager review':
-                        if (editableWorkflowStages.includes(revstatus) && `${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role)) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        if (editableWorkflowStages.includes(revstatus) && [configData["Workflow"]['dmreview']["userRoles"]].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
 
                     case 'Under pre-construction review':
-                        if (editableWorkflowStages.includes(revstatus) && `${configData["Workflow"]['pcreview']["userRoles"]}`.includes(role)) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        if (editableWorkflowStages.includes(revstatus) && [configData["Workflow"]['pcreview']["userRoles"]].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
 
                     case 'Under principal designer review':
-                        if (editableWorkflowStages.includes(revstatus) && `${configData["Workflow"]['ldreview']["userRoles"]}`.includes(role)) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        if (editableWorkflowStages.includes(revstatus) && [configData["Workflow"]['ldreview']["userRoles"]].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
                     
                     case 'Under site manager review':
-                        if (editableWorkflowStages.includes(revstatus) && `${configData["Workflow"]['smreview']["userRoles"]}`.includes(role)) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        if (editableWorkflowStages.includes(revstatus) && [configData["Workflow"]['smreview']["userRoles"]].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
@@ -1831,7 +1831,7 @@ function printHazardRow(h) {
                 }
                 if (hc != "ra") {// if not rams hazard = design hazard
                     if (
-                        (`${configData["Workflow"]["Can Edit"]}`.includes(role) && //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        ([configData["Workflow"]['Can Edit']].filter(item => item === role).length > 0 && //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         isLocked == 0) ||
                         (role == 'System admin' && configData['Full admin edit rights']) || // Can admins make changes at any workflow state? This is in the config file.
@@ -1840,7 +1840,7 @@ function printHazardRow(h) {
                         uce = 1;
                     }
                     //console.log("Role: " + role)
-                    //console.log(`${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role));
+                    //console.log(`${configData["Workflow"]['ldreview']["userRoles"]}`.includes(role));
                     //console.log("comp: " + comp)
                     //console.log("hazard owner: " + h.cdmHazardOwner.Title)
                     //console.log("site: " + site)
@@ -1849,15 +1849,15 @@ function printHazardRow(h) {
                     //console.log("uid: " + uid())
                     //console.log("uid_compare: " + h.Editor.ID)
                     //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    //console.log("Config Data: " + `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}`)
-                    //console.log("ucpc: " + ucpc)
+                    //console.log("Config Data: " + `${configData["Workflow"]['ldreview']["userRoles"]}`)
+                    //console.log("ucl: " + ucl)
                     //console.log(h.cdmLastReviewStatus.length);
                     //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
                     //console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
                     //console.log(role == "Principal Designer" && h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && requiresLDReview == 1)
 
                     if (
-                        `${configData["Workflow"]['peerreview']["userRoles"]}`.includes(role) && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        [configData["Workflow"]['peerreview']["userRoles"]].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
@@ -1865,21 +1865,21 @@ function printHazardRow(h) {
                         ucp = 1;
                     }
                     if (
-                        `${configData["Workflow"]['dmreview']["userRoles"]}`.includes(role) && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        [configData["Workflow"]['dmreview']["userRoles"]].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['dmreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         //console.log("UCD APPROVED")
                         ucd = 1;
                     }
-                    if (`${configData["Workflow"]["Senior Manager Flag"]}`.includes(role)) { //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                    if ([configData["Workflow"]['Senior Manager Flag']].filter(item => item === role).length > 0) { //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         isSM = 1;
                     }
                     // if (site == h.cdmSite.Title) {
                     //   //console.log("Should Show Button")
                     // }
                     if (
-                        `${configData["Workflow"]['pcreview']["userRoles"]}`.includes(role) && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        [configData["Workflow"]['pcreview']["userRoles"]].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus.toLowerCase() == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         // requiresLDReview == 1
@@ -1901,7 +1901,7 @@ function printHazardRow(h) {
                     }
 
                     if (
-                        `${configData["Workflow"]['ldreview']["userRoles"]}`.includes(role) && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        [configData["Workflow"]['ldreview']["userRoles"]].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to array filter.() to avoid designer being treated as a substring of principal designer. Patrick Hsu, 19 Feb 2024
                         //   site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
@@ -1909,7 +1909,7 @@ function printHazardRow(h) {
                         ucl = 1;
                     }
                     if (
-                        `${configData["Workflow"]['smreview']["userRoles"]}`.includes(role) && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        [configData["Workflow"]['smreview']["userRoles"]].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData["Workflow"]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
