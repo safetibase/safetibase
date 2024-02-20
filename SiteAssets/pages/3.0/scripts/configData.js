@@ -23,7 +23,7 @@ configData = {
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
-    /*//Default full workflow 
+    //Default full workflow 
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
@@ -64,9 +64,7 @@ configData = {
         'Can Edit': ['Designer'], //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024
 
     }
-
-    }
-    */
+    
 
     //Test workflow 
     /*
@@ -112,6 +110,7 @@ configData = {
     */
 
     //BBV Demo workflow 
+    /*
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under design manager review',
@@ -151,5 +150,6 @@ configData = {
         'Senior Manager Flag': ['Construction Manager'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
 
     }
+    */
 }
 
