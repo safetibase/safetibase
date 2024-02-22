@@ -4443,6 +4443,16 @@ function hazardreviewbuttonaction() {
             //   hist = $("#h_" + hzd + "_cdmReviews").html();
             // //console.log(vn);
 
+            var stage = $("#h_" + hzd + " .cdmStageExtra").html();
+            var workflow = "";
+            if (stage.includes("Construction") || stage.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
+                workflow = "ConstructionCommission";
+            }
+        
+            else {
+                workflow = "OpsDemolMaint";
+            }
+
             if (a == "initiatereview") {
                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
@@ -4456,7 +4466,7 @@ function hazardreviewbuttonaction() {
                         function() {
                             //Makes initiate review form button configurable. Patrick Hsu, 1 Feb 2024
                             var skipToReviewState = document.getElementById('skipToReviewState');
-                            skipToReviewState.textContent = "Request " + `${configData["Workflow"][a]["nextWorkFlowState"].substring(6)}`; 
+                            skipToReviewState.textContent = "Request " + `${configData[workflow][a]["nextWorkFlowState"].substring(6)}`; 
                             
                             // cdmdata.get('cdmUsers',q,null,'frmsel_peer',null);
                             $(".tpos-svbtn")
@@ -4468,7 +4478,7 @@ function hazardreviewbuttonaction() {
                                     }
                                     var tdata = [];
                                     nl =
-                                        nnd + "]" + user + "]" + `${configData["Workflow"][a]["cdmReviewHistory"]}` + cmt + "^"; //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                        nnd + "]" + user + "]" + `${configData[workflow][a]["cdmReviewHistory"]}` + cmt + "^"; //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                     hist = $("#h_" + hzd + "_cdmReviews").html();
                                     // var regex = new RegExp("^[a-zA-Z\s]+$");
                                     if (hist.length > 12) {
@@ -4484,7 +4494,7 @@ function hazardreviewbuttonaction() {
 
                                     // //console.log(nl+hist);
                                     tdata.push("cdmReviews|" + nl);
-                                    tdata.push(`cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                    tdata.push(`cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                     tdata.push("cdmLastReviewDate|" + ind);
                                     tdata.push("cdmLastReviewStatus|Review initiated");
                                     tdata.push("cdmLastReviewer|" + unm());
@@ -4554,7 +4564,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                            `${configData[workflow][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4582,7 +4592,7 @@ function hazardreviewbuttonaction() {
                                                     tdata.push("cdmCurrentStatus|Under Construction Manager review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 } else {
                                                     tdata.push(
-                                                        `cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`
+                                                        `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`
                                                     ); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 }
 
@@ -4678,7 +4688,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                            `${configData[workflow][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4692,7 +4702,7 @@ function hazardreviewbuttonaction() {
                                         // //console.log(ns);
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
-                                            `cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                            `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                         );
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -4782,7 +4792,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                            `${configData[workflow][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4807,7 +4817,7 @@ function hazardreviewbuttonaction() {
                                         if (ns === true) {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push(
-                                                `cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024"
+                                                `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024"
                                             );
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
@@ -4967,7 +4977,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                            `${configData[workflow][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4977,7 +4987,7 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-                                        tdata.push(`cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                        tdata.push(`cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -5052,7 +5062,7 @@ function hazardreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            `${configData["Workflow"][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
+                                            `${configData[workflow][a]["cdmReviewHistory"]}` + //Make cdmReviews history record correct according to configurable workflow, not hard-coded. Patrick Hsu, 5 Feb 2024
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -5062,7 +5072,7 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-                                        tdata.push(`cdmCurrentStatus|${configData["Workflow"][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                        tdata.push(`cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
