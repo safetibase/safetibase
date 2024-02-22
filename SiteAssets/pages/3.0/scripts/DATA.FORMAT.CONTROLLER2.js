@@ -1583,10 +1583,29 @@ function printHazardRow(h) {
 
     if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         requiresLDReview = 1;
+        isRAMSValid = 1;
         // //console.log(requiresLDReview);
     }
-    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
-        isRAMSValid = 1;
+
+    // Ensures operation, demolition, maintenance hazard types can advance to principal designer and site review stages if so configured. Patrick Hsu, 22 Feb 2024
+    if (h.cdmStageExtra.Title.includes("Operation") || h.cdmStageExtra.Title.includes("Demolition") || h.cdmStageExtra.Title.includes("Maintenance")) { 
+        var allStages = {
+            'Requires mitigation': 'initiatereview',
+            'Under peer review': 'peerreview',
+            'Under design manager review': 'dmreview',
+            'Under pre-construction review': 'pcreview',
+            'Under principal designer review': 'ldreview',
+            'Under site manager review': 'smreview'
+        };
+
+        let stage = 'initiatereview'
+        while(`${configData["Workflow"][stage]['nextWorkFlowState']}`!=='Accepted'){
+            if(`${configData["Workflow"][stage]['nextWorkFlowState']}` == 'Under site manager review' || `${configData["Workflow"][stage]['nextWorkFlowState']}` == 'Under principal designer review'){
+                requiresLDReview = 1;
+            }
+            stage = allStages[`${configData["Workflow"][stage]['nextWorkFlowState']}`]
+            
+        }
     }
 
     var mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="vwrams" id="mkramsbtn_' + h.ID + '">View associated RAMS hazards</div>';
@@ -1856,6 +1875,11 @@ function printHazardRow(h) {
                     //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
                     //console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
                     //console.log(role == "Principal Designer" && h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && requiresLDReview == 1)
+                    
+                
+                    if(h.cdmLastReviewStatus == 'design manager review - approved' || h.cdmLastReviewStatus == 'Design manager review - approved'){
+                        h.cdmLastReviewStatus = h.cdmLastReviewStatus.toLowerCase()
+                    } //In the original code, cdmLastReviewStatus in some stages have upper case D in Design manager...approved, some have lower case d. Patrick Hsu, 22 Feb 2024
 
                     if (
                         configData["Workflow"]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
@@ -1873,7 +1897,7 @@ function printHazardRow(h) {
                         //console.log("UCD APPROVED")
                         ucd = 1;
                     }
-                    if (configData["Workflow"]['Senior Manager Flag'].filter(item => item === role).length > 0) { //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                    if (role === 'Construction Manager') { 
                         isSM = 1;
                     }
                     // if (site == h.cdmSite.Title) {
@@ -1882,7 +1906,7 @@ function printHazardRow(h) {
                     if (
                         configData["Workflow"]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
-                        h.cdmLastReviewStatus.toLowerCase() == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        h.cdmLastReviewStatus == `${configData["Workflow"]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         // requiresLDReview == 1
                     ) {
                         ucpc = 1;
