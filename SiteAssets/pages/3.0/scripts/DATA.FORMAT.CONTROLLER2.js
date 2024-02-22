@@ -1600,7 +1600,6 @@ function printHazardRow(h) {
 
         let stage = 'initiatereview'
         while(`${configData["Workflow"][stage]['nextWorkFlowState']}`!=='Accepted'){
-            console.log(`${configData["Workflow"][stage]['nextWorkFlowState']}`)
             if(`${configData["Workflow"][stage]['nextWorkFlowState']}` == 'Under site manager review' || `${configData["Workflow"][stage]['nextWorkFlowState']}` == 'Under principal designer review'){
                 requiresLDReview = 1;
             }
