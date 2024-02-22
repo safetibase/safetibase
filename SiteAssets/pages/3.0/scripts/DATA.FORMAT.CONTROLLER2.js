@@ -1586,7 +1586,6 @@ function printHazardRow(h) {
     if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
-        isRAMSValid = 1;
         // //console.log(requiresLDReview);
     }
 
