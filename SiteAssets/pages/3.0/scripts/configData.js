@@ -38,7 +38,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
@@ -59,11 +59,8 @@ configData = {
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed Construction Manager review]'
-        },
-        'Senior Manager Flag': ['Construction Manager'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
-        'Can Edit': ['Designer'], //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024
-
-    }
+        }
+    },
     
 
     //Test workflow 
@@ -76,12 +73,12 @@ configData = {
         },
         'peerreview' : { 
             'nextWorkFlowState': 'Under design manager review', 
-            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Designer',''], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed peer review]'
         },
         'dmreview' : { 
-            'nextWorkFlowState': 'Under pre-construction review', 
+            'nextWorkFlowState': 'Under site manager review', 
             'userRoles': ['Design Manager', 'Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed design manager review]'
@@ -101,11 +98,9 @@ configData = {
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Principal designer review completed',
+            'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed Construction Manager review]'
-        },
-        'Senior Manager Flag': ['Construction Manager'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
-
+        }
     }
     */
 
@@ -146,9 +141,7 @@ configData = {
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed Construction Manager review]'
-        },
-        'Senior Manager Flag': ['Construction Manager'], //Make the definition of senior manager user role configurable. This flag needs to be set in order to progress to pcreview, ldreview and smreview stages. Patrick Hsu, 6 Feb 2024
-
+        }
     }
     */
 }
