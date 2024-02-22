@@ -24,7 +24,7 @@ configData = {
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
     //Default full workflow 
-    /*'Workflow' : { 
+    'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
@@ -61,10 +61,10 @@ configData = {
             'cdmReviewHistory': 'completed Construction Manager review]'
         }
     },
-    */
+    
 
     //Test workflow 
-    // /*
+    /*
     'Workflow' : { 
         'initiatereview' : { 
             'nextWorkFlowState': 'Under design manager review',
@@ -102,7 +102,7 @@ configData = {
             'cdmReviewHistory': 'completed Construction Manager review]'
         }
     }
-    // */
+    */
 
     //BBV Demo workflow 
     /*
