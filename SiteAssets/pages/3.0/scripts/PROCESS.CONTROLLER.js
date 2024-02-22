@@ -4441,7 +4441,6 @@ function hazardreviewbuttonaction() {
             var vn = $("#h_" + hzd + " .cdmSite").html();
             //   var curstatus='';
             //   hist = $("#h_" + hzd + "_cdmReviews").html();
-            // //console.log(vn);
 
             var stage = $("#h_" + hzd + " .cdmStageExtra").html();
             var workflow = "";
