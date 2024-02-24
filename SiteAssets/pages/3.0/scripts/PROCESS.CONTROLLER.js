@@ -3132,7 +3132,7 @@ function tposSelectdropdown(lst, data, trg, col) {
         "</td></tr>";
     }
     $("#popscontentarea").html(
-      '<table class="tpos-select-table">' + options + "</table>"
+      '<div style="width: 30%"><table style="float: left; border: 1px solid black; margin: 0; padding: 0;" class="tpos-select-table">' + options + "</table>" + "<p class='remove-selection' title='Click to remove selection' style='float: right; width: 5%; font-size: 20px; text-align: center; margin: 0; padding: 0; cursor: pointer'>&#x2715</p></div>"
     );
     // $('#sel_' + lst).blur(function(){
     //     $('.dvs').hide();
@@ -3200,6 +3200,12 @@ function tposSelectdropdown(lst, data, trg, col) {
         $(".dvs").show();
       }
     });
+
+    $(".remove-selection").click(() => {
+        console.log("here")
+        const update = [col + "|" + ""]
+        cdmdata.update("cdmHazards", update, "frmedit_updateview");
+    })
   
     $(".btn-cancel").click(function () {
       $(".pops-title").html("");
@@ -5079,9 +5085,12 @@ function hazardreviewbuttonaction() {
                 if (a == "clientreview") {
                     //console.log("Client Review Button Pressed")
                     var vcheck = $('#h_' + hzd + ' .cdmResidualRiskOwner').html();
+                    var contract = $('#h_' + hzd + ' .cdmContract').html();
                     //console.log(vcheck);
                     if (vcheck === null || vcheck === 'undefined' || vcheck === '') {
                         toastr.error(`Please provide a Residual Risk Owner before submitting to ${configData['Client Name']}`);
+                    } else if (vcheck === "HS2 Rail Systems Interface Engineer" && !contract) {
+                        toastr.error("If the residual risk owner is HS2 Rail Systems Interface Engineer, you must provide a contract before submitting to HS2");
                     } else {
                         var tdata = [];
                         nl =
