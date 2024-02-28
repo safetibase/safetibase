@@ -1780,6 +1780,49 @@ function printHazardRow(h) {
                         rucs = 1;
                     }  
                     break; 
+
+                case(`Ready for review by ${configData['Client Name']}`):
+                    if(workflowStates.includes('Requires mitigation')){
+                        ruce = 4;
+                        //$.document.get_id("sgjhsjlk").css("Hover:disable")
+                    }
+                    if(workflowStates.includes('Under peer review')){
+                        rucp = 4;
+                    }   
+                    if(workflowStates.includes('Under design manager review')){
+                        rucd = 4;
+                    }  
+                    if(workflowStates.includes('Under pre-construction review')){
+                        rucpc = 4;
+                    } 
+                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                        rucl = 4;
+                    }  
+                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                        rucs = 4;
+                    }  
+                    break;
+            
+                case(`Accepted by ${configData['Client Name']}`):
+                    if(workflowStates.includes('Requires mitigation')){
+                        ruce = 5;
+                    }
+                    if(workflowStates.includes('Under peer review')){
+                        rucp = 5;
+                    }   
+                    if(workflowStates.includes('Under design manager review')){
+                        rucd = 5;
+                    }  
+                    if(workflowStates.includes('Under pre-construction review')){
+                        rucpc = 5;
+                    } 
+                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                        rucl = 5;
+                    }  
+                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                        rucs = 5;
+                    }  
+                    break;
             }
 
 
@@ -2128,25 +2171,17 @@ function printHazardRow(h) {
                 }
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
                     if (hc != "ra") {
-                        if (requiresLDReview == 1) {
-                            (ruce = 4), (rucp = 4), (rucd = 4), (rucpc = 4), (rucl = 4), (rucs = 4);
-                        } else {
-                            (ruce = 4), (rucp = 4), (rucd = 4), (rucpc = 4);
-                        }
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
                     } else {
-                        (ruce = 4), (rucp = 4), (rucs = 4);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
                     }
                     warning = `<div class="clr_5_active">This hazard is under review by ${configData['Client Name']} and therefore locked for editing.</div>`;
                 }
                 if (revstatus == `Accepted by ${configData['Client Name']}`) {
                     if (hc != "ra") {
-                        if (requiresLDReview == 1) {
-                            (ruce = 5), (rucp = 5), (rucd = 5), (rucpc = 5), (rucl = 5), (rucs = 5);
-                        } else {
-                            (ruce = 5), (rucp = 5), (rucd = 5), (rucpc = 5);
-                        }
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
                     } else {
-                        (ruce = 5), (rucp = 5), (rucs = 5);
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
                     }
                     warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                 }
