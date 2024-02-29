@@ -24,6 +24,7 @@ configData = {
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
     //Default full workflows
+    /*
     'ConstructionCommission' : {
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
@@ -101,13 +102,13 @@ configData = {
         }
     
     }
-    
+    */
 
     //Test workflow 
-    /*
+    
     'ConstructionCommission' : {
         'initiatereview' : { 
-            'nextWorkFlowState': 'Under site manager review', 
+            'nextWorkFlowState': 'Under peer review', 
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
             'cdmReviewHistory': 'requested peer review]'
         },
@@ -119,7 +120,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
@@ -137,8 +138,8 @@ configData = {
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager', 'Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Review initiated',
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed Construction Manager review]'
         }
     
@@ -146,7 +147,7 @@ configData = {
     
     'OpsDemolMaint' : {  
         'initiatereview' : { 
-            'nextWorkFlowState': 'Under pre-construction review', 
+            'nextWorkFlowState': 'Under peer review', 
             'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
             'cdmReviewHistory': 'requested peer review]'
         },
@@ -157,15 +158,15 @@ configData = {
             'cdmReviewHistory': 'completed peer review]'
         },
         'dmreview' : { 
-            'nextWorkFlowState': 'Under site manager review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'nextWorkFlowState': 'Under pre-construction review', 
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
         'pcreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager','Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Review initiated',
+            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed pre-construction review]'
         },
         'ldreview' : { 
@@ -177,12 +178,12 @@ configData = {
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
             'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'design manager review - approved',
+            'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed Construction Manager review]'
         }
     
     }
-    */
+    
 
 }
 
