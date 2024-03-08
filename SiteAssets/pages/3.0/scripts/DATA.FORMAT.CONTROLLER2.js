@@ -1887,25 +1887,7 @@ function printHazardRow(h) {
                         editableWorkflowStage // Is this stage in the workflow editable to the current user. This is controlled in the config file.
                     ) {
                         uce = 1;
-                    }
-
-                    //console.log("Role: " + role)
-                    //console.log(`${configData["Workflow"]['ldreview']["userRoles"]}`.includes(role));
-                    //console.log("comp: " + comp)
-                    //console.log("hazard owner: " + h.cdmHazardOwner.Title)
-                    //console.log("site: " + site)
-                    //console.log("site owner: " + h.cdmSite.Title)
-                    //console.log("isLocked: " + isLocked)
-                    //console.log("uid: " + uid())
-                    //console.log("uid_compare: " + h.Editor.ID)
-                    //console.log("h.cdmLastReviewStatus: " + h.cdmLastReviewStatus)
-                    //console.log("Config Data: " + `${configData["Workflow"]['ldreview']["userRoles"]}`)
-                    //console.log("ucl: " + ucl)
-                    //console.log(h.cdmLastReviewStatus.length);
-                    //console.log(`${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`.length);
-                    //console.log(h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}`);
-                    //console.log(role == "Principal Designer" && h.cdmLastReviewStatus == `${configData["Workflow"]['ldreview']["cdmLastReviewStatus"]}` && requiresLDReview == 1)
-                    
+                    }            
                 
                     if(h.cdmLastReviewStatus == 'design manager review - approved' || h.cdmLastReviewStatus == 'Design manager review - approved'){
                         h.cdmLastReviewStatus = h.cdmLastReviewStatus.toLowerCase()
@@ -1924,20 +1906,15 @@ function printHazardRow(h) {
                         comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['dmreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
-                        //console.log("UCD APPROVED")
                         ucd = 1;
                     }
                     if (role === 'Construction Manager') { 
                         isSM = 1;
                     }
-                    // if (site == h.cdmSite.Title) {
-                    //   //console.log("Should Show Button")
-                    // }
                     if (
                         configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
-                        // requiresLDReview == 1
                     ) {
                         ucpc = 1;
                     }
@@ -1945,7 +1922,6 @@ function printHazardRow(h) {
                         mkramsbtn = '';
                         lblramshazards = '';
                     }
-                    // if(role==='Construction Manager'&&h.cdmSMMitigationSuggestion==='Awaiting assessment'){
                     if (isSM === 1 && hasRAMS === 0) {
                         // Below has been changed from "Add associated RAMS hazard" to "View and add associated RAMS hazard"
                         mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="mkrams" id="mkramsbtn_' + h.ID + '" title="Only available to Construction Managers to mitigate further via RAMS hazards">View and add associated RAMS hazards</div>';
@@ -1957,7 +1933,6 @@ function printHazardRow(h) {
 
                     if (
                         configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to array filter.() to avoid designer being treated as a substring of principal designer. Patrick Hsu, 19 Feb 2024
-                        //   site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
@@ -1986,13 +1961,9 @@ function printHazardRow(h) {
                     
                     if (requiresLDReview == 1) {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                        //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                         if (revstatus == "Assessment in progress") {
-                            //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (uce == 1) {
-                                // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
-                                // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
@@ -2003,7 +1974,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under peer review") {           
-                            //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2), (rucl = 2), (rucs = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucp == 1) {
                                 revbtn =
@@ -2012,7 +1982,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under design manager review") {
-                            //(ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2), (rucl = 2), (rucs = 2);
                             updateProgressBarColour(revstatus); //Update progress bar colours to grey out stages that have been (was green) or will be skipped (was red)
                            
                             if (ucd == 1) {
@@ -2021,7 +1990,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under pre-construction review") {
-                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3), (rucl = 2), (rucs = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucpc == 1) {
                                 revbtn =
@@ -2029,7 +1997,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under principal designer review") {
-                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 3), (rucs = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucl == 1) {
                                 revbtn =
@@ -2037,25 +2004,17 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under site manager review") {
-                            //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 3);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucs == 1) {
                                 revbtn =
                                     '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
                             }
                         }
-                        // if (revstatus == "Accepted") {
-                        //     (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1), (rucl = 1), (rucs = 1);
-                        // }
                     } else {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                        //(ruce = 2), (rucp = 2), (rucd = 2), (rucpc = 2);
                         if (revstatus == "Assessment in progress") {
-                            //(ruce = 3), (rucp = 2), (rucd = 2), (rucpc = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (uce == 1) {
-                                // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Designer">Initiate review</div>';
-                                // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Designer',h.cdmSite.ID,h.ID,'Initiate review');
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
@@ -2066,7 +2025,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under peer review") {
-                            //(ruce = 1), (rucp = 3), (rucd = 2), (rucpc = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucp == 1) {
                                 revbtn =
@@ -2074,7 +2032,6 @@ function printHazardRow(h) {
                             }
                         }
                         if (revstatus == "Under design manager review") {
-                            //(ruce = 1), (rucp = 1), (rucd = 3), (rucpc = 2);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucd == 1) {
                                 revbtn =
@@ -2089,9 +2046,6 @@ function printHazardRow(h) {
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
-                        // if (revstatus == "Accepted") {
-                        //     (ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 1);
-                        // }
                     }
                 } else {
                     if (
@@ -2150,9 +2104,6 @@ function printHazardRow(h) {
                                 '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
                         }
                     }
-                    // if (revstatus == "Accepted") {
-                    //     (ruce = 1), (rucp = 1), (rucs = 1);
-                    // }
                 }
 
             } else {
