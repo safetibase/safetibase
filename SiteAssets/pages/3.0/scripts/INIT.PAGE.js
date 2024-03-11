@@ -567,7 +567,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmReviews && allHazardsData[i].cdmReviews.split("]").length >= 2 && allHazardsData[i].cdmReviews.split("]")[2].includes('Rejected')) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmReviews && allHazardsData[i].cdmReviews.split("]").length >= 2 && allHazardsData[i].cdmReviews.split("]")[2].includes('Rejected') && allHazardsData[i].cdmSite.Title == s) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -757,7 +757,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmReviews && allHazardsData[i].cdmReviews.split("]").length >= 2 && allHazardsData[i].cdmReviews.split("]")[2].includes('Rejected')) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmReviews && allHazardsData[i].cdmReviews.split("]").length >= 2 && allHazardsData[i].cdmReviews.split("]")[2].includes('Rejected') && allHazardsData[i].cdmSite.Title == s) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
