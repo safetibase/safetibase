@@ -194,6 +194,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                 if (status.includes('Accepted')) {
                                                                                     if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
                                                                                         tdata = ['cdmCurrentStatus|' + `Accepted by ${configData['Client Name']}`, 'cdmHazardOwner|' + Company_ID, 'cdmLastReviewStatus|Accepted'];
+                                                                                        // Check if the contract and residual risk owner have also been updated
+                                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
                                                                                         auditTrailLine = dateNow + ']' + unm() + ']' + `Accepted by ${configData['Client Name']}]` + 'No comment' + '^';
                                                                                     } else {
                                                                                         toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
@@ -204,6 +207,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                 } else if (status.includes('Ready for review')) {
                                                                                     if (data.d.results[i]['cdmCurrentStatus'] == `Accepted by ${configData['Client Name']}`) { // Check the hazard is in the correct state
                                                                                         tdata = ['cdmCurrentStatus|' + `Ready for review by ${configData['Client Name']}`, `cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`];
+                                                                                        // Check if the contract and residual risk owner have also been updated
+                                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
                                                                                         // Update the audit trail with the reopen reason
                                                                                         let comment = '';
                                                                                         if (csvObject.hasOwnProperty('Reopen Reason') && csvObject['Reopen Reason'][csvObjectIndex]) {
@@ -219,6 +225,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                 } else if (status.includes('Rejected')) {
                                                                                     if (data.d.results[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
                                                                                         tdata = ["cdmCurrentStatus|" + "Requires mitigation", `cdmLastReviewStatus|Rejected by ${configData['Client Name']}`];
+                                                                                        // Check if the contract and residual risk owner have also been updated
+                                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
                                                                                         // Update the audit trail with the reason and feedback
                                                                                         let comment = '';
                                                                                         if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
