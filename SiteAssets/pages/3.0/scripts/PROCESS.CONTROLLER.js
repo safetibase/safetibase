@@ -5311,6 +5311,7 @@ function updateHazardListItemView(lst, data) {
     // $('#h' + hzd + ' .vwdefault').hide();
     // $('#h' + hzd + ' .vwhover').show();
     // $('#h'+hzd).addClass('addmargin');
+    reopenHazardAction();
     activateHazardEdits();
     hazardreviewbuttonaction();
     activateRAMSBtn();
@@ -5339,4 +5340,56 @@ function deCollapse(e) {
     $("#" + e).addClass("addmargin");
     //   toastr.success("back to normal?");
     toggleCollapse();
+}
+
+function reopenHazardAction() {
+    $('.reopen-button')
+        .off('click')
+        .on('click', async function() {
+            const companyId = Number($(this).data('company'));
+            const hazardId = Number($(this).data('hazardid'));
+            hzd = hazardId; // THis is a global variable that SafetIbase uses to know which hazard to update - not ideal but too difficult to change
+            
+            // Only users in the hazard owner's company can reopen
+            // Get the user data
+            const userId = _spPageContextInfo.userId;
+            const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+            const userDataResult = await $.ajax({
+                url: usersListUrl,
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json; odata=verbose'
+                }
+            })
+
+            let authorised = false;
+            for (i=0; i<userDataResult.d.results.length; i++) {
+                if (userDataResult.d.results[i].cdmCompanyId === companyId) {
+                    authorised = true;
+                }
+            }
+            
+            if (authorised) { // Send the hazard back to the start of the workflow
+                // Get the audit trail data so we can update it
+                const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
+                const cdmReviewsResult = await $.ajax({
+                    url: cdmReviewsUrl,
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json; odata=verbose'
+                    }
+                });
+                const today = new Date();
+                const dateFormatted = today.toLocaleDateString('en-GB');
+                const user = unm();
+                const previousCdmReviews = cdmReviewsResult.d.results[0].cdmReviews;
+                const cdmReviews = `${dateFormatted}]${user}]Reopened hazard]no comment^${previousCdmReviews}`;
+
+                const tdata = ['cdmCurrentStatus|Assessment in progress', 'cdmLastReviewStatus|Reopened', `cdmReviews|${cdmReviews}`];
+                cdmdata.update('cdmHazards', tdata, 'frmedit_updateview');
+            } else {
+                toastr.error('Hazards can only be reopened by users of the company that owns the hazard');
+            }
+
+        })
 }
