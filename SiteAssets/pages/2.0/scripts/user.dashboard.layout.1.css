@@ -1328,6 +1328,19 @@ a.ms-tv-header:hover {
     cursor: pointer;
 }
 
+.reopen-button {
+    display: block;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 1px solid #21E500;
+    /* width:85px; */
+    float: right;
+    cursor: pointer;
+}
+
 .archive-button {
     display: block;
     padding: 5px;
