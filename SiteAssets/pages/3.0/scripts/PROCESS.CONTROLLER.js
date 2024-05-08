@@ -834,7 +834,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     */
                     function convertCSVArrayToJSON(csv_array) {
                         csv_header = csv_array[0];
-                        expected_header = ["ID","Site","PW Structure","Hazard Type","Hazard Owner","Hazard Tags","Hazard Description","Risk Description","Mitigation Description","Initial Risk","Initial Risk Score","Initial Severity Score","Initial Likelihood Score","Residual Risk","Residual Risk Score","Residual Severity Score","Residual Likelihood Score","Designer Mitigation Suggestions","Status","Last Review Status","Last Reviewer","Last Review Date","Workflow Status","Peer Reviewer","Design Manager","Coordinates","Residual Risk Owner","Current Mitigation Owner","Current Review Owner","PW Links","cdmReviews"];
+                        expected_header = ["ID","Site","PW Structure","Hazard Type","Hazard Owner","Hazard Tags","Hazard Description","Risk Description","Mitigation Description","Initial Risk","Initial Risk Score","Initial Severity Score","Initial Likelihood Score","Residual Risk","Residual Risk Score","Residual Severity Score","Residual Likelihood Score","Designer Mitigation Suggestions", "Construction Manager Mitigation Suggestions","Status","Last Review Status","Last Reviewer","Last Review Date","Workflow Status","Peer Reviewer","Design Manager","Coordinates","Residual Risk Owner","Current Mitigation Owner","Current Review Owner","PW Links","cdmReviews"];
                         if (!compareArrays(csv_header, expected_header)) {
                             return null;
                         }
@@ -1091,6 +1091,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             { field: "cdmResidualRisk", value: generateRiskSummary(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmResidualRiskScore", value: generateRiskScore(csvObject["Residual Severity Score"], csvObject["Residual Likelihood Score"]), allowNull: false },
                             { field: "cdmStageMitigationSuggestion", value: csvObject["Designer Mitigation Suggestions"], allowNull: true },
+                            { field: "cdmSMMitigation", value: csvObject["Construction Manager Mitigation Suggestions"], allowNull: true},
                             { field: "cdmUniclass", value: csvObject.Status, allowNull: true },
                             { field: "cdmLastReviewStatus", value: validateWorkflowFields(csvObject["Last Review Status"], csvObject["Peer Reviewer"], csvObject["Design Manager"], previousLastReviewStatus), allowNull: true },
                             { field: "cdmLastReviewer", value: validateWorkflowFields(csvObject["Last Reviewer"], csvObject["Peer Reviewer"], csvObject["Design Manager"], previousLastReviewer), allowNull: true },
@@ -3387,6 +3388,7 @@ function tposcustomfilters( data, forExport) {
             result["Initial Risk"] = sanitiseInput(obj.cdmInitialRisk);
             result["Residual Risk"] = sanitiseInput(obj.cdmResidualRisk);
             result["Designer Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
+            result["Construction Manager Mitigation Suggestions"] = sanitiseInput(obj.cdmSMMitigationSuggestion);
             result.Status = sanitiseInput(obj.cdmUniclass);
             result.RAMS = sanitiseInput(obj.cdmRAMS);
             result["Last Review Status"] = sanitiseInput(obj.cdmLastReviewStatus);
