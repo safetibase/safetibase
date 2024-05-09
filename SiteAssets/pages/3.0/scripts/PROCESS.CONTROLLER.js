@@ -2225,7 +2225,7 @@ function activateRAMSBtn() {
             toggleCollapse();
             toggleInfoPanel();
             activateHazardEdits();
-            // activateRAMSActions();
+            activateRAMSActions();
             activateRAMSBtn();
             // rows to target
 

@@ -660,7 +660,7 @@ formatdatato = {
         toggleCollapse();
         toggleInfoPanel();
         activateHazardEdits();
-        // activateRAMSActions();
+        activateRAMSActions();
         activateRAMSBtn();
         // rows to target
     },
@@ -753,7 +753,7 @@ formatdatato = {
         toggleCollapse();
         toggleInfoPanel();
         activateHazardEdits();
-        // activateRAMSActions();
+        activateRAMSActions();
         activateRAMSBtn();
         // rows to target
     },
@@ -858,7 +858,7 @@ formatdatato = {
         toggleCollapse();
         toggleInfoPanel();
         activateHazardEdits();
-        // activateRAMSActions();
+        activateRAMSActions();
         activateRAMSBtn();
         // rows to target
     },
@@ -2048,6 +2048,10 @@ function printHazardRow(h) {
                         }
                     }
                 } else {
+                    console.log("rev status:", revstatus)
+                    console.log("mitigation description:", h.cdmMitigationDescription)
+                    console.log("cdm current status: ",h.cdmCurrentStatus)
+
                     if (
                         (role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
@@ -2057,6 +2061,7 @@ function printHazardRow(h) {
                     ) {
                         uce = 1;
                     }
+                    console.log("uce:",uce)
                     if (
                         role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
@@ -2073,6 +2078,20 @@ function printHazardRow(h) {
                         ucs = 1;
                     }
                     //(ruce = 2), (rucp = 2), (rucs = 2);
+
+                    // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
+                    // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
+                    if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1) {
+                        revbtn = mkHazardReviewButton(
+                            "initiatereview",
+                            "Under peer review",
+                            "Review initiated",
+                            h.ID,
+                            "Initiate review"
+                        );
+                    }
+
+
                     if (revstatus == "Assessment in progress") {
                         //(ruce = 3), (rucp = 2), (rucs = 2);
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
