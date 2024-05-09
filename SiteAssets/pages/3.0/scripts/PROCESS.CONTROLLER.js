@@ -5346,6 +5346,7 @@ function reopenHazardAction() {
     $('.reopen-button')
         .off('click')
         .on('click', async function() {
+            const confirmed = window.confirm("Are you sure you want to reopen the hazard? Note: This will restart the workflow hazard");
             const companyId = Number($(this).data('company'));
             const hazardId = Number($(this).data('hazardid'));
             hzd = hazardId; // THis is a global variable that SafetIbase uses to know which hazard to update - not ideal but too difficult to change
@@ -5361,7 +5362,9 @@ function reopenHazardAction() {
                     'Accept': 'application/json; odata=verbose'
                 }
             })
-
+            if (confirmed == false){
+                pass
+            } else {
             let authorised = false;
             for (i=0; i<userDataResult.d.results.length; i++) {
                 if (userDataResult.d.results[i].cdmCompanyId === companyId) {
@@ -5391,5 +5394,6 @@ function reopenHazardAction() {
                 toastr.error('Hazards can only be reopened by users of the company that owns the hazard');
             }
 
-        })
+        }
+    })
 }
