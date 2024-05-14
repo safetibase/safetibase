@@ -5340,10 +5340,10 @@ function deCollapse(e) {
 }
 
 function reopenHazardAction() {
-    $('.reopen-button')
+    $('#reopen-button')
         .off('click')
         .on('click', async function() {
-            const confirmed = window.confirm("Are you sure you want to reopen the hazard? Note: This will restart the workflow hazard");
+            const allowedUserRoles = configData["Reopen hazards"];
             const companyId = Number($(this).data('company'));
             const hazardId = Number($(this).data('hazardid'));
             hzd = hazardId; // THis is a global variable that SafetIbase uses to know which hazard to update - not ideal but too difficult to change
@@ -5359,38 +5359,69 @@ function reopenHazardAction() {
                     'Accept': 'application/json; odata=verbose'
                 }
             })
-            if (confirmed == false){
-                pass
-            } else {
+            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+            const userRoleData = await $.ajax({
+                url: userRolesUrl,
+                method: 'GET',
+                headers: {
+                    "Accept": "application/json; odata=verbose"
+                }
+            })
+
+            //filter the userRoleData based on the values in allowedUserRoles
+            const authorisedRoles = userRoleData.d.results.filter((x)=>{ return allowedUserRoles.includes(x.Title)} )
+
+            //get the user roles ID
+            const userRolesParsed = userDataResult.d.results.map(x => x.cdmUserRoleId)
+
+            //get the filtered authorised roles ID
+
+            const authorisedRolesId  = authorisedRoles.map(x => x.ID)
+            
             let authorised = false;
             for (i=0; i<userDataResult.d.results.length; i++) {
-                if (userDataResult.d.results[i].cdmCompanyId === companyId) {
-                    authorised = true;
+                    if (userDataResult.d.results[i].cdmCompanyId === companyId) {
+                        authorised = true;
                 }
             }
-            
-            if (authorised) { // Send the hazard back to the start of the workflow
-                // Get the audit trail data so we can update it
-                const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
-                const cdmReviewsResult = await $.ajax({
-                    url: cdmReviewsUrl,
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json; odata=verbose'
-                    }
-                });
-                const today = new Date();
-                const dateFormatted = today.toLocaleDateString('en-GB');
-                const user = unm();
-                const previousCdmReviews = cdmReviewsResult.d.results[0].cdmReviews;
-                const cdmReviews = `${dateFormatted}]${user}]Reopened hazard]no comment^${previousCdmReviews}`;
 
-                const tdata = ['cdmCurrentStatus|Assessment in progress', 'cdmLastReviewStatus|Reopened', `cdmReviews|${cdmReviews}`];
-                cdmdata.update('cdmHazards', tdata, 'frmedit_updateview');
-            } else {
+            if (!authorised){
                 toastr.error('Hazards can only be reopened by users of the company that owns the hazard');
-            }
+            } else if (!(userRolesParsed.some(x => authorisedRolesId.includes(x)))) {
+                toastr.error('You do not have the required permissions to reopen hazards. Ask your system administrator to grant you further user roles.' )
+            } else {
+                //const confirmed = await getconfirmation("Are you sure you want to reopen the hazard? Note: This will restart the workflow hazard");
+                gimmepops("Reopening hazards", 
+                '<p style="color:white">Are you sure you want to reopen the hazard? Note: This will restart the workflow.</p>' +
+                '<div id="popscontentarea">'+
+                '<div id="confirm-reopen-button" class="reopen-button">Reopen hazards</div>'+
+                '</div>'
+            )
 
-        }
-    })
-}
+                $('#confirm-reopen-button').on('click', async function() { 
+                    const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
+                    const cdmReviewsResult = await $.ajax({
+                        url: cdmReviewsUrl,
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json; odata=verbose'
+                        }
+                    });
+                    const today = new Date();
+                    const dateFormatted = today.toLocaleDateString('en-GB');
+                    const user = unm();
+                    const previousCdmReviews = cdmReviewsResult.d.results[0].cdmReviews;
+                    const cdmReviews = `${dateFormatted}]${user}]Reopened hazard]no comment^${previousCdmReviews}`;
+
+                    const tdata = ['cdmCurrentStatus|Assessment in progress', 'cdmLastReviewStatus|Reopened', `cdmReviews|${cdmReviews}`];
+                    cdmdata.update('cdmHazards', tdata, 'frmedit_updateview');
+                })
+                
+                }
+            })}
+            
+            
+
+                
+            
