@@ -5372,13 +5372,18 @@ function reopenHazardAction() {
                 }
             })
 
-            //filter out values in allowedUserRoles not included in userRole
-            const authorisedRoles = userRoleData.d.results.filter((x)=>{ return allowedUserRoles.includes(x.Title)} )
-
-            //get the user roles ID
+            //filter out values in userRoleData not included in allowedUserRoles
+            const authorisedRoles = [];
+            for (const x of userRoleData.d.results){
+                if (allowedUserRoles.includes(x.Title)){
+                    authorisedRoles.push(x)
+                }
+            }
+            
+            //get the user roles IDs
             const userRolesParsed = userDataResult.d.results.map(x => x.cdmUserRoleId)
 
-            //get the filtered authorised roles ID
+            //get the filtered userRoleData IDs
 
             const authorisedRolesId  = authorisedRoles.map(x => x.ID)
             
@@ -5394,7 +5399,6 @@ function reopenHazardAction() {
             } else if (!(userRolesParsed.some(x => authorisedRolesId.includes(x)))) {
                 toastr.error('You do not have the required permissions to reopen hazards. Ask your system administrator to grant you further user roles.' )
             } else {
-                //const confirmed = await getconfirmation("Are you sure you want to reopen the hazard? Note: This will restart the workflow hazard");
                 gimmepops("Reopening hazards", 
                 '<p style="color:white">Are you sure you want to reopen the hazard? Note: This will restart the workflow.</p>' +
                 '<div id="popscontentarea">'+
@@ -5402,7 +5406,8 @@ function reopenHazardAction() {
                 '</div>'
             )
 
-                $('#confirm-reopen-button').on('click', async function() { 
+                $('#confirm-reopen-button').on('click', async function() {
+                    closepops();
                     // Send the hazard back to the start of the workflow
                     // Get the audit trail data so we can update it
                     const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
@@ -5423,10 +5428,8 @@ function reopenHazardAction() {
                     cdmdata.update('cdmHazards', tdata, 'frmedit_updateview');
                 })
                 
-                }
-            })}
-            
-            
-
-                
+            }
+        }
+    )
+}
             
