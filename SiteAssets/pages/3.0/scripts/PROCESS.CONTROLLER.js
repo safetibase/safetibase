@@ -5372,7 +5372,7 @@ function reopenHazardAction() {
                 }
             })
 
-            //filter the userRoleData based on the values in allowedUserRoles
+            //filter out values in allowedUserRoles not included in userRole
             const authorisedRoles = userRoleData.d.results.filter((x)=>{ return allowedUserRoles.includes(x.Title)} )
 
             //get the user roles ID
@@ -5403,6 +5403,8 @@ function reopenHazardAction() {
             )
 
                 $('#confirm-reopen-button').on('click', async function() { 
+                    // Send the hazard back to the start of the workflow
+                    // Get the audit trail data so we can update it
                     const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
                     const cdmReviewsResult = await $.ajax({
                         url: cdmReviewsUrl,
