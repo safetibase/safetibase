@@ -23,30 +23,6 @@ function closepops(){
 }
 
 
-function getconfirmation(message){
-    //var confirmation = $('<div id="pops" class="pops"\<div class="pops-content">' + message + 
-    $('#pops').html('');
-    $('#pops').remove();   
-    var confirmation = $('<div id="pops" class="pops"><div class="pops-content">'+message+'</div>\
-    <div class="pops-footer">\
-      <button class = "btn-yes">yes</button>\
-      <button class = "btn-no">no</button>\
-   </div>');
-    return new Promise(function(resolve, reject){
-       $('#tpos-page').append(confirmation);
-        confirmation.find('.btn-yes').click(function(){
-            resolve(true);
-        });
-        confirmation.find('.btn-no').click(function(){
-            resolve(false);
-        }); 
-        confirmation.show();
-        //closepops();
-    });
-    
-
-}
-
 
 // GLOBAL NAV SUB MENU
 function gimmesubs(title,content,cl){
