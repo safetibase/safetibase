@@ -345,18 +345,34 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 } else if (stgs[i] === "Demolition") {
                     stid = 5;
                 }
-                sTerm += '<div class="qresult" data-entity="permanent" data-stage="' + stid + '" data-name="' + vn +
+                sTerm += '<option class="qresult" data-entity="permanent" data-stage="' + stid + '" data-name="' + vn +
                     '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + stgs[i] + '</span>' +
-                    ' </span><span class="qrremove" data-field="sel_structures">X</span></div>';
+                    ' </span></option>';
             }
             nt = t + sTerm;
             lbl = '<div class="tpos-lbl">Selected asset(s)</div>';
+            selectConfirm = '<button id="applyselection" style="float:right">apply filters</button>'
             if (nt) {
                 $('#pwstructurespanel').html('');
-                $('#pwstructurespanel').html(lbl + '<div id="selectedstructures" class="tpos-selection">' + nt +
-                    '</div>');
+                $('#pwstructurespanel').html(lbl + selectConfirm + '<select id="selectedstructures" class="tpos-selection" multiple>' + nt +
+                    '</select>');
+
+                $("#selectedstructures").multiselect({
+                    columns: 1,
+                    placeholder: 'select assets :',
+                    search: false,
+                    selectAll: true
+                })
+
+                $('#applyselection').click(function () {
+                    var value = $('#selectedstructures').find(':selected');
+                    //$('#pwstructurespanel').val(value);
+                    $('#selectedstructures').remove();
+                })
+                
                 // $('#selectedstructures').prepend(lbl);
             }
+            console.log($('#sel_cdmPWStructures').val())
             $('#sel_cdmPWStructures').val('');
         }
         if (e == 'tw') {
