@@ -2219,7 +2219,7 @@ function printHazardRow(h) {
         contractTitle = `<td class="width-250"><div class="lbl ">${configData['Contract']} </div></td>`;
         contractValue = `<td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">${contracts}</div></td>`;
     }
-    var myvar =
+    var myvar1 =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
         '" id="h_' +
@@ -2435,35 +2435,9 @@ function printHazardRow(h) {
         "                </tr>" +
         "" +
         "            </table>" +
-        "        </div>" +
-        '        <div class="row safetyhide bordered-rag" id="rag">' +
-        '            <table class="tpos-tbl wbrd collapse">' +
-        "                <tr>" +
-        '                    <td class="width-300 ">' +
-        '                        <div class="lbl"></div>' +
-        "                    </td>" +
-        '                    <td class="width-300">' +
-        '                        <div class="lbl">Initial project control</div>' +
-        "                    </td>" +
-        '                    <td class="width-300">' +
-        '                        <div class="lbl">Residual project control</div>' +
-        "                    </td>" +
-        "                </tr>" +
-        "                <tr>" +
-        '                    <td class="width-300 assessment"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>' +
-        '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmInitialRAG pointer">' +
-        decodeRAG(h.cdmInitialRAG) +
-        "</div>" +
-        "                    </td>" +
-        '                    <td class="width-300 assessment">' +
-        '                        <div class="cell cdmResidualRAG">' +
-        decodeRAG(h.cdmResidualRAG) +
-        "</div>" +
-        "                    </td>" +
-        "                </tr>" +
-        "            </table>" +
-        "        </div>" +
+        "        </div>" 
+        
+        var  myvar2 = 
         '        <div class="row bordered-risk">' +
         '            <table class="tpos-tbl wbrd collapse">' +
         "                <tr>" +
@@ -2663,9 +2637,45 @@ function printHazardRow(h) {
         h.cdmReviews +
         "    </div>" +
         "</div>";
+        
+        // add div if hazard type is health
+        if (h.cdmHazardType.Title === 'Health'){
+            health_div =          '<div class="row safetyhide bordered-rag" id="rag">'+
+                                    '<table class="tpos-tbl wbrd collapse">'+
+                                '<tr>'+
+                                    '<td class="width-300 ">'+
+                                        '<div class="lbl"></div>'+
+                                    '</td>'+
+                                   ' <td class="width-300">'+
+                                        '<div class="lbl">Initial project control</div>'+
+                                    '</td>'+
+                                    '<td class="width-300">'+
+                                        '<div class="lbl">Residual project control</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                               ' <tr>'+
+                                    '<td class="width-300 assessment"><div class="txt-centered txt-lbl">Health RAG Assessment</div></td>'+
+                                    '<td class="width-300 assessment">'+
+                                        '<div class="cell cdmInitialRAG pointer">'+
+                decodeRAG(h.cdmInitialRAG) +
+                '</div>'+
+                                    '</td>'+
+                                    '<td class="width-300 assessment">'+
+                                        '<div class="cell cdmResidualRAG">'+
+                decodeRAG(h.cdmResidualRAG)+
+                '</div>'+
+                                    '</td>'+
+                                '</tr>'+
+                            '</table>' +
+                            '</div>';
+                myvar1 += health_div
+
+        }
+        var myvar = myvar1+myvar2
 
     return myvar;
 }
+
 
 function shortText(str) {
     //var t=str;
