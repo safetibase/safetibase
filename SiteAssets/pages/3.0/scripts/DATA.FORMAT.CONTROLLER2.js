@@ -642,7 +642,7 @@ formatdatato = {
             
             // $('.ramsonly').hide();
             if (h.cdmRAMS) {
-                $("#h_" + h.ID + " .ramshide").hide();
+                // $("#h_" + h.ID + " .ramshide").hide();
                 $("#h_" + h.ID + " .ramsonly").show();
             }
             // if (h.cdmHazardType.Title == "Safety") {
@@ -693,7 +693,7 @@ formatdatato = {
            
             // $('.ramsonly').hide();
             if (h.cdmRAMS) {
-                $("#h_" + h.ID + " .ramshide").hide();
+                // $("#h_" + h.ID + " .ramshide").hide();
                 $("#h_" + h.ID + " .ramsonly").show();
             }
             // if (h.cdmHazardType.Title == "Safety") {
@@ -780,7 +780,7 @@ formatdatato = {
             //alert(2);
             // $('.ramsonly').hide();
             if (h.cdmRAMS) {
-                $("#h_" + h.ID + " .ramshide").hide();
+                // $("#h_" + h.ID + " .ramshide").hide();
                 $("#h_" + h.ID + " .ramsonly").show();
             }
             // if (h.cdmHazardType.Title == "Safety") {
@@ -895,7 +895,7 @@ formatdatato = {
             //alert(3);
             // $('.ramsonly').hide();
             if (h.cdmRAMS) {
-                $("#h_" + h.ID + " .ramshide").hide();
+                // $("#h_" + h.ID + " .ramshide").hide();
                 $("#h_" + h.ID + " .ramsonly").show();
             }
             // if (h.cdmHazardType.Title == "Safety") {
@@ -1595,7 +1595,7 @@ function printHazardRow(h) {
 
 
 
-    var mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="vwrams" id="mkramsbtn_' + h.ID + '">View associated RAMS hazards</div>';
+    var mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="mkrams" id="mkramsbtn_' + h.ID + '">View and add associated RAMS hazards</div>';
     var lblramshazards = 'RAMS hazards';
 
     var mkramstrigger = 0;
@@ -2047,7 +2047,7 @@ function printHazardRow(h) {
                             }
                         }
                     }
-                } else {
+                } else { // RAMS
                     if (
                         (role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
@@ -2073,9 +2073,8 @@ function printHazardRow(h) {
                         ucs = 1;
                     }
                     //(ruce = 2), (rucp = 2), (rucs = 2);
-                    if (revstatus == "Assessment in progress") {
-                        //(ruce = 3), (rucp = 2), (rucs = 2);
-                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
+                    if (revstatus == "Assessment in progress" || revstatus == "Requires mitigation") {
+                        (ruce = 3), (rucp = 2), (rucs = 2);
                         if (uce == 1) {
                             // revbtn='<div class="tpos-rvbtn" data-action="initiatereview" data-company="'+h.cdmHazardOwner.ID+'" data-userrole="Construction Engineer">Initiate review</div>';
                             // revbtn=mkReviewButton('initiatereview',h.cdmHazardOwner.ID,'Construction Engineer',h.cdmSite.ID,h.ID,'Initiate review');
@@ -2089,16 +2088,14 @@ function printHazardRow(h) {
                         }
                     }
                     if (revstatus == "Under peer review") {
-                        //(ruce = 1), (rucp = 3), (rucs = 2);
-                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
+                        (ruce = 1), (rucp = 3), (rucs = 2);
                         if (ucp == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                         }
                     }
                     if (revstatus == "Under Construction Manager review") {
-                        //(ruce = 1), (rucp = 1), (rucs = 3);
-                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
+                        (ruce = 1), (rucp = 1), (rucs = 3);
                         if (ucs == 1) {
                             revbtn =
                                 '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
@@ -2110,8 +2107,8 @@ function printHazardRow(h) {
                 if (revstatus == "Accepted") {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                    } else {
-                        //(ruce = 1), (rucp = 1), (rucs = 1);
+                    } else { // RAMS
+                        (ruce = 1), (rucp = 1), (rucs = 1);
                     }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
@@ -2123,16 +2120,16 @@ function printHazardRow(h) {
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
-                    } else {
-                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
+                    } else { // RAMS
+                        (ruce = 4), (rucp = 4), (rucs = 4);
                     }
                     warning = `<div class="clr_5_active">This hazard is under review by ${configData['Client Name']} and therefore locked for editing.</div>`;
                 }
                 if (revstatus == `Accepted by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
-                    } else {
-                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
+                    } else { // RAMS
+                        (ruce = 5), (rucp = 5), (rucs = 5);
                     }
                     warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
                 }

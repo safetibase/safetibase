@@ -5300,6 +5300,9 @@ function updateHazardListItemView(lst, data) {
         dc = 1;
     }
     $("#h_" + hzd).replaceWith(row);
+    if (h.cdmRAMS) {
+        $("#h_" + h.ID + " .ramsonly").show();
+    }
     // if (h.cdmHazardType.Title == "Safety") {
     //     $("#h_" + h.ID + " .safetyhide").hide();
     // }
