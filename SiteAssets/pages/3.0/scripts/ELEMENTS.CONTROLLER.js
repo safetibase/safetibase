@@ -3,25 +3,27 @@ function gimmepops(title,content,cl){
     $('#pops').html('');
     $('#pops').remove();
 
-    var myvar = '<div id="pops" class="pops">'+
-    '		<div class="pops-title">'+title+'</div>'+
-    '		<div class="pops-content">'+content+'</div>'+
-    '		<div class="pops-footer">'+
-    '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
-    '		</div>'+
-    '	</div>';
+        var myvar = '<div id="pops" class="pops">'+
+        '		<div class="pops-title">'+title+'</div>'+
+        '		<div class="pops-content">'+content+'</div>'+
+        '		<div class="pops-footer">'+
+        '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
+        '		</div>'+
+        '	</div>';
 
-    $('#tpos-page').append(myvar);
-    $('#pops').show();
-    $('.btn-cancel').click(function(){
-        closepops();
-    });
+        $('#tpos-page').append(myvar);
+        $('#pops').show();
+        $('.btn-cancel').click(function(){
+            closepops();
+        });
 }
 function closepops(){
     $('#pops').html('');
     $('#pops').remove();
 }
- 
+
+
+
 // GLOBAL NAV SUB MENU
 function gimmesubs(title,content,cl){
     $('#subs').html('');
