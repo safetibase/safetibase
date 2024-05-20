@@ -5300,6 +5300,9 @@ function updateHazardListItemView(lst, data) {
         dc = 1;
     }
     $("#h_" + hzd).replaceWith(row);
+    if (h.cdmRAMS) {
+        $("#h_" + h.ID + " .ramsonly").show();
+    }
     // if (h.cdmHazardType.Title == "Safety") {
     //     $("#h_" + h.ID + " .safetyhide").hide();
     // }
@@ -5308,6 +5311,7 @@ function updateHazardListItemView(lst, data) {
     // $('#h' + hzd + ' .vwdefault').hide();
     // $('#h' + hzd + ' .vwhover').show();
     // $('#h'+hzd).addClass('addmargin');
+    reopenHazardAction();
     activateHazardEdits();
     hazardreviewbuttonaction();
     activateRAMSBtn();
@@ -5337,3 +5341,96 @@ function deCollapse(e) {
     //   toastr.success("back to normal?");
     toggleCollapse();
 }
+
+function reopenHazardAction() {
+    $('#reopen-button')
+        .off('click')
+        .on('click', async function() {
+            const allowedUserRoles = configData["Reopen hazards"];
+            const companyId = Number($(this).data('company'));
+            const hazardId = Number($(this).data('hazardid'));
+            hzd = hazardId; // THis is a global variable that SafetIbase uses to know which hazard to update - not ideal but too difficult to change
+            
+            // Only users in the hazard owner's company can reopen
+            // Get the user data
+            const userId = _spPageContextInfo.userId;
+            const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+            const userDataResult = await $.ajax({
+                url: usersListUrl,
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json; odata=verbose'
+                }
+            })
+            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+            const userRoleData = await $.ajax({
+                url: userRolesUrl,
+                method: 'GET',
+                headers: {
+                    "Accept": "application/json; odata=verbose"
+                }
+            })
+
+            //filter out values in userRoleData not included in allowedUserRoles
+            const authorisedRoles = [];
+            for (const x of userRoleData.d.results){
+                if (allowedUserRoles.includes(x.Title)){
+                    authorisedRoles.push(x)
+                }
+            }
+            
+            //get the user roles IDs
+            const userRolesParsed = userDataResult.d.results.map(x => x.cdmUserRoleId)
+
+            //get the filtered userRoleData IDs
+
+            const authorisedRolesId  = authorisedRoles.map(x => x.ID)
+            
+            let authorised = false;
+            for (i=0; i<userDataResult.d.results.length; i++) {
+                    if (userDataResult.d.results[i].cdmCompanyId === companyId) {
+                        authorised = true;
+                }
+            }
+
+            if (!authorised){
+                toastr.error('Hazards can only be reopened by users of the company that owns the hazard');
+            } else if (!(userRolesParsed.some(x => authorisedRolesId.includes(x)))) {
+                toastr.error('You do not have the required permissions to reopen hazards. Ask your system administrator to grant you further user roles.' )
+            } else {
+                gimmepops("Reopening hazards", "");
+                
+                $(".pops-content").load("../3.0/html/hazard.reopen.form.html", () => {
+                    $('#confirm-reopen-button').on("click", async function() {
+                        // Send the hazard back to the start of the workflow
+                        // Get the audit trail data so we can update it
+                        const cdmReviewsUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=ID%20eq%20${hazardId}&$select=cdmReviews`;
+                        const cdmReviewsResult = await $.ajax({
+                            url: cdmReviewsUrl,
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json; odata=verbose'
+                            }
+                        });
+                        const today = new Date();
+                        const dateFormatted = today.toLocaleDateString('en-GB');
+                        const user = unm();
+                        let comment = $("#cmt").val();
+                        if (!comment) {
+                            comment = "no comment";
+                        }
+                        const previousCdmReviews = cdmReviewsResult.d.results[0].cdmReviews;
+                        const cdmReviews = `${dateFormatted}]${user}]Reopened hazard]${comment}^${previousCdmReviews}`;
+    
+                        const tdata = ['cdmCurrentStatus|Assessment in progress', 'cdmLastReviewStatus|Reopened', `cdmReviews|${cdmReviews}`];
+                        cdmdata.update('cdmHazards', tdata, 'frmedit_updateview');
+                        closepops();
+                    })
+                });
+                
+            }
+        }
+    )
+}
+            
