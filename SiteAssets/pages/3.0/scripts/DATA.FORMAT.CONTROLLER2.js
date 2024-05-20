@@ -656,6 +656,7 @@ formatdatato = {
             }
         }
 
+        reopenHazardAction();
         hazardreviewbuttonaction();
         toggleCollapse();
         toggleInfoPanel();
@@ -748,7 +749,7 @@ formatdatato = {
         });
 
 
-
+        reopenHazardAction();
         hazardreviewbuttonaction();
         toggleCollapse();
         toggleInfoPanel();
@@ -853,7 +854,7 @@ formatdatato = {
         });
 
 
-
+        reopenHazardAction();
         hazardreviewbuttonaction();
         toggleCollapse();
         toggleInfoPanel();
@@ -960,7 +961,7 @@ formatdatato = {
         //   // cdmdata.get('cdmHazards','Editor/ID eq \''+uid()+'\'','Modified desc','hazards-table','hazardstable');
         // });
 
-
+        reopenHazardAction();
         hazardreviewbuttonaction();
         toggleCollapse();
         toggleInfoPanel();
@@ -2219,6 +2220,13 @@ function printHazardRow(h) {
         contractTitle = `<td class="width-250"><div class="lbl ">${configData['Contract']} </div></td>`;
         contractValue = `<td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">${contracts}</div></td>`;
     }
+
+    // Button to reopen accepted hazards. This should only be available for accepted hazards
+    let reopenButton = ""
+    if (h.cdmCurrentStatus === 'Accepted') {
+        reopenButton = `<div id="reopen-button" class="reopen-button" data-company=${h.cdmHazardOwner.ID} data-hazardid=${h.ID} title="Reopen hazard for editing. This will start the workflow again">Reopen hazard</div>`;
+    }
+
     var hazardHtml1 =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
@@ -2607,7 +2615,9 @@ function printHazardRow(h) {
         '                    <td class="width-150">' +
         revbtn +
         "</td>" +
-        '                    <td class="width-500"></td>' +
+        '                    <td class="width-500">' +
+        reopenButton +
+        '</td>' +
         "                </tr>" +
         "            </table>" +
         "        </div>" +
