@@ -2219,7 +2219,7 @@ function printHazardRow(h) {
         contractTitle = `<td class="width-250"><div class="lbl ">${configData['Contract']} </div></td>`;
         contractValue = `<td class="width-250 fld"><div class="cell cdmContract${hiddenrail} pointer" title="Click to manage ${configData['Contract']}">${contracts}</div></td>`;
     }
-    var myvar1 =
+    var hazardHtml1 =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
         '" id="h_' +
@@ -2437,7 +2437,7 @@ function printHazardRow(h) {
         "            </table>" +
         "        </div>" 
         
-        var  myvar2 = 
+    var hazardHtml2 = 
         '        <div class="row bordered-risk">' +
         '            <table class="tpos-tbl wbrd collapse">' +
         "                <tr>" +
@@ -2668,12 +2668,12 @@ function printHazardRow(h) {
                                 '</tr>'+
                             '</table>' +
                             '</div>';
-                myvar1 += health_div
+                hazardHtml1 += health_div
 
         }
-        var myvar = myvar1+myvar2
+        var hazardHtml = hazardHtml1+hazardHtml2
 
-    return myvar;
+    return hazardHtml;
 }
 
 
