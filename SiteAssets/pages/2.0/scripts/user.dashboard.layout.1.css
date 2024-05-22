@@ -658,6 +658,11 @@ a.ms-tv-header:hover {
     /* width:50%; */
 }
 
+#popsarea .ms-options-wrap {
+    width: 65%;
+    margin: 10px 0 10px 0;
+}
+
 .hazhis {
     cursor: pointer;
 }
@@ -1017,12 +1022,12 @@ a.ms-tv-header:hover {
     text-align: left;
     margin: 5px 0 0 0;
     overflow: auto;
-}
+} 
 
-.qresultdisplay {
+/*.qresultdisplay {
     /* width:96%; */
-    float: left;
-}
+    /*float: left;
+}*/
 
 .qrremove {
     display: block;
