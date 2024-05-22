@@ -663,6 +663,12 @@ a.ms-tv-header:hover {
     margin: 10px 0 10px 0;
 }
 
+/* removes bullet point*/
+#popsarea ul {
+    list-style-type: none;
+}
+
+
 .hazhis {
     cursor: pointer;
 }
