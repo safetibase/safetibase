@@ -328,9 +328,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             page.scroll('#next');
         }
         if (e == 'cdmPWStructures') {
-            //$("#popscontentarea").html('');
             t = $("#selectedstructures").html();
-            //t = $('#selectedstructures').html();
 
 
             var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
@@ -360,13 +358,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
              '<div class ="customfiltersection" id="popsarea">'  + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt + '</select></div>'
 
             )
-           // $('#pwstructurespanel').append($(".pops-content"));
 
-                /*
-                $('#pwstructurespanel').html('');
-                $('#pwstructurespanel').html(lbl + selectConfirm + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt +
-                    '</select>');*/
-
+                // Added this function to create a dropdown
                 $("#selectedstructures").multiselect({
                     columns: 1,
                     placeholder: 'select assets :',
@@ -380,10 +373,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
      
                 
             }}
-                // $('#selectedstructures').prepend(lbl);
-            //}
-            //console.log($('#sel_cdmPWStructures').val())
-            //$('#sel_cdmPWStructures').val('');
+                
+            $('#sel_cdmPWStructures').val(''); // I am not sure what this line does
         //}
         if (e == 'tw') {
             t = $('#selectedtw').html();
@@ -609,54 +600,47 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         const cdmGeometry = urlParams.get("cdmGeometry");
         const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
         const selected_ele = document.getElementsByClassName("selected");
-        //const selectedval = $("#selectedstructures").html();
-        //var val = $("#ms-options").find(':selected');
-        var selection = []
         var qr = $('.qresult');
+        var selection = [] //To store all selections
+        
 
         for (i=0; i<selected_ele.length; i++){
                     selection.push(selected_ele[i].innerText)
                 }
-        console.log(selection)
 
+        //loops through all the assets
         for (var j = 0; j < qr.length; j++) {
 
             var o = qr.eq(j);
-
             var type = o.data('entity');
             var name = o.data('name');
             var value = o.data('value');
             toastr.success(type);
+
+            //checks if selection includes current asset
             if (selection.includes(qr[j].innerText)){
 
-                if (type == 'permanent') {
-                // for ( a=0; a<val.length;a++){
-                //  selection.push(val[a].innerText)
-                // console.log(selection)
-                // }
-                //console.log(o[j].innerText)
-                    //console.log(qr[j].innerText);       
+                if (type == 'permanent') {       
                     var stage = o.data('stage');
                     console.log(name, value, stage)
                     pw.push([name, value, stage]);
                 }}
 
-                if (type == 'site') {
-                    site = value;
-                }
-                if (type == 'temporary') {
-                    tw.push([name, value]);
-                }
-                if (type == 'rams') {
-                    rams.push([name, value]);
-                }
+            if (type == 'site') {
+                site = value;
+            }
+            if (type == 'temporary') {
+                tw.push([name, value]);
+            }
+            if (type == 'rams') {
+                rams.push([name, value]);
+            }
         }
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
         var riskscoreval = trisks[0];
         var rscv = parseInt(riskscoreval, 10);
-        console.log(pw)
-        window.stop()
+
         if (pw.length > 0) {
             // console.log(tdata);
 
