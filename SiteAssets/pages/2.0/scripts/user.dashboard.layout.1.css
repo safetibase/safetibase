@@ -1030,10 +1030,10 @@ a.ms-tv-header:hover {
     overflow: auto;
 } 
 
-/*.qresultdisplay {
+.qresultdisplay {
     /* width:96%; */
-    /*float: left;
-}*/
+    float: left;
+}
 
 .qrremove {
     display: block;
