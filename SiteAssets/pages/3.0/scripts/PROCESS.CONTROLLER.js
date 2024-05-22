@@ -2107,7 +2107,7 @@ function activateHazardEdits() {
 function activateRAMSBtn() {
     // toastr.error('what is this?');
     // $('.mkramsbtn').off('click').on('click',function(){
-    $('.mkramsbtn').on('click', function() {
+    $('.mkramsbtn').on('click', async function() {
         var a = $(this).data("action");
         var hi = $(this)
             // .parents(".row-hazard")
@@ -2152,11 +2152,22 @@ function activateRAMSBtn() {
         var stmsugg = $(
             ht + ".cdmStageMitigationSuggestion"
         ).html();
+
+        // We need to work out the ID of the stage
+        const stagesExtraUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmStagesExtra%27)/items`;
+        const stagesExtraResponse = await $.ajax({
+            url: stagesExtraUrl,
+            method: 'GET',
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            }
+        });
+        const stagesExtraDict = stagesExtraResponse.d.results.reduce((acc, curr) => {
+            acc[curr["Title"]] = curr["ID"];
+            return acc;
+        }, {});
         var stg = $(ht + ".cdmStageExtra").html();
-        var stgi = 1;
-        if (stg != "Construction") {
-            stgi = 2;
-        }
+        var stgi = stagesExtraDict[stg];
         var hzt = $(ht + ".cdmType").html();
         var hzti = 2;
         if (hzt == "Health") {
@@ -2179,7 +2190,7 @@ function activateRAMSBtn() {
         tdata.push("cdmStageExtra|" + stgi);
         // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
         // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
-        tdata.push("cdmStageMitigationSuggestion|" + stmsugg);
+        tdata.push("cdmStageMitigationSuggestion|See parent hazard");
         var screen = $('#tpos-main').html();
         $('#tpos-main').html('');
         // $('.dataset').removeClass('active');
