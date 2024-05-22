@@ -1646,6 +1646,7 @@ function printHazardRow(h) {
             }
 
             switch(state){
+                case('Assessment in progress'):
                 case('Requires mitigation'):
                     ruce = 3;
                     if(workflowStates.includes('Under peer review')){
