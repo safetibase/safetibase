@@ -328,7 +328,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             page.scroll('#next');
         }
         if (e == 'cdmPWStructures') {
-            t = $('#selectedstructures').html();
+            //$("#popscontentarea").html('');
+            t = $("#selectedstructures").html();
+            //t = $('#selectedstructures').html();
 
 
             var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
@@ -350,12 +352,20 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     ' </span></option>';
             }
             nt = t + sTerm;
-            lbl = '<div class="tpos-lbl">Selected asset(s)</div>';
-            selectConfirm = '<button id="applyselection" style="float:right">apply filters</button>'
+            lbl = '<div class=""tpos-lbl"">Selected asset(s)</div>';
             if (nt) {
+            $('#pwstructurespanel').html('');
+            $("#popsarea").html('');
+            $('#pwstructurespanel').append(
+             '<div class ="customfiltersection" id="popsarea">'  + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt + '</select></div>'
+
+            )
+           // $('#pwstructurespanel').append($(".pops-content"));
+
+                /*
                 $('#pwstructurespanel').html('');
-                $('#pwstructurespanel').html(lbl + selectConfirm + '<select id="selectedstructures" class="tpos-selection" multiple>' + nt +
-                    '</select>');
+                $('#pwstructurespanel').html(lbl + selectConfirm + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt +
+                    '</select>');*/
 
                 $("#selectedstructures").multiselect({
                     columns: 1,
@@ -364,17 +374,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     selectAll: true
                 })
 
-                $('#applyselection').click(function () {
-                    var value = $('#selectedstructures').find(':selected');
-                    //$('#pwstructurespanel').val(value);
-                    $('#selectedstructures').remove();
-                })
+               // $("#selectedstructures").css({
+                 //   'list-style-type':'none'
+                //})
+     
                 
+            }}
                 // $('#selectedstructures').prepend(lbl);
-            }
-            console.log($('#sel_cdmPWStructures').val())
-            $('#sel_cdmPWStructures').val('');
-        }
+            //}
+            //console.log($('#sel_cdmPWStructures').val())
+            //$('#sel_cdmPWStructures').val('');
+        //}
         if (e == 'tw') {
             t = $('#selectedtw').html();
             sTerm = '<div class="qresult" data-entity="temporary" data-stage="2" data-name="' + vn + '" data-value="' +
@@ -385,6 +395,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#twpanel').html('');
                 $('#twpanel').html(lbl + '<div id="selectedtw" class="tpos-selection">' + nt + '</div>');
             }
+            
             $('#sel_tw').val('');
         }
 
@@ -597,34 +608,55 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         const urlParams = new URLSearchParams(window.location.search);
         const cdmGeometry = urlParams.get("cdmGeometry");
         const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
-
+        const selected_ele = document.getElementsByClassName("selected");
+        //const selectedval = $("#selectedstructures").html();
+        //var val = $("#ms-options").find(':selected');
+        var selection = []
         var qr = $('.qresult');
+
+        for (i=0; i<selected_ele.length; i++){
+                    selection.push(selected_ele[i].innerText)
+                }
+        console.log(selection)
+
         for (var j = 0; j < qr.length; j++) {
+
             var o = qr.eq(j);
 
             var type = o.data('entity');
             var name = o.data('name');
             var value = o.data('value');
             toastr.success(type);
-            if (type == 'site') {
-                site = value;
-            }
-            if (type == 'permanent') {
-                var stage = o.data('stage');
-                pw.push([name, value, stage]);
-            }
-            if (type == 'temporary') {
-                tw.push([name, value]);
-            }
-            if (type == 'rams') {
-                rams.push([name, value]);
-            }
+            if (selection.includes(qr[j].innerText)){
+
+                if (type == 'permanent') {
+                // for ( a=0; a<val.length;a++){
+                //  selection.push(val[a].innerText)
+                // console.log(selection)
+                // }
+                //console.log(o[j].innerText)
+                    //console.log(qr[j].innerText);       
+                    var stage = o.data('stage');
+                    console.log(name, value, stage)
+                    pw.push([name, value, stage]);
+                }}
+
+                if (type == 'site') {
+                    site = value;
+                }
+                if (type == 'temporary') {
+                    tw.push([name, value]);
+                }
+                if (type == 'rams') {
+                    rams.push([name, value]);
+                }
         }
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
         var riskscoreval = trisks[0];
         var rscv = parseInt(riskscoreval, 10);
-
+        console.log(pw)
+        window.stop()
         if (pw.length > 0) {
             // console.log(tdata);
 
