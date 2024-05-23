@@ -15,7 +15,7 @@ function init(refresh) {
 
     let pageTitle = "";
     const idParam = urlParams.get("hazardId");
-    const versionDiv = '<div class="version-number">V1.5.2</div>';
+    const versionDiv = '<div class="version-number">V1.5.2.1</div>';
     const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><div class="information-icon">&#9432;</div></a>';
     if (idParam && refresh === undefined) {
         pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
