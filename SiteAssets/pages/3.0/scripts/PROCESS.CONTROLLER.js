@@ -66,7 +66,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     search: true,
                     selectAll: true
                 });
-                
+                //this is where I'll make changes
                 cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[]);
                 
             }
