@@ -298,7 +298,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 <script>
     
-    function routeSelection(e, v, vn) {
+   async function routeSelection(e, v, vn) {
         var sTerm = '';
         var t = '';
         var pc = 0,
@@ -331,22 +331,19 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             t = $("#selectedstructures").html();
 
 
-            var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
-
-            for (var i = 0; i < stgs.length; i++) {
-                if (stgs[i] === "Construction") {
-                    stid = 1;
-                } else if (stgs[i] === "Commission") {
-                    stid = 6;
-                } else if (stgs[i] === "Operation") {
-                    stid = 3;
-                } else if (stgs[i] === "Maintenance") {
-                    stid = 4;
-                } else if (stgs[i] === "Demolition") {
-                    stid = 5;
-                }
-                sTerm += '<option class="qresult" data-entity="permanent" data-stage="' + stid + '" data-name="' + vn +
-                    '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + stgs[i] + '</span>' +
+            //var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
+            const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmStagesExtra%27)/items?$select=Title,ID`;
+            const data = await $.ajax({
+                url: url,
+                method: 'GET',
+                headers: {
+                "Accept": "application/json; odata=verbose"
+                }          
+                })
+            console.log(data)
+            for (var i = 0; i < data.d.results.length; i++) {
+                sTerm += '<option class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
+                    '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
                     ' </span></option>';
             }
             nt = t + sTerm;
@@ -609,7 +606,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             var type = o.data('entity');
             var name = o.data('name');
             var value = o.data('value');
-            toastr.success(type);
 
             //checks if selection includes current asset
             if (selection.includes(qr[j].innerText)){
@@ -630,6 +626,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 rams.push([name, value]);
             }
         }
+        toastr.success("hazards successfully added")
+
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
         var riskscoreval = trisks[0];
@@ -746,7 +744,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
-            tposdata.set('cdmHazards', newhazards[dd], 'qmsg');
+            tposdata.set('cdmHazards', newhazards[dd]);
         }
         $('#div_sel_structures').html('');
         $('#div_sel_tw').html('');
@@ -756,7 +754,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
         $('.button-row').hide();
-
+        setTimeout(function() {
+            window.location.reload();
+        }, 2000);
 
     }
 
