@@ -746,9 +746,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
             console.log("third check")
-            tposdata.set('cdmHazards', newhazards[dd], "addHazards")
+            let check = [dd, newhazards.length]
+            tposdata.set('cdmHazards', newhazards[dd], "addHazards", check)
         }
-
+    
         $('#div_sel_structures').html('');
         $('#div_sel_tw').html('');
         $('#div_sel_rams').html('');
@@ -756,7 +757,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedtw').html('');
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
-        $('.button-row').hide();
 
     }
 
