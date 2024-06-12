@@ -342,10 +342,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 })
             console.log(data)
             for (var i = 0; i < data.d.results.length; i++) {
+                if (data.d.results[i].Title != "Temporary Works Construction"){
                 sTerm += '<option class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
                     '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
                     ' </span></option>';
-            }
+            }}
             nt = t + sTerm;
             lbl = '<div class=""tpos-lbl"">Selected asset(s)</div>';
             if (nt) {
@@ -364,6 +365,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     selectAll: true
                 })  
             }}
+
                 
             $('#sel_cdmPWStructures').val(''); // I am not sure what this line does
         //}
@@ -626,7 +628,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 rams.push([name, value]);
             }
         }
-        toastr.success("hazards successfully added")
 
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
@@ -744,8 +745,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
-            tposdata.set('cdmHazards', newhazards[dd]);
+            console.log("third check")
+            tposdata.set('cdmHazards', newhazards[dd], "addHazards")
         }
+
         $('#div_sel_structures').html('');
         $('#div_sel_tw').html('');
         $('#div_sel_rams').html('');
@@ -754,9 +757,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
         $('.button-row').hide();
-        setTimeout(function() {
-            window.location.reload();
-        }, 2000);
 
     }
 
