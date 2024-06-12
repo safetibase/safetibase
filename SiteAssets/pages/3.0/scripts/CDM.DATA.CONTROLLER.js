@@ -717,7 +717,7 @@ tposdata = {
         }
         oListItem.update();
         ctx().load(oListItem);
-        ctx().executeQueryAsync();
+        ctx().executeQueryAsync(onSuccess, onFailure);
         //toastr.success('item saved');
         var hl = list("cdmHazardHistory");
         var hitemCreateInfo = new SP.ListItemCreationInformation();
@@ -729,9 +729,23 @@ tposdata = {
 
         hListItem.update();
         ctx().executeQueryAsync();
-        if (callback) {
+        if (callback && callback === Function) {
             var fn = window[callback];
             fn(i);
+        }
+        function onSuccess(){
+            if(callback === "addHazards"){
+                console.log("added")
+                toastr.success("hazard(s) successfully added")
+            }
+        }
+
+        function onFailure(sender, args){
+            console.log("failure");
+            if(callback === "addHazards"){
+                toastr.error("hazards not added")
+            }
+            console.log(args.get_message() + '\n' + args.get_stackTrace());
         }
     },
     setRAMS: function(lst, data, nid) {
