@@ -703,7 +703,7 @@ tposdata = {
                 });
             });
     },
-    set: function(lst, data, callback, check) {
+    set: function(lst, data, callback) {
         var ml = list(lst);
         var itemCreateInfo = new SP.ListItemCreationInformation();
         var oListItem = ml.addItem(itemCreateInfo);
@@ -735,23 +735,16 @@ tposdata = {
         }
         function onSuccess(){
             if(callback === "addHazards"){
+                toastr.success("hazard successfully added")
                 console.log("Success")
-                //let message appear after the last hazard is added
-                if(check[0] === (check[1] - 1)){
-                toastr.success(check[1] + " hazard(s) successfully added")
-                }
             }
         }
 
         function onFailure(sender, args){
-            console.log("failure");
             if(callback === "addHazards"){
-                //let message appear after the last hazard is added
-                if(check[0] === (check[1] - 1)){
                 toastr.error("hazard(s) not added")
-                }
+                console.log(args.get_message() + '\n' + args.get_stackTrace());
             }
-            console.log(args.get_message() + '\n' + args.get_stackTrace());
         }
     },
     setRAMS: function(lst, data, nid) {
