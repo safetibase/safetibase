@@ -742,7 +742,7 @@ tposdata = {
 
         function onFailure(sender, args){
             if(callback === "addHazards"){
-                toastr.error("hazard(s) not added")
+                toastr.error("hazard not added")
                 console.log(args.get_message() + '\n' + args.get_stackTrace());
             }
         }
