@@ -348,7 +348,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     ' </span></option>';
             }}
             nt = t + sTerm;
-            lbl = '<div class=""tpos-lbl"">Selected asset(s)</div>';
+            lbl = '<div class="tpos-lbl">Selected asset(s)</div>';
             if (nt) {
             $('#pwstructurespanel').html('');
             $("#popsarea").html('');
@@ -357,14 +357,14 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
             )
 
-                // Added this function to create a dropdown
-                $("#selectedstructures").multiselect({
-                    columns: 1,
-                    placeholder: 'select assets :',
-                    search: false,
-                    selectAll: true
-                })  
-            }}
+            // Added this function to create a dropdown
+            $("#selectedstructures").multiselect({
+                columns: 1,
+                placeholder: 'select assets :',
+                search: false,
+                selectAll: true
+            })  
+        }}
 
                 
             $('#sel_cdmPWStructures').val(''); // I am not sure what this line does
@@ -598,12 +598,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         
 
         for (i=0; i<selected_ele.length; i++){
-                    selection.push(selected_ele[i].innerText)
-                }
+            selection.push(selected_ele[i].innerText)
+        }
 
         //loops through all the assets
         for (var j = 0; j < qr.length; j++) {
-
             var o = qr.eq(j);
             var type = o.data('entity');
             var name = o.data('name');
@@ -611,7 +610,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
             //checks if selection includes current asset
             if (selection.includes(qr[j].innerText)){
-
                 if (type == 'permanent') {       
                     var stage = o.data('stage');
                     console.log(name, value, stage)
@@ -635,8 +633,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var rscv = parseInt(riskscoreval, 10);
 
         if (pw.length > 0) {
-            // console.log(tdata);
-
             for (var ps = 0; ps < pw.length; ps++) {
                 var tdata = [];
                 // toastr.success(site);
@@ -745,9 +741,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
-            console.log("third check")
-            let check = [dd, newhazards.length]
-            tposdata.set('cdmHazards', newhazards[dd], "addHazards", check)
+            tposdata.set('cdmHazards', newhazards[dd], "addHazards")
         }
     
         $('#div_sel_structures').html('');
@@ -757,7 +751,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedtw').html('');
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
-
+        $('.button-row').hide();
     }
 
     function expandRiskMatrix() {
