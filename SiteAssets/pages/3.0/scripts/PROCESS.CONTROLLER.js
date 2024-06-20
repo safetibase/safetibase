@@ -66,9 +66,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     search: true,
                     selectAll: true
                 });
-                
-                cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[]);
-                
+                tposcustomfilters(maindata)   
             }
             if (ulink == 'synccsv') {
                 // First get the user roles and verify that they are allowed to archive hazards
