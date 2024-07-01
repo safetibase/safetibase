@@ -66,7 +66,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     search: true,
                     selectAll: true
                 });
-                tposcustomfilters(maindata)   
+                tposcustomfilters(maindata);
             }
             if (ulink == 'synccsv') {
                 // First get the user roles and verify that they are allowed to archive hazards
