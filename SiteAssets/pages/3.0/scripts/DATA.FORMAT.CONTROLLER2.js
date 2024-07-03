@@ -624,7 +624,7 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var row = "";
-        wpt = '<h1>' + wpt + '</h1>';
+        wpt = '<h1 style="color:black;">' + wpt + '</h1>';
         if (tcnt === 0) {
             wpt = '';
         }
@@ -867,7 +867,7 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var row = "";
-        var wpt = '<div><h1>Child RAMS Hazards</h1></div>';
+        var wpt = '<div><h1 style="color:black">Child RAMS Hazards</h1></div>';
         if (tcnt === 0) {
             wpt = '';
         }
