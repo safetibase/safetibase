@@ -34,10 +34,27 @@ function init(refresh) {
     // load the layout for the page
     $('#tpos-page').load('../3.0/html/layout.html', function() {
 
-        // set up the home screen nav
-        setUpHomeNav()
-        // get the user and their roles and display navigation
-        setupleftnav();
+        if (!idParam && !urlParams.get("newHazard")) {
+            // set up the home screen nav
+            setUpHomeNav()
+            // get the user and their roles and display navigation
+            setupleftnav();
+        } else {
+            setupleftnav();
+            // $("#tpos-nav").remove()
+            $('<div />', {
+                id: 'overlay',
+                css: {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 1000,
+                    background: 'rgba(0,0,0,0.5)'
+                }
+            }).appendTo('#tpos-nav');
+        }
         if (disableNavigationLinks) {
             $("#user_roles").hide();
         }
