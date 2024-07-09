@@ -3231,7 +3231,7 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-function tposcustomfilters( data, forExport) {
+async function tposcustomfilters( data, forExport) {
     // var tlist=[];
     // //console.log('maindata',maindata.length);
     // if (maindata.length = 0 ) {
@@ -3251,6 +3251,25 @@ function tposcustomfilters( data, forExport) {
     var selectcdmCurrentStatus ='';
     var selectcdmResidualRiskOwner ='';
 
+    // Unfortunately we don't have the asset description included in the data so if this data is wanted by the project we need to make an ajax request here for that data
+    let assetDescriptionMap;
+    if (configData['Create hazard show asset description']) {
+        const assetDataUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmPWStructures%27)/items?$select=Title,UAID,cdmDescription`;
+        const assetDataResponse = await $.ajax({
+            url: assetDataUrl,
+            method: 'GET',
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            }
+        });
+        // We'll create a dictionary where the asset Name and the UAID maps to the description. We use this combination as it is unique due to the UAID and where the UAID is missing the name
+        // should hopefully also be unique
+        assetDescriptionMap = assetDataResponse.d.results.reduce((accum, curr) => {
+            accum[curr['Title']+curr['UAID']] = curr['cdmDescription'];
+            return accum;
+        }, {});
+    }
+
     for (var cc = 0; cc < tlist.length; cc++) {
         var it = tlist[cc];
         var itid = it.cdmStageExtra.ID;
@@ -3266,8 +3285,15 @@ function tposcustomfilters( data, forExport) {
         }
 
         if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
+            if (configData['Create hazard show asset description']) {
+                const assetUAID = it.cdmPWStructure.UAID;
+                // Find the asset description in the asset data we requested earlier
+                const assetDescription = assetDescriptionMap[itcdmpwstructuretitle+assetUAID];
+                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+`Asset: ${itcdmpwstructuretitle}; Description: ${assetDescription}; UAID: ${assetUAID}`+'</option>';
+            } else {
+                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>';
+            }
             distlistcdmpwstructure.push(itcdmpwstructureid);
-            selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
         }
 
         if (!forExport && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) || (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus) && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus))){
@@ -3340,7 +3366,7 @@ function tposcustomfilters( data, forExport) {
         fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
         for( b=0; b<fcdmpwstructure.length;b++){
             //console.log(fcdmpwstructure,"cdmpwst");
-            fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
+            fcdmpwstructureselected.push(fcdmpwstructure[b].value);
         }
         //console.log(fcdmpwstructureselected);
         flst['cdmPWStructure'] = fcdmpwstructureselected;
