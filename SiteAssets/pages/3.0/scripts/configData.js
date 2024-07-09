@@ -22,6 +22,7 @@ configData = {
     'Include contract': true, // Do you want to have the option to assign contracts to hazards?
     'Reopen hazards': ['System admin'], // Defines who can use the reopen hazards button
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
+    'Create hazard show asset description': false,
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
     //Default full workflows

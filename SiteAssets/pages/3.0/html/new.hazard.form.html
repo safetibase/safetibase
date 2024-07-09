@@ -339,32 +339,39 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 headers: {
                 "Accept": "application/json; odata=verbose"
                 }          
-                })
-            console.log(data)
+            });
+
+            let assetStageDescription;
+            if (configData['Create hazard show asset description']) {
+                assetStageDescription = vn.split(';')[0].split(':')[1].trim();
+            } else {
+                assetStageDescription = vn;
+            }
             for (var i = 0; i < data.d.results.length; i++) {
                 if (data.d.results[i].Title != "Temporary Works Construction"){
-                sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
-                    '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
-                    ' </span></option>';
-            }}
+                    sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + assetStageDescription +
+                        '" data-value="' + v + '"><span>' + assetStageDescription + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
+                        ' </span></option>';
+                }
+            }
             nt = t + sTerm;
             lbl = '<div class="tpos-lbl">Selected asset(s)</div>';
             if (nt) {
-            $('#pwstructurespanel').html('');
-            $("#popsarea").html('');
-            $('#pwstructurespanel').append(
-             '<div class ="customfiltersection" id="popsarea">'  + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt + '</select></div>'
+                $('#pwstructurespanel').html('');
+                $("#popsarea").html('');
+                $('#pwstructurespanel').append(
+                '<div class ="customfiltersection" id="popsarea">'  + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt + '</select></div>'
+                )
 
-            )
-
-            // Added this function to create a dropdown
-            $("#selectedstructures").multiselect({
-                columns: 1,
-                placeholder: 'Select assets:',
-                search: false,
-                selectAll: true
-            }) 
-        }}
+                // Added this function to create a dropdown
+                $("#selectedstructures").multiselect({
+                    columns: 1,
+                    placeholder: 'Select assets:',
+                    search: false,
+                    selectAll: true
+                }) 
+            }
+        }
 
                 
             $('#sel_cdmPWStructures').val(''); // I am not sure what this line does

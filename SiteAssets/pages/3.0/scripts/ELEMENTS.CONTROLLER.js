@@ -170,6 +170,9 @@ function mkSelect (lst, data, fset, trg) {
         var it = tlist[cc];
         var itid = it.ID;
         var ittitle = it.Title;
+        if (trg === 'sel_structures' && configData['Create hazard show asset description']) {
+            ittitle = `Asset: ${ittitle}; Description: ${it.cdmDescription}; UAID: ${it.UAID}`;
+        }
         options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitle.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
 
     }
