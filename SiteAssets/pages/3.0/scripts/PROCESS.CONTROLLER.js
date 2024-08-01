@@ -55,6 +55,9 @@ function activateDatasets(cdmSites, allHazardsData) {
             // window.location.href = 'https://tidewayeastlondon.sharepoint.com/sites/powerbi/SitePages/CDM-Risk-Register.aspx';
             // window.location.href = ulink;
             //window.open(ulink, '_blank');
+            if (ulink.startsWith('https')) {
+                window.open(ulink, '_blank');
+            }
             if (ulink == 'addfilters'){
                 gimmepops("Filter selection pane",
           
