@@ -16,11 +16,10 @@ function init(refresh) {
     let pageTitle = "";
     const idParam = urlParams.get("hazardId");
     const versionDiv = '<div class="version-number">V1.5.2.1</div>';
-    const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><div class="information-icon">&#9432;</div></a>';
     if (idParam && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - Hazard ${idParam}</div></div>`;
     } else if (urlParams.get("newHazard") && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - New Hazard</div></div>`;
     } else {
         const titleDiv = '<div>SafetIbase</div>';
         const searchDiv = '<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
@@ -34,10 +33,27 @@ function init(refresh) {
     // load the layout for the page
     $('#tpos-page').load('../3.0/html/layout.html', function() {
 
-        // set up the home screen nav
-        setUpHomeNav()
-        // get the user and their roles and display navigation
-        setupleftnav();
+        if (!idParam && !urlParams.get("newHazard")) {
+            // set up the home screen nav
+            setUpHomeNav()
+            // get the user and their roles and display navigation
+            setupleftnav();
+        } else {
+            setupleftnav();
+            // $("#tpos-nav").remove()
+            $('<div />', {
+                id: 'overlay',
+                css: {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 1000,
+                    background: 'rgba(0,0,0,0.5)'
+                }
+            }).appendTo('#tpos-nav');
+        }
         if (disableNavigationLinks) {
             $("#user_roles").hide();
         }
@@ -104,7 +120,7 @@ function setupmainareastats(hazardId, cdmSites, allHazardsData) {
     $('#tpos-main').html('<div class="tpos-area-title">Welcome to SafetIbase</div><div id="stats" class="tpos-area-content"></div>');
     $('#stats').load('../3.0/html/stats.tbl.html', function() {
         if (hazardId) {
-            cdmdata.get('cdmHazards', "ID eq " + hazardId, "Modified desc", "hazards-search", 'statstbl', '');
+            cdmdata.get('cdmHazards', "ID eq " + hazardId, "Modified desc", "hazards-search", 'statstbl', '', `Hazard ${hazardId}`);
         } else {
             // Passing through 'stats-table-row' in here forwards on the cdmSites data from cdmdata.get() to
             // DATA.FORMAT.CONTROLLER.js - formatdatato.statstablerows()
@@ -1439,7 +1455,8 @@ function getsearchresults(v) {
         "Modified desc",
         "hazards-search",
         "idmatch",
-        'ID Match'
+        'ID Match',
+        `Hazard ${vn}`
     );
     cdmdata.get(
         "cdmHazards",
