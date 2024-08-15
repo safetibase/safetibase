@@ -225,3 +225,79 @@ function mkSelect (lst, data, fset, trg) {
         routeSelection(lst, dvid, dv);
     });
 }
+
+/**
+ * Escapes string to be inputted into HTML to prevent XSS
+ * @param {str} str The string to escape
+ * @return {str} The escaped string
+ */
+function escapeHTML(str) {
+    if (str) {
+        return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    } else {
+        return str;
+    }
+}
+
+/**
+ * Escapes string to be inputted into HTML to prevent XSS
+ * @param {str} str The string to escape
+ * @returns {str} The escaped string
+ */
+function escapeHTML(str) {
+    if (str) {
+        return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    } else {
+        return str;
+    }
+}
+
+/**
+ * Sanitises html to be inputted into the DOM to prevent XSS. Unlike the above function, this function is for inputs we want to be interpretted as html, so we allow
+ * some tags and attributes
+ * @param {str} str html to be sanitised
+ * @returns {str} sanitised html
+ */
+function sanitizeHTML(str) {
+    var temp = document.createElement('div');
+    temp.innerHTML = str;
+
+    // List of allowed tags and attributes
+    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span'];
+    var allowedAttributes = ['href', 'title', 'class'];
+
+    // Function to recursively sanitize nodes
+    function sanitizeNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            // Remove disallowed tags
+            if (!allowedTags.includes(node.tagName.toLowerCase())) {
+                node.parentNode.removeChild(node);
+                return;
+            }
+
+            // Remove disallowed attributes
+            for (var i = node.attributes.length - 1; i >= 0; i--) {
+                var attr = node.attributes[i];
+                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
+                    node.removeAttribute(attr.name);
+                }
+            }
+        }
+
+        // Recursively sanitize child nodes
+        for (var i = 0; i < node.childNodes.length; i++) {
+            sanitizeNode(node.childNodes[i]);
+        }
+    }
+
+    sanitizeNode(temp);
+    return temp.innerHTML;
+}

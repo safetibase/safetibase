@@ -522,7 +522,7 @@ cdmdata = {
                 // } else {
                 //   t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, clr);
                 // }
-                $("#" + trg).append(t);
+                $("#" + trg).append(sanitizeHTML(t));
                 // $('#'+trg).append(t);
 
 
@@ -545,7 +545,7 @@ cdmdata = {
                     if ((lst = "cdmHazards")) {
                         $("#tpos-main").html(
                             '<div class="tpos-area-title">' +
-                            title +
+                            escapeHTML(title) +
                             '</div><div id="hazardstable" class="tpos-area-content"></div>'
                         );
                         cdmdata.get(

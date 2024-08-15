@@ -14,7 +14,7 @@ function init(refresh) {
     const disableNavigationLinks = urlParams.get("disableNavigationLinks");
 
     let pageTitle = "";
-    const idParam = urlParams.get("hazardId");
+    const idParam = escapeHTML(urlParams.get("hazardId")); // To prevent client side XSS
     const versionDiv = '<div class="version-number">V1.5.2.1</div>';
     if (idParam && refresh === undefined) {
         pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - Hazard ${idParam}</div></div>`;

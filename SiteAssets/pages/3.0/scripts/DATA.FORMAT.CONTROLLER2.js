@@ -624,11 +624,12 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var row = "";
+        wpt = escapeHTML(wpt); // To prevent client side XSS
         wpt = '<h1 style="color:black;">' + wpt + '</h1>';
         if (tcnt === 0) {
             wpt = '';
         }
-        $("#" + trg).html(wpt);
+        $("#" + trg).textContent = wpt;
 
         for (var cc = 0; cc < tcnt; cc++) {
             // build rows
