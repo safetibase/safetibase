@@ -171,7 +171,10 @@
 
             // add search box
             if( instance.options.search ) {
-                optionsList.before('<div class="ms-search"><input type="text" value="" placeholder="'+ instance.options.searchOptions['default'] +'" /></div>');
+                //optionsList.before('<div class="ms-search"><input type="text" value="" placeholder="'+ instance.options.searchOptions['default'] +'" /></div>');
+                var searchPlaceholder = $('<div class="ms-search"><input type="text" value="" /></div>');
+                searchPlaceholder.find('input').attr('placeholder', instance.options.searchOptions['default']);
+                optionsList.before(searchPlaceholder);
 
                 var search = optionsWrap.find('.ms-search input');
                 search.on('keyup', function(){
