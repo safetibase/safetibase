@@ -89,8 +89,15 @@
                 maxWidth = instance.options.width;
             }
             else if( typeof instance.options.width == 'string' ) {
-                $( instance.options.width ).css( 'position', 'relative' );
-                maxWidth = '100%';
+                // $( instance.options.width ).css( 'position', 'relative' );
+                // maxWidth = '100%';
+                var element = $(document).find(instance.options.width);
+                if (element.length) {
+                    element.css('position', 'relative');
+                    maxWidth = '100%';
+                } else {
+                    console.warn('Invalid CSS selector provided for width option.');
+                }
             }
             else {
                 optionsWrap.parent().css( 'position', 'relative' );
