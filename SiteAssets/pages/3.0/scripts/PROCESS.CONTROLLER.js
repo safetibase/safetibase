@@ -1993,7 +1993,8 @@ function activateHazardEdits() {
                                         '<table id="newcoordinates" class="width-350">' +
                                         dd +
                                         '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
-                                    $("#newcoordinates").replaceWith(cdtbl);
+                                    var sanitisedCdtbl = sanitizeHTML(cdtbl)
+                                    $("#newcoordinates").replaceWith(sanitisedCdtbl);
                                     $(".tpos-svbtn")
                                         .off("click")
                                         .on("click", function() {
@@ -2574,12 +2575,12 @@ function activateCoordinatesSave() {
                 }
             }
 
-            var sanitizedNewString = $('<div>').text(newstring).html();
+            var sanitizedNewString = escapeHTML(newstring)
             $("#h_" + hzd + "_fullcoor").html(sanitizedNewString);
 
             var ctags = getctags(newstring);
             
-            var sanitizedCtags = $('<div>').text(ctags).html();
+            var sanitizedCtags = sanitizeHTML(ctags);
             $("#mngCoo").replaceWith(sanitizedCtags);
             activateCoordinatesSave();
         });
