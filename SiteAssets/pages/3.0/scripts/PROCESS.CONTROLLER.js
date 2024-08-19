@@ -2573,9 +2573,14 @@ function activateCoordinatesSave() {
                     newstring = x + "," + y + "," + z;
                 }
             }
-            $("#h_" + hzd + "_fullcoor").html(newstring);
+
+            var sanitizedNewString = $('<div>').text(newstring).html();
+            $("#h_" + hzd + "_fullcoor").html(sanitizedNewString);
+
             var ctags = getctags(newstring);
-            $("#mngCoo").replaceWith(ctags);
+            
+            var sanitizedCtags = $('<div>').text(ctags).html();
+            $("#mngCoo").replaceWith(sanitizedCtags);
             activateCoordinatesSave();
         });
     $(".tpos-svcbtn")
