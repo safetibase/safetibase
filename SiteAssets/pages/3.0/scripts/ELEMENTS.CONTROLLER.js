@@ -11,7 +11,9 @@ function gimmepops(title,content,cl){
         '		</div>'+
         '	</div>';
 
-        $('#tpos-page').append(myvar);
+        sanitsedMyVar = sanitizeHTML(myvar)
+
+        $('#tpos-page').append(sanitsedMyVar);
         $('#pops').show();
         $('.btn-cancel').click(function(){
             closepops();
