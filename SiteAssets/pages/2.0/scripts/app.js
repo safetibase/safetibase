@@ -36,25 +36,19 @@ function getListItemsByListName(arg) { // function tol get SharePoint list loade
     //         success: function(data) {
     //             response = response.concat(data.d.results);
     //             if (data.d.__next) {
-    //                 console.log("LOOP");
     //                 url = data.d.__next;
     //                 MakeAJAX();
     //             } else {
-    //                 console.log("NOT LOOP");
     //                 finalData = {d: {results: response}}
-    //                 console.log(finalData);
     //                 return finalData;
     //             }
     //         },
     //         error: function(error) {
-    //             console.log("Hit Error")
-    //             console.log(error);
     //         },
     //     });
     // }
 
     // const res = MakeAJAX();
-    // console.log(res);
     // return res;
 
 
@@ -101,12 +95,9 @@ function getListFields(l){
 //         //         url = data.d.__next;
 //         //         GetListItems();
 //         //     } else {
-//         //         console.log("Finished getting " + l);
 //         //     }
 //         // },
 //         // error: function(error) {
-//         //     console.log("Hit Error :(")
-//         //     console.log(error);
 //         // }
 //     });
 // }

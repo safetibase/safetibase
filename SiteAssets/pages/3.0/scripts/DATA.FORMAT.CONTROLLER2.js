@@ -24,7 +24,6 @@ formatdatato = {
                     element.Title != undefined &&
                     key != "Title"
                 ) {
-                    // //console.log(element.Title);
                     cell += mkCell("cdmUser", ui, key, element);
                     for (var b = 0; b < role.length; b++) {
                         if (element.Title == roles[b]) {
@@ -226,7 +225,6 @@ formatdatato = {
                 if(lst=="cdmHazards"){
                     expand = expand + ",cdmPWStructure/UAID";
                     select = select + ",cdmPWStructure/UAID";
-                    //console.log('expand',expand);
                 }
             })
             .done(function() {
@@ -265,7 +263,6 @@ formatdatato = {
                                     GetListItems(data.d.__next)
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
-                                    //console.log("fairinput",flst);
                                     formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
@@ -273,7 +270,6 @@ formatdatato = {
                                 }
                             },
                             error: function(error) {
-                                //console.log(error);
                             }
                         });
                     }
@@ -349,7 +345,6 @@ formatdatato = {
                 if(lst=="cdmHazards"){
                     expand = expand + ",cdmPWStructure/UAID";
                     select = select + ",cdmPWStructure/UAID";
-                    //console.log('expand',expand);
                 }
             })
             .done(function() {
@@ -388,7 +383,6 @@ formatdatato = {
                                     GetListItems(data.d.__next)
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
-                                    //console.log("fairinput",flst);
                                     formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, false)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
@@ -398,7 +392,6 @@ formatdatato = {
                                 }
                             },
                             error: function(error) {
-                                //console.log(error);
                             }
                         });
                     }
@@ -410,7 +403,6 @@ formatdatato = {
     
     createTable: function(data, allHazardsMain, lst, trg , lstfilter, loadGlobalNav) {
         var allHazards = allHazardsMain;
-        if (lstfilter) console.log(lstfilter.length)
         if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
         } else {
@@ -519,7 +511,6 @@ formatdatato = {
         $('.refresh-hazards-btn').click(function() {init(true)});
 
         function customfilters ( allHazards, filterlst){
-            console.log("enterf",filterlst);
             var fdata = [];
             if(filterlst ==[]){
                 fdata = allHazards;
@@ -670,7 +661,6 @@ formatdatato = {
 
     cachedhazardtablerows: function(filtered_hazards, prev_number_loaded) {
         // var tlist = data.d.results;
-        // //console.log(tlist);
         var tcnt = filtered_hazards.length;
         var batch_size = 100;
         var index_to_load_to = 0
@@ -762,9 +752,7 @@ formatdatato = {
 
     hazardtablerows: function(response, next_url, prev_number_loaded) {
         // var tlist = data.d.results;
-        // //console.log(tlist);
         var tlist = response;
-        //console.log(tlist);
         var tcnt = tlist.length;
         number_loaded = tlist.length + prev_number_loaded;
         var row = "";
@@ -813,7 +801,6 @@ formatdatato = {
                     formatdatato.hazardtablerows(response, next_url, number_loaded)
                 },
                 error: function(error) {
-                    //console.log(error);
                 }
             });
         }
@@ -1005,7 +992,6 @@ function mkCell(entity, i, key, element) {
     }
     var t = "";
     var e = isObject(element);
-    ////console.log(e);
     if (e == false) {
         // t = '<div class="cell" id="'+entity+'_' + i + '_' + key + '"><div class="lbl">' + key + '</div><div class="val fld_'+key+'">' + element + '</div></div>';
         t =
@@ -1588,7 +1574,6 @@ function printHazardRow(h) {
     if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
-        // //console.log(requiresLDReview);
     }
 
     else {
@@ -1610,7 +1595,6 @@ function printHazardRow(h) {
         vwramstrigger = 1;
     }
     var isSM = 0;
-    //console.log(h.cdmSMMitigationSuggestion + ' - mk: ' + hasRAMS + ' - vw: ' + vwramstrigger);
     // if(mkramstrigger===0){
     //   mkramsbtn='';
     // }

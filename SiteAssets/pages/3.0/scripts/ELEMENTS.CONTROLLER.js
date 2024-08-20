@@ -184,7 +184,6 @@ function mkSelect (lst, data, fset, trg) {
         if (st) {
             $('tr:not(:contains(' + st + '))').each(function () {
                 var t = $(this).html();
-                ////console.log(t);
                 if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                     $(this).hide();
                 }

@@ -1,7 +1,6 @@
 var flst = {};
 var maindata = [];
 function activateDatasets(cdmSites, allHazardsData) {
-    //console.log("actdatasets",allHazardsData);
  maindata = allHazardsData;
     $(".dataset")
         .off("click")
@@ -15,14 +14,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                 var rid = $(this).attr("id");
                 var trid = rid.split("_");
                 var i = trid[1];
-                // //console.log('ds test id: '+i);
-                // //console.log(rid);
                 $(this).addClass("active");
                 var role = $("#" + rid + "_cdmUserRole").data("elementname");
                 var comp = $("#" + rid + "_cdmCompany").data("elementname");
                 var site = $("#" + rid + "_cdmSite").data("elementname");
                 // toastr.success('getting user data');
-                // //console.log('ds test role: '+role);
                 setupuserstats(role, comp, site, allHazardsData);
                 // main.setup_user(role,comp,site);
             }
@@ -115,7 +111,6 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                     }
                                                 }
                                                 if (Company_ID) {
-                                                    console.log(Company_ID)
                                                     gimmepops(`Sync ${configData['Client Name']} CSV`,
                                                     '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
                                                     var csvFile = document.getElementById("csvFileInput");
@@ -1076,7 +1071,6 @@ function activateDatasets(cdmSites, allHazardsData) {
                             cdmLastReviewStatus: previousLastReviewStatus,
                             cdmLastReviewDate: previousLastReviewDate
                         } = currentListItemValues;
-                        console.log('previous workflow status', previousWorkflowStatus)
                         // Define configurations for various fields incorporating validation conditions
                         const setFields = [
                             { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
@@ -1861,7 +1855,6 @@ function activateHazardEdits() {
                                 $(".sk-circle").hide();
                                 $(".rag").click(function() {
                                     var v = $(this).data("v");
-                                    ////console.log(v);
                                     var trm = btns[v];
                                     var val = trm[0] + "^" + trm[2] + "^" + trm[1];
                                     var tdata = [];
@@ -1971,7 +1964,6 @@ function activateHazardEdits() {
                                 keeprow.each(function() {
                                     coordinates.push($(this).data("ctag"));
                                 });
-                                // //console.log(coordinates);
                             });
                         $(".tpos-addbtn")
                             .off("click")
@@ -1984,7 +1976,6 @@ function activateHazardEdits() {
                                     var xyz = x + "," + y + "," + z;
                                     coordinates.push(xyz);
                                     var dd = "";
-                                    // //console.log(coordinates);
                                     for (var cc = 0; cc < coordinates.length; cc++) {
                                         dd += decCTag(cc, coordinates[cc]);
                                     }
@@ -2312,10 +2303,7 @@ function activateADDRAMSBTN() {
 
             var raid = $("#val_rams").html();
             var ratx = $("#sel_rams").val();
-            //console.log("RAID::: " + raid);
-            //console.log("RATX::: " + ratx);
             if (raid && ratx) {
-                //console.log("Missing Information");
                 nrdata.push("cdmSMMitigationSuggestion|" + mits);
                 nrdata.push("cdmRAMS|" + raid);
                 nrdata.push("cdmEntityTitle|" + ratx);
@@ -2334,7 +2322,6 @@ function activateADDRAMSBTN() {
 }
 
 function activateRAMSActions() {
-    //console.log('rams actions activated');
     $('.mkramsbtn').click(function() {
         var a = $(this).data("action");
         var hi = $(this)
@@ -2345,7 +2332,6 @@ function activateRAMSActions() {
         //   toastr.success("what???: " + id);
 
         hzd = id;
-        //console.log('rams actions activated for ' + hzd);
         var hist = "";
         var nd = new Date();
         var nnd = ukdate(nd);
@@ -2457,7 +2443,6 @@ function activateRAMSActions() {
 //         keeprow.each(function(){
 //             coordinates.push($(this).data('ctag'));
 //         });
-//         // //console.log(coordinates);
 //     });
 //     $('.tpos-addbtn').off('click').on('click',function(){
 //         var x=$('#nx').val();
@@ -2466,7 +2451,6 @@ function activateRAMSActions() {
 //         var xyz=x+','+y+','+z;
 //         coordinates.push(xyz);
 //         var dd='';
-//         // //console.log(coordinates);
 //         for(var cc=0;cc<coordinates.length;cc++){
 //             dd+=decCTag(cc,coordinates[cc]);
 //         }
@@ -2801,7 +2785,6 @@ function tposSelectOwner(lst, data, hzdt, trg) {
 function getDistResults(items,propertyName){
     var result = [];
 	var distResult=[];
-    //console.log(items);
     $.each(items, function(index, item) {
        if ($.inArray(item[propertyName], result)==-1) {
           result.push(item[propertyName]);
@@ -3020,8 +3003,6 @@ function tposSelectTag(lst, data, trg) {
 
 function tposSelectUniclass(lst, data, trg) {
     var tlist = data.d.results;
-    //console.log("LOOK BELOW");
-    //console.log(tlist);
     var options =
         '<tr><td class="hide" id="val_' +
         lst +
@@ -3223,7 +3204,6 @@ function tposSelectdropdown(lst, data, trg, col) {
     });
 
     $(".remove-selection").click(() => {
-        console.log("here")
         const update = [col + "|" + ""]
         cdmdata.update("cdmHazards", update, "frmedit_updateview");
     })
@@ -3236,7 +3216,6 @@ function tposSelectdropdown(lst, data, trg, col) {
   }
 function tposcustomfilters( data, forExport) {
     // var tlist=[];
-    // //console.log('maindata',maindata.length);
     // if (maindata.length = 0 ) {
     //     tlist = data.d.results;
     // }
@@ -3284,9 +3263,6 @@ function tposcustomfilters( data, forExport) {
             // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
-
-     
-      //console.log('distlistcdmCurrentStatus',distlistcdmCurrentStatus);
       
     }
     $("#popscontentarea").html('');
@@ -3332,27 +3308,23 @@ function tposcustomfilters( data, forExport) {
         var fcdmStageExtraselected =[];
         fcdmStageExtra=$('#cdmStageExtrafilter').find(':selected');
         for( a=0; a<fcdmStageExtra.length;a++){
-            //console.log(fcdmStageExtra[a].innerText);
             fcdmStageExtraselected.push(fcdmStageExtra[a].innerText);
         }
-        //console.log(fcdmStageExtraselected);
         flst['cdmStageExtra'] = fcdmStageExtraselected;
 
         var fcdmpwstructure = [];
         var fcdmpwstructureselected =[];
         fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
         for( b=0; b<fcdmpwstructure.length;b++){
-            //console.log(fcdmpwstructure,"cdmpwst");
             fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
         }
-        //console.log(fcdmpwstructureselected);
+
         flst['cdmPWStructure'] = fcdmpwstructureselected;
 
         var fcdmCurrentStatus = [];
         var fcdmCurrentStatusselected =[];
         fcdmCurrentStatus= $('#cdmCurrentStatusfilter').find(':selected');
         for( c=0; c<fcdmCurrentStatus.length;c++){
-            //console.log("fcdmCurrentStatus",fcdmCurrentStatus[c].innerText);
             fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace('"',''));
         }
         
@@ -3361,12 +3333,9 @@ function tposcustomfilters( data, forExport) {
         var fcdmResidualRiskOwner = [];
         var fcdmResidualRiskOwnerselected =[];
         fcdmResidualRiskOwner= $('#cdmResidualRiskOwnerfilter').find(':selected');
-        //console.log("fcdmResidualRiskOwner",fcdmResidualRiskOwner);
         for( c=0; c<fcdmResidualRiskOwner.length;c++){
-            console.log("fcdmResidualRiskOwner",fcdmResidualRiskOwner[c].innerText);
             fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
         }
-        //console.log(fcdmCurrentStatusselected);
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
@@ -3540,7 +3509,6 @@ function tposcustomfilters( data, forExport) {
                     timeOut: 30000
                 })
             }).catch((error) => {
-                console.log(error);
                 toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.', '', {
                     timeOut: 30000
                 })
@@ -3670,7 +3638,6 @@ function tposcustomfilters( data, forExport) {
   
 //     $("#sel_" + lstcdmpwstructure).bind("keyup change", function (ev) {
 //       var st = $(this).val();
-//       //console.log("key up",st);
 //       $("#val_" + lstcdmpwstructure).html("0");
 //       if (st) {
 //         $("tr:not(:Contains(" + st + "))").each(function () {
@@ -3689,7 +3656,6 @@ function tposcustomfilters( data, forExport) {
 //     $("#sel_" + lstcdmpwstructure).click(function () {
 //       var st = $(this).val();
 //       toastr.success(st);
-//       //console.log("click",st);
 //       if (!st || st == "") {
 //         $("tr").each(function () {
 //           if ($(this).hasClass("tpos-" + lstcdmpwstructure + "-select-value") == 1) {
@@ -3716,7 +3682,6 @@ function tposcustomfilters( data, forExport) {
       
 //       flst['cdmPWStructure'] = dv;
       
-//       //console.log(flst , "flst");
 //       formatdatato.statstablerows()
 //       cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 //       $("#pops").remove();
@@ -3870,12 +3835,10 @@ function tposSelectPeer(lst, data, trg) {
 //             var user = unm();
 //             var nl = "";
 //             var vn = $("#h_" + hzd + " .cdmSite").html();
-//             // //console.log(vn);
 
 //             if (a == "initiatereview") {
 //                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
 //                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
-//                 //console.log(vcheck);
 //                 if (vcheck === null || vcheck === 'undefined' || vcheck === 'Awaiting assessment') {
 //                     toastr.error('Please provide a mitigation suggestion before initiating the review');
 //                 } else {
@@ -3905,9 +3868,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
-
-//                                     // //console.log(nl+hist);
 //                                     tdata.push("cdmReviews|" + nl);
 //                                     tdata.push("cdmCurrentStatus|Under peer review");
 //                                     tdata.push("cdmLastReviewDate|" + ind);
@@ -3936,7 +3896,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4024,7 +3983,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4079,7 +4037,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                         }
 
 //                                         var ns = $("#h_" + hzd + " .rucpc").hasClass("_2");
-//                                         //console.log(ns);
 //                                         if (ns === true) {
 //                                             tdata.push("cdmReviews|" + nl);
 //                                             tdata.push(
@@ -4125,7 +4082,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4233,8 +4189,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     //     if (hzt == "Health") {
 //                                     //       hzti = 1;
 //                                     //     }
-//                                     //     //   //console.log(raid);
-
 //                                     //     tdata = [];
 //                                     //     // toastr.success(site);
 //                                     //     tdata.push("Title|" + title);
@@ -4256,7 +4210,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     //     tdata.push("cdmRAMS|" + raid);
 //                                     //     tdata.push("cdmEntityTitle|" + ratx);
 //                                     //     tdata.push("cdmStageExtra|" + stgi);
-//                                     //     //console.log(tdata);
 //                                     //     var udata = [];
 //                                     //     udata.push("cdmSMMitigationSuggestion|This hazard is further mitigated via one or several RAMS hazards with the following mitigation suggestion by the Construction Manager: " + mits + " Please click 'View linked / related hazards' for further details.");
 
@@ -4284,7 +4237,6 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4369,7 +4321,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //console.log(hist);
+//                                     // //(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4482,7 +4434,6 @@ function hazardreviewbuttonaction() {
             if (a == "initiatereview") {
                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
-                //console.log(vcheck);
                 if (vcheck === null || vcheck === 'undefined' || vcheck === 'Awaiting assessment') {
                     toastr.error('Please provide a mitigation suggestion before initiating the review');
                 } else {
@@ -4516,9 +4467,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
-
-                                    // //console.log(nl+hist);
                                     tdata.push("cdmReviews|" + nl);
                                     tdata.push(`cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                     tdata.push("cdmLastReviewDate|" + ind);
@@ -4547,8 +4495,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
-
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -4603,9 +4549,6 @@ function hazardreviewbuttonaction() {
                                         var ns = $("#h_" + hzd + " .rucs").hasClass("_2");
 
                                         tdata.push("cdmReviews|" + nl);
-
-                                        //console.log("Hazard Number:  " + hzd);
-
                                         getListItemsByListName({
                                                 listName: `cdmHazards`,
                                                 select: null,
@@ -4671,8 +4614,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
-
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -4724,8 +4665,6 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-
-                                        // //console.log(ns);
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
                                             `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
@@ -4768,7 +4707,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -4839,7 +4777,6 @@ function hazardreviewbuttonaction() {
 
 
                                         var ns = $("#h_" + hzd + " .rucl").hasClass("_2");
-                                        // //console.log(ns);
                                         if (ns === true) {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push(
@@ -4909,7 +4846,6 @@ function hazardreviewbuttonaction() {
                                     //     if (hzt == "Health") {
                                     //       hzti = 1;
                                     //     }
-                                    //     //   //console.log(raid);
 
                                     //     tdata = [];
                                     //     // toastr.success(site);
@@ -4932,7 +4868,6 @@ function hazardreviewbuttonaction() {
                                     //     tdata.push("cdmRAMS|" + raid);
                                     //     tdata.push("cdmEntityTitle|" + ratx);
                                     //     tdata.push("cdmStageExtra|" + stgi);
-                                    //     //console.log(tdata);
                                     //     var udata = [];
                                     //     udata.push("cdmSMMitigationSuggestion|This hazard is further mitigated via one or several RAMS hazards with the following mitigation suggestion by the Construction Manager: " + mits + " Please click 'View linked / related hazards' for further details.");
 
@@ -4960,7 +4895,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -5045,7 +4979,6 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
-                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -5117,10 +5050,8 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "clientreview") {
-                    //console.log("Client Review Button Pressed")
                     var vcheck = $('#h_' + hzd + ' .cdmResidualRiskOwner').html();
                     var contract = $('#h_' + hzd + ' .cdmContract').html();
-                    //console.log(vcheck);
                     if (vcheck === null || vcheck === 'undefined' || vcheck === '') {
                         toastr.error(`Please provide a Residual Risk Owner before submitting to ${configData['Client Name']}`);
                     } else if (vcheck === "HS2 Rail Systems Interface Engineer" && !contract) {
@@ -5146,7 +5077,6 @@ function hazardreviewbuttonaction() {
                         tdata.push(`cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`);
                         tdata.push("cdmLastReviewer|" + unm());
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        //console.log("Updated Client Review")
                     }
                 }
             }

@@ -34,8 +34,6 @@ tposdata = {
 
                 fa.push('ID');
                 ft.push(1);
-                // console.log(fa);
-                // console.log(ft);
             }).done(function () {
                 var od = 'OData_';
                 for (var i = 0; i < fa.length; i++) {
@@ -60,10 +58,7 @@ tposdata = {
 
                     }
                 }
-                // console.log(select);
                 expand = expand.substring(0, expand.length - 1);
-                // console.log(expand);
-                // console.log(ftv);
             }).done(function () {
                 getListItemsByListName({
                     listName: lst,
@@ -151,7 +146,6 @@ tposdata = {
             })
             .fail(
                 function (error) {
-                    console.log(JSON.stringify(error));
                 });
 
     },
@@ -233,7 +227,6 @@ jsondata={
                 if (st) {
                     $('tr:not(:contains(' + st + '))').each(function(){
                         var t=$(this).html();
-                        //console.log(t);
                         if($(this).hasClass('tpos-' + lst + '-select-value')==1){
                             $(this).hide();
                         }
