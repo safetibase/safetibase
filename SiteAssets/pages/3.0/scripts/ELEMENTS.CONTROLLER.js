@@ -4,8 +4,8 @@ function gimmepops(title,content){
     $('#pops').remove();
 
         var myvar = '<div id="pops" class="pops">'+
-        '		<div class="pops-title">'+title+'</div>'+
-        '		<div class="pops-content">'+content+'</div>'+
+        '		<div class="pops-title">'+escapeHTML(title)+'</div>'+
+        '		<div class="pops-content">'+sanitizeHTML(content)+'</div>'+
         '		<div class="pops-footer">'+
         '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
         '		</div>'+
@@ -16,9 +16,10 @@ function gimmepops(title,content){
         // console.log("myvar: ",myvar);
         // console.log("sanitisedMyVar: ",sanitisedMyVar)
 
-        var $myvar = $(myvar);
-        $myvar.find('.pops-title').text(title);
-        $myvar.find('.pops-content').text(content);
+        // var $myvar = $(myvar);
+        // $myvar.find('.pops-title').text(title);
+        // var sanitisedContent = sanitizeHTML(content)
+        // $myvar.find('.pops-content').html(sanitisedContent);
         
         $('#tpos-page').append(myvar);
         $('#pops').show();
