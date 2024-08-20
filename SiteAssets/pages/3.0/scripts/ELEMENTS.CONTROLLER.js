@@ -10,16 +10,6 @@ function gimmepops(title,content){
         '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
         '		</div>'+
         '	</div>';
-
-        // sanitisedMyVar = sanitizeHTML(myvar)
-        // $('#tpos-page').append(sanitisedMyVar);
-        // console.log("myvar: ",myvar);
-        // console.log("sanitisedMyVar: ",sanitisedMyVar)
-
-        // var $myvar = $(myvar);
-        // $myvar.find('.pops-title').text(title);
-        // var sanitisedContent = sanitizeHTML(content)
-        // $myvar.find('.pops-content').html(sanitisedContent);
         
         $('#tpos-page').append(myvar);
         $('#pops').show();
