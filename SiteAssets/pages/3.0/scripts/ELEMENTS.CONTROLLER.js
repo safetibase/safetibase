@@ -244,23 +244,6 @@ function escapeHTML(str) {
 }
 
 /**
- * Escapes string to be inputted into HTML to prevent XSS
- * @param {str} str The string to escape
- * @returns {str} The escaped string
- */
-function escapeHTML(str) {
-    if (str) {
-        return str.replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    } else {
-        return str;
-    }
-}
-
-/**
  * Sanitises html to be inputted into the DOM to prevent XSS. Unlike the above function, this function is for inputs we want to be interpretted as html, so we allow
  * some tags and attributes
  * @param {str} str html to be sanitised
@@ -300,4 +283,20 @@ function sanitizeHTML(str) {
 
     sanitizeNode(temp);
     return temp.innerHTML;
+}
+
+/**
+ * Function to sanitize user input
+ * @param {string} input 
+ * @returns {string} the santised input
+ */
+function sanitizeInput(input) {
+    // Create a temporary element to use the browser's built-in escaping
+    const tempElement = document.createElement('div');
+    tempElement.textContent = input;
+
+    // Get the escaped text content
+    const sanitizedInput = tempElement.innerHTML;
+
+    return sanitizedInput;
 }
