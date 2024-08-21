@@ -291,12 +291,23 @@ function sanitizeHTML(str) {
  * @returns {string} the santised input
  */
 function sanitizeInput(input) {
-    // Create a temporary element to use the browser's built-in escaping
-    const tempElement = document.createElement('div');
-    tempElement.textContent = input;
+    // Remove script tags
+    const sanitizedInput = input.replace(/<script.*?>.*?<\/script>/gi, '');
 
-    // Get the escaped text content
-    const sanitizedInput = tempElement.innerHTML;
+    // Remove event handlers
+    sanitizedInput = sanitizedInput.replace(/on\w+=".*?"/gi, '');
+
+    // Remove JavaScript URLs
+    sanitizedInput = sanitizedInput.replace(/href="javascript:.*?"/gi, '');
+
+    // Remove CSS expressions (for older IE versions)
+    sanitizedInput = sanitizedInput.replace(/expression\(.*?\)/gi, '');
+
+    // Remove iframe src with JavaScript
+    sanitizedInput = sanitizedInput.replace(/<iframe.*?src="javascript:.*?".*?>.*?<\/iframe>/gi, '');
+
+    // Remove data URIs with JavaScript
+    sanitizedInput = sanitizedInput.replace(/href="data:text\/html.*?"/gi, '');
 
     return sanitizedInput;
 }
