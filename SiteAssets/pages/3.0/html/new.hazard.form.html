@@ -579,6 +579,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var hz = sanitizeInput($('#cdmHazardDescription').val());
         var rs = sanitizeInput($('#cdmRiskDescription').val());
         var ms = sanitizeInput($('#cdmMitigationDescription').val());
+        console.log("hz: ",hz)
+        console.log("rs: ",rs)
+        console.log("ms: ",ms)
         if (!hz) {
             toastr.error('Please describe the hazard');
         }
