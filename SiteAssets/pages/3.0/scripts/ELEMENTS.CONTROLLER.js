@@ -2,7 +2,6 @@
 function gimmepops(title,content){
     $('#pops').html('');
     $('#pops').remove();
-
         var myvar = '<div id="pops" class="pops">'+
         '		<div class="pops-title">'+escapeHTML(title)+'</div>'+
         '		<div class="pops-content">'+sanitizeHTML(content)+'</div>'+
@@ -271,8 +270,8 @@ function sanitizeHTML(str) {
     temp.innerHTML = str;
 
     // List of allowed tags and attributes
-    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span'];
-    var allowedAttributes = ['href', 'title', 'class', 'id'];
+    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span', 'textarea'];
+    var allowedAttributes = ['href', 'title', 'class', 'id', 'rows', 'cols'];
 
     // Function to recursively sanitize nodes
     function sanitizeNode(node) {

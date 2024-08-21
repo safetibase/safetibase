@@ -1750,9 +1750,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the hazard",
                             '<div class="clr_3_active">A hazard is something with the potential to cause harm</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -1765,9 +1766,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the risk",
                             '<div class="clr_3_active">What harm could be caused to whom or what?</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == "cdmMitigationDescription") {
@@ -1781,9 +1783,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Our mitigation",
                             '<div class="clr_3_active">Completed actions to minimise the risks</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmStageMitigationSuggestion" && hc != "RAMS hazard") {
                         var existingTxt = $(
@@ -1798,9 +1801,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmInitialRAG" || fld == "cdmResidualRAG") {
                         var rags = '<div id="rags"></div>';
@@ -2047,9 +2051,10 @@ function activateHazardEdits() {
                         '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmLinks\');">Save</div>';
                         gimmepops(
                         "Associated Links",
-                        txtbox +
-                        svBtn
+                        txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == 'cdmSMMitigationSuggestion') {
@@ -2077,9 +2082,10 @@ function activateHazardEdits() {
                                 gimmepops(
                                     "Your mitigation suggestion for " + stage,
                                     '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                                    txtbox +
-                                    svBtn
+                                    txtbox
                                 );
+                                const popsContent = document.getElementsByClassName("pops-content")[0];
+                                popsContent.innerHTML += svBtn;
                             } else {
                                 toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
                             }
