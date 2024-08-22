@@ -299,6 +299,10 @@ function sanitizeInput(input) {
     return clean;
 }
 
+module.exports = {
+    sanitizeInput
+};
+
 // function sanitizeInput(input) {
 //     if(input){
 //         return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
