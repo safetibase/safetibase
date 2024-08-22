@@ -292,25 +292,25 @@ function sanitizeHTML(str) {
  */
 function sanitizeInput(input) {
     // Remove script tags
-    let sanitizedInput = input.replace(/<script.*?>.*?<\/script>/gi, '');
+    let sanitizedInput = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
 
     // Remove event handlers
-    sanitizedInput = sanitizedInput.replace(/on\w+=".*?"/gi, '');
+    sanitizedInput = sanitizedInput.replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '');
 
     // Remove JavaScript URLs
-    sanitizedInput = sanitizedInput.replace(/href="javascript:.*?"/gi, '');
+    sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '');
 
     // Remove CSS expressions (for older IE versions)
-    sanitizedInput = sanitizedInput.replace(/expression\(.*?\)/gi, '');
+    sanitizedInput = sanitizedInput.replace(/\s*expression\s*\(.*?\)/gi, '');
 
     // Remove iframe src with JavaScript
-    sanitizedInput = sanitizedInput.replace(/<iframe.*?src="javascript:.*?".*?>.*?<\/iframe>/gi, '');
+    sanitizedInput = sanitizedInput.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
 
     // Remove data URIs with JavaScript
-    sanitizedInput = sanitizedInput.replace(/href="data:text\/html.*?"/gi, '');
+    sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '');
 
     // Remove <a> tags entirely
-    sanitizedInput = sanitizedInput.replace(/<a.*?>.*?<\/a>/gi, '');
+    sanitizedInput = sanitizedInput.replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '');
 
     return sanitizedInput;
 }
