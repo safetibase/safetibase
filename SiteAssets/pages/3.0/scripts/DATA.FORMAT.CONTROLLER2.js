@@ -270,6 +270,7 @@ formatdatato = {
                                 }
                             },
                             error: function(error) {
+                                console.log(JSON.stringify(error));
                             }
                         });
                     }
@@ -392,6 +393,7 @@ formatdatato = {
                                 }
                             },
                             error: function(error) {
+                                console.log(JSON.stringify(error));
                             }
                         });
                     }
@@ -801,6 +803,7 @@ formatdatato = {
                     formatdatato.hazardtablerows(response, next_url, number_loaded)
                 },
                 error: function(error) {
+                    console.log(JSON.stringify(error));
                 }
             });
         }

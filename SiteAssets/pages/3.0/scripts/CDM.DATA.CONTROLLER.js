@@ -104,6 +104,7 @@ cdmdata = {
                                 }
                             },
                             error: function(error) {
+                                console.log(JSON.stringify(error));
                             }
                         });
                     }
@@ -332,6 +333,7 @@ cdmdata = {
                 $("#mainArea").append(ui.mkDataBox(itemsCount, "Hazards on system"));
             })
             .fail(function(error) {
+                console.log(JSON.stringify(error));
             });
     },
     getQuickCount: function(lst, n, filter, title, trg, clr, size) {
@@ -381,7 +383,7 @@ cdmdata = {
                     }
                 },
                 error: function(error) {
-
+                    console.log(JSON.stringify(error));
                 }
             });
         }
@@ -487,6 +489,7 @@ cdmdata = {
                     }
                 },
                 error: function(error) {
+                    console.log(JSON.stringify(error));
                 }
             });
         }
@@ -659,6 +662,7 @@ tposdata = {
                                     }
                                 },
                                 error: function(error) {
+                                    console.log(JSON.stringify(error));
                                 }
                             });
                         }
@@ -818,6 +822,7 @@ tposdata = {
                 $("#mainArea").append(ui.mkDataBox(itemsCount, "Hazards on system"));
             })
             .fail(function(error) {
+                console.log(JSON.stringify(error));
             });
     },
     getQuickCount: function(lst, n, filter, title, trg, clr, size) {

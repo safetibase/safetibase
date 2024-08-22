@@ -146,6 +146,7 @@ tposdata = {
             })
             .fail(
                 function (error) {
+                    console.log(JSON.stringify(error));
                 });
 
     },

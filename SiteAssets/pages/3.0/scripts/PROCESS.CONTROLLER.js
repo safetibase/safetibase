@@ -373,14 +373,14 @@ function activateDatasets(cdmSites, allHazardsData) {
                                     }
                                 },
                                 error: {
-                                    function(error) {}
+                                    function(error) {console.log(JSON.stringify(error));}
                                 }
                             })
                         }
                         // You ned to get the cdmUserRoles data as well and map the user role id to the role name
                     },
                     error: {
-                        function(error) {}
+                        function(error) {console.log(JSON.stringify(error));}
                     }
                 })
 
@@ -410,7 +410,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             }
                         },
                         error: {
-                            function(error) {}
+                            function(error) {console.log(JSON.stringify(error));}
                         }
                     })
                     return response
@@ -569,13 +569,13 @@ function activateDatasets(cdmSites, allHazardsData) {
                                     }
                                 },
                                 error: {
-                                    function(error) {}
+                                    function(error) {console.log(JSON.stringify(error));}
                                 }
                             })
                         }
                     },
                     error: {
-                        function(error) {}
+                        function(error) {console.log(JSON.stringify(error));}
                     }
                 })
 
@@ -632,14 +632,14 @@ function activateDatasets(cdmSites, allHazardsData) {
                                     }
                                 },
                                 error: {
-                                    function(error) {}
+                                    function(error) {console.log(JSON.stringify(error));}
                                 }
                             })
                         }
                         // You ned to get the cdmUserRoles data as well and map the user role id to the role name
                     },
                     error: {
-                        function(error) {}
+                        function(error) {console.log(JSON.stringify(error));}
                     }
                 })
 
@@ -714,6 +714,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             // Success message displayed when bulk update finishes
                             toastr.success("Finished bulk update");
                         } catch (error) {
+                            console.log(JSON.stringify(error));
                             handleProcessingError(error);
                         }
                     }
