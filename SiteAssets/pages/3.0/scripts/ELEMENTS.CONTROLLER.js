@@ -270,8 +270,8 @@ function sanitizeHTML(str) {
     temp.innerHTML = str;
 
     // List of allowed tags and attributes
-    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span', 'textarea'];
-    var allowedAttributes = ['href', 'title', 'class', 'id', 'rows', 'cols'];
+    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span', 'textarea', 'table', 'tbody', 'td', 'tr'];
+    var allowedAttributes = ['href', 'title', 'class', 'id', 'rows', 'cols', 'data-ctag'];
 
     // Function to recursively sanitize nodes
     function sanitizeNode(node) {

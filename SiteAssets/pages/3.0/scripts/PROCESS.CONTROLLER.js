@@ -1955,11 +1955,12 @@ function activateHazardEdits() {
                         }
                         var cdtbl =
                             '<table id="newcoordinates" class="width-350">' +
-                            cd +
-                            '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
-
+                            cd
+                        const tableContent = '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
                         // var ctags=getctags(str);
                         gimmepops("Managing coordinates", cdtbl);
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += tableContent;
                         var na = [];
                         $(".tpos-delbtn")
                             .off("click")
@@ -1995,10 +1996,12 @@ function activateHazardEdits() {
 
                                     var cdtbl =
                                         '<table id="newcoordinates" class="width-350">' +
-                                        dd +
-                                        '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
-                                    var sanitisedCdtbl = sanitizeHTML(cdtbl)
+                                        dd
+                                    const newContentPlaceholder = '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
+                                    var sanitisedCdtbl = sanitizeHTML(cdtbl);
                                     $("#newcoordinates").replaceWith(sanitisedCdtbl);
+                                    const popsContent = document.getElementsByClassName('pops-content');
+                                    popsContent.innerHTML += newContentPlaceholder;
                                     $(".tpos-svbtn")
                                         .off("click")
                                         .on("click", function() {
