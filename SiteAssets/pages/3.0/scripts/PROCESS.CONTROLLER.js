@@ -116,8 +116,10 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                 }
                                                 if (Company_ID) {
                                                     console.log(Company_ID)
-                                                    gimmepops(`Sync ${configData['Client Name']} CSV`,
-                                                    '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
+                                                    gimmepops(`Sync ${configData['Client Name']} CSV`)
+                                                    const inputDiv = '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>';
+                                                    const popsContent = document.getElementsByClassName('pops-content')[0];
+                                                    popsContent.innerHTML = inputDiv;
                                                     var csvFile = document.getElementById("csvFileInput");
                                                     readFile = function() {
                                                         var reader = new FileReader();
@@ -363,10 +365,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                                     const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
                                     const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
                                     if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                        gimmepops("Archiving Hazards",
-                                        '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
-                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
-
+                                        gimmepops("Archiving Hazards");
+                                        const inputHtml = '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
+                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>';
+                                        const popsContent = document.getElementsByClassName('pops-content')[0];
+                                        popsContent.innerHTML = inputHtml;
                                         // Add an event listner to listen for clicks
                                         document.getElementById('archive-button').addEventListener('click', () => {
                                             toastr.warning('Archiving hazards...');
@@ -654,15 +657,17 @@ function activateDatasets(cdmSites, allHazardsData) {
                 */
                 function importData() {
                     // Display a popup for importing CSV data.
-                    gimmepops(`Import bulk edit CSV`,
-                    `<div id="popscontentarea">
+                    gimmepops(`Import bulk edit CSV`);
+                    const inputContent = `<div id="popscontentarea">
                         <div class="bulk-import-vertical-block">
                             <input id="csvFileInput" type="file" accept=".csv"/>
                             <label for="pw-link-input">Enter ProjectWise link to meeting minutes:</label>
                             <input type="text" id="pw-link-input" name="pw-link-input">
                         </div>
                         <input id="bulk-upload-button" type="button" value="Upload changes" style="float:right"/>
-                    </div>`);
+                    </div>`;
+                    const popsContent = document.getElementsByClassName('pops-content')[0];
+                    popsContent.innerHTML = inputContent;
 
                     // Upload the CSV file to SharePoint when the button is clicked.
                     $("#bulk-upload-button").on("click", () => {
