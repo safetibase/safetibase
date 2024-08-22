@@ -288,7 +288,7 @@ function sanitizeHTML(str) {
 /**
  * Function to sanitize user input
  * @param {string} input 
- * @returns {string} the santised input
+ * @returns {string} the sanitised input
  */
 function sanitizeInput(input) {
     let previous;
