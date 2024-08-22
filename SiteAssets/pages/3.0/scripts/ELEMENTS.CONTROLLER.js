@@ -1,16 +1,15 @@
 // POP UP
-function gimmepops(title,content,cl){
+function gimmepops(title,content){
     $('#pops').html('');
     $('#pops').remove();
-
         var myvar = '<div id="pops" class="pops">'+
-        '		<div class="pops-title">'+title+'</div>'+
-        '		<div class="pops-content">'+content+'</div>'+
+        '		<div class="pops-title">'+escapeHTML(title)+'</div>'+
+        '		<div class="pops-content">'+sanitizeHTML(content)+'</div>'+
         '		<div class="pops-footer">'+
         '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
         '		</div>'+
         '	</div>';
-
+        
         $('#tpos-page').append(myvar);
         $('#pops').show();
         $('.btn-cancel').click(function(){
@@ -254,8 +253,8 @@ function sanitizeHTML(str) {
     temp.innerHTML = str;
 
     // List of allowed tags and attributes
-    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span'];
-    var allowedAttributes = ['href', 'title', 'class'];
+    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span', 'textarea', 'table', 'tbody', 'td', 'tr'];
+    var allowedAttributes = ['href', 'title', 'class', 'id', 'rows', 'cols', 'data-ctag'];
 
     // Function to recursively sanitize nodes
     function sanitizeNode(node) {

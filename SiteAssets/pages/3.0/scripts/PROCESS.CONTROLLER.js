@@ -116,8 +116,10 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                 }
                                                 if (Company_ID) {
                                                     console.log(Company_ID)
-                                                    gimmepops(`Sync ${configData['Client Name']} CSV`,
-                                                    '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
+                                                    gimmepops(`Sync ${configData['Client Name']} CSV`)
+                                                    const inputDiv = '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>';
+                                                    const popsContent = document.getElementsByClassName('pops-content')[0];
+                                                    popsContent.innerHTML = inputDiv;
                                                     var csvFile = document.getElementById("csvFileInput");
                                                     readFile = function() {
                                                         var reader = new FileReader();
@@ -363,10 +365,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                                     const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
                                     const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
                                     if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                        gimmepops("Archiving Hazards",
-                                        '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
-                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
-
+                                        gimmepops("Archiving Hazards");
+                                        const inputHtml = '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
+                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>';
+                                        const popsContent = document.getElementsByClassName('pops-content')[0];
+                                        popsContent.innerHTML = inputHtml;
                                         // Add an event listner to listen for clicks
                                         document.getElementById('archive-button').addEventListener('click', () => {
                                             toastr.warning('Archiving hazards...');
@@ -654,15 +657,17 @@ function activateDatasets(cdmSites, allHazardsData) {
                 */
                 function importData() {
                     // Display a popup for importing CSV data.
-                    gimmepops(`Import bulk edit CSV`,
-                    `<div id="popscontentarea">
+                    gimmepops(`Import bulk edit CSV`);
+                    const inputContent = `<div id="popscontentarea">
                         <div class="bulk-import-vertical-block">
                             <input id="csvFileInput" type="file" accept=".csv"/>
                             <label for="pw-link-input">Enter ProjectWise link to meeting minutes:</label>
                             <input type="text" id="pw-link-input" name="pw-link-input">
                         </div>
                         <input id="bulk-upload-button" type="button" value="Upload changes" style="float:right"/>
-                    </div>`);
+                    </div>`;
+                    const popsContent = document.getElementsByClassName('pops-content')[0];
+                    popsContent.innerHTML = inputContent;
 
                     // Upload the CSV file to SharePoint when the button is clicked.
                     $("#bulk-upload-button").on("click", () => {
@@ -1750,9 +1755,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the hazard",
                             '<div class="clr_3_active">A hazard is something with the potential to cause harm</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -1765,9 +1771,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the risk",
                             '<div class="clr_3_active">What harm could be caused to whom or what?</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == "cdmMitigationDescription") {
@@ -1781,9 +1788,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Our mitigation",
                             '<div class="clr_3_active">Completed actions to minimise the risks</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmStageMitigationSuggestion" && hc != "RAMS hazard") {
                         var existingTxt = $(
@@ -1798,9 +1806,10 @@ function activateHazardEdits() {
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                            txtbox +
-                            svBtn
+                            txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmInitialRAG" || fld == "cdmResidualRAG") {
                         var rags = '<div id="rags"></div>';
@@ -1951,11 +1960,12 @@ function activateHazardEdits() {
                         }
                         var cdtbl =
                             '<table id="newcoordinates" class="width-350">' +
-                            cd +
-                            '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
-
+                            cd
+                        const tableContent = '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
                         // var ctags=getctags(str);
                         gimmepops("Managing coordinates", cdtbl);
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += tableContent;
                         var na = [];
                         $(".tpos-delbtn")
                             .off("click")
@@ -1991,9 +2001,12 @@ function activateHazardEdits() {
 
                                     var cdtbl =
                                         '<table id="newcoordinates" class="width-350">' +
-                                        dd +
-                                        '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
-                                    $("#newcoordinates").replaceWith(cdtbl);
+                                        dd
+                                    const newContentPlaceholder = '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
+                                    var sanitisedCdtbl = sanitizeHTML(cdtbl);
+                                    $("#newcoordinates").replaceWith(sanitisedCdtbl);
+                                    const popsContent = document.getElementsByClassName('pops-content')[0];
+                                    popsContent.innerHTML += newContentPlaceholder;
                                     $(".tpos-svbtn")
                                         .off("click")
                                         .on("click", function() {
@@ -2046,9 +2059,10 @@ function activateHazardEdits() {
                         '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmLinks\');">Save</div>';
                         gimmepops(
                         "Associated Links",
-                        txtbox +
-                        svBtn
+                        txtbox
                         );
+                        const popsContent = document.getElementsByClassName("pops-content")[0];
+                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == 'cdmSMMitigationSuggestion') {
@@ -2076,9 +2090,10 @@ function activateHazardEdits() {
                                 gimmepops(
                                     "Your mitigation suggestion for " + stage,
                                     '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                                    txtbox +
-                                    svBtn
+                                    txtbox
                                 );
+                                const popsContent = document.getElementsByClassName("pops-content")[0];
+                                popsContent.innerHTML += svBtn;
                             } else {
                                 toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
                             }
@@ -2573,9 +2588,14 @@ function activateCoordinatesSave() {
                     newstring = x + "," + y + "," + z;
                 }
             }
-            $("#h_" + hzd + "_fullcoor").html(newstring);
+
+            var sanitizedNewString = escapeHTML(newstring)
+            $("#h_" + hzd + "_fullcoor").html(sanitizedNewString);
+
             var ctags = getctags(newstring);
-            $("#mngCoo").replaceWith(ctags);
+            
+            var sanitizedCtags = sanitizeHTML(ctags);
+            $("#mngCoo").replaceWith(sanitizedCtags);
             activateCoordinatesSave();
         });
     $(".tpos-svcbtn")

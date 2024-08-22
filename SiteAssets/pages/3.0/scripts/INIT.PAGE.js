@@ -1438,7 +1438,10 @@ function getsearchresults(v) {
     // var newmain='<div class="tpos-main" id="tpos-main"></div>';
     // $('.tpos-body').prepend(newmain);
 
-    $('#tpos-main').html('<div class="tpos-area-title">Search results for query: ' + v + '</div><div id="searchresults" class="tpos-area-content"></div>');
+    var searchResults = '<div class="tpos-area-title">Search results for query: ' + v + '</div><div id="searchresults" class="tpos-area-content"></div>';
+    var sanitisedSearchResults = sanitizeHTML(searchResults);
+    $('#tpos-main').html(sanitisedSearchResults);
+    
     // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
     var utbl = '<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
     $('#searchresults').append(utbl);
