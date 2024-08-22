@@ -291,26 +291,25 @@ function sanitizeHTML(str) {
  * @returns {string} the santised input
  */
 function sanitizeInput(input) {
-    // Remove script tags
-    let sanitizedInput = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-
-    // Remove event handlers
-    sanitizedInput = sanitizedInput.replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '');
-
-    // Remove JavaScript URLs
-    sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '');
-
-    // Remove CSS expressions (for older IE versions)
-    sanitizedInput = sanitizedInput.replace(/\s*expression\s*\(.*?\)/gi, '');
-
-    // Remove iframe src with JavaScript
-    sanitizedInput = sanitizedInput.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-
-    // Remove data URIs with JavaScript
-    sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '');
-
-    // Remove <a> tags entirely
-    sanitizedInput = sanitizedInput.replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '');
-
+    let previous;
+    let sanitizedInput = input;
+    do {
+        previous = sanitizedInput;
+        // Remove script tags
+        sanitizedInput = sanitizedInput.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        // Remove event handlers
+        sanitizedInput = sanitizedInput.replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '');
+        // Remove JavaScript URLs
+        sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '');
+        // Remove CSS expressions (for older IE versions)
+        sanitizedInput = sanitizedInput.replace(/\s*expression\s*\(.*?\)/gi, '');
+        // Remove iframe src with JavaScript
+        sanitizedInput = sanitizedInput.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
+        // Remove data URIs with JavaScript
+        sanitizedInput = sanitizedInput.replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '');
+        // Remove <a> tags entirely
+        sanitizedInput = sanitizedInput.replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '');
+    } while (sanitizedInput !== previous);
     return sanitizedInput;
 }
+
