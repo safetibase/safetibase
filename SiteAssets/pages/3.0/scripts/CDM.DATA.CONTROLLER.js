@@ -823,7 +823,7 @@ tposdata = {
                 $("#mainArea").append(ui.mkDataBox(itemsCount, "Hazards on system"));
             })
             .fail(function(error) {
-                console.log(JSON.stringify(error));
+                //console.log(JSON.stringify(error));
             });
     },
     getQuickCount: function(lst, n, filter, title, trg, clr, size) {
