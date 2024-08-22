@@ -3530,6 +3530,7 @@ function tposcustomfilters( data, forExport) {
                     timeOut: 30000
                 })
             }).catch((error) => {
+                console.log(error);
                 toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.', '', {
                     timeOut: 30000
                 })
