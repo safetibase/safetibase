@@ -292,7 +292,7 @@ function sanitizeHTML(str) {
  */
 function sanitizeInput(input) {
     // Remove script tags
-    const sanitizedInput = input.replace(/<script.*?>.*?<\/script>/gi, '');
+    let sanitizedInput = input.replace(/<script.*?>.*?<\/script>/gi, '');
 
     // Remove event handlers
     sanitizedInput = sanitizedInput.replace(/on\w+=".*?"/gi, '');
@@ -308,6 +308,9 @@ function sanitizeInput(input) {
 
     // Remove data URIs with JavaScript
     sanitizedInput = sanitizedInput.replace(/href="data:text\/html.*?"/gi, '');
+
+    // Remove <a> tags entirely
+    sanitizedInput = sanitizedInput.replace(/<a.*?>.*?<\/a>/gi, '');
 
     return sanitizedInput;
 }
