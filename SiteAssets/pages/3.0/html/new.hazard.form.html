@@ -576,7 +576,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
         var title = title10.toString() + '^' + uid();
         
-        const { sanitizeInput } = require('./SiteAssets/pages/3.0/scripts/ELEMENTS.CONTROLLER.js');
         var hz = sanitizeInput($('#cdmHazardDescription').val());
         var rs = sanitizeInput($('#cdmRiskDescription').val());
         var ms = sanitizeInput($('#cdmMitigationDescription').val());

@@ -290,30 +290,18 @@ function sanitizeHTML(str) {
  * @param {string} input 
  * @returns {string} the sanitised input
  */
-const sanitizeHtml = require('sanitize-html');
+
 function sanitizeInput(input) {
-    const clean = sanitizeHtml(input, {
-        allowedTags: [],
-        allowedAttributes: {}
-    });
-    return clean;
+    if(input){
+        return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+            .replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '') // Remove event handlers
+            .replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '') // Remove JavaScript URLs
+            .replace(/\s*expression\s*\(.*?\)/gi, '') // Remove CSS expressions (for older IE versions)
+            .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe src with JavaScript
+            .replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '') // Remove data URIs with JavaScript
+            .replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '') // Remove <a> tags entirely
+    } else {
+        return input;
+    }
 }
-
-module.exports = {
-    sanitizeInput
-};
-
-// function sanitizeInput(input) {
-//     if(input){
-//         return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
-//             .replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '') // Remove event handlers
-//             .replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '') // Remove JavaScript URLs
-//             .replace(/\s*expression\s*\(.*?\)/gi, '') // Remove CSS expressions (for older IE versions)
-//             .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe src with JavaScript
-//             .replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '') // Remove data URIs with JavaScript
-//             .replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '') // Remove <a> tags entirely
-//     } else {
-//         return input;
-//     }
-// }
 

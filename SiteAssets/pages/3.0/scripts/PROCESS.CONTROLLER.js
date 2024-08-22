@@ -2675,7 +2675,7 @@ function getctags(str) {
     }
     return ctags;
 }
-const { sanitizeInput } = require('./SiteAssets/pages/3.0/scripts/ELEMENTS.CONTROLLER.js');
+
 function savetxt(fld) {
     var tdata = [];
     var txt = sanitizeInput($("#txtform").val());
