@@ -1976,9 +1976,9 @@ function activateHazardEdits() {
                         $(".tpos-addbtn")
                             .off("click")
                             .on("click", function() {
-                                var x = $("#nx").val();
-                                var y = $("#ny").val();
-                                var z = $("#nz").val();
+                                var x = sanitizeInput($("#nx").val());
+                                var y = sanitizeInput($("#ny").val());
+                                var z = sanitizeInput($("#nz").val());
                                 if (!x || !y || !z) {}
                                 else{
                                     var xyz = x + "," + y + "," + z;
@@ -2218,7 +2218,7 @@ function activateRAMSBtn() {
             $('#tpos-main').html('');
             $('#tpos-main').html(screen);
             $("#tpos_search").keyup(function() {
-                var q = $("#tpos_search").val();
+                var q = sanitizeInput($("#tpos_search").val());
                 if (q != "" && q != " ") {
                     var f = $("div.row-hazard:Contains('" + q + "')");
 
@@ -2678,7 +2678,7 @@ function getctags(str) {
 
 function savetxt(fld) {
     var tdata = [];
-    var txt = $("#txtform").val();
+    var txt = sanitizeInput($("#txtform").val());
     // toastr.success(txt);
     tdata.push(fld + "|" + txt);
     cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
