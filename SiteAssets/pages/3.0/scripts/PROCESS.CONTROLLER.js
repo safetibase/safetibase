@@ -3907,7 +3907,7 @@ function tposSelectPeer(lst, data, trg) {
 //                             $(".tpos-svbtn")
 //                                 .off("click")
 //                                 .on("click", function() {
-//                                     var cmt = $("#cmt").val();
+//                                     var cmt = sanitizeInput($("#cmt").val());
 //                                     if (!cmt) {
 //                                         cmt = "no comment";
 //                                     }
@@ -4518,7 +4518,7 @@ function hazardreviewbuttonaction() {
                             $(".tpos-svbtn")
                                 .off("click")
                                 .on("click", function() {
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     if (!cmt) {
                                         cmt = "no comment";
                                     }
@@ -4562,7 +4562,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4686,7 +4686,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4783,7 +4783,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4975,7 +4975,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -5060,7 +5060,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -5448,7 +5448,7 @@ function reopenHazardAction() {
                         const today = new Date();
                         const dateFormatted = today.toLocaleDateString('en-GB');
                         const user = unm();
-                        let comment = $("#cmt").val();
+                        let comment = sanitizeInput($("#cmt").val());
                         if (!comment) {
                             comment = "no comment";
                         }
