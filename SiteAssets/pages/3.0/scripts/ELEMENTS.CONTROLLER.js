@@ -292,16 +292,19 @@ function sanitizeHTML(str) {
  */
 
 function sanitizeInput(input) {
-    if(input){
-        return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
-            .replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '') // Remove event handlers
-            .replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '') // Remove JavaScript URLs
-            .replace(/\s*expression\s*\(.*?\)/gi, '') // Remove CSS expressions (for older IE versions)
-            .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe src with JavaScript
-            .replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '') // Remove data URIs with JavaScript
-            .replace(/<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi, '') // Remove <a> tags entirely
+    if (input && (
+        /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi.test(input) ||
+        /\s*on\w+\s*=\s*(['"]).*?\1/gi.test(input) ||
+        /\s*href\s*=\s*(['"])javascript:.*?\1/gi.test(input) ||
+        /\s*expression\s*\(.*?\)/gi.test(input) ||
+        /<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi.test(input) ||
+        /\s*href\s*=\s*(['"])data:text\/html.*?\1/gi.test(input) ||
+        /<a\b[^<]*(?:(?!<\/a>)<[^<]*)*<\/a>/gi.test(input)
+    )) {
+        return ""; // If any pattern is found, return an empty string
     } else {
         return input;
     }
 }
+
 
