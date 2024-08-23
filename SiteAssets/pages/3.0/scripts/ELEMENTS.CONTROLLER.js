@@ -307,28 +307,45 @@ function sanitizeHTML(str) {
 //     }
 // }
 
-function sanitizeInput(input) {
-    if (input) {
-        // Remove script tags
-        input = input.replace(/<script\b[^<]*(?:(?!<\/script[\s\S]*>)[^<]*)*<\/script[\s\S]*>/gi, '');
-        // Remove event handlers
-        input = input.replace(/\s*on\w+\s*=\s*(['"]).*?\1/gi, '');
-        // Remove JavaScript URLs
-        input = input.replace(/\s*href\s*=\s*(['"])javascript:.*?\1/gi, '');
-        // Remove CSS expressions (for older IE versions)
-        input = input.replace(/\s*expression\s*\(.*?\)/gi, '');
-        // Remove iframe src with JavaScript
-        input = input.replace(/<iframe\b[^<]*(?:(?!<\/iframe[\s\S]*>)[^<]*)*src\s*=\s*(['"])javascript:.*?\1[^<]*(?:(?!<\/iframe[\s\S]*>)[^<]*)*<\/iframe[\s\S]*>/gi, '');
-        // Remove data URIs with JavaScript
-        input = input.replace(/\s*href\s*=\s*(['"])data:text\/html.*?\1/gi, '');
-        // Remove <a> tags entirely
-        input = input.replace(/<a\b[^<]*(?:(?!<\/a[\s\S]*>)[^<]*)*<\/a[\s\S]*>/gi, '');
-        // Remove any remaining HTML tags
-        input = input.replace(/<\/?[^>]+(>|$)/g, '');
-        return input;
-    } else {
-        return input;
+function sanitizeHTML(str) {
+    // Create a temporary div element to hold the plain text
+    var temp = document.createElement('div');
+    temp.textContent = str; // Use textContent to handle plain text
+
+    // Convert the plain text to HTML
+    var html = temp.innerHTML;
+    temp.innerHTML = html;
+
+    // List of allowed tags and attributes
+    var allowedTags = [];
+    var allowedAttributes = [];
+
+    // Function to recursively sanitize nodes
+    function sanitizeNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            // Remove disallowed tags
+            if (!allowedTags.includes(node.tagName.toLowerCase())) {
+                node.parentNode.removeChild(node);
+                return;
+            }
+
+            // Remove disallowed attributes
+            for (var i = node.attributes.length - 1; i >= 0; i--) {
+                var attr = node.attributes[i];
+                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
+                    node.removeAttribute(attr.name);
+                }
+            }
+        }
+
+        // Recursively sanitize child nodes
+        for (var i = 0; i < node.childNodes.length; i++) {
+            sanitizeNode(node.childNodes[i]);
+        }
     }
+
+    sanitizeNode(temp);
+    return temp.innerHTML; // Return the sanitized HTML as plain text
 }
 
 
