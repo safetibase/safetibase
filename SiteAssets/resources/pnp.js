@@ -13337,6 +13337,7 @@ var SPRequestExecutorClient = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             var requestOptions = {
                 error: function (error) {
+                    console.log(JSON.stringify(error));
                     reject(_this.convertToResponse(error));
                 },
                 headers: headers,

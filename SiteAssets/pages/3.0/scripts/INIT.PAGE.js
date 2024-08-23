@@ -828,13 +828,10 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
     toastr.success(ds.length + ' data sets');
     $.each(ds, function() {
         var tid = $(this).attr('id');
-        console.log(tid);
         var dd = tid;
 
         var tjs = $('#' + tid + '_cdmUserRole').data('elementname');
-        console.log(tjs);
         var tc = $('#' + tid + '_cdmCompany').data('elementname');
-        console.log(tc);
         if (tjs == 'Designer' || tjs == 'Construction Engineer') {
             var c = tc;
 
@@ -975,13 +972,10 @@ function setupReviewableHazards(a, allHazardsData) {
     toastr.success(ds.length + ' data sets');
     $.each(ds, function() {
         var tid = $(this).attr('id');
-        console.log(tid);
         var dd = tid;
 
         var tjs = $('#' + tid + '_cdmUserRole').data('elementname');
-        console.log(tjs);
         var tc = $('#' + tid + '_cdmCompany').data('elementname');
-        console.log(tc);
         var ts = $('#' + tid + '_cdmSite').data('elementname');
         var c = tc;
         var cst = '';
@@ -1414,14 +1408,11 @@ function setupReviewableHazards(a, allHazardsData) {
 function getsearchresults(v) {
 
     var vn = parseInt(v, 10);
-    // console.log(vn);
-    // console.log(v);
     var vs = v.toString();
     var vcnt = vs.replace(/ /g, '').length;
     for (var cc = 0; cc < 5 - vcnt; cc++) {
         vs = '0' + vs;
     }
-    console.log(vs);
     // if(vcnt===1){
     //     vs='0000'+vs;
     // }
@@ -1429,7 +1420,6 @@ function getsearchresults(v) {
     //     vs='000'+vs;
     // }
     // if(vcnt=)
-    // console.log(vs);
     $('#tpos-main').html('');
     // $('.dataset').removeClass('active');
     $('#stats').remove();

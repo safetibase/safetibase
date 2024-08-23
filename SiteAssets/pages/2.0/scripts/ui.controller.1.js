@@ -91,7 +91,6 @@ ui = {
             if (st) {
                 $('tr:not(:contains(' + st + '))').each(function() {
                     var t = $(this).html();
-                    //console.log(t);
                     if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                         $(this).hide();
                     }
@@ -323,7 +322,6 @@ hazards = {
         }
         var t = '';
         var e = isObject(element);
-        //console.log(e);
         if (e == false) {
             t = '<div class="cell width-300" id="h_' + id + '_' + key + '"><div class="lbl">' + key + '</div><div class="val">' + element + '</div></div>';
         } else {
@@ -402,7 +400,6 @@ function test(h) {
     var isonow = now.toISOString();
     var isomdt = new Date(h.Modified).toISOString();
     var mmdt = new Date(h.Modified);
-    //console.log(isonow+' - '+isomdt);
     var tdMod = getTimeDiff(h.Modified);
     var tdclass = 'mod';
     if (tdMod < 24) { tdclass = 'mod24'; }
@@ -802,7 +799,6 @@ function mkHazardList(data, ftv) {
         if (rr) {
             var rrdata = rr.split('^');
             var rrrdata = rrdata[0].split('-');
-            // console.log(rrrdata);
             resrisk = '<table class="mini-risk-tbl ' + rrrdata[2] + '"><tr><td>' + rrrdata[0] + '</td><td>' + rrrdata[1] + '</td></tr></table>'
         }
         var irag = h.cdmInitialRAG;
