@@ -307,10 +307,10 @@ function sanitizeHTML(str) {
 //     }
 // }
 
-function sanitizeHTML(str) {
+function sanitizeInput(input) {
     // Create a temporary div element to hold the plain text
     var temp = document.createElement('div');
-    temp.textContent = str; // Use textContent to handle plain text
+    temp.textContent = input; // Use textContent to handle plain text
 
     // Convert the plain text to HTML
     var html = temp.innerHTML;
