@@ -1979,9 +1979,9 @@ function activateHazardEdits() {
                         $(".tpos-addbtn")
                             .off("click")
                             .on("click", function() {
-                                var x = $("#nx").val();
-                                var y = $("#ny").val();
-                                var z = $("#nz").val();
+                                var x = sanitizeInput($("#nx").val());
+                                var y = sanitizeInput($("#ny").val());
+                                var z = sanitizeInput($("#nz").val());
                                 if (!x || !y || !z) {}
                                 else{
                                     var xyz = x + "," + y + "," + z;
@@ -2225,7 +2225,7 @@ function activateRAMSBtn() {
             $('#tpos-main').html('');
             $('#tpos-main').html(screen);
             $("#tpos_search").keyup(function() {
-                var q = $("#tpos_search").val();
+                var q = sanitizeInput($("#tpos_search").val());
                 if (q != "" && q != " ") {
                     var f = $("div.row-hazard:Contains('" + q + "')");
 
@@ -2683,7 +2683,7 @@ function getctags(str) {
 
 function savetxt(fld) {
     var tdata = [];
-    var txt = $("#txtform").val();
+    var txt = sanitizeInput($("#txtform").val());
     // toastr.success(txt);
     tdata.push(fld + "|" + txt);
     cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -3872,7 +3872,7 @@ function tposSelectPeer(lst, data, trg) {
 //                             $(".tpos-svbtn")
 //                                 .off("click")
 //                                 .on("click", function() {
-//                                     var cmt = $("#cmt").val();
+//                                     var cmt = sanitizeInput($("#cmt").val());
 //                                     if (!cmt) {
 //                                         cmt = "no comment";
 //                                     }
@@ -4471,7 +4471,7 @@ function hazardreviewbuttonaction() {
                             $(".tpos-svbtn")
                                 .off("click")
                                 .on("click", function() {
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     if (!cmt) {
                                         cmt = "no comment";
                                     }
@@ -4512,7 +4512,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4631,7 +4631,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4724,7 +4724,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4912,7 +4912,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -4996,7 +4996,7 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = $("#cmt").val();
+                                    var cmt = sanitizeInput($("#cmt").val());
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
@@ -5380,7 +5380,7 @@ function reopenHazardAction() {
                         const today = new Date();
                         const dateFormatted = today.toLocaleDateString('en-GB');
                         const user = unm();
-                        let comment = $("#cmt").val();
+                        let comment = sanitizeInput($("#cmt").val());
                         if (!comment) {
                             comment = "no comment";
                         }

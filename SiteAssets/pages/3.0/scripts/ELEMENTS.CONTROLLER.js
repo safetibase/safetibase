@@ -286,15 +286,49 @@ function sanitizeHTML(str) {
 /**
  * Function to sanitize user input
  * @param {string} input 
- * @returns {string} the santised input
+ * @returns {string} the sanitised input
  */
+
 function sanitizeInput(input) {
-    // Create a temporary element to use the browser's built-in escaping
-    const tempElement = document.createElement('div');
-    tempElement.textContent = input;
+    // Create a temporary div element to hold the plain text
+    var temp = document.createElement('div');
+    temp.textContent = input; // Use textContent to handle plain text
 
-    // Get the escaped text content
-    const sanitizedInput = tempElement.innerHTML;
+    // Convert the plain text to HTML
+    var html = temp.innerHTML;
+    temp.innerHTML = html;
 
-    return sanitizedInput;
+    // List of allowed tags and attributes
+    var allowedTags = [];
+    var allowedAttributes = [];
+
+    // Function to recursively sanitize nodes
+    function sanitizeNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            // Remove disallowed tags
+            if (!allowedTags.includes(node.tagName.toLowerCase())) {
+                node.replaceWith(...node.childNodes); // Replace the node with its children
+                return;
+            }
+
+            // Remove disallowed attributes
+            for (var i = node.attributes.length - 1; i >= 0; i--) {
+                var attr = node.attributes[i];
+                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
+                    node.removeAttribute(attr.name);
+                }
+            }
+        }
+
+        // Recursively sanitize child nodes
+        for (var i = 0; i < node.childNodes.length; i++) {
+            sanitizeNode(node.childNodes[i]);
+        }
+    }
+
+    sanitizeNode(temp);
+    return temp.innerHTML; // Return the sanitized HTML as plain text
 }
+
+
+

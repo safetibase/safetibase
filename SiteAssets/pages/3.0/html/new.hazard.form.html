@@ -571,10 +571,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         //var title2=uid();
         var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
         var title = title10.toString() + '^' + uid();
+        
+        var hz = sanitizeInput($('#cdmHazardDescription').val());
+        var rs = sanitizeInput($('#cdmRiskDescription').val());
+        var ms = sanitizeInput($('#cdmMitigationDescription').val());
 
-        var hz = $('#cdmHazardDescription').val();
-        var rs = $('#cdmRiskDescription').val();
-        var ms = $('#cdmMitigationDescription').val();
         if (!hz) {
             toastr.error('Please describe the hazard');
         }
