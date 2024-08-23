@@ -325,7 +325,7 @@ function sanitizeInput(input) {
         if (node.nodeType === Node.ELEMENT_NODE) {
             // Remove disallowed tags
             if (!allowedTags.includes(node.tagName.toLowerCase())) {
-                node.parentNode.removeChild(node);
+                node.replaceWith(...node.childNodes); // Replace the node with its children
                 return;
             }
 
