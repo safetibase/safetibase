@@ -687,6 +687,8 @@
 		input             = $(input);
 		container         = $(self.opts(sanitizeHTML(OPT_HTML_WRAP)));
 		hiddenInput       = $(self.opts(sanitizeHTML(OPT_HTML_HIDDEN)));
+		sanitizeHTML(container);
+		sanitizeHTML(hiddenInput);
 
 		input
 			.wrap(container)
