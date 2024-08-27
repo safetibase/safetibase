@@ -685,8 +685,8 @@
 		self._plugins     = {};
 		self._itemManager = itemManager = new (self.opts(OPT_ITEM_MANAGER))();
 		input             = $(input);
-		container         = $(self.opts(OPT_HTML_WRAP));
-		hiddenInput       = $(self.opts(OPT_HTML_HIDDEN));
+		container         = $(self.opts(sanitizeHTML(OPT_HTML_WRAP)));
+		hiddenInput       = $(self.opts(sanitizeHTML(OPT_HTML_HIDDEN)));
 
 		input
 			.wrap(container)
