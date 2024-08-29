@@ -1421,7 +1421,7 @@ function getsearchresults(v) {
     for (var cc = 0; cc < 5 - vcnt; cc++) {
         vs = '0' + vs;
     }
-    console.log(vs);
+    console.log("vs:",vs);
     // if(vcnt===1){
     //     vs='0000'+vs;
     // }
@@ -1441,6 +1441,8 @@ function getsearchresults(v) {
     $('#tpos-main').html('<div class="tpos-area-title">Search results for query: ' + v + '</div><div id="searchresults" class="tpos-area-content"></div>');
     // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
     var utbl = '<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
+    console.log("utbl:",utbl);
+    console.log("searchresults: ",$('#searchresults'))
     $('#searchresults').append(utbl);
 
     // cdmdata.getQuickCount('cdmHazards',20,'ID eq '+vn,'Exact ID Match','idmatch','blue',null);
