@@ -1740,10 +1740,10 @@ var _exportData = function ( dt, inOpts )
 		}
 
 		// Always remove script tags
-		str = sanitizeInput(str)
+		str = sanitizeInput(str);
 
 		if ( config.stripHtml ) {
-			str = str.replace( /<[^>]*>/g, '' );
+			str = sanitizeHTML(str);
 		}
 
 		if ( config.trim ) {
