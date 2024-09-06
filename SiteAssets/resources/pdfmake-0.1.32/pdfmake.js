@@ -21763,7 +21763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Object}                   size of the specified string
 	 */
 	TextTools.prototype.sizeOfString = function (text, styleContextStack) {
-		text = text ? text.toString().replace('\t', '    ') : '';
+		text = text ? text.toString().replace(/\t/g, '    ') : '';
 
 		//TODO: refactor - extract from measure
 		var fontName = getStyleProperty({}, styleContextStack, 'font', 'Roboto');
@@ -21791,7 +21791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function splitWords(text, noWrap) {
 		var results = [];
-		text = text.replace('\t', '    ');
+		text = text.replace(/\t/g, '    ');
 
 		if (noWrap) {
 			results.push({text: text});

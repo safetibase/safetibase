@@ -147,7 +147,6 @@ main = {
                     if (item[0]._index > -1) {
                         var cid = ids[item[0]._index];
                         var cn = lbls[item[0]._index];
-                        //console.log(sid);
                         //getSiteData(sid,sn);
                         //getHazardsList()
                     }
@@ -293,7 +292,6 @@ function mkUnique(data, wpid, wpwidth, wptitle, navme, xtra) {
     //var upwa = Array.from(new Set(data));
     //var upwa=mkSet(new Set(data));
     var setdata = new Set(data);
-    //console.log(setdata);
     //var upwa= [...setdata];
     var upwa = hybridToArray(setdata);
     var setxtra = new Set(xtra);
@@ -314,10 +312,6 @@ function mkUnique(data, wpid, wpwidth, wptitle, navme, xtra) {
         return [value];
     });
 
-
-    // console.log(array);
-    // console.log(upwa);
-    // console.log(xtraa);
     pwBarChart(upwa, array, wpid, wpwidth, wptitle, navme, xtraa);
 
 }
@@ -385,7 +379,6 @@ function pwBarChart(lbl, pwa, wpid, wpwidth, wptitle, navme, xtraa) {
                 var key = keys[0];
                 var kid = keys[1];
                 // buildHazardTable(key, kid);
-                //console.log(rn);
                 //getSiteData(sid,sn);
             }
         }

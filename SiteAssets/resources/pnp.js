@@ -127,7 +127,7 @@ var Util = /** @class */ (function () {
      * @param name The name of the url paramter to check
      */
     Util.urlParamExists = function (name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        name = name.replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
         return regex.test(location.search);
     };
@@ -137,7 +137,7 @@ var Util = /** @class */ (function () {
      * @param name The name of the paramter for which we want the value
      */
     Util.getUrlParamByName = function (name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        name = name.replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
         var results = regex.exec(location.search);
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -13337,6 +13337,7 @@ var SPRequestExecutorClient = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             var requestOptions = {
                 error: function (error) {
+                    console.log(JSON.stringify(error));
                     reject(_this.convertToResponse(error));
                 },
                 headers: headers,

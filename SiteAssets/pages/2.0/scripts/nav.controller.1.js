@@ -72,7 +72,6 @@ nav = {
 
             if (hc == 0) {
                 var rid = $(this).attr('id');
-                console.log(rid);
                 $(this).addClass('active');
                 var role = $('#' + rid + '_fld_cdmUserRoleTitle').html();
                 var comp = $('#' + rid + '_fld_cdmCompanyTitle').html();
