@@ -3346,7 +3346,7 @@ function tposcustomfilters( data, forExport) {
         var fcdmCurrentStatusselected =[];
         fcdmCurrentStatus= $('#cdmCurrentStatusfilter').find(':selected');
         for( c=0; c<fcdmCurrentStatus.length;c++){
-            fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace('"',''));
+            fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace(/"/g,''));
         }
         
         flst['cdmCurrentStatus'] = fcdmCurrentStatusselected;
