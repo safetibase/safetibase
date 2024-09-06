@@ -64,7 +64,6 @@ vw_hazard = {
         var isonow = now.toISOString();
         var isomdt = new Date(h.Modified).toISOString();
         var mmdt = new Date(h.Modified);
-        //console.log(isonow+' - '+isomdt);
         var tdMod = getTimeDiff(h.Modified);
         var tdclass = 'mod';
         if (tdMod < 24) { tdclass = 'mod24'; }

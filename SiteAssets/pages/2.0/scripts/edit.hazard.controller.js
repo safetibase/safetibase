@@ -66,7 +66,6 @@ frmedit={
             if (st) {
                 $('tr:not(:Contains(' + st + '))').each(function () {
                     var t = $(this).html();
-                    //console.log(t);
                     if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                         $(this).hide();
                     }
