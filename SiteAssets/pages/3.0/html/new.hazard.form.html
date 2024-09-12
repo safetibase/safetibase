@@ -341,16 +341,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 }          
             });
 
-            let assetStageDescription;
-            if (configData['Create hazard show asset description']) {
-                assetStageDescription = vn.split(';')[0].split(':')[1].trim();
-            } else {
-                assetStageDescription = vn;
-            }
             for (var i = 0; i < data.d.results.length; i++) {
                 if (data.d.results[i].Title != "Temporary Works Construction"){
-                    sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + assetStageDescription +
-                        '" data-value="' + v + '"><span>' + assetStageDescription + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
+                    sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
+                        '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
                         ' </span></option>';
                 }
             }

@@ -172,8 +172,13 @@ function mkSelect (lst, data, fset, trg) {
         var ittitle = it.Title;
         var ittitleHidden = it.Title;
         if (trg === 'sel_structures' && configData['Create hazard show asset description']) {
-            ittitle = `<b>Asset</b>: ${ittitle}; <b>Description</b>: ${it.cdmDescription}; <b>UAID</b>: ${it.UAID}`;
-            ittitleHidden = `Asset: ${ittitle}; Description: ${it.cdmDescription}; UAID: ${it.UAID}`;
+            // Filter out the assets that aren't marked as assets (prmiary assets, deleted assets, etc)
+            if (tlist[cc].AssetType !== "Asset") {
+                continue;
+            }
+            // Add the UAID to the UI
+            ittitle = `<b>Asset</b>: ${ittitle}; <b>UAID</b>: ${it.UAID}`;
+            ittitleHidden = `Asset: ${ittitle}; UAID: ${it.UAID}`;
         }
         options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitleHidden.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
 
@@ -223,6 +228,9 @@ function mkSelect (lst, data, fset, trg) {
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();
+        if (trg === 'sel_structures' && configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset
+            dv = dv.split(';')[0].split(':')[1].trim();
+        }
         $('#sel_' + lst).val(dv);
         $('#val_' + lst).html(dvid);
 
