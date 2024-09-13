@@ -1,7 +1,7 @@
 var flst =[];
 cdmdata = {
     get: function(lst, filter, order, format, trg ,flst,wpt, forExport) {
-        
+
         //console.log("input",lst,filter,order,format,trg,wpt,flst);
         var fa = [];
         var ft = [];
@@ -69,6 +69,10 @@ cdmdata = {
             })
             .done(function() {
                 //console.log("done3",flst);
+                if(lst=="cdmHazards"){
+                    expand = expand + ",cdmPWStructure/UAID";
+                    select = select + ",cdmPWStructure/UAID";
+                }
                 getListItemsByListName({
                     listName: lst,
                     select: select,
