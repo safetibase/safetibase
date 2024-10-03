@@ -3232,7 +3232,7 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-function tposcustomfilters( data, forExport) {
+async function tposcustomfilters( data, forExport) {
     // var tlist=[];
     // if (maindata.length = 0 ) {
     //     tlist = data.d.results;
@@ -3266,8 +3266,13 @@ function tposcustomfilters( data, forExport) {
         }
 
         if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
+            if (configData['Create hazard show asset description']) {
+                const assetUAID = it.cdmPWStructure.UAID;
+                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+`Asset: ${itcdmpwstructuretitle}; UAID: ${assetUAID}`+'</option>';
+            } else {
+                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>';
+            }
             distlistcdmpwstructure.push(itcdmpwstructureid);
-            selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
         }
 
         if (!forExport && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) || (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus) && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus))){
@@ -3334,6 +3339,7 @@ function tposcustomfilters( data, forExport) {
         var fcdmpwstructureselected =[];
         fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
         for( b=0; b<fcdmpwstructure.length;b++){
+
             fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
         }
 
