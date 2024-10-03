@@ -1632,7 +1632,7 @@ var _filename = function ( config )
 	}
 
 	if ( filename.indexOf( '*' ) !== -1 ) {
-		filename = $.trim( filename.replace( '*', $('head > title').text() ) );
+		filename = $.trim( filename.replace( /\*/g, $('head > title').text() ) );
 	}
 
 	// Strip characters which the OS will object to
@@ -1674,7 +1674,7 @@ var _title = function ( config )
 
 	return title === null ?
 		null : title.indexOf( '*' ) !== -1 ?
-			title.replace( '*', $('head > title').text() || 'Exported data' ) :
+			title.replace( /\*/g, $('head > title').text() || 'Exported data' ) :
 			title;
 };
 
@@ -1740,10 +1740,10 @@ var _exportData = function ( dt, inOpts )
 		}
 
 		// Always remove script tags
-		str = str.replace( /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '' );
+		str = sanitizeInput(str);
 
 		if ( config.stripHtml ) {
-			str = str.replace( /<[^>]*>/g, '' );
+			str = sanitizeHTML(str);
 		}
 
 		if ( config.trim ) {

@@ -1511,7 +1511,7 @@
 	
 	
 	var _stripHtml = function ( d ) {
-		return d.replace( _re_html, '' );
+		return sanitizeHTML(d);
 	};
 	
 	
@@ -4446,7 +4446,7 @@
 					word = m ? m[1] : word;
 				}
 	
-				return word.replace('"', '');
+				return word.replace(/"/g, '');
 			} );
 	
 			search = '^(?=.*?'+a.join( ')(?=.*?' )+').*$';
@@ -5789,7 +5789,7 @@
 	
 		for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
 			s = _fnGetCellData( settings, i, colIdx, 'display' )+'';
-			s = s.replace( __re_html_remove, '' );
+			s = sanitizeHTML(s);
 			s = s.replace( /&nbsp;/g, ' ' );
 	
 			if ( s.length > max ) {
@@ -6040,7 +6040,7 @@
 		{
 			var col = columns[i];
 			var asSorting = col.asSorting;
-			var sTitle = col.sTitle.replace( /<.*?>/g, "" );
+			var sTitle = sanitizeInput(col.sTitle);
 			var th = col.nTh;
 	
 			// IE7 is throwing an error when setting these properties with jQuery's
@@ -14646,10 +14646,7 @@
 			return _empty(data) ?
 				data :
 				typeof data === 'string' ?
-					data
-						.replace( _re_new_lines, " " )
-						.replace( _re_html, "" ) :
-					'';
+ 				sanitizeInput(data) : '';
 		},
 	
 		string: function ( data ) {
@@ -14740,7 +14737,7 @@
 			return _empty(a) ?
 				'' :
 				a.replace ?
-					a.replace( /<.*?>/g, "" ).toLowerCase() :
+					sanitizeHTML(a).toLowerCase() :
 					a+'';
 		},
 	

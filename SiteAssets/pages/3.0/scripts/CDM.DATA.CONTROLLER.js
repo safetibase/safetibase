@@ -2,7 +2,6 @@ var flst =[];
 cdmdata = {
     get: function(lst, filter, order, format, trg ,flst,wpt, forExport) {
 
-        //console.log("input",lst,filter,order,format,trg,wpt,flst);
         var fa = [];
         var ft = [];
         var ftv = [];
@@ -17,8 +16,6 @@ cdmdata = {
             .done(function(data) {
                 
                 var f = data.d.results;
-                //console.log('entry',data);
-                //console.log("done1","red",flst);
                 for (var cc = 0; cc < f.length; cc++) {
                     var fld = f[cc];
                     var fldTitle = fld.Title;
@@ -41,7 +38,6 @@ cdmdata = {
                 ft.push(1);
             })
             .done(function() {
-                //console.log("done2");
                 var od = "OData_";
                 for (var i = 0; i < fa.length; i++) {
                     var ti = fa[i];
@@ -68,7 +64,7 @@ cdmdata = {
               
             })
             .done(function() {
-                //console.log("done3",flst);
+
                 if(lst=="cdmHazards"){
                     expand = expand + ",cdmPWStructure/UAID";
                     select = select + ",cdmPWStructure/UAID";
@@ -81,7 +77,6 @@ cdmdata = {
                     
                     filter: filter // 'OData__user/Id eq \'' + i + '\''
                 }).done(function(data) {
-                    //console.log(data,'dataa',format);
 
                   if (format == "hazards-table") {
                     var appurl = _spPageContextInfo.webAbsoluteUrl;
@@ -98,8 +93,6 @@ cdmdata = {
                         order = '&$orderby=' + order;
                     } else order = '';
                     var limit = '&$top=2000';
-                    
-                    //console.log(limit,'limit');
                     var url = appurl + "/_api/web/lists/getByTitle(%27" + lst + "%27)/items" + select + filter + expand + order + limit
                     async function GetListItems() {
                         $.ajax({
@@ -110,7 +103,6 @@ cdmdata = {
                             },
                             success: function(data) {
                                 var response = data.d.results;
-                                //console.log(response);
                                 if (data.d.__next) {
                                     callbackMain(response, data.d.__next)
                                 } else {
@@ -118,7 +110,7 @@ cdmdata = {
                                 }
                             },
                             error: function(error) {
-                                //console.log(error);
+                                console.log(JSON.stringify(error));
                             }
                         });
                     }
@@ -139,7 +131,6 @@ cdmdata = {
             }
 
             if (format == "stats-table-row") {
-                //console.log("plst",flst);
                 formatdatato.statstablerows(data, ftv, trg,flst);
             }
             if (format == "hazards-search") {
@@ -195,7 +186,6 @@ cdmdata = {
             // }
             if (format == "frmsel_customfilters") {
                 //var flst = getDistResults(lst,"cdmStageExtra");
-                //console.log(data.length,"length");
                 //tposcustomfilters(lst, data, trg,"cdmStageExtra.Title");
                 // if (forExport === undefined) {
                 //     formatdatato.filterrowsdata(data, ftv, trg,flst);
@@ -210,12 +200,10 @@ cdmdata = {
             //     tposSelectfilter(lst, data, trg,"roles");
             // }
             // if (format == "frmsel_UAID") {
-            //     //console.log("list",data.d.results[0].cdmDescription);
             //      var tdata=[];
             //      var txt = data.d.results[0].cdmDescription;
             //      tdata.push("UAID|"+ txt);
             //      tdata.push("cdmCurrentStatus|Assessment in progress");
-            //      //console.log(tdata);
             //      cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
 
                  
@@ -272,7 +260,6 @@ cdmdata = {
         }
     },
     update: async function(lst, data, callback, id, successCallbackFn, failureCalbackFn) {
-        //console.log("Running Update Function")
         var ml = list(lst);
         var itemCreateInfo = new SP.ListItemCreationInformation();
         if (callback == 'clientSync') {
@@ -352,7 +339,7 @@ cdmdata = {
                 $("#mainArea").append(ui.mkDataBox(itemsCount, "Hazards on system"));
             })
             .fail(function(error) {
-                //console.log(JSON.stringify(error));
+                console.log(JSON.stringify(error));
             });
     },
     getQuickCount: function(lst, n, filter, title, trg, clr, size) {
@@ -402,7 +389,7 @@ cdmdata = {
                     }
                 },
                 error: function(error) {
-                    //console.log(error);
+                    console.log(JSON.stringify(error));
                 }
             });
         }
@@ -444,7 +431,6 @@ cdmdata = {
         }
     },
     createDashboardBoxes(filtered_hazards, lst, box_count, title, trg, clr, size) {
-        //console.log("filtered_hazards",filtered_hazards);
         var itemsCount = filtered_hazards.length;
         if (itemsCount >= 0) {
             if (itemsCount == 0) {
@@ -472,7 +458,6 @@ cdmdata = {
         }
     },
     getQuickCountNoZeroes: function(lst, n, filter, title, trg, clr, size, bt) {
-        //console.log("getQuickCountNoZeroes");
         var select = "";
         var expand = ""; 
         if (filter || filter != "") {
@@ -510,7 +495,7 @@ cdmdata = {
                     }
                 },
                 error: function(error) {
-                    //console.log(error);
+                    console.log(JSON.stringify(error));
                 }
             });
         }
@@ -526,7 +511,7 @@ cdmdata = {
                 // } else {
                 //   t = mkSmallDataBox(lst + "_databox_" + n, itemsCount, title, clr);
                 // }
-                $("#" + trg).append(t);
+                $("#" + trg).append(sanitizeHTML(t));
                 // $('#'+trg).append(t);
 
 
@@ -549,7 +534,7 @@ cdmdata = {
                     if ((lst = "cdmHazards")) {
                         $("#tpos-main").html(
                             '<div class="tpos-area-title">' +
-                            title +
+                            escapeHTML(title) +
                             '</div><div id="hazardstable" class="tpos-area-content"></div>'
                         );
                         cdmdata.get(
@@ -605,8 +590,6 @@ tposdata = {
 
                 fa.push("ID");
                 ft.push(1);
-                // //console.log(fa);
-                // //console.log(ft);
             })
             .done(function() {
                 var od = "OData_";
@@ -630,10 +613,7 @@ tposdata = {
                         ftv.push(ti + ".ID");
                     }
                 }
-                // //console.log(select);
                 expand = expand.substring(0, expand.length - 1);
-                // //console.log(expand);
-                // //console.log(ftv);
             })
             .done(function() {
                 getListItemsByListName({
@@ -688,7 +668,7 @@ tposdata = {
                                     }
                                 },
                                 error: function(error) {
-                                    //console.log(error);
+                                    console.log(JSON.stringify(error));
                                 }
                             });
                         }
@@ -740,7 +720,6 @@ tposdata = {
         function onSuccess(){
             if(callback === "addHazards"){
                 toastr.success("hazard successfully added")
-                console.log("Success")
             }
         }
 
@@ -994,7 +973,6 @@ jsondata = {
                 if (st) {
                     $("tr:not(:contains(" + st + "))").each(function() {
                         var t = $(this).html();
-                        ////console.log(t);
                         if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
                             $(this).hide();
                         }
@@ -1116,7 +1094,6 @@ jsonRAMS = {
                 if (st) {
                     $("tr:not(:contains(" + st + "))").each(function() {
                         var t = $(this).html();
-                        ////console.log(t);
                         if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
                             $(this).hide();
                         }
@@ -1244,7 +1221,6 @@ jsonImport = {
                 if (st) {
                     $("tr:not(:contains(" + st + "))").each(function() {
                         var t = $(this).html();
-                        ////console.log(t);
                         if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
                             $(this).hide();
                         }
@@ -1345,7 +1321,6 @@ function xtrafilter(lst, flt, title) {
 }
 
 function filterBy(filter, title, clr) {
-    //console.log('extra filter initiated: ' + filter);
     $("#tpos-main").html("");
     $(".dataset").removeClass("active");
     $("#stats").remove();
@@ -1382,7 +1357,6 @@ function initiateQuickCount(data, wpt) {
     var filter = wptv[0];
     var title = wptv[1];
     var clr = wptv[2];
-    //console.log(tcnt + ' elements found');
     for (var i = 0; i < tcnt; i++) {
         var it = tlist[i];
         var t = i.Title;

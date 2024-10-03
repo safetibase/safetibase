@@ -319,9 +319,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             $('#selectedstructures').html('');
 
             //toastr.success('uuu');
-            console.log("JUST ABOUT TO GET TPOS DATA");
             tposdata.get('cdmPWStructures', 'cdmSite/ID eq ' + v, '', 'sel_structures');
-            console.log(tposdata);
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
@@ -340,7 +338,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 "Accept": "application/json; odata=verbose"
                 }          
             });
-
             for (var i = 0; i < data.d.results.length; i++) {
                 if (data.d.results[i].Title != "Temporary Works Construction"){
                     sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
@@ -437,7 +434,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     function sev(n) {
         var lik = $('.liks').data('lik');
         var likscore = lik.substring(0, 1);
-        console.log(lik);
+
         var clr = '';
 
         var sev = $('.severity_' + n).data('sev');
@@ -478,7 +475,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     function lik(n) {
         var sev = $('.sevs').data('sev');
         var sevscore = sev.substring(0, 1);
-        console.log(sev);
         var clr = '';
 
         var lik = $('.likelihood_' + n).data('lik');
@@ -576,10 +572,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         //var title2=uid();
         var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
         var title = title10.toString() + '^' + uid();
+        
+        var hz = sanitizeInput($('#cdmHazardDescription').val());
+        var rs = sanitizeInput($('#cdmRiskDescription').val());
+        var ms = sanitizeInput($('#cdmMitigationDescription').val());
 
-        var hz = $('#cdmHazardDescription').val();
-        var rs = $('#cdmRiskDescription').val();
-        var ms = $('#cdmMitigationDescription').val();
         if (!hz) {
             toastr.error('Please describe the hazard');
         }
@@ -613,7 +610,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             if (selection.includes(qr[j].innerText)){
                 if (type == 'permanent') {       
                     var stage = o.data('stage');
-                    console.log(name, value, stage)
                     pw.push([name, value, stage]);
                 }}
 

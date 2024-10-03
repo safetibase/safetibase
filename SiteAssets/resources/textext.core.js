@@ -684,16 +684,27 @@
 		self._opts        = opts || {};
 		self._plugins     = {};
 		self._itemManager = itemManager = new (self.opts(OPT_ITEM_MANAGER))();
-		input             = $(input);
-		container         = $(self.opts(OPT_HTML_WRAP));
-		hiddenInput       = $(self.opts(OPT_HTML_HIDDEN));
+		input             = document.querySelector(input);
 
-		input
-			.wrap(container)
-			.keydown(function(e) { return self.onKeyDown(e) })
-			.keyup(function(e) { return self.onKeyUp(e) })
-			.data('textext', self)
-			;
+		// Create container element
+		container = document.createElement('div');
+		container.className = self.opts(OPT_HTML_WRAP);
+	
+		// Create hidden input element
+		hiddenInput = document.createElement('input');
+		hiddenInput.type = 'hidden';
+		hiddenInput.value = self.opts(OPT_HTML_HIDDEN);
+	
+		// Wrap input with container
+		input.parentNode.insertBefore(container, input);
+		container.appendChild(input);
+	
+		// Append hidden input to container
+		container.appendChild(hiddenInput);
+	
+		input.addEventListener('keydown', function(e) { return self.onKeyDown(e); });
+		input.addEventListener('keyup', function(e) { return self.onKeyUp(e); });
+		input.dataset.textext = self;
 
 		// keep references to html elements using jQuery.data() to avoid circular references
 		$(self).data({
