@@ -3339,8 +3339,11 @@ async function tposcustomfilters( data, forExport) {
         var fcdmpwstructureselected =[];
         fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
         for( b=0; b<fcdmpwstructure.length;b++){
-
-            fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
+            if (configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset'])
+                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText.split(';')[0].split(':')[1].trimStart());
+            } else {
+                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
+            }
         }
 
         flst['cdmPWStructure'] = fcdmpwstructureselected;
@@ -3361,6 +3364,7 @@ async function tposcustomfilters( data, forExport) {
             fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
         }
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
+        console.log(flst)
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 
