@@ -292,11 +292,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                             promises.push(deffered);
                                                                             await cdmdata.update('cdmHazards', hazardsToSync[j].tdata, 'clientSync', hazardsToSync[j].id,
                                                                             () => {
-                                                                                successfulSyncs.push(id)
+                                                                                successfulSyncs.push(hazardsToSync[j].id)
                                                                                 deffered.resolve(true);
                                                                             },
                                                                             () => {
-                                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
+                                                                                unsuccessfulSyncs.push(`Hazard ${hazardsToSync[j].id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
                                                                                 deffered.resolve(true);
                                                                             })
                                                                         }
@@ -346,7 +346,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 await ctx().executeQueryAsync(onSuccess());
 
                                 function onSuccess() {
-                                    toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced", or follow this <a href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/Lists/cdmHazardHistory/AllItems.aspx?isAscending=false&FilterField1=LinkTitle&FilterValue1=synced" target="_blank"><u>link</u></a>.', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
+                                    toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced".', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
                                 }
 
                                 function onFailure() {
