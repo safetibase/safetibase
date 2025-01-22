@@ -124,6 +124,8 @@ cdmdata = {
             }
 
             if (format == "urbuttons") {
+                // We have to filter here instead of in the query because the query is limited to 5000 items and filtering on people columns for over 5000 items is not allowed
+                data.d.results = data.d.results.filter((item) => item.cdmUser.ID === uid());
                 formatdatato.urbuttons(data, ftv, trg);
             }
             if (format == "xtrabuttons") {
