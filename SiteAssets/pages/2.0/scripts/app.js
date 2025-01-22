@@ -23,49 +23,33 @@ function getListItemsByListName(arg) { // function tol get SharePoint list loade
         limit = '&$top=' + limit;
     } else limit = '&$top=200';
 
+    const response = {d: {results: []}};
+    const deferred = $.Deferred();
 
-    // var url = appurl + "/_api/web/lists/getByTitle(%27" + listName + "%27)/items" + selection + filter + expansion + order + limit
-    // var response = response || [];
-    // function MakeAJAX() {
-    //     return $.ajax({
-    //         url: url,
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json; odata=verbose"
-    //         },
-    //         success: function(data) {
-    //             response = response.concat(data.d.results);
-    //             if (data.d.__next) {
-    //                 url = data.d.__next;
-    //                 MakeAJAX();
-    //             } else {
-    //                 finalData = {d: {results: response}}
-    //                 return finalData;
-    //             }
-    //         },
-    //         error: function(error) {
-    //         },
-    //     });
-    // }
+    const ajaxRequestPromise = (url) => {
+        $.ajax({
+            url: url,
+            method: "GET",
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            },
+            success: (data) => {
+                response.d.results.push(...data.d.results);
+                if (data.d.__next) {
+                    ajaxRequestPromise(data.d.__next);
+                } else {
+                    deferred.resolve(response);
+                }
+            },
+            error: (error) => {
+                deferred.reject(error);
+            }
+        })
+    }
 
-    // const res = MakeAJAX();
-    // return res;
-
-
-
-
-
-
-
-
-
-    return $.ajax({
-        url: appurl + "/_api/web/lists/getByTitle(%27" + listName + "%27)/items" + selection + filter + expansion + order + limit,
-        method: "GET",
-        headers: {
-            "Accept": "application/json; odata=verbose"
-        },
-    });
+    ajaxRequestPromise(appurl + "/_api/web/lists/getbytitle('" + listName + "')/items" + selection + filter + expansion + order + limit);
+    
+    return deferred.promise();
 }
 
 function getListFields(l){

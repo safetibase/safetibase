@@ -104,7 +104,7 @@ function setUpGuidanceNav(){
 
 function setupleftnav() {
     $('#tpos-nav').html('<div class="tpos-area-title-user">' + unm() + '</div><div id="user_roles" class="tpos-area-content"></div>');
-    cdmdata.get('cdmUsers', 'cdmUser/Id eq \'' + uid() + '\'', 'ID asc', 'urbuttons', 'tpos-nav');
+    cdmdata.get('cdmUsers', '', 'ID asc', 'urbuttons', 'tpos-nav');
 }
 
 function setupmainareastats(hazardId, cdmSites, allHazardsData) {
