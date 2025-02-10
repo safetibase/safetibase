@@ -39,28 +39,28 @@ configData = {
             'cdmReviewHistory': 'completed peer review]'
         },
         'dmreview' : { 
-            'nextWorkFlowState': 'Under pre-construction review', 
+            'nextWorkFlowState': 'Under principal designer review', 
             'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
         'pcreview' : { 
-            'nextWorkFlowState': 'Under principal designer review', 
-            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
+            'nextWorkFlowState': 'Under client acceptance review', 
+            'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'design manager review - approved',
-            'cdmReviewHistory': 'completed pre-construction review]'
+            'cdmReviewHistory': 'completed principal designer review]'
         },
         'ldreview' : { 
-            'nextWorkFlowState': 'Under site manager review', 
-            'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Pre-construction review completed',
+            'nextWorkFlowState': 'Under client review', 
+            'userRoles': ['Client'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
-            'userRoles': ['Construction Manager'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Principal designer review completed',
-            'cdmReviewHistory': 'completed Construction Manager review]'
+            'userRoles': ['Principal Contractor'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Client review completed',
+            'cdmReviewHistory': 'completed Client review]'
         }
     
     },
