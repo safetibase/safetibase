@@ -1627,10 +1627,9 @@ function printHazardRow(h) {
             var workflowStates = ['Requires mitigation'];
 
             let stage = 'initiatereview'
-            while(`${configData[workflow][stage]['nextWorkFlowState']}`!=='Accepted'){
-                workflowStates.push(`${configData[workflow][stage]['nextWorkFlowState']}`) 
-                stage = allStages[`${configData[workflow][stage]['nextWorkFlowState']}`]
-                
+            while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
+                workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
+                stage = allStages[configData[workflow][stage]['nextWorkFlowState']];
             }
 
             switch(state){
