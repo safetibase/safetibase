@@ -1642,13 +1642,13 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
                     break;
@@ -1661,13 +1661,13 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
                     break;  
@@ -1680,19 +1680,19 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under peer review')){
                         rucp = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
 
                     break;
 
-                case('Under pre-construction review'):
+                case('Under principal designer review'):
                     rucpc = 3;
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
@@ -1703,15 +1703,15 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 1;
                     }  
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
                     break;   
                     
-                case('Under principal designer review'):
+                case('Under client review'):
                     rucl = 3;
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
@@ -1722,15 +1722,15 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 1;
                     } 
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 1;
                     } 
-                    if(workflowStates.includes('Under site manager review')){
+                    if(workflowStates.includes('Under principal contractor review')){
                         rucs = 2;
                     }  
                     break;  
 
-                case('Under site manager review'):
+                case('Under principal contractor review'):
                     rucs = 3;
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
@@ -1741,10 +1741,10 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 1;
                     } 
-                    if(workflowStates.includes('Under principal designer review')){
+                    if(workflowStates.includes('Under client review')){
                         rucl = 1;
                     } 
                     break; 
@@ -1759,13 +1759,13 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 1;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 1;
                     }  
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 1;
                     }  
                     break; 
@@ -1781,13 +1781,13 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 4;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 4;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 4;
                     }  
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 4;
                     }  
                     break;
@@ -1802,13 +1802,13 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 5;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under principal designer review')){
                         rucpc = 5;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under client review') && requiresLDReview == 1){
                         rucl = 5;
                     }  
-                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
                         rucs = 5;
                     }  
                     break;
@@ -1824,11 +1824,11 @@ function printHazardRow(h) {
                 ).concat(
                     configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
                 ).concat(
-                    configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
+                    configData['Pre-construction review editable workflow state'] ? ['Under principal designer review'] : []
                 ).concat(
-                    configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
+                    configData['Principal designer review editable workflow state'] ? ['Under client review'] : []
                 ).concat(
-                    configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
+                    configData['Construction manager review editable workflow state'] ? ['Under principal contractor review'] : []
                 );
 
                 let editableWorkflowStage = false;
@@ -1845,19 +1845,19 @@ function printHazardRow(h) {
                         }
                         break;
 
-                    case 'Under pre-construction review':
+                    case 'Under principal designer review':
                         if (editableWorkflowStages.includes(revstatus) && configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
 
-                    case 'Under principal designer review':
+                    case 'Under client review':
                         if (editableWorkflowStages.includes(revstatus) && configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
                         break;
                     
-                    case 'Under site manager review':
+                    case 'Under principal contractor review':
                         if (editableWorkflowStages.includes(revstatus) && configData[workflow]['smreview']["userRoles"].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
@@ -1897,7 +1897,7 @@ function printHazardRow(h) {
                     ) {
                         ucd = 1;
                     }
-                    if (role === 'Construction Manager') { 
+                    if (role === 'Client') { 
                         isSM = 1;
                     }
                     if (
@@ -1978,25 +1978,25 @@ function printHazardRow(h) {
                                     '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
-                        if (revstatus == "Under pre-construction review") {
+                        if (revstatus == "Under principal designer review") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
                             }
                         }
-                        if (revstatus == "Under principal designer review") {
+                        if (revstatus == "Under client review") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucl == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake client review</div>';
                             }
                         }
-                        if (revstatus == "Under site manager review") {
+                        if (revstatus == "Under principal contractor review") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucs == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake site manager review</div>';
+                                    '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake principal contractor review</div>';
                             }
                         }
                     } else {
@@ -2027,12 +2027,12 @@ function printHazardRow(h) {
                                     '<div class="tpos-rvbtn" data-action="dmreview" title="Click to advance the hazard in the workflow">Undertake design manager review</div>';
                             }
                         }
-                        if (revstatus == "Under pre-construction review") {
+                        if (revstatus == "Under principal designer review") {
                             //(ruce = 1), (rucp = 1), (rucd = 1), (rucpc = 3);
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucpc == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
+                                    '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
                             }
                         }
                     }
@@ -2083,11 +2083,11 @@ function printHazardRow(h) {
                                 '<div class="tpos-rvbtn" data-action="peerreview" title="Click to advance the hazard in the workflow">Undertake peer review</div>';
                         }
                     }
-                    if (revstatus == "Under Construction Manager review") {
+                    if (revstatus == "Under principal designer review") {
                         (ruce = 1), (rucp = 1), (rucs = 3);
                         if (ucs == 1) {
                             revbtn =
-                                '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Construction Manager review</div>';
+                                '<div class="tpos-rvbtn" data-action="smreview" title="Click to advance the hazard in the workflow">Undertake Principal Designer review</div>';
                         }
                     }
                 }
@@ -2168,11 +2168,11 @@ function printHazardRow(h) {
         ucp +
         '"></div><div title="Green - you can undertake design manager reviews for this hazard"  class="prm-cell ucd _' +
         ucd +
-        '"></div><div title="Green - you can undertake pre-construction reviews for this hazard" class="prm-cell ucpc _' +
+        '"></div><div title="Green - you can undertake principal designer reviews for this hazard" class="prm-cell ucpc _' +
         ucpc +
-        '"></div><div title="Green - you can undertake principal designer reviews for this hazard" class="prm-cell ucl _' +
+        '"></div><div title="Green - you can undertake client reviews for this hazard" class="prm-cell ucl _' +
         ucl +
-        '"></div><div title="Green - you can undertake Construction Manager reviews for this hazard" class="prm-cell ucs _' +
+        '"></div><div title="Green - you can undertake principal contractor reviews for this hazard" class="prm-cell ucs _' +
         ucs +
         '"></div></div>';
 
