@@ -47,20 +47,20 @@ configData = {
         'pcreview' : { 
             'nextWorkFlowState': 'Under client acceptance review', 
             'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'design manager review - approved',
+            'cdmLastReviewStatus': 'Design manager review - approved',
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'ldreview' : { 
-            'nextWorkFlowState': 'Under client review', 
+            'nextWorkFlowState': 'Under principal contractor review', 
             'userRoles': ['Client'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
-            'cdmReviewHistory': 'completed principal designer review]'
+            'cdmReviewHistory': 'completed Client review]'
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 
             'userRoles': ['Principal Contractor'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Client review completed',
-            'cdmReviewHistory': 'completed Client review]'
+            'cdmReviewHistory': 'completed principal contractor review]'
         }
     
     },

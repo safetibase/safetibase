@@ -2153,11 +2153,11 @@ function printHazardRow(h) {
         rucp +
         '"></div><div title="Design manager review"  class="prm-cell rucd _' +
         rucd +
-        '"></div><div title="Pre-construction review" class="prm-cell rucpc _' +
+        '"></div><div title="Principal designer review" class="prm-cell rucpc _' +
         rucpc +
-        '"></div><div title="Principal designer review" class="prm-cell rucl _' +
+        '"></div><div title="Client review" class="prm-cell rucl _' +
         rucl +
-        '"></div><div title="Construction manager review" class="prm-cell rucs _' +
+        '"></div><div title="Principal Contractor review" class="prm-cell rucs _' +
         rucs +
         '"></div></div>';
 
