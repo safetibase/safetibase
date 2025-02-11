@@ -21,7 +21,7 @@ configData = {
     'Full admin edit rights': true, // Do you want the admin to be able to edit any field, at any point in the workflow?
     'Include contract': true, // Do you want to have the option to assign contracts to hazards?
     'Reopen hazards': ['System admin'], // Defines who can use the reopen hazards button
-    'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review','Under principal designer review','Under client acceptance review','Under client review'],
+    'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review','Under principal designer review','Under client review','Under principal contractor review'],
     'Create hazard show asset description': false,
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
@@ -54,7 +54,7 @@ configData = {
             'nextWorkFlowState': 'Under principal contractor review', 
             'userRoles': ['Client'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
-            'cdmReviewHistory': 'completed Client review]'
+            'cdmReviewHistory': 'completed client review]'
         },
         'smreview' : { 
             'nextWorkFlowState': 'Accepted', 

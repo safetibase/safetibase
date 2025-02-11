@@ -1620,9 +1620,9 @@ function printHazardRow(h) {
                 'Requires mitigation': 'initiatereview',
                 'Under peer review': 'peerreview',
                 'Under design manager review': 'dmreview',
-                'Under pre-construction review': 'pcreview',
-                'Under principal designer review': 'ldreview',
-                'Under site manager review': 'smreview'
+                'Under principal designer review': 'pcreview',
+                'Under client review': 'ldreview',
+                'Under principal contractor review': 'smreview'
             };
             var workflowStates = ['Requires mitigation'];
 
