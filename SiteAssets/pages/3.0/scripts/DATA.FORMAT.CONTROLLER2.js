@@ -1897,7 +1897,7 @@ function printHazardRow(h) {
                     ) {
                         ucd = 1;
                     }
-                    if (role === 'Client') { 
+                    if (role === 'Client' || role === 'Principal Contractor') { 
                         isSM = 1;
                     }
                     if (
