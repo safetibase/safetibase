@@ -4813,7 +4813,7 @@ function hazardreviewbuttonaction() {
                                             );
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Pre-construction review completed"
+                                                "cdmLastReviewStatus|Principal designer review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         } else {
@@ -4821,7 +4821,7 @@ function hazardreviewbuttonaction() {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Pre-construction review completed"
+                                                "cdmLastReviewStatus|Principal designer review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         }
