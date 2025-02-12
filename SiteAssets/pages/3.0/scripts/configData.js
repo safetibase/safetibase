@@ -40,7 +40,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under principal designer review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
@@ -79,7 +79,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
