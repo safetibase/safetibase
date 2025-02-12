@@ -47,7 +47,7 @@ configData = {
         'pcreview' : { 
             'nextWorkFlowState': 'Under client review', 
             'userRoles': ['Principal Designer'], // who can review/edit the hazard at this point
-            'cdmLastReviewStatus': 'Design manager review - approved',
+            'cdmLastReviewStatus': 'design manager review - approved',
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'ldreview' : { 

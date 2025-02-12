@@ -1542,13 +1542,13 @@ function printHazardRow(h) {
     if (configData['Design manager review editable workflow state']) {
         editableStagesObj['Under design manager review'] = 'Design managers';
     }
-    if (configData['Pre-construction review editable workflow state']) {
+    if (configData['Principal designer review editable workflow state']) {
         editableStagesObj['Under principal designer review'] = 'Principal designers';
     }
-    if (configData['Principal designer review editable workflow state']) {
+    if (configData['Client review editable workflow state']) {
         editableStagesObj['Under client review'] = 'Clients';
     }
-    if (configData['Construction manager review editable workflow state']) {
+    if (configData['Principal contractor review editable workflow state']) {
         editableStagesObj['Under principal contractor review'] = 'Principal contractors';
     }
 
@@ -1901,8 +1901,8 @@ function printHazardRow(h) {
                         isSM = 1;
                     }
                     if (
-                        configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
-                        site == h.cdmSite.Title &&
+                        configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of principal designer user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
+                        comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucpc = 1;
