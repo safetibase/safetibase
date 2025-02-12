@@ -4713,7 +4713,7 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "pcreview") {
-                    gimmepops("Undertake the pre-construction review", "", "bigger");
+                    gimmepops("Undertake the principal designer review", "", "bigger");
 
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.1.html",
@@ -4911,7 +4911,7 @@ function hazardreviewbuttonaction() {
                 }
 
                 if (a == "ldreview") {
-                    gimmepops("Undertake the principal designer review", "");
+                    gimmepops("Undertake the client review", "");
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.html",
                         function() {
@@ -4980,7 +4980,7 @@ function hazardreviewbuttonaction() {
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
-                                            "cdmLastReviewStatus|Principal designer review completed"
+                                            "cdmLastReviewStatus|Client review completed"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -4995,7 +4995,7 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "smreview") {
-                    gimmepops("Undertake the Construction Manager review", "");
+                    gimmepops("Undertake the principal contractor review", "");
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.html",
                         function() {
@@ -5064,7 +5064,7 @@ function hazardreviewbuttonaction() {
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
-                                            "cdmLastReviewStatus|Construction Manager review completed"
+                                            "cdmLastReviewStatus|Principal Contractor review completed"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
