@@ -29,7 +29,7 @@ configData = {
     'ConstructionCommission' : {
         'initiatereview' : { 
             'nextWorkFlowState': 'Under peer review', 
-            'userRoles': ['Designer','Construction Engineer','Design Manager','Construction Manager','Principal Designer'], // who can review/edit the hazard at this poinT
+            'userRoles': ['Designer','Design Manager','Principal Designer','Client','Principal Contractor'], // who can review/edit the hazard at this point
             'cdmReviewHistory': 'requested peer review]'
         },
         'peerreview' : { 
