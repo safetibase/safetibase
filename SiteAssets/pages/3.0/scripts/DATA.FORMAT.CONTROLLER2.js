@@ -1543,13 +1543,13 @@ function printHazardRow(h) {
         editableStagesObj['Under design manager review'] = 'Design managers';
     }
     if (configData['Pre-construction review editable workflow state']) {
-        editableStagesObj['Under pre-construction review'] = 'Construction managers';
-    }
-    if (configData['Principal designer review editable workflow state']) {
         editableStagesObj['Under principal designer review'] = 'Principal designers';
     }
+    if (configData['Principal designer review editable workflow state']) {
+        editableStagesObj['Under client review'] = 'Clients';
+    }
     if (configData['Construction manager review editable workflow state']) {
-        editableStagesObj['Under site manager review'] = 'Construction managers';
+        editableStagesObj['Under principal contractor review'] = 'Principal contractors';
     }
 
 
@@ -1649,7 +1649,7 @@ function printHazardRow(h) {
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
-                        rucs = 2;
+                        rucs = 0;
                     }  
                     break;
 
@@ -1668,7 +1668,7 @@ function printHazardRow(h) {
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
-                        rucs = 2;
+                        rucs = 0;
                     }  
                     break;  
 
@@ -1687,7 +1687,7 @@ function printHazardRow(h) {
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
-                        rucs = 2;
+                        rucs = 0;
                     }  
 
                     break;
@@ -1707,7 +1707,7 @@ function printHazardRow(h) {
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
-                        rucs = 2;
+                        rucs = 0;
                     }  
                     break;   
                     
@@ -1726,7 +1726,7 @@ function printHazardRow(h) {
                         rucpc = 1;
                     } 
                     if(workflowStates.includes('Under principal contractor review')){
-                        rucs = 2;
+                        rucs = 0;
                     }  
                     break;  
 
@@ -1745,7 +1745,7 @@ function printHazardRow(h) {
                         rucpc = 1;
                     } 
                     if(workflowStates.includes('Under client review')){
-                        rucl = 1;
+                        rucl = 0;
                     } 
                     break; 
 
@@ -1766,7 +1766,7 @@ function printHazardRow(h) {
                         rucl = 1;
                     }  
                     if(workflowStates.includes('Under principal contractor review') && requiresLDReview == 1){
-                        rucs = 1;
+                        rucs = 0;
                     }  
                     break; 
 
