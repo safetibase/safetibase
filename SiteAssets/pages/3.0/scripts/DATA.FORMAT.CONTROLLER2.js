@@ -1731,7 +1731,7 @@ function printHazardRow(h) {
                     break;  
 
                 case('Under principal contractor review'):
-                    rucs = 3;
+                    rucl = 3;
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
@@ -1745,7 +1745,7 @@ function printHazardRow(h) {
                         rucpc = 1;
                     } 
                     if(workflowStates.includes('Under client review')){
-                        rucl = 0;
+                        rucs = 0;
                     } 
                     break; 
 
@@ -1929,7 +1929,7 @@ function printHazardRow(h) {
                     }
                     if (
                         configData[workflow]['smreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
-                        site == h.cdmSite.Title &&
+                        comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
