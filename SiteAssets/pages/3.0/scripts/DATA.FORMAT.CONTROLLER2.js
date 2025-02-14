@@ -1902,7 +1902,6 @@ function printHazardRow(h) {
                     }
                     if (
                         configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of principal designer user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
-                        comp == h.cdmHazardOwner.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucpc = 1;
@@ -1929,7 +1928,7 @@ function printHazardRow(h) {
                     }
                     if (
                         configData[workflow]['smreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
-                        comp == h.cdmHazardOwner.Title &&
+                        site == h.cdmSite.Title &&
                         h.cdmLastReviewStatus == `${configData[workflow]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
