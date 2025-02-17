@@ -510,7 +510,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -528,7 +528,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore > 5 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -546,7 +546,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore < 6 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -601,7 +601,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -618,7 +618,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore > 5 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -635,7 +635,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmResidualRiskScore < 6 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -845,7 +845,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -862,7 +862,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -879,7 +879,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Requires mitigation" && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -900,7 +900,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -917,7 +917,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -934,7 +934,7 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Assessment in progress" && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -1015,7 +1015,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS == null && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS == null && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1032,7 +1032,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS == null && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS == null && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1078,7 +1078,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS != null && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS != null && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1095,7 +1095,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS != null && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmRAMS != null && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1127,7 +1127,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1144,7 +1144,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1161,7 +1161,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmHazardOwner.Title == c) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1192,7 +1192,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1209,7 +1209,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1226,7 +1226,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1257,7 +1257,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1274,7 +1274,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1291,7 +1291,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1322,7 +1322,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 19 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1339,7 +1339,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmResidualRiskScore < 20 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1356,7 +1356,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }

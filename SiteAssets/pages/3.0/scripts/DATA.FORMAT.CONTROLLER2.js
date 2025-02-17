@@ -2483,7 +2483,7 @@ function printHazardRow(h) {
         '                        <div class="lbl ramsonly">Parent </div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl ">PAS 1192:6 Risk Classification </div>' +
+        '                        <div class="lbl ">GG 104 Risk Classification </div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         `                        <div class="lbl "> ${configData['Residual Risk Owner']} </div>` +
@@ -2505,7 +2505,7 @@ function printHazardRow(h) {
         '                    <td class="width-20 fld"><div class="cell cdmParent ramsonly">' +
         h.cdmParent +
         "</div></td>" +
-        '                    <td class="width-250 fld"><div class="cell cdmPASRiskClassification pointer" title="Click to select PAS 1192:6 Risk Classification">' +
+        '                    <td class="width-250 fld"><div class="cell cdmPASRiskClassification pointer" title="Click to select GG 104  Risk Classification">' +
         PASRiskClassification +
         "</div></td>" +
         `                    <td class="width-250 fld"><div class="cell cdmResidualRiskOwner pointer" title="Click to manage ${configData['Residual Risk Owner']}">` +

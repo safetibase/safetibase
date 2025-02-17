@@ -340,10 +340,10 @@
               <Default>Requires mitigation</Default>
             </Field>
             <Field MaxLength="255" Description="" DisplayName="cdmInitialRisk" Type="Text" ID="{4a191eda-367a-4310-adb7-bf0bb2bcb36e}" Name="cdmInitialRisk" Group="" Version="3" StaticName="cdmInitialRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar11" RowOrdinal="0" Indexed="TRUE" AutoIndexed="TRUE">
-              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+              <Default>25^High^Red^5^Extreme Harm^5^Definitive</Default>
             </Field>
             <Field MaxLength="255" Description="" DisplayName="cdmResidualRisk" Type="Text" ID="{bff95fae-a81a-4687-9861-c5f534b5d201}" Name="cdmResidualRisk" Group="" Version="3" StaticName="cdmResidualRisk" SourceID="{{listid:cdmHazards}}" ColName="nvarchar12" RowOrdinal="0" Indexed="TRUE" AutoIndexed="TRUE">
-              <Default>25^High^Red^5^Catastrophic^5^Definitive</Default>
+              <Default>25^High^Red^5^Extreme Harm^5^Definitive</Default>
             </Field>
             <Field DisplayName="cdmReviews" Name="cdmReviews" Type="Note" ID="{a0659470-8c4a-49c1-8ccc-8e2732508b6e}" Group="" Version="2" StaticName="cdmReviews" SourceID="{{listid:cdmHazards}}" ColName="ntext16" RowOrdinal="0" />
             <Field Type="Note" DisplayName="cdmIniRisk" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{0f444de6-51e8-4fae-a5d5-20d596f51cfb}" SourceID="{{listid:cdmHazards}}" StaticName="cdmIniRisk" Name="cdmIniRisk" ColName="ntext17" RowOrdinal="0" />

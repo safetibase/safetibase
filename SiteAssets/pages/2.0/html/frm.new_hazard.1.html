@@ -18,41 +18,41 @@
 </div>
 <div class="risk-panel" id="inirisk">
     <div class="tpos-lbl">Initial risk score (optional)</div>
-    <div id="cdmInitialRisk" style="display: none;">25-High-clr_5^5-Catastrophic^5-Definite</div>
+    <div id="cdmInitialRisk" style="display: none;">25-High-clr_5^5-Extreme Harm^5-Definite</div>
     <div class="riskscoring">
         <table class="risk-tbl">
             <tr>
                 <td colspan="5">Severity</td>
             </tr>
             <tr>
-                <td class="rs sev severity_1 clr_1" data-sev="1-Insignificant" onclick="sev(1)">
+                <td class="rs sev severity_1 clr_1" data-sev="1-Minor harm" onclick="sev(1)">
                     <div class="rss">
                         <div>1</div>
-                        <div>Insignificant</div>
+                        <div>Minor harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_2 clr_2" data-sev="2-Marginal" onclick="sev(2)">
+                <td class="rs sev severity_2 clr_2" data-sev="2-Serious harm harm" onclick="sev(2)">
                     <div class="rss">
                         <div>2</div>
-                        <div>Marginal</div>
+                        <div>Serious harm harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_3 clr_3" data-sev="3-Moderate" onclick="sev(3)">
+                <td class="rs sev severity_3 clr_3" data-sev="3-Serious harm" onclick="sev(3)">
                     <div class="rss">
                         <div>3</div>
-                        <div>Moderate</div>
+                        <div>Serious harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_4 clr_4" data-sev="4-Critical" onclick="sev(4)">
+                <td class="rs sev severity_4 clr_4" data-sev="4-Major harm" onclick="sev(4)">
                     <div class="rss">
                         <div>4</div>
-                        <div>Critical</div>
+                        <div>Major harm</div>
                     </div>
                 </td>
-                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5-Catastrophic" onclick="sev(5)">
+                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5-Extreme harm" onclick="sev(5)">
                     <div class="rss">
                         <div>5</div>
-                        <div>Catastrophic</div>
+                        <div>Extreme harm</div>
                     </div>
                 </td>
             </tr>
@@ -79,22 +79,22 @@
                 </td>
             </tr>
             <tr>
-                <td class="rs lik likelihood_1 clr_1" data-lik="1-Unlikely" onclick="lik(1)">
+                <td class="rs lik likelihood_1 clr_1" data-lik="1-Very unlikely" onclick="lik(1)">
                     <div class="rss">
                         <div>1</div>
+                        <div>Very unlikely</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_2 clr_2" data-lik="2-Unlikely" onclick="lik(2)">
+                    <div class="rss">
+                        <div>2</div>
                         <div>Unlikely</div>
                     </div>
                 </td>
-                <td class="rs lik likelihood_2 clr_2" data-lik="2-Seldom" onclick="lik(2)">
-                    <div class="rss">
-                        <div>2</div>
-                        <div>Seldom</div>
-                    </div>
-                </td>
-                <td class="rs lik likelihood_3 clr_3" data-lik="3-Occasional" onclick="lik(3)">
+                <td class="rs lik likelihood_3 clr_3" data-lik="3-May happen" onclick="lik(3)">
                     <div class="rss">
                         <div>3</div>
-                        <div>Occasional</div>
+                        <div>May happen</div>
                     </div>
                 </td>
                 <td class="rs lik likelihood_4 clr_4" data-lik="4-Likely" onclick="lik(4)">
@@ -103,10 +103,10 @@
                         <div>Likely</div>
                     </div>
                 </td>
-                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5-Definite" onclick="lik(5)">
+                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5-Almost certaine" onclick="lik(5)">
                     <div class="rss">
                         <div>5</div>
-                        <div>Definite</div>
+                        <div>Almost certain</div>
                     </div>
                 </td>
             </tr>
@@ -127,34 +127,34 @@
                 <td colspan="5">Severity</td>
             </tr>
             <tr>
-                <td class="rs sev severity_1 clr_1" data-sev="1 - Insignificant" onclick="sev(1)">
+                <td class="rs sev severity_1 clr_1" data-sev="1 - Minor harm" onclick="sev(1)">
                     <div class="rss">
                         <div>1</div>
-                        <div>Insignificant</div>
+                        <div>Minior harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_2 clr_2" data-sev="2 - Marginal" onclick="sev(2)">
+                <td class="rs sev severity_2 clr_2" data-sev="2 - Moderate harm" onclick="sev(2)">
                     <div class="rss">
                         <div>2</div>
-                        <div>Marginal</div>
+                        <div>Moderate harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_3 clr_3" data-sev="3 - Moderate" onclick="sev(3)">
+                <td class="rs sev severity_3 clr_3" data-sev="3 - Serious harm" onclick="sev(3)">
                     <div class="rss">
                         <div>3</div>
-                        <div>Moderate</div>
+                        <div>Serious harm</div>
                     </div>
                 </td>
-                <td class="rs sev severity_4 clr_4" data-sev="4 - Critical" onclick="sev(4)">
+                <td class="rs sev severity_4 clr_4" data-sev="4 - Marjor harm" onclick="sev(4)">
                     <div class="rss">
                         <div>4</div>
-                        <div>Critical</div>
+                        <div>Marjor harm</div>
                     </div>
                 </td>
-                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5 - Catastrophic" onclick="sev(5)">
+                <td class="rs sev sevs severity_5 clr_5 clr_5_active" data-sev="5 - Extreme Harm" onclick="sev(5)">
                     <div class="rss">
                         <div>5</div>
-                        <div>Catastrophic</div>
+                        <div>Extreme Harm</div>
                     </div>
                 </td>
             </tr>
@@ -181,22 +181,22 @@
                 </td>
             </tr>
             <tr>
-                <td class="rs lik likelihood_1 clr_1" data-lik="1 - Unlikely" onclick="lik(1)">
+                <td class="rs lik likelihood_1 clr_1" data-lik="1 - Very unlikely" onclick="lik(1)">
                     <div class="rss">
                         <div>1</div>
+                        <div>Very unlikely</div>
+                    </div>
+                </td>
+                <td class="rs lik likelihood_2 clr_2" data-lik="2 - Unlikely" onclick="lik(2)">
+                    <div class="rss">
+                        <div>2</div>
                         <div>Unlikely</div>
                     </div>
                 </td>
-                <td class="rs lik likelihood_2 clr_2" data-lik="2 - Seldom" onclick="lik(2)">
-                    <div class="rss">
-                        <div>2</div>
-                        <div>Seldom</div>
-                    </div>
-                </td>
-                <td class="rs lik likelihood_3 clr_3" data-lik="3 - Occasional" onclick="lik(3)">
+                <td class="rs lik likelihood_3 clr_3" data-lik="3 - May happen" onclick="lik(3)">
                     <div class="rss">
                         <div>3</div>
-                        <div>Occasional</div>
+                        <div>May happen</div>
                     </div>
                 </td>
                 <td class="rs lik likelihood_4 clr_4" data-lik="4 - Likely" onclick="lik(4)">
@@ -205,10 +205,10 @@
                         <div>Likely</div>
                     </div>
                 </td>
-                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5 - Definite" onclick="lik(5)">
+                <td class="rs lik liks likelihood_5 clr_5 clr_5_active" data-lik="5 - Almost certain" onclick="lik(5)">
                     <div class="rss">
                         <div>5</div>
-                        <div>Definite</div>
+                        <div>Almost certain</div>
                     </div>
                 </td>
             </tr>
@@ -311,7 +311,7 @@
         <div class="cell-cell bg-rs-2">
             <span>Impact </span>
             <span>2</span>
-            <span> Marginal</span>
+            <span> Moderate harm</span>
         </div>
         <div class="cell-cell bg-Amber">
             <span class="lg">Residual risk </span>
@@ -400,7 +400,7 @@
             <div class="cell-cell bg-rs-2">
                 <span>Impact </span>
                 <span>2</span>
-                <span> Marginal</span>
+                <span> Moderate harm</span>
             </div>
             <div class="cell-cell bg-Amber">
                 <span class="lg">Residual risk </span>
@@ -417,7 +417,7 @@
             <div class="cell-cell bg-rs-4">
                 <span>Impact </span>
                 <span>4</span>
-                <span> Critical</span>
+                <span> Marjor harm</span>
             </div>
             <div class="cell-cell bg-Red">
                 <span>Initial risk </span>

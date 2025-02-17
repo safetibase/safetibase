@@ -3044,8 +3044,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var reApos = RegExp(rsApos, 'g');
 
 	  /**
-	   * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
-	   * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
+	   * Used to match [combining diaMarjor harm marks](https://en.wikipedia.org/wiki/Combining_DiaMarjor harm_Marks) and
+	   * [combining diaMarjor harm marks for symbols](https://en.wikipedia.org/wiki/Combining_DiaMarjor harm_Marks_for_Symbols).
 	   */
 	  var reComboMark = RegExp(rsCombo, 'g');
 
@@ -16934,7 +16934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
 	     * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
 	     * letters to basic Latin letters and removing
-	     * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+	     * [combining diaMarjor harm marks](https://en.wikipedia.org/wiki/Combining_DiaMarjor harm_Marks).
 	     *
 	     * @static
 	     * @memberOf _

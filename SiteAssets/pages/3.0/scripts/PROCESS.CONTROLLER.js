@@ -1248,9 +1248,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                         * @returns {string} - The risk category.
                         */
                         const categoriseRiskScore = (riskScore) => {
-                            if (riskScore < 5) {
+                            if (riskScore < 10) {
                                 return "Low-clr_1";
-                            } else if (riskScore >= 10) {
+                            } else if (riskScore >= 20) {
                                 return "High-clr_5";
                             } else {
                                 return "Medium-clr_4";
@@ -1264,11 +1264,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                         */
                         const categoriseSeverityScore = (severityScore) => {
                             const severityCategories = {
-                                1: "Insignificant",
-                                2: "Marginal",
-                                3: "Moderate",
-                                4: "Critical",
-                                5: "Catastrophic"
+                                1: "Minor harm",
+                                2: "Serious harm harm",
+                                3: "Serious harm",
+                                4: "Major harm",
+                                5: "Extreme harm"
                             };
                             return severityCategories[severityScore];
                         };
@@ -1280,11 +1280,11 @@ function activateDatasets(cdmSites, allHazardsData) {
                         */
                         const categoriseLikelihoodScore = (likelihoodScore) => {
                             const likelihoodCategories = {
-                                1: "Unlikely",
-                                2: "Seldom",
-                                3: "Occasional",
+                                1: "Very unlikely",
+                                2: "Unlikely",
+                                3: "May happen",
                                 4: "Likely",
-                                5: "Definite"
+                                5: "Almost certain"
                             };
                             return likelihoodCategories[likelihoodScore];
                         };
@@ -1699,7 +1699,7 @@ function activateHazardEdits() {
                     }
                     if (fld == "cdmPASRiskClassification") {
                         gimmepops(
-                            "Assigning PAS 1192:6 Risk Classification",
+                            "Assigning GG 104 Risk Classification",
                             '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
                         );
                         cdmdata.get("cdmPASRiskClassification", "", null, "frmsel_PASRiskClassification", hc,null,[]);
