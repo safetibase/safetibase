@@ -5,14 +5,15 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var user = "";
-        var role = [0, 0, 0, 0, 0],
+        var role = [0, 0, 0, 0, 0, 0],
             roles = [
                 "Designer",
                 "Design Manager",
-                "Construction Manager",
                 "Principal Designer",
-                "Construction Engineer"
-            ]; // designer, design manager, Construction Manager, principal designer and Construction Engineer
+                "Client",
+                "Principal Contractor",
+                "Principal Contractor"
+            ]; 
 
         for (var cc = 0; cc < tcnt; cc++) {
             var u = tlist[cc];
@@ -71,8 +72,8 @@ formatdatato = {
             );
             $("#user_roles").append(t);
         }
-        if (role[4] == 1) {
-            // Construction Engineer
+        if (role[4] == 1 || role[5] == 1) {
+            // Principal Contractor
             var t = mkBtn(
                 "edit",
                 "rams",
@@ -101,11 +102,11 @@ formatdatato = {
             $("#user_roles").append(t);
         }
         if (role[2] == 1) {
-            // Construction Manager
+            // Principal Designer
             var t = mkBtn(
                 "review",
                 "design",
-                "Undertake pre-construction reviews",
+                "Undertake principal designer reviews",
                 "pcrHazard",
                 "Click to view hazards for review"
             );
@@ -119,11 +120,11 @@ formatdatato = {
             $("#user_roles").append(t);
         }
         if (role[3] == 1) {
-            // principal designer
+            // Client
             var t = mkBtn(
                 "review",
                 "design",
-                "Undertake lead design reviews",
+                "Undertake client reviews",
                 "ldrHazard",
                 "Click to view hazards for review"
             );
