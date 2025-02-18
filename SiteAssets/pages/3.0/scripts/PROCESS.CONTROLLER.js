@@ -1265,7 +1265,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                         const categoriseSeverityScore = (severityScore) => {
                             const severityCategories = {
                                 1: "Minor harm",
-                                2: "Serious harm harm",
+                                2: "Serious harm",
                                 3: "Serious harm",
                                 4: "Major harm",
                                 5: "Extreme harm"
