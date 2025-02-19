@@ -94,6 +94,12 @@ configData = {
             'userRoles': ['Client'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed client review]'
+        },
+        'smreview' : { 
+            'nextWorkFlowState': 'Accepted', 
+            'userRoles': ['Principal Contractor'], // who can review/edit the hazard at this point
+            'cdmLastReviewStatus': 'Client review completed',
+            'cdmReviewHistory': 'completed principal contractor review]'
         }
     }
 }
