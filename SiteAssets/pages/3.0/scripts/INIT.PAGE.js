@@ -98,8 +98,8 @@ function setUpHomeNav() {
 
 //write function setup guidance nav
 function setUpGuidanceNav(){
-    $('#guidance-buttons').html(`<a class = "home-button" href="https://sway.cloud.microsoft/vlDTfY6K8gpeiODo" target="_blank" >Guidance</a>
-    <a class = "home-button" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link" target="_blank" >Introduction</a>`);
+    $('#guidance-buttons').html(`<a class = "home-button" href="https://sway.cloud.microsoft/cTaeSB6b9zbIVBUe" target="_blank" >Guidance</a>
+    <a class = "home-button" href="https://sway.cloud.microsoft/ciW9dWEyrlqw2hyM?ref=Link" target="_blank" >Introduction</a>`);
 }
 
 function setupleftnav() {
