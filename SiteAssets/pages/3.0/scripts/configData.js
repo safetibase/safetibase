@@ -23,6 +23,7 @@ configData = {
     'Reopen hazards': ['System admin'], // Defines who can use the reopen hazards button
     'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review','Under principal designer review','Under client review','Under principal contractor review'],
     'Create hazard show asset description': false,
+    'Principal contractor': false, // Do you want a principal contractor stage for construction & commission hazards?
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
     //Default full workflows
@@ -51,7 +52,7 @@ configData = {
             'cdmReviewHistory': 'completed principal designer review]'
         },
         'ldreview' : { 
-            'nextWorkFlowState': 'Under principal contractor review', 
+            'nextWorkFlowState': 'Under principal contractor review',
             'userRoles': ['Client'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Principal designer review completed',
             'cdmReviewHistory': 'completed client review]'
