@@ -747,7 +747,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 13,
-                "Under Principal Contractor review",
+                "Under principal contractor review",
                 "csm",
                 "blue",
                 null
