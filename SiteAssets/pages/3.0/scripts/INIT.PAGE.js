@@ -395,7 +395,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under Methods & Constructability Review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -403,7 +403,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     1,
-                    "Hazards for pre-construction review",
+                    "Hazards for Methods & Constructability Review",
                     "a",
                     "blue",
                     null
@@ -432,7 +432,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under Methods & Constructability Review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -440,7 +440,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     4,
-                    "Hazards for pre-construction review",
+                    "Hazards for Methods & Constructability Review",
                     "d",
                     "blue",
                     null
@@ -488,7 +488,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     null
                 );
             }
-            // cdmdata.getQuickCount('cdmHazards',4,'cdmCurrentStatus eq \'Under pre-construction review\' and cdmSite/Title eq \''+s+'\'','Hazards for pre-construction review','d','blue',null);
+            // cdmdata.getQuickCount('cdmHazards',4,'cdmCurrentStatus eq \'Under Methods & Constructability Review\' and cdmSite/Title eq \''+s+'\'','Hazards for Methods & Constructability Review','d','blue',null);
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
 
@@ -499,7 +499,7 @@ function setupuserstats(r, c, s, allHazardsData) {
         // cdmdata.getQuickCount('cdmHazards', 8, 'cdmCurrentStatus eq \'Assessment in progress\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Assessment in progress', 'casses', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 9, 'cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under peer review', 'cpeer', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 10, 'cdmCurrentStatus eq \'Under design manager review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under design manager review', 'cdhm', 'blue', null);
-        // cdmdata.getQuickCount('cdmHazards', 11, 'cdmCurrentStatus eq \'Under pre-construction review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under pre-construction review', 'cprecon', 'blue', null);
+        // cdmdata.getQuickCount('cdmHazards', 11, 'cdmCurrentStatus eq \'Under Methods & Constructability Review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under Methods & Constructability Review', 'cprecon', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 12, 'cdmCurrentStatus eq \'Under principal designer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under principal designer review', 'cld', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 13, 'cdmCurrentStatus eq \'Under Construction Manager review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Under Construction Manager review', 'csm', 'blue', null);
         // cdmdata.getQuickCount('cdmHazards', 14, 'cdmCurrentStatus eq \'Accepted\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Accepted', 'cacc', 'green', null);
@@ -704,7 +704,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under Methods & Constructability Review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -712,7 +712,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 11,
-                "Under pre-construction review",
+                "Under Methods & Constructability Review",
                 "cprecon",
                 "blue",
                 null
@@ -1179,7 +1179,7 @@ function setupReviewableHazards(a, allHazardsData) {
         }
         if (a == 'pcrHazard') {
             if (tjs == 'Construction Manager') {
-                cst = 'Under pre-construction review';
+                cst = 'Under Methods & Constructability Review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
@@ -1388,7 +1388,7 @@ function setupReviewableHazards(a, allHazardsData) {
         //     q=' and cdmHazardOwner/Title eq \''+c+'\' and cdmCurrentStatus eq \''+cst+'\'';
         // }
         // if(tjs=='Construction Manager'){
-        //     cst='Under pre-construction review';
+        //     cst='Under Methods & Constructability Review';
         //     q=' and cdmSite/Title eq \''+ts+'\' and cdmCurrentStatus eq \''+cst+'\'';
         //     cst1='Under Construction Manager review';
         //     q1=' and cdmSite/Title eq \''+ts+'\' and cdmCurrentStatus eq \''+cst1+'\'';

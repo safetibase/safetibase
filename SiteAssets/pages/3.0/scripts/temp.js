@@ -221,7 +221,7 @@ function hzdreviewbuttonaction() {
                                         }
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
-                                            "cdmCurrentStatus|Under pre-construction review"
+                                            "cdmCurrentStatus|Under Methods & Constructability Review"
                                         );
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -238,7 +238,7 @@ function hzdreviewbuttonaction() {
                     );
                 }
                 if (a == "pcreview") {
-                    gimmepops("Undertake the pre-construction review", "", "bigger");
+                    gimmepops("Undertake the Methods & Constructability Review", "", "bigger");
 
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.1.html",
@@ -297,7 +297,7 @@ function hzdreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed pre-construction review]" +
+                                            "completed Methods & Constructability Review]" +
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -311,7 +311,7 @@ function hzdreviewbuttonaction() {
                                         // tdata.push("cdmCurrentStatus|Under principal designer review");
                                         // tdata.push("cdmLastReviewDate|" + ind);
                                         // tdata.push(
-                                        //     "cdmLastReviewStatus|Pre-construction review completed"
+                                        //     "cdmLastReviewStatus|Methods & Constructability Review completed"
                                         // );
                                         // tdata.push("cdmLastReviewer|" + unm());
 
@@ -325,7 +325,7 @@ function hzdreviewbuttonaction() {
                                             );
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Pre-construction review completed"
+                                                "cdmLastReviewStatus|Methods & Constructability Review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         } else {
@@ -333,7 +333,7 @@ function hzdreviewbuttonaction() {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Pre-construction review completed"
+                                                "cdmLastReviewStatus|Methods & Constructability Review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         }
