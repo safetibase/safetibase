@@ -174,9 +174,9 @@ function setupuserstats(r, c, s, allHazardsData) {
         const simplifiedDashboard = 
             (r == 'Designer' && configData['Simplified designer dashboard']) ||
             (r == 'Design Manager' && configData['Simplified design manager dashboard']) ||
-            (r == 'Construction Engineer' && configData['Simplified construction engineer dashboard']) ||
-            (r == 'Construction Manager' && configData['Simplified construction manager dashboard']) ||
             (r == 'Principal Designer' && configData['Simplified principal designer dashboard']) ||
+            (r == 'Client' && configData['Simplified client dashboard']) ||
+            (r == 'Principal Contractor' && configData['Simplified principal contractor dashboard']) ||
             (r == 'System admin' && configData['Simplified system admin dashboard'])
         if (simplifiedDashboard) {
             $('#stats').html('<table class="tpos-tbl-user-dashboard" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>' + utbl4 + utbl2 + utbl5);
@@ -396,7 +396,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -404,7 +404,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     1,
-                    "Hazards for pre-construction review",
+                    "Hazards for principal designer review",
                     "a",
                     "blue",
                     null
@@ -415,7 +415,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under Principal Contractor review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -433,7 +433,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -441,7 +441,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     4,
-                    "Hazards for pre-construction review",
+                    "Hazards for principal designer review",
                     "d",
                     "blue",
                     null
@@ -705,7 +705,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -713,7 +713,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 11,
-                "Under pre-construction review",
+                "Under principal designer review",
                 "cprecon",
                 "blue",
                 null
@@ -722,7 +722,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under client review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -730,7 +730,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 12,
-                "Under principal designer review",
+                "Under client review",
                 "cld",
                 "blue",
                 null
@@ -739,7 +739,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under Construction Manager review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under Principal Contractor review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -747,7 +747,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 13,
-                "Under Construction Manager review",
+                "Under principal contractor review",
                 "csm",
                 "blue",
                 null
@@ -1179,8 +1179,8 @@ function setupReviewableHazards(a, allHazardsData) {
 
         }
         if (a == 'pcrHazard') {
-            if (tjs == 'Construction Manager') {
-                cst = 'Under pre-construction review';
+            if (tjs == 'Principal Designer') {
+                cst = 'Under principal designer review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
@@ -1244,8 +1244,8 @@ function setupReviewableHazards(a, allHazardsData) {
 
         }
         if (a == 'smrHazard') {
-            if (tjs == 'Construction Manager') {
-                cst = 'Under Construction Manager review';
+            if (tjs == 'Principal Contractor') {
+                cst = 'Under Principal Contractor review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';

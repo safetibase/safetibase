@@ -1103,7 +1103,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                             "Assessment in progress", 
                                                                                             "Under peer review", 
                                                                                             "Under design manager review", 
-                                                                                            "Under pre-construction review"]), allowNull: false },
+                                                                                            "Under principal designer review"]), allowNull: false },
                             { field: "cdmHazardCoordinates", value: validate3DCoordinates(csvObject.Coordinates), allowNull: false },
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
@@ -1398,18 +1398,18 @@ function activateDatasets(cdmSites, allHazardsData) {
                         const transitionMap = {
                             "Requires mitigation": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under principal designer review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Assessment in progress": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under principal designer review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under peer review": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
+                                "Under principal designer review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under design manager review": {
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
+                                "Under principal designer review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
                             }
                         };
 
@@ -1648,9 +1648,9 @@ function activateHazardEdits() {
                 else if (!uce) {
                     const peerReviewStage = $("#" + hi + " .rucp").hasClass('_3');
                     const designManagerReviewStage = $("#" + hi + " .rucd").hasClass('_3');
-                    const preconstructionReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
-                    const principleDesignerReviewStage = $("#" + hi + " .rucl").hasClass('_3');
-                    const constructionManagerReviewStage = $("#" + hi + " .rucs").hasClass('_3');
+                    const principleDesignerReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
+                    const clientReviewStage = $("#" + hi + " .rucl").hasClass('_3');
+                    const principalContractorReviewStage = $("#" + hi + " .rucs").hasClass('_3');
                     
                     if (peerReviewStage) {
                         const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
@@ -1670,32 +1670,32 @@ function activateHazardEdits() {
                         } else {
                             toastr.error(`This hazard is under design manager review so is locked for editing. Contact a designer manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
-                    } else if (preconstructionReviewStage) {
-                        const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
-                        if (canPreconstructionReview) {
-                            toastr.error(`This hazard is under pre-construction review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
-                        } else if (configData['Pre-construction review editable workflow state']) {
-                            toastr.error(`This hazard is under pre-construction review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
-                        } else {
-                            toastr.error(`This hazard is under pre-construction review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
-                        }
                     } else if (principleDesignerReviewStage) {
-                        const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
-                        if (canPrincipleDesignerReview) {
+                        const canPrincipaldesignReview = $("#" + hi + " .ucpc").hasClass("_1");
+                        if (canPrincipaldesignReview) {
                             toastr.error(`This hazard is under principal designer review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         } else if (configData['Principal designer review editable workflow state']) {
-                            toastr.error(`This hazard is under principal designer review so is locked for editing for all users except principal designers. Contact a principal designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
+                            toastr.error(`This hazard is under principal designer review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
                             toastr.error(`This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
-                    } else if (constructionManagerReviewStage) {
-                        const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
-                        if (canConstructionManagerReview) {
-                            toastr.error(`This hazard is under construction manager review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
-                        } else if (configData['Construction manager review editable workflow state']) {
-                            toastr.error(`This hazard is under construction manager review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
+                    } else if (clientReviewStage) {
+                        const canClientReview = $("#" + hi + " .ucl").hasClass("_1");
+                        if (canClientReview) {
+                            toastr.error(`This hazard is under client review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Client review editable workflow state']) {
+                            toastr.error(`This hazard is under client review so is locked for editing for all users except principal designers. Contact a principal designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error(`This hazard is under construction manager review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                            toastr.error(`This hazard is under client review so is locked for editing. Contact a client to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        }
+                    } else if (principalContractorReviewStage) {
+                        const canPrincipalContractorReview = $("#" + hi + " .ucs").hasClass("_1");
+                        if (canPrincipalContractorReviewReview) {
+                            toastr.error(`This hazard is under principal contractor review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Principal contractor review editable workflow state']) {
+                            toastr.error(`This hazard is under principal contractor review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
+                        } else {
+                            toastr.error(`This hazard is under principal contractor review so is locked for editing. Contact a principal contractor to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (revstatus == 'Accepted') {
                         if (configData['Client Review']) {
@@ -2084,10 +2084,10 @@ function activateHazardEdits() {
                                 const popsContent = document.getElementsByClassName("pops-content")[0];
                                 popsContent.innerHTML += svBtn;
                             } else {
-                                toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
+                                toastr.error('This field can only be edited through the site managers approval comment at the principal designer review workflow stage');
                             }
                         } else {
-                            toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located");
+                            toastr.error("You cannot provide a principal contractor's mitigation suggestion because you are not a principal contractor for the site where this hazard is located");
                         }
                     }
                     // if (fld == "cdmUniclass") {
@@ -4587,7 +4587,7 @@ function hazardreviewbuttonaction() {
                                             }).done(r => {
                                                 let item = ((r.d.results[0].cdmRAMS != null));
                                                 if (item) {
-                                                    tdata.push("cdmCurrentStatus|Under Construction Manager review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                                    tdata.push("cdmCurrentStatus|Under Principal Contractor review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 } else {
                                                     tdata.push(
                                                         `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`
