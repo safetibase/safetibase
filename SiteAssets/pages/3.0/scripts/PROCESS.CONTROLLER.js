@@ -429,7 +429,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     const promises = [];
                     for (let i=0; i<cdmHazardData.length; i++) {
                         // We can only archive hazards if they have been at least design manager reviewed
-                        const legalWorkflowStates = ['Under pre-construction review', 'Under principal designer review', 'Under site manager review', 'Accepted'];
+                        const legalWorkflowStates = ['Under client review', 'Under principal designer review', 'Under principal contractor review', 'Accepted'];
                         if (cdmHazardData[i].cdmUniclass === 'Cancelled' && legalWorkflowStates.includes(cdmHazardData[i].cdmCurrentStatus)) {
                             hazardCounter++;
                             const hazardData = [];
