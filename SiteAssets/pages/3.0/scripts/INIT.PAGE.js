@@ -722,7 +722,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under client review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -730,7 +730,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 12,
-                "Under principal designer review",
+                "Under client review",
                 "cld",
                 "blue",
                 null
