@@ -1132,13 +1132,13 @@ function buildHazardListItem(h) {
         if (ucandmreview == 1 && rvstatus == "requested design manager review") {
             ucandmreview = 2;
         }
-        if (ucanprecon == 1 && rvstatus == "requested pre-construction review") {
+        if (ucanprecon == 1 && rvstatus == "requested principal designer review") {
             ucanprecon = 2;
         }
-        if (ucanldreview == 1 && rvstatus == "requested lesd design review") {
+        if (ucanldreview == 1 && rvstatus == "requested client review") {
             ucanldreview = 2;
         }
-        if (ucansmreview == 1 && rvstatus == "requested Construction Manager review") {
+        if (ucansmreview == 1 && rvstatus == "requested principal contractor review") {
             ucansmreview = 2;
         }
     }
@@ -1829,11 +1829,11 @@ function printHazardRow(h) {
                 ).concat(
                     configData['Design manager review editable workflow state'] ? ['Under design manager review'] : []
                 ).concat(
-                    configData['Pre-construction review editable workflow state'] ? ['Under principal designer review'] : []
+                    configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
                 ).concat(
-                    configData['Principal designer review editable workflow state'] ? ['Under client review'] : []
+                    configData['Client review editable workflow state'] ? ['Under client review'] : []
                 ).concat(
-                    configData['Construction manager review editable workflow state'] ? ['Under principal contractor review'] : []
+                    configData['Principal Contractor review editable workflow state'] ? ['Under principal contractor review'] : []
                 );
 
                 let editableWorkflowStage = false;

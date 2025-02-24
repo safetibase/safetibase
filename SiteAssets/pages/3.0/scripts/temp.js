@@ -137,7 +137,7 @@ function hzdreviewbuttonaction() {
 
                                         tdata.push("cdmReviews|" + nl);
                                         if (ns == 1) {
-                                            tdata.push("cdmCurrentStatus|Under Construction Manager review");
+                                            tdata.push("cdmCurrentStatus|Under Principal Contractor review");
                                         } else {
                                             tdata.push(
                                                 "cdmCurrentStatus|Under design manager review"
@@ -221,7 +221,7 @@ function hzdreviewbuttonaction() {
                                         }
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
-                                            "cdmCurrentStatus|Under pre-construction review"
+                                            "cdmCurrentStatus|Under principal designer review"
                                         );
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -238,7 +238,7 @@ function hzdreviewbuttonaction() {
                     );
                 }
                 if (a == "pcreview") {
-                    gimmepops("Undertake the pre-construction review", "", "bigger");
+                    gimmepops("Undertake the principal designer review", "", "bigger");
 
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.1.html",
@@ -297,7 +297,7 @@ function hzdreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed pre-construction review]" +
+                                            "completed principal designer review]" +
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -506,7 +506,7 @@ function hzdreviewbuttonaction() {
                     );
                 }
                 if (a == "smreview") {
-                    gimmepops("Undertake the Construction Manager review", "");
+                    gimmepops("Undertake the Principal Contractor review", "");
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.html",
                         function() {
@@ -561,7 +561,7 @@ function hzdreviewbuttonaction() {
                                             "]" +
                                             user +
                                             "]" +
-                                            "completed Construction Manager review]" +
+                                            "completed Principal Contractor review]" +
                                             cmt +
                                             "^";
                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -575,7 +575,7 @@ function hzdreviewbuttonaction() {
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
-                                            "cdmLastReviewStatus|Construction Manager review completed"
+                                            "cdmLastReviewStatus|Principal Contractor review completed"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
