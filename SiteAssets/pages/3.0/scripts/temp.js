@@ -137,7 +137,7 @@ function hzdreviewbuttonaction() {
 
                                         tdata.push("cdmReviews|" + nl);
                                         if (ns == 1) {
-                                            tdata.push("cdmCurrentStatus|Under Principal Contractor review");
+                                            tdata.push("cdmCurrentStatus|Under principal designer review");
                                         } else {
                                             tdata.push(
                                                 "cdmCurrentStatus|Under design manager review"
@@ -487,7 +487,7 @@ function hzdreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
-                                        tdata.push("cdmCurrentStatus|Under site manager review");
+                                        tdata.push("cdmCurrentStatus|Under principal contractor review");
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
@@ -575,7 +575,7 @@ function hzdreviewbuttonaction() {
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
-                                            "cdmLastReviewStatus|Principal Contractor review completed"
+                                            "cdmLastReviewStatus|Principal contractor review completed"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");

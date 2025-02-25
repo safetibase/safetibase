@@ -415,7 +415,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under Principal Contractor review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -739,7 +739,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under Principal Contractor review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -1245,7 +1245,7 @@ function setupReviewableHazards(a, allHazardsData) {
         }
         if (a == 'smrHazard') {
             if (tjs == 'Principal Contractor') {
-                cst = 'Under Principal Contractor review';
+                cst = 'Under principal contractor review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
