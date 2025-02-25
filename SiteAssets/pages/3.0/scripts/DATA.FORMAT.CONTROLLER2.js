@@ -5,14 +5,13 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var user = "";
-        var role = [0, 0, 0, 0, 0, 0],
+        var role = [0, 0, 0, 0, 0],
             roles = [
                 "Designer",
                 "Design Manager",
                 "Principal Designer",
                 "Client",
                 "Principal Contractor",
-                "Principal Contractor"
             ]; 
 
         for (var cc = 0; cc < tcnt; cc++) {
@@ -72,7 +71,7 @@ formatdatato = {
             );
             $("#user_roles").append(t);
         }
-        // if (role[4] == 1 || role[5] == 1) {
+        // if (role[4] == 1) {
         //     // Principal Contractor
         //     var t = mkBtn(
         //         "edit",
@@ -130,7 +129,7 @@ formatdatato = {
             );
             $("#user_roles").append(t);
         }
-        if (role[4] == 1 || role[5] == 1) {
+        if (role[4] == 1) {
             // Client
             var t = mkBtn(
                 "review",
