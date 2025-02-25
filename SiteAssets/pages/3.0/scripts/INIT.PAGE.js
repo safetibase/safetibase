@@ -1048,7 +1048,7 @@ function setupReviewableHazards(a, allHazardsData) {
                 );
 
             }
-            if (tjs == 'Construction Engineer') {
+            if (tjs == 'Principal Designer') {
                 cst = 'Under peer review';
                 q = ' and cdmHazardOwner/Title eq \'' + c + '\' and cdmCurrentStatus eq \'' + cst + '\' and cdmRAMS ne null';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
@@ -1309,8 +1309,8 @@ function setupReviewableHazards(a, allHazardsData) {
 
         }
         if (a == 'ldrHazard') {
-            if (tjs == 'Principal designer') {
-                cst = 'Under principal designer review';
+            if (tjs == 'Client') {
+                cst = 'Under client review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
