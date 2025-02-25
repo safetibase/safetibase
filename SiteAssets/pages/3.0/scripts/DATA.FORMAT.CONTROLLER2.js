@@ -1643,6 +1643,7 @@ function printHazardRow(h) {
             }
             else{
                 revstatus = 'Under principal contractor review'
+                h.cdmCurrentStatus = 'Under principal contractor review'
             }
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
