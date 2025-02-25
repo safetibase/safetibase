@@ -273,11 +273,11 @@ function setupuserstats(r, c, s, allHazardsData) {
             );
         }
 
-        if (r == 'Designer' || r == 'Construction Engineer') {
+        if (r == 'Designer') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'Editor/ID ne ' + uid() + ' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Hazards you could peer review', 'c', 'blue', null);
             // cdmdata.getQuickCount('cdmHazards', 4, 'Editor/ID eq ' + uid() + ' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \'' + c + '\'', 'Peer reviews requested by you', 'd', 'blue', null);
             
-            if ((r == 'Designer' && configData['Simplified designer dashboard']) || (r == 'Construction Engineer' && configData['Simplified construction engineer dashboard'])) {
+            if (r == 'Designer' && configData['Simplified designer dashboard']) {
                 cdmdata.createDashboardBoxes(
                     (() => {
                         filteredDataset = [];
@@ -390,13 +390,13 @@ function setupuserstats(r, c, s, allHazardsData) {
             }
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
-        if (r == 'Construction Manager') {
-            if (configData['Simplified construction manager dashboard']) { // Some users have requested a simplified dashboard to help process hazards quicker
+        if (r == 'Principal Designer') {
+            if (configData['Simplified principal designer dashboard']) { // Some users have requested a simplified dashboard to help process hazards quicker
                 cdmdata.createDashboardBoxes(
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -415,7 +415,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -433,7 +433,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -449,15 +449,15 @@ function setupuserstats(r, c, s, allHazardsData) {
             }
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
-        if (r == 'Principal Designer') {
+        if (r == 'Client') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under principal designer review\' and cdmSite/Title eq \'' + s + '\'', 'Hazards for principal designer review', 'c', 'blue', null);
             
-            if ((r == 'Principal Designer' && configData['Simplified principal designer dashboard'])) {
+            if ((r == 'Client' && configData['Simplified client dashboard'])) {
                 cdmdata.createDashboardBoxes(
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under client review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -465,7 +465,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     3,
-                    "Hazards for principal designer review",
+                    "Hazards for client review",
                     "a",
                     "blue",
                     null
@@ -475,7 +475,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under client review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -483,7 +483,50 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     3,
-                    "Hazards for principal designer review",
+                    "Hazards for client review",
+                    "c",
+                    "blue",
+                    null
+                );
+            }
+            // cdmdata.getQuickCount('cdmHazards',4,'cdmCurrentStatus eq \'Under pre-construction review\' and cdmSite/Title eq \''+s+'\'','Hazards for pre-construction review','d','blue',null);
+            // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
+        }
+        if (r == 'Principal Contractor') {
+            // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under principal designer review\' and cdmSite/Title eq \'' + s + '\'', 'Hazards for principal designer review', 'c', 'blue', null);
+            
+            if ((r == 'Principal Contractor' && configData['Simplified principal contractor dashboard'])) {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards for principal contractor review",
+                    "a",
+                    "blue",
+                    null
+                );
+            } else {
+                cdmdata.createDashboardBoxes(
+                    (() => {
+                        filteredDataset = [];
+                        for (var i = 0; i < allHazardsData.length; i++) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under principal contractor review" && allHazardsData[i].cdmSite.Title == s) {
+                                filteredDataset.push(allHazardsData[i]);
+                            }
+                        }
+                        return filteredDataset
+                    })(),
+                    "cdmHazards",
+                    3,
+                    "Hazards for principal contractor review",
                     "c",
                     "blue",
                     null
