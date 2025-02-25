@@ -1642,7 +1642,7 @@ function printHazardRow(h) {
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
             else{
-                configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Under principal contractor review' 
+                revstatus = 'Under principal contractor review'
             }
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
