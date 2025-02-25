@@ -4587,7 +4587,7 @@ function hazardreviewbuttonaction() {
                                             }).done(r => {
                                                 let item = ((r.d.results[0].cdmRAMS != null));
                                                 if (item) {
-                                                    tdata.push("cdmCurrentStatus|Under Principal Contractor review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
+                                                    tdata.push("cdmCurrentStatus|Under principal contractor review"); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                                 } else {
                                                     tdata.push(
                                                         `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`
