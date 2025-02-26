@@ -285,7 +285,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
     <div class="button-row" style="display: none;">
         <!-- <div class="tpos-left-btn sv-cancel">Cancel</div> -->
-        <div class="tpos-left-btn sv-hazard" onclick="savehazards();">Save</div>
+        <div id="saveButton" class="tpos-left-btn sv-hazard" onclick="savehazards();">Save</div>
     </div>
 </div>
 
@@ -629,6 +629,16 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var riskscoreval = trisks[0];
         var rscv = parseInt(riskscoreval, 10);
 
+        // Disable the Save button if checkbox selection for permanent works is empty
+        if (pw.length === 0) {
+            document.getElementById('saveButton').style.backgroundColor = 'grey';
+            document.getElementById('saveButton').style.pointerEvents = 'none';
+            return;
+        } else {
+            document.getElementById('saveButton').style.backgroundColor = '';
+            document.getElementById('saveButton').style.pointerEvents = 'auto';
+        }
+
         if (pw.length > 0) {
             for (var ps = 0; ps < pw.length; ps++) {
                 var tdata = [];
@@ -750,6 +760,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedstructures').html('');
         $('.button-row').hide();
     }
+
 
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
