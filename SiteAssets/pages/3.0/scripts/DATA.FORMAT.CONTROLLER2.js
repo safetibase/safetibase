@@ -1641,7 +1641,9 @@ function printHazardRow(h) {
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
-            else{
+
+            // Advance hazard to principal contractor review if toggle is on and at client review stage
+            else if(configData[workflow][stage]===ldreview && configData['Principal contractor']){
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
