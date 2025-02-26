@@ -762,18 +762,31 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const pwInput = document.getElementById('pw');
         const saveButton = document.getElementById('saveButton');
+        const checkboxes = document.querySelectorAll('.qresult input[type="checkbox"]');
 
-        pwInput.addEventListener('input', function() {
-            if (pwInput.value.length === 0) {
-                saveButton.style.backgroundColor = 'grey';
-                saveButton.style.pointerEvents = 'none';
-            } else {
+        function updateSaveButtonState() {
+            let isAnyChecked = false;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    isAnyChecked = true;
+                }
+            });
+
+            if (isAnyChecked) {
                 saveButton.style.backgroundColor = '';
                 saveButton.style.pointerEvents = 'auto';
+            } else {
+                saveButton.style.backgroundColor = 'grey';
+                saveButton.style.pointerEvents = 'none';
             }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSaveButtonState);
         });
+
+        updateSaveButtonState(); // Initial check
     });
 
 
