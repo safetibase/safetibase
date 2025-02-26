@@ -1933,10 +1933,21 @@ function activateHazardEdits() {
                     if (fld == "cdmHazardType") {
                         var cv = $(this).html();
                         var tdata = [];
-                        if (cv == "Health") {
-                            tdata.push("cdmHazardType|2");
-                        } else {
-                            tdata.push("cdmHazardType|1");
+                        switch (cv) {
+                            case "Health":
+                                tdata.push("cdmHazardType|2");
+                                break;
+                            case "Environment":
+                                tdata.push("cdmHazardType|3");
+                                break;
+                            case "Security":
+                                tdata.push("cdmHazardType|4");
+                                break;        
+                            case "Wellbeing":
+                                tdata.push("cdmHazardType|5");
+                                break;
+                            default:
+                                tdata.push("cdmHazardType|1");
                         }
                         toastr.success("Switching hazard type");
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
