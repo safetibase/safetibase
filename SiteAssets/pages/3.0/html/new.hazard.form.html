@@ -761,6 +761,21 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('.button-row').hide();
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const pwInput = document.getElementById('pw');
+        const saveButton = document.getElementById('saveButton');
+
+        pwInput.addEventListener('input', function() {
+            if (pwInput.value.length === 0) {
+                saveButton.style.backgroundColor = 'grey';
+                saveButton.style.pointerEvents = 'none';
+            } else {
+                saveButton.style.backgroundColor = '';
+                saveButton.style.pointerEvents = 'auto';
+            }
+        });
+    });
+
 
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
