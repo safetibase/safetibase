@@ -5,14 +5,13 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var user = "";
-        var role = [0, 0, 0, 0, 0, 0],
+        var role = [0, 0, 0, 0, 0],
             roles = [
                 "Designer",
                 "Design Manager",
                 "Principal Designer",
                 "Client",
                 "Principal Contractor",
-                "Principal Contractor"
             ]; 
 
         for (var cc = 0; cc < tcnt; cc++) {
@@ -72,24 +71,24 @@ formatdatato = {
             );
             $("#user_roles").append(t);
         }
-        if (role[4] == 1 || role[5] == 1) {
-            // Principal Contractor
-            var t = mkBtn(
-                "edit",
-                "rams",
-                "Edit/mitigate RAMS hazards",
-                "editHazard",
-                "Click to edit/update hazards"
-            );
-            t += mkBtn(
-                "review",
-                "rams",
-                "Peer review RAMS hazards",
-                "prHazard",
-                "Click to view hazards for review"
-            );
-            $("#user_roles").append(t);
-        }
+        // if (role[4] == 1) {
+        //     // Principal Contractor
+        //     var t = mkBtn(
+        //         "edit",
+        //         "rams",
+        //         "Edit/mitigate RAMS hazards",
+        //         "editHazard",
+        //         "Click to edit/update hazards"
+        //     );
+        //     t += mkBtn(
+        //         "review",
+        //         "rams",
+        //         "Peer review RAMS hazards",
+        //         "prHazard",
+        //         "Click to view hazards for review"
+        //     );
+        //     $("#user_roles").append(t);
+        // }
         if (role[1] == 1) {
             // Design Manager
             var t = mkBtn(
@@ -126,6 +125,17 @@ formatdatato = {
                 "design",
                 "Undertake client reviews",
                 "ldrHazard",
+                "Click to view hazards for review"
+            );
+            $("#user_roles").append(t);
+        }
+        if (role[4] == 1) {
+            // Client
+            var t = mkBtn(
+                "review",
+                "design",
+                "Undertake principal contractor reviews",
+                "smrHazard",
                 "Click to view hazards for review"
             );
             $("#user_roles").append(t);
@@ -1630,7 +1640,10 @@ function printHazardRow(h) {
             let stage = 'initiatereview'
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
-                console.log("ld review next:",configData['ConstructionCommission']['ldreview']['nextWorkFlowState'])
+            }
+            else{
+                revstatus = 'Under principal contractor review'
+                h.cdmCurrentStatus = 'Under principal contractor review'
             }
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
