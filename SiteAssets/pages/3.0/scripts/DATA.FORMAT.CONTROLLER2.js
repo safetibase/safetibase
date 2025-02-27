@@ -1647,6 +1647,7 @@ function printHazardRow(h) {
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
+            console.log("next:",configData['ConstructionCommission']['ldreview']['nextWorkFlowState'])
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
                 stage = allStages[configData[workflow][stage]['nextWorkFlowState']];
