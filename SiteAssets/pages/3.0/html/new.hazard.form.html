@@ -359,7 +359,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     columns: 1,
                     placeholder: 'Select assets:',
                     search: false,
-                    selectAll: true
+                    selectAll: true,
+                    onChange: function() {
+                        toggleSaveButton();
+                    }
                 }) 
             }
         }
@@ -629,16 +632,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var riskscoreval = trisks[0];
         var rscv = parseInt(riskscoreval, 10);
 
-        // Disable the Save button if checkbox selection for permanent works is empty
-        if (pw.length === 0) {
-            document.getElementById('saveButton').style.backgroundColor = 'grey';
-            document.getElementById('saveButton').style.pointerEvents = 'none';
-            return;
-        } else {
-            document.getElementById('saveButton').style.backgroundColor = '';
-            document.getElementById('saveButton').style.pointerEvents = 'auto';
-        }
-
         if (pw.length > 0) {
             for (var ps = 0; ps < pw.length; ps++) {
                 var tdata = [];
@@ -761,35 +754,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('.button-row').hide();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const saveButton = document.getElementById('saveButton');
-        const checkboxes = document.querySelectorAll('.qresult input[type="checkbox"]');
-
-        function updateSaveButtonState() {
-            let isAnyChecked = false;
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    isAnyChecked = true;
+    function toggleSaveButton() {
+                if ($("#selectedstructures").val().length === 0) {
+                    $("#saveButton").addClass("disabled");
+                } else {
+                    $("#saveButton").removeClass("disabled");
                 }
-            });
-
-            if (isAnyChecked) {
-                saveButton.style.backgroundColor = '';
-                saveButton.style.pointerEvents = 'auto';
-            } else {
-                saveButton.style.backgroundColor = 'grey';
-                saveButton.style.pointerEvents = 'none';
             }
-        }
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateSaveButtonState);
-        });
-
-        updateSaveButtonState(); // Initial check
-    });
 
 
+    toggleSaveButton();
+    
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
         
