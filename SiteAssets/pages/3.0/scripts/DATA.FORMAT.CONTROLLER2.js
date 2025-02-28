@@ -1903,7 +1903,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        //uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
