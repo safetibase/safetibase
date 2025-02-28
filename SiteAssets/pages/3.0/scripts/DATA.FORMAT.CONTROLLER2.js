@@ -1638,19 +1638,16 @@ function printHazardRow(h) {
             var workflowStates = ['Requires mitigation'];
 
             let stage = 'initiatereview'
-            console.log('rev status:',revstatus)
-            console.log('cdm status:',h.cdmCurrentStatus)
+
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
 
             // Advance hazard to principal contractor review if toggle is on and at client review stage
-            else if(configData[workflow][stage] === 'ldreview' && configData['Principal contractor']){
+            else if(configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] === 'Under principal contractor review' && configData['Principal contractor']){
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
-
-            console.log("next:",configData['ConstructionCommission']['ldreview']['nextWorkFlowState'])
             
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
