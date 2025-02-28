@@ -1638,13 +1638,11 @@ function printHazardRow(h) {
             var workflowStates = ['Requires mitigation'];
 
             let stage = 'initiatereview'
-
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
-
             // Advance hazard to principal contractor review if toggle is on and at client review stage
-            else if(configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] === 'Under principal contractor review' && configData['Principal contractor']){
+            else if(configData['Principal contractor'] && h.cdmLastReviewStatus==='Client review completed'){
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
