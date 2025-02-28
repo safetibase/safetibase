@@ -1638,6 +1638,8 @@ function printHazardRow(h) {
             var workflowStates = ['Requires mitigation'];
 
             let stage = 'initiatereview'
+            console.log('rev status:',revstatus)
+            console.log('cdm status:',h.cdmCurrentStatus)
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
@@ -1647,7 +1649,9 @@ function printHazardRow(h) {
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
+
             console.log("next:",configData['ConstructionCommission']['ldreview']['nextWorkFlowState'])
+            
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
                 stage = allStages[configData[workflow][stage]['nextWorkFlowState']];
@@ -1906,7 +1910,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        //uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
