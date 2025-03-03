@@ -363,7 +363,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     onChange: function() {
                         toggleSaveButton();
                     }
-                }) 
+                });
+                
+                toggleSaveButton();
             }
         }
 
@@ -433,6 +435,18 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         //$('.rss').addEventListener('click',testfunction);
 
     }
+    
+    function toggleSaveButton() {
+        console.log("selected structure length:",$("#selectedstructures").val().length)
+        if ($("#selectedstructures").val().length === 0) {
+            $("#saveButton").addClass("disabled");
+        } else {
+            $("#saveButton").removeClass("disabled");
+        }
+    }
+
+
+    
 
     function sev(n) {
         var lik = $('.liks').data('lik');
@@ -753,17 +767,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedstructures').html('');
         $('.button-row').hide();
     }
-
-    function toggleSaveButton() {
-                if ($("#selectedstructures").val().length === 0) {
-                    $("#saveButton").addClass("disabled");
-                } else {
-                    $("#saveButton").removeClass("disabled");
-                }
-            }
-
-
-    toggleSaveButton();
     
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';

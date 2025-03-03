@@ -426,6 +426,13 @@ a.ms-tv-header:hover {
     cursor: pointer;
 }
 
+.disabled {
+    background-color: grey;
+    color: white;
+    pointer-events: none;
+    opacity: 0.5; 
+}
+
 .lg {
     font-size: 1.4em;
 }
