@@ -289,6 +289,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     </div>
 </div>
 
+<link rel="stylesheet" href="styles/jquery.multiselect.css">
+<script src="scripts/jquery.multiselect.js"></script>
+
 <script>
     var siteElements = document.getElementsByClassName("siteConfig")
     for (let i=0; i<siteElements.length; i++) {
@@ -361,6 +364,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     search: false,
                     selectAll: true,
                     onChange: function() {
+                        console.log("Selected structures:", $("#selectedstructures").val());
                         toggleSaveButton();
                     }
                 });
