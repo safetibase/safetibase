@@ -368,6 +368,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                         toggleSaveButton();
                     }
                 });
+
+                document.querySelectorAll('#selectedstructures option').forEach(option => {
+                    option.addEventListener('change', () => {
+                        console.log("Checkbox changed:", option.value);
+                        toggleSaveButton();
+                    });
+                });
                 
                 toggleSaveButton();
             }
@@ -449,7 +456,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
     }
 
-
+    $(document).ready(function() {
+        toggleSaveButton();
+    });
     
 
     function sev(n) {
