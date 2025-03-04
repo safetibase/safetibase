@@ -1931,26 +1931,35 @@ function activateHazardEdits() {
                         );
                     }
                     if (fld == "cdmHazardType") {
-                        var cv = $(this).html();
-                        var tdata = [];
-                        console.log("cv:",cv)
-                        console.log("tdata:",tdata)
-                        switch (cv) {
-                            case "Safety":
-                                tdata.push("cdmHazardType|2");
-                                break;
-                            case "Security":
-                                tdata.push("cdmHazardType|3");
-                                break;        
-                            case "Wellbeing":
-                                tdata.push("cdmHazardType|4");
-                                break;
-                            case "Environment":
-                                tdata.push("cdmHazardType|5");
-                                break;
-                            default:
-                                tdata.push("cdmHazardType|1");
-                        }
+                        // var cv = $(this).html();
+                        // var tdata = [];
+                        // console.log("cv:",cv)
+                        // console.log("tdata:",tdata)
+                        // switch (cv) {
+                        //     case "Safety":
+                        //         tdata.push("cdmHazardType|2");
+                        //         break;
+                        //     case "Security":
+                        //         tdata.push("cdmHazardType|3");
+                        //         break;        
+                        //     case "Wellbeing":
+                        //         tdata.push("cdmHazardType|4");
+                        //         break;
+                        //     case "Environment":
+                        //         tdata.push("cdmHazardType|5");
+                        //         break;
+                        //     default:
+                        //         tdata.push("cdmHazardType|1");
+                        // }
+                        document.getElementById('hazardTypeDropdown').addEventListener('change', function() {
+                            var selectedValue = this.value;
+                            var tdata = [];
+                            tdata.push("cdmHazardType|" + selectedValue);
+                            
+                            toastr.success("Switching hazard type");
+                            cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                            $("#pops").remove();
+                        });
                         toastr.success("Switching hazard type");
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                         $("#pops").remove();
