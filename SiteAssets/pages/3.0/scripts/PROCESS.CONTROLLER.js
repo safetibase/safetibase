@@ -1931,41 +1931,11 @@ function activateHazardEdits() {
                         );
                     }
                     if (fld == "cdmHazardType") {
-                        // var cv = $(this).html();
-                        // var tdata = [];
-                        // console.log("cv:",cv)
-                        // console.log("tdata:",tdata)
-                        // switch (cv) {
-                        //     case "Safety":
-                        //         tdata.push("cdmHazardType|2");
-                        //         break;
-                        //     case "Security":
-                        //         tdata.push("cdmHazardType|3");
-                        //         break;        
-                        //     case "Wellbeing":
-                        //         tdata.push("cdmHazardType|4");
-                        //         break;
-                        //     case "Environment":
-                        //         tdata.push("cdmHazardType|5");
-                        //         break;
-                        //     default:
-                        //         tdata.push("cdmHazardType|1");
-                        // }
-                        // var cv = $(this).html();
-                        // var tdata = [];
-                        // if (cv == "Health") {
-                        //     tdata.push("cdmHazardType|2");
-                        // } else {
-                        //     tdata.push("cdmHazardType|1");
-                        // }
-                        // toastr.success("Switching hazard type");
-                        // cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        // $("#pops").remove();
                         gimmepops(
                             "Assigning a hazard type",
                             '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
                         );
-                        cdmdata.get("cdmHazardType", "", null, "frmsel_hazardType", hc,null,[]);
+                        cdmdata.get("cdmHazardTypes", "", null, "frmsel_hazardType", hc,null,[]);
 
                     }
                     if (fld == "cdmHazardCoordinates") {
@@ -3219,10 +3189,8 @@ function tposSelectHazardType(lst, data, trg) {
         var dv = $("#dv_" + lst + "_" + dvid).html();
         $("#sel_" + lst).val(dv);
         $("#val_" + lst).html(dvid);
-        // $('#h_'+hzd+'_cdmHazardOwnerTitle').html(dv);
-        // $('#h_'+hzd+'_cdmHazardOwner').val(dvid);
         var tdata = [];
-        tdata.push("cdmHazardType|" + dv);
+        tdata.push("cdmHazardType|" + dvid);
         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
         $("#pops").remove();
     });

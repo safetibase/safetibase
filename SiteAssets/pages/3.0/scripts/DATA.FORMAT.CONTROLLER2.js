@@ -2209,7 +2209,7 @@ function printHazardRow(h) {
     var PASRiskClassification ='';
     var mitigationSuggestion = '';
     var hiddenrail ='';
-    if (h.cdmHazardType) {haztype = h.cdmHazardType}
+    if (h.cdmHazardType) {haztype = h.cdmHazardType.Title}
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
