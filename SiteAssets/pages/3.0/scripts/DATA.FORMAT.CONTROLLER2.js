@@ -2206,6 +2206,7 @@ function printHazardRow(h) {
     var residualRiskOwner ='';
     var contracts ='';
     var PASRiskClassification ='';
+    var mitigationSuggestion = '';
     var hiddenrail ='';
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
@@ -2511,12 +2512,12 @@ function printHazardRow(h) {
         "                <tr>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmStageMitigationSuggestion pointer" title="A designer for this design house can edit this">' +
-        h.cdmStageMitigationSuggestion +
+        mitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager if required">' +
-        h.cdmSMMitigationSuggestion +
+        mitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-20 fld">' + mkramsbtn + '</td>' +
