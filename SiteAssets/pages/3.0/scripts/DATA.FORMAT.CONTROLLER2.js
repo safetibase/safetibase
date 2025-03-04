@@ -1641,10 +1641,12 @@ function printHazardRow(h) {
             if(!configData['Principal contractor']){
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
-            else{
+            // Advance hazard to principal contractor review if toggle is on and at client review stage
+            else if(configData['Principal contractor'] && h.cdmLastReviewStatus==='Client review completed'){
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
+            
             while (configData[workflow] && configData[workflow][stage] && configData[workflow][stage]['nextWorkFlowState'] !== 'Accepted') {
                 workflowStates.push(configData[workflow][stage]['nextWorkFlowState']);
                 stage = allStages[configData[workflow][stage]['nextWorkFlowState']];
@@ -1903,7 +1905,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        //uid() != h.Editor.ID &&
                         h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
@@ -2204,6 +2206,7 @@ function printHazardRow(h) {
     var residualRiskOwner ='';
     var contracts ='';
     var PASRiskClassification ='';
+    var mitigationSuggestion = '';
     var hiddenrail ='';
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
@@ -2509,12 +2512,12 @@ function printHazardRow(h) {
         "                <tr>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmStageMitigationSuggestion pointer" title="A designer for this design house can edit this">' +
-        h.cdmStageMitigationSuggestion +
+        mitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager if required">' +
-        h.cdmSMMitigationSuggestion +
+        mitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-20 fld">' + mkramsbtn + '</td>' +
