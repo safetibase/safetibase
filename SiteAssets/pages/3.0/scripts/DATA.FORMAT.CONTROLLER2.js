@@ -1568,6 +1568,12 @@ function printHazardRow(h) {
         warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing. ${editableStagesObj.hasOwnProperty(revstatus) ? editableStagesObj[revstatus] + ' can still make edits at this stage.' : ''} ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
+
+    if(h.cdmHazardCoordinates == null || h.cdmHazardDescription == null)
+        {
+            isLocked = 1;
+        }
+        
     var uce = 0,
         ucp = 0,
         ucd = 0,
