@@ -1933,17 +1933,19 @@ function activateHazardEdits() {
                     if (fld == "cdmHazardType") {
                         var cv = $(this).html();
                         var tdata = [];
+                        console.log("cv:",cv)
+                        console.log("tdata:",tdata)
                         switch (cv) {
-                            case "Health":
+                            case "Safety":
                                 tdata.push("cdmHazardType|2");
                                 break;
-                            case "Environment":
-                                tdata.push("cdmHazardType|3");
-                                break;
                             case "Security":
-                                tdata.push("cdmHazardType|4");
+                                tdata.push("cdmHazardType|3");
                                 break;        
                             case "Wellbeing":
+                                tdata.push("cdmHazardType|4");
+                                break;
+                            case "Environment":
                                 tdata.push("cdmHazardType|5");
                                 break;
                             default:
