@@ -644,10 +644,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 tdata.push('cdmHazardType|2');
                 tdata.push('cdmInitialRiskScore|' + rscv);
                 tdata.push('cdmResidualRiskScore|' + rscv);
-                tdata.push('cdmSMMitigationSuggestion|');
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
                 tdata.push('cdmPWStructure|' + pw[ps][1]);
+                tdata.push('cdmSMMitigationSuggestion| ');
                 tdata.push('cdmStageExtra|' + pw[ps][2]);
                 tdata.push('cdmUniclass|Open');
                 if (pw[ps][2] !== 1) {
@@ -680,12 +680,12 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 tdata.push('cdmHazardType|2');
                 tdata.push('cdmInitialRiskScore|' + rscv);
                 tdata.push('cdmResidualRiskScore|' + rscv);
-                tdata.push('cdmSMMitigationSuggestion|');
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
 
                 tdata.push('cdmTW|' + tw[ts][1]);
                 tdata.push('cdmEntityTitle|' + tw[ts][0]);
+                tdata.push('cdmSMMitigationSuggestion| ');
                 tdata.push('cdmStageExtra|2');
                 tdata.push('cdmStage|1')
                 tdata.push('cdmUniclass|Open');
@@ -719,7 +719,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
                 // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
                 tdata.push('cdmStageMitigationSuggestion|Not applicable');
-                tdata.push('cdmSMMitigationSuggestion|');
+                tdata.push('cdmSMMitigationSuggestion| ');
                 tdata.push('cdmRAMS|' + rams[ras][1]);
                 tdata.push('cdmEntityTitle|' + rams[ras][0]);
                 tdata.push('cdmStageExtra|1');
