@@ -175,6 +175,9 @@ cdmdata = {
             if (format == "frmsel_utag") {
                 tposSelectUniclass(lst, data, trg);
             }
+            if (format =="frmsel_hazardType"){
+                tposSelectHazardType(lst, data, trg);
+            }
             // if (format == "frmsel_asset") { 
             //     tposSelectfilter(lst, data, trg,"asset");
             // }

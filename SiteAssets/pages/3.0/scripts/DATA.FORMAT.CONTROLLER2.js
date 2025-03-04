@@ -2200,6 +2200,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
+    var haztype = ''
     var haztags = '';
     var unitags = '';
     var links = '';
@@ -2208,6 +2209,7 @@ function printHazardRow(h) {
     var PASRiskClassification ='';
     var mitigationSuggestion = '';
     var hiddenrail ='';
+    if (h.cdmHazardType) {haztype = h.cdmHazardType}
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2384,13 +2386,9 @@ function printHazardRow(h) {
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
         '.svg" alt="\'+stt+\'">' +
-        <select class="cell pointer cdmHazardType" id="hazardTypeDropdown" title="Select Hazard Type">
-            <option value="1">Health</option>
-            <option value="2">Safety</option>
-            <option value="3">Security</option>
-            <option value="4">Wellbeing</option>
-            <option value="5">Environment</option>
-        </select> +
+        '                        <div class="cell pointer cdmHazardType" title="Select Hazard Type">' +
+        haztype +
+        "</div>"  +
         "                    </td>" +
         '                    <td class="width-100 fld">' +
         '                        <div class="cell cdmHazardOwner">' +
