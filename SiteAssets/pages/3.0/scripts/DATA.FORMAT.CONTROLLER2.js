@@ -2384,7 +2384,7 @@ function printHazardRow(h) {
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
         '.svg" alt="\'+stt+\'">' +
-        <select id="hazardTypeDropdown" title="Select Hazard Type">
+        <select class="cell pointer cdmHazardType" id="hazardTypeDropdown" title="Select Hazard Type">
             <option value="1">Health</option>
             <option value="2">Safety</option>
             <option value="3">Security</option>

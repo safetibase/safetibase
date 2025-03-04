@@ -1960,9 +1960,6 @@ function activateHazardEdits() {
                             cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                             $("#pops").remove();
                         });
-                        toastr.success("Switching hazard type");
-                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        $("#pops").remove();
                     }
                     if (fld == "cdmHazardCoordinates") {
                         var str = $("#h_" + hzd + "_fullco").html();
