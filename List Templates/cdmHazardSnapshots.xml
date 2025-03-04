@@ -171,7 +171,7 @@
             <Field DisplayName="cdmLastReviewSnapshot" Name="cdmLastReviewSnapshot" Type="Note" ID="{fe00b704-1987-4e21-a63b-680f99b0bce0}" Group="" StaticName="cdmLastReviewSnapshot" SourceID="{d4918cd9-adb7-4f20-9ea0-547dc232c4bf}" ColName="ntext5" RowOrdinal="0" Version="4" />
             <Field DisplayName="cdmLastReviewer" Name="cdmLastReviewer" Type="Text" ID="{ff116ef6-d81e-4bf2-81e6-bf0c736ac5bd}" Group="" StaticName="cdmLastReviewer" SourceID="{d4918cd9-adb7-4f20-9ea0-547dc232c4bf}" ColName="nvarchar7" RowOrdinal="0" Version="4" />
             <Field DisplayName="cdmStageMitigationSuggestion" Name="cdmStageMitigationSuggestion" Type="Note" ID="{e842431a-13b1-4791-acc8-f87f48baae79}" Group="" StaticName="cdmStageMitigationSuggestion" SourceID="{d4918cd9-adb7-4f20-9ea0-547dc232c4bf}" ColName="ntext6" RowOrdinal="0" NumLines="6" Sortable="FALSE" RichTextMode="Compatible" Description="" Version="6">
-              <Default></Default>
+              <Default> </Default>
             </Field>
             <Field DisplayName="cdmLastReviewStatus" Name="cdmLastReviewStatus" Type="Text" ID="{d7ee1ed5-4bde-4ab4-bba0-de0c455c80e9}" Group="Custom Columns" StaticName="cdmLastReviewStatus" SourceID="{d4918cd9-adb7-4f20-9ea0-547dc232c4bf}" ColName="nvarchar8" RowOrdinal="0" MaxLength="255" Description="" Version="12">
               <Default>Awaiting assessment</Default>
