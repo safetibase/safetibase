@@ -1754,6 +1754,13 @@ function activateHazardEdits() {
                         );
                         const popsContent = document.getElementsByClassName("pops-content")[0];
                         popsContent.innerHTML += svBtn;
+                        
+                        const txtformContent = document.getElementById('txtform').value;
+                        if (txtformContent === null || txtformContent.trim() === '') {
+                            console.log('The textarea is empty or null.');
+                        } else {
+                            console.log('The textarea contains:', txtformContent);
+                        }
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -2023,6 +2030,9 @@ function activateHazardEdits() {
                                 var tdata = [];
                                 tdata.push("cdmHazardCoordinates|" + savecoordinates);
                                 cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                                if (savecoordinates === null) {
+                                    console.log('Hazard coordinates is empty.');
+                                }
                                 $("#pops").remove();
                             });
                         // activateCoordinatesSave();
