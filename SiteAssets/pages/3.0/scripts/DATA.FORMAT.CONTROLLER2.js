@@ -1569,10 +1569,11 @@ function printHazardRow(h) {
         isLocked = 1;
     }
 
-    if(h.cdmHazardCoordinates == null || h.cdmHazardDescription == null)
-        {
-            isLocked = 1;
-        }
+    console.log("cdmHazardCoordinates:",h.cdmHazardCoordinates)
+    console.log("cdmHazardDescription:",h.cdmHazardDescription)
+    if(h.cdmHazardCoordinates.trim() === "" || h.cdmHazardDescription === null || h.cdmHazardDescription.trim() === ""){
+        isLocked = 1;
+    }
         
     var uce = 0,
         ucp = 0,
