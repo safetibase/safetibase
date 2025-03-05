@@ -1571,7 +1571,7 @@ function printHazardRow(h) {
 
     console.log("cdmHazardCoordinates:",h.cdmHazardCoordinates)
     console.log("cdmHazardDescription:",h.cdmHazardDescription)
-    if(h.cdmHazardCoordinates.trim() === "" || h.cdmHazardDescription === null || h.cdmHazardDescription.trim() === ""){
+    if(h.cdmHazardCoordinates.trim() === "" || h.cdmHazardDescription === null){
         isLocked = 1;
     }
         
