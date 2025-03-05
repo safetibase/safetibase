@@ -1571,9 +1571,11 @@ function printHazardRow(h) {
 
     console.log("cdmHazardCoordinates:",h.cdmHazardCoordinates)
     console.log("cdmHazardDescription:",h.cdmHazardDescription)
-    if(h.cdmHazardCoordinates === "" || h.cdmHazardDescription === null){
+    if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'" ){
         isLocked = 1;
+        toastr.error('Please populate hazard description and coordinates before initiating review');
     }
+    console.log("is locked:",isLocked)
         
     var uce = 0,
         ucp = 0,
