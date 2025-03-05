@@ -2030,7 +2030,7 @@ function activateHazardEdits() {
                                 var tdata = [];
                                 tdata.push("cdmHazardCoordinates|" + savecoordinates);
                                 cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                                if (savecoordinates === "") {
+                                if (savecoordinates.trim() === "") {
                                     console.log('Hazard coordinates is empty.');
                                 }
                                 $("#pops").remove();
