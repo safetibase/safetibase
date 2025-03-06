@@ -1754,6 +1754,8 @@ function activateHazardEdits() {
                         );
                         const popsContent = document.getElementsByClassName("pops-content")[0];
                         popsContent.innerHTML += svBtn;
+                        
+                        const txtformContent = document.getElementById('txtform').value;
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -3458,7 +3460,6 @@ async function tposcustomfilters( data, forExport) {
             fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
         }
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
-        console.log(flst)
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 
