@@ -1573,7 +1573,7 @@ function printHazardRow(h) {
     console.log("cdmHazardDescription:",h.cdmHazardDescription)
     if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'" ){
         isLocked = 1;
-        toastr.error('Please populate hazard description and coordinates before initiating review');
+        //toastr.error('Please populate hazard description and coordinates before initiating review');
     }
     console.log("is locked:",isLocked)
         
@@ -1966,6 +1966,7 @@ function printHazardRow(h) {
 
                     // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
                     // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
+                    console.log("uce:",uce)
                     if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1) {
                         revbtn = mkHazardReviewButton(
                             "initiatereview",
