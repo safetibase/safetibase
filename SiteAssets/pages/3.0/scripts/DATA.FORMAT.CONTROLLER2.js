@@ -1568,6 +1568,18 @@ function printHazardRow(h) {
         warning = `<div class="clr_5_active">This hazard is currently ${revstatus.toLowerCase()} and therefore locked for editing. ${editableStagesObj.hasOwnProperty(revstatus) ? editableStagesObj[revstatus] + ' can still make edits at this stage.' : ''} ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}</div>`;
         isLocked = 1;
     }
+
+    var defaultHazardDescription = "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'"
+    var descCoordEmpty = 1 // Mandatory fields hazard description and coordinates empty 
+    if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
+        isLocked = 1;
+        warning +=
+                '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been population so this hazard is therefore locked for editing.</div>';
+    }
+    else {
+        descCoordEmpty = 0;
+    }
+        
     var uce = 0,
         ucp = 0,
         ucd = 0,
@@ -1957,7 +1969,7 @@ function printHazardRow(h) {
 
                     // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
                     // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
-                    if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1) {
+                    if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1 && descCoordEmpty == 0 ) {
                         revbtn = mkHazardReviewButton(
                             "initiatereview",
                             "Under peer review",
@@ -1971,7 +1983,7 @@ function printHazardRow(h) {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (revstatus == "Assessment in progress") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                            if (uce == 1) {
+                            if (uce == 1 && descCoordEmpty == 0) {
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
@@ -2022,7 +2034,7 @@ function printHazardRow(h) {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (revstatus == "Assessment in progress") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                            if (uce == 1) {
+                            if (uce == 1 && descCoordEmpty == 0) {
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
@@ -2200,6 +2212,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
+    var haztype = ''
     var haztags = '';
     var unitags = '';
     var links = '';
@@ -2208,6 +2221,7 @@ function printHazardRow(h) {
     var PASRiskClassification ='';
     var mitigationSuggestion = '';
     var hiddenrail ='';
+    if (h.cdmHazardType) {haztype = h.cdmHazardType.Title}
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2384,9 +2398,9 @@ function printHazardRow(h) {
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
         '.svg" alt="\'+stt+\'">' +
-        '                        <div class="cell pointer cdmHazardType" title="Click to toggle Hazard Type (Health or Safety)">' +
-        h.cdmHazardType.Title +
-        "</div>" +
+        '                        <div class="cell pointer cdmHazardType" title="Select Hazard Type">' +
+        haztype +
+        "</div>"  +
         "                    </td>" +
         '                    <td class="width-100 fld">' +
         '                        <div class="cell cdmHazardOwner">' +

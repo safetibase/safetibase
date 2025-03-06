@@ -1754,6 +1754,8 @@ function activateHazardEdits() {
                         );
                         const popsContent = document.getElementsByClassName("pops-content")[0];
                         popsContent.innerHTML += svBtn;
+                        
+                        const txtformContent = document.getElementById('txtform').value;
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -1931,16 +1933,12 @@ function activateHazardEdits() {
                         );
                     }
                     if (fld == "cdmHazardType") {
-                        var cv = $(this).html();
-                        var tdata = [];
-                        if (cv == "Health") {
-                            tdata.push("cdmHazardType|2");
-                        } else {
-                            tdata.push("cdmHazardType|1");
-                        }
-                        toastr.success("Switching hazard type");
-                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        $("#pops").remove();
+                        gimmepops(
+                            "Assigning a hazard type",
+                            '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
+                        );
+                        cdmdata.get("cdmHazardTypes", "", null, "frmsel_hazardType", hc,null,[]);
+
                     }
                     if (fld == "cdmHazardCoordinates") {
                         var str = $("#h_" + hzd + "_fullco").html();
@@ -3122,6 +3120,104 @@ function tposSelectUniclass(lst, data, trg) {
         $("#pops").remove();
     });
 }
+function tposSelectHazardType(lst, data, trg) {
+    var tlist = data.d.results;
+    var options =
+        '<tr><td class="hide" id="val_' +
+        lst +
+        '">0</td><td><input class="tpos-' +
+        lst +
+        '-select-input dvi" id="sel_' +
+        lst +
+        '" autofill="false" placeholder="Select a hazard type ..."></td></tr>';
+    for (var cc = 0; cc < tlist.length; cc++) {
+        var it = tlist[cc];
+        var itid = it.ID;
+        var ittitle = it.Title;
+        options +=
+            '<tr style="display:none;" class="tpos-' +
+            lst +
+            '-select-value dvs" data-list="' +
+            lst +
+            '" data-value="' +
+            itid +
+            '"><td id="dv_' +
+            lst +
+            "_" +
+            itid +
+            '">' +
+            ittitle +
+            "</td></tr>";
+    }
+    $("#popscontentarea").html(
+        '<table class="tpos-select-table">' + options + "</table>"
+    );
+
+    $("#sel_" + lst).bind("keyup change", function(ev) {
+        var st = $(this).val();
+        $("#val_" + lst).html("0");
+        if (st) {
+            $("tr:not(:Contains(" + st + "))").each(function() {
+                var t = $(this).html();
+                if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
+                    $(this).hide();
+                }
+            });
+            $("tr:Contains(" + st + ")").each(function() {
+                if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
+                    $(this).show();
+                }
+            });
+        }
+    });
+    $("#sel_" + lst).click(function() {
+        var st = $(this).val();
+        toastr.success(st);
+        if (!st || st == "") {
+            $("tr").each(function() {
+                if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
+                    $(this).show();
+                }
+            });
+        }
+    });
+    var stopblur = 0;
+    $(".tpos-" + lst + "-select-value").mousedown(function() {
+        stopblur = 1;
+    });
+
+    $(".tpos-" + lst + "-select-value").click(function() {
+        var dvid = $(this).data("value");
+        var dv = $("#dv_" + lst + "_" + dvid).html();
+        $("#sel_" + lst).val(dv);
+        $("#val_" + lst).html(dvid);
+        var tdata = [];
+        tdata.push("cdmHazardType|" + dvid);
+        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+        $("#pops").remove();
+    });
+    $("#sel_" + lst).blur(function() {
+        if (stopblur == 1) {
+            stopblur = 0;
+        } else {
+            $(".dvs").hide();
+        }
+    });
+    $("#sel_" + lst).focus(function() {
+        if (stopblur == 1) {
+            stopblur = 0;
+            $(".dvs").show();
+        } else {
+            $(".dvs").show();
+        }
+    });
+
+    $(".btn-cancel").click(function() {
+        $(".pops-title").html("");
+        $(".pops-content").html("");
+        $("#pops").remove();
+    });
+}
 function tposSelectdropdown(lst, data, trg, col) {
     var tlist = data.d.results;
     var options =
@@ -3364,7 +3460,6 @@ async function tposcustomfilters( data, forExport) {
             fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
         }
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
-        console.log(flst)
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 
