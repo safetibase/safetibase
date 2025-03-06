@@ -1969,7 +1969,6 @@ function printHazardRow(h) {
 
                     // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
                     // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
-                    console.log("uce:",uce)
                     if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1 && descCoordEmpty == 0 ) {
                         revbtn = mkHazardReviewButton(
                             "initiatereview",
