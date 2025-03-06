@@ -1569,13 +1569,16 @@ function printHazardRow(h) {
         isLocked = 1;
     }
 
-    console.log("cdmHazardCoordinates:",h.cdmHazardCoordinates)
-    console.log("cdmHazardDescription:",h.cdmHazardDescription)
-    if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'" ){
+    var defaultHazardDescription = "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'"
+    var descCoordEmpty = 1 // Mandatory fields hazard description and coordinates empty 
+    if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
         isLocked = 1;
-        //toastr.error('Please populate hazard description and coordinates before initiating review');
+        warning +=
+                '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been population so this hazard is therefore locked for editing.</div>';
     }
-    console.log("is locked:",isLocked)
+    else {
+        descCoordEmpty = 0;
+    }
         
     var uce = 0,
         ucp = 0,
@@ -1967,7 +1970,7 @@ function printHazardRow(h) {
                     // Allows you to initiate review if "Mitigation" field is already populated from the outset so you don't
                     // have to make any changes to it and progress it to the "Assessment in progress" stage in order to initiate review
                     console.log("uce:",uce)
-                    if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1) {
+                    if (h.cdmMitigationDescription != "Awaiting mitigation" && h.cdmCurrentStatus == "Requires mitigation" && uce == 1 && descCoordEmpty == 0 ) {
                         revbtn = mkHazardReviewButton(
                             "initiatereview",
                             "Under peer review",
@@ -1981,7 +1984,7 @@ function printHazardRow(h) {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (revstatus == "Assessment in progress") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                            if (uce == 1) {
+                            if (uce == 1 && descCoordEmpty == 0) {
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
@@ -2032,7 +2035,7 @@ function printHazardRow(h) {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                         if (revstatus == "Assessment in progress") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                            if (uce == 1) {
+                            if (uce == 1 && descCoordEmpty == 0) {
                                 revbtn = mkHazardReviewButton(
                                     "initiatereview",
                                     "Under peer review",
