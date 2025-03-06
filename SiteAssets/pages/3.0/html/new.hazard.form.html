@@ -365,18 +365,18 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     placeholder: 'Select assets:',
                     search: false,
                     selectAll: true,
-                    onChange: function() {
+                    onOptionClick: function() {
                         console.log("Selected structures:", $("#selectedstructures").val());
                         toggleSaveButton();
                     }
                 });
 
-                document.querySelectorAll('#selectedstructures option').forEach(option => {
-                    option.addEventListener('change', () => {
-                        console.log("Checkbox changed:", option.value);
-                        toggleSaveButton();
-                    });
-                });
+                // document.querySelectorAll('#selectedstructures option').forEach(option => {
+                //     option.addEventListener('change', () => {
+                //         console.log("Checkbox changed:", option.value);
+                //         toggleSaveButton();
+                //     });
+                // });
                 
                 toggleSaveButton();
             }
