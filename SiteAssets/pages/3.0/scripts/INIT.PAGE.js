@@ -99,7 +99,7 @@ function setUpHomeNav() {
 //write function setup guidance nav
 function setUpGuidanceNav(){
     $('#guidance-buttons').html(`<a class = "home-button" href="https://sway.cloud.microsoft/cTaeSB6b9zbIVBUe" target="_blank" >Guidance</a>
-    <a class = "home-button" href="https://sway.cloud.microsoft/ciW9dWEyrlqw2hyM?ref=Link" target="_blank" >Introduction</a>`);
+    <a class = "home-button" href="https://sway.cloud.microsoft/ciW9dWEyrlqw2hyM?ref=Link" target="_blank" >Introduction</a><a class = "home-button" href="https://mottmac.sharepoint.com/teams/pj-a814/ps-master/SitePages/cmdUsers-Test-Page.aspx" target="_blank" >CDM User List</a>`);
 }
 
 function setupleftnav() {
