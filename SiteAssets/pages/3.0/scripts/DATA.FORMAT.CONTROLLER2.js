@@ -1574,7 +1574,7 @@ function printHazardRow(h) {
     if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
         isLocked = 1;
         warning +=
-                '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been population so this hazard is therefore locked for editing.</div>';
+                '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been populated so this hazard is therefore locked for editing.</div>';
     }
     else {
         descCoordEmpty = 0;
