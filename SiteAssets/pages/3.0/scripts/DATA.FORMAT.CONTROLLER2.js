@@ -1654,7 +1654,7 @@ function printHazardRow(h) {
                 configData['ConstructionCommission']['ldreview']['nextWorkFlowState'] = 'Accepted'
             }
             // Advance hazard to principal contractor review if toggle is on and at client review stage but not accepted by client yet 
-            else if(configData['Principal contractor'] && h.cdmLastReviewStatus==='Principal designer review completed' && revstatus != "Accepted"){
+            else if(configData['Principal contractor'] && h.cdmLastReviewStatus==='Client review completed' && revstatus != "Accepted"){
                 revstatus = 'Under principal contractor review'
                 h.cdmCurrentStatus = 'Under principal contractor review'
             }
