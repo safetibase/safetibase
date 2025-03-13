@@ -1387,7 +1387,7 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-"><div class="lbl">Designer\'s mitigation suggestion for </div></td>' +
-        '                    <td class="width-"><div class="lbl">Construction Manager\'s mitigation suggestion for </div></td>' +
+        '                    <td class="width-"><div class="lbl">Principal Designer\'s mitigation suggestion for </div></td>' +
         '                    <td class="width-"><div class="lbl">Linked hazards (siblings) </div></td>' +
         '                    <td class="width-"><div class="lbl">Parent/Child hazards (RAMS) </div></td>' +
         "                </tr>" +
@@ -1403,7 +1403,7 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Discipline</div></td>' +
         '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
@@ -2508,7 +2508,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl stagehide">Construction Manager\'s mitigation suggestion for ' +
+        '                        <div class="lbl stagehide">Principal Designer\'s mitigation suggestion for ' +
         h.cdmStageExtra.Title +
         "</div>" +
         "                    </td>" +
@@ -2558,7 +2558,7 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Hazard tags</div>' +
+        '                        <div class="lbl">Discipline</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl">Status</div>' +
