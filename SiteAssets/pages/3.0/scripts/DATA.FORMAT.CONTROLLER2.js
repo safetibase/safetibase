@@ -2227,7 +2227,7 @@ function printHazardRow(h) {
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
     if (h.cdmResidualRiskOwner) { residualRiskOwner = h.cdmResidualRiskOwner; }
-    if (h.cdmMitigationDescription) { DMMitigationSuggestion = h.cdmMitigationDescription;}
+    if (h.cdmStageMitigationSuggestion) { DMMitigationSuggestion = h.cdmStageMitigationSuggestion;}
     if (h.cdmSMMitigationSuggestion) { SMmitigationSuggestion = h.cdmSMMitigationSuggestion;}
     if(h.cdmContract){contracts = h.cdmContract;}
     if(h.cdmPASRiskClassification){PASRiskClassification = h.cdmPASRiskClassification;}
