@@ -2219,14 +2219,16 @@ function printHazardRow(h) {
     var residualRiskOwner ='';
     var contracts ='';
     var PASRiskClassification ='';
-    var mitigationSuggestion = '';
+    var DMMitigationSuggestion = '';
+    var SMmitigationSuggestion = '';
     var hiddenrail ='';
     if (h.cdmHazardType) {haztype = h.cdmHazardType.Title}
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
     if (h.cdmResidualRiskOwner) { residualRiskOwner = h.cdmResidualRiskOwner; }
-    if (h.cdmSMMitigationSuggestion) { mitigationSuggestion = h.cdmSMMitigationSuggestion;}
+    if (h.cdmMitigationDescription) { DMMitigationSuggestion = h.cdmMitigationDescription;}
+    if (h.cdmSMMitigationSuggestion) { SMmitigationSuggestion = h.cdmSMMitigationSuggestion;}
     if(h.cdmContract){contracts = h.cdmContract;}
     if(h.cdmPASRiskClassification){PASRiskClassification = h.cdmPASRiskClassification;}
     if (configData['Client Name'] === 'HS2' && residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
@@ -2527,12 +2529,12 @@ function printHazardRow(h) {
         "                <tr>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmStageMitigationSuggestion pointer" title="A designer for this design house can edit this">' +
-        mitigationSuggestion +
+        DMMitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager if required">' +
-        mitigationSuggestion +
+        SMmitigationSuggestion +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-20 fld">' + mkramsbtn + '</td>' +
