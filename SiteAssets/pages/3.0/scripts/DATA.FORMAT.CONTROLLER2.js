@@ -2226,6 +2226,7 @@ function printHazardRow(h) {
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
     if (h.cdmResidualRiskOwner) { residualRiskOwner = h.cdmResidualRiskOwner; }
+    if (h.cdmSMMitigationSuggestion) { mitigationSuggestion = h.cdmSMMitigationSuggestion;}
     if(h.cdmContract){contracts = h.cdmContract;}
     if(h.cdmPASRiskClassification){PASRiskClassification = h.cdmPASRiskClassification;}
     if (configData['Client Name'] === 'HS2' && residualRiskOwner != 'HS2 Rail Systems Interface Engineer'){
