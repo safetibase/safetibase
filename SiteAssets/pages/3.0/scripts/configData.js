@@ -34,7 +34,7 @@ configData = {
         },
         'peerreview' : { 
             'nextWorkFlowState': 'Under design manager review', 
-            'userRoles': ['Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Designer','Construction Engineer'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Review initiated',
             'cdmReviewHistory': 'completed peer review]'
         },
