@@ -1572,7 +1572,6 @@ function printHazardRow(h) {
     var defaultHazardDescription = "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'"
     var descCoordEmpty = 1 // Mandatory fields hazard description and coordinates empty 
     if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
-        isLocked = 1;
         warning +=
                 '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been populated so this hazard is therefore locked for editing.</div>';
     }
