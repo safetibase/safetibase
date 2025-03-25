@@ -1005,7 +1005,7 @@ function setupReviewableHazards(a, allHazardsData) {
     // var newmain='<div class="tpos-main" id="tpos-main"></div>';
     // $('.tpos-body').prepend(newmain);
 
-    $('#tpos-main').html('<div class="tpos-area-title">Mitigate and edit hazards for your company/companies</div><div id="reviewhazards" class="tpos-area-content"></div>');
+    $('#tpos-main').html('<div class="tpos-area-title">Mitigate and edit hazards relevant to your role</div><div id="reviewhazards" class="tpos-area-content"></div>');
 
 
     var ds = $('.dataset');
