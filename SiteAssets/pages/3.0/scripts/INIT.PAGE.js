@@ -1223,8 +1223,8 @@ function setupReviewableHazards(a, allHazardsData) {
         if (a == 'pcrHazard') {
             if (tjs == 'Principal Designer') {
                 cst = 'Under principal designer review';
-                q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
-                utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
+                // q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
+                utbl = '<div class="row">Hazards: ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
                 $('#reviewhazards').append(utbl);
 
@@ -1235,7 +1235,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1252,7 +1252,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1269,7 +1269,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1353,8 +1353,8 @@ function setupReviewableHazards(a, allHazardsData) {
         if (a == 'ldrHazard') {
             if (tjs == 'Client') {
                 cst = 'Under client review';
-                q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
-                utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
+                // q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
+                utbl = '<div class="row"> Hazards: ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
                 $('#reviewhazards').append(utbl);
 
@@ -1365,7 +1365,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 9) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1382,7 +1382,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore > 4 && allHazardsData[i].cdmResidualRiskScore < 10) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -1399,7 +1399,7 @@ function setupReviewableHazards(a, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5 && allHazardsData[i].cdmSite.Title == ts) {
+                            if (allHazardsData[i].cdmCurrentStatus == cst && allHazardsData[i].cdmResidualRiskScore < 5) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
