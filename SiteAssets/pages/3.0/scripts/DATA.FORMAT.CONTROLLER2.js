@@ -40,7 +40,7 @@ formatdatato = {
         $(".celled").hide();
         $(".fld_cdmCompanyTitle").show();
         $(".fld_cdmUserRoleTitle").show();
-        $(".fld_cdmSiteTitle").show();
+        //$(".fld_cdmSiteTitle").show();
 
         // if a role is assigned to the user, then the add hazard button should display
         if (tlist.length > 0) {
