@@ -42,7 +42,7 @@ nav = {
                 }
                 if (fv == 'Construction Manager') {
                     actions += ui.mkBTN('review', 'design', 'Undertake pre-construction reviews', 'reviewHazard', '');
-                    actions += ui.mkBTN('review', 'rams', 'Undertake RAMS hazard reviews', 'reviewHazard', '');
+                    //actions += ui.mkBTN('review', 'rams', 'Undertake RAMS hazard reviews', 'reviewHazard', '');
                 }
                 if (fv == 'Lead designer') {
                     actions += ui.mkBTN('review', 'design', 'Undertake lead design reviews', 'reviewHazard', '');
