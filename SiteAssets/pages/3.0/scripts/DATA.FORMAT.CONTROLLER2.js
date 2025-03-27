@@ -2527,7 +2527,7 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Construction Manager if required">' +
+        '                        <div class="cell cdmSMMitigationSuggestion stagehide pointer" title="Provided by Principal Designer if required">' +
         SMmitigationSuggestion +
         "</div>" +
         "                    </td>" +
