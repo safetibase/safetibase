@@ -109,13 +109,6 @@ formatdatato = {
                 "pcrHazard",
                 "Click to view hazards for review"
             );
-            t += mkBtn(
-                "review",
-                "rams",
-                "Undertake RAMS hazard reviews",
-                "smrHazard",
-                "Click to view hazards for review"
-            );
             $("#user_roles").append(t);
         }
         if (role[3] == 1) {
