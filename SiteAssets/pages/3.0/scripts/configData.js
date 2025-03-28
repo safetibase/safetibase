@@ -1,6 +1,6 @@
 configData = {
     'site': 'site', // How does the project name its work sites? E.g., sublot.
-    'Residual Risk Owner': 'Residual Risk Owner', // How does the project name its residual risk owner user group? E.g. Client residual risk owner.
+    'Residual Risk Owner': 'CSM/Project risk', // How does the project name its residual risk owner user group? E.g. Client residual risk owner.
     'Contract': 'Contract', // How does the project name its contracts that own the works relevant to a given hazard. E.g. Future works contract.
     'Client Review': false, // Does the project require a client review to be included in the workflow?
     'Client Name': 'Client', // What is the name of the client of the project?
