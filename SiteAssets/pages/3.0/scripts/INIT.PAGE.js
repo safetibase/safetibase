@@ -16,11 +16,11 @@ function init(refresh) {
     const idParam = escapeHTML(urlParams.get("hazardId")); // To prevent client side XSS
     const versionDiv = '<div class="version-number">V1.5.2.1</div>';
     if (idParam && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - Hazard ${idParam}</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase Test</div><div class="title-container">${versionDiv}</div><div> - Hazard ${idParam}</div></div>`;
     } else if (urlParams.get("newHazard") && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - New Hazard</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase Test</div><div class="title-container">${versionDiv}</div><div> - New Hazard</div></div>`;
     } else {
-        const titleDiv = '<div>SafetIbase</div>';
+        const titleDiv = '<div>SafetIbase Test</div>';
         const searchDiv = '<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
         pageTitle = `<div class="block-container">${titleDiv}<div class="title-container">${versionDiv}</div></div>${searchDiv}`;
     }
