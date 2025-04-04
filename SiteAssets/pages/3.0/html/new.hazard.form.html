@@ -561,7 +561,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             txt.value="";
         }
     }
-    function savehazards() {
+    async function savehazards() {
         $('.ms-options-wrap > .ms-options:visible').hide();
         var newhazards = [];
         var site = 0;
@@ -624,6 +624,42 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
         }
 
+        // Define the cdmStageExtra to cdmStage dictionary
+        // Make an ajax request to get the cdmStages list item
+        const stageExtraToStageTitleMap = {
+            "Permanent Works Construction": "Construction",
+            "Temporary Works Construction": "Construction",
+            "Operation": "Operation",
+            "Maintenance": "Maintenance",
+            "Demolition": "Demolition",
+            "Commissioning": "Commission",
+        }
+        const cdmStageUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmStages%27)/items?$select=Title,ID`;
+        const cdmStageData = await $.ajax({
+            url: cdmStageUrl,
+            method: 'GET',
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            }          
+        });
+
+        const cdmStageExtraUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmStagesExtra%27)/items?$select=Title,ID`;
+        const cdmStageExtraData = await $.ajax({
+            url: cdmStageExtraUrl,
+            method: 'GET',
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            }          
+        });
+        const cdmStageExtraToStageId = {};
+        for (var i = 0; i < cdmStageExtraData.d.results.length; i++) {
+            const stageExtraTitle = cdmStageExtraData.d.results[i].Title;
+            const stageExtraId = cdmStageExtraData.d.results[i].ID;
+            const stageTitle = stageExtraToStageTitleMap[stageExtraTitle];
+            const stageId = cdmStageData.d.results.find(item => item.Title === stageTitle).ID;
+            cdmStageExtraToStageId[stageExtraId] = stageId;
+        }
+
         var risks = $('#cdmInitialRisk').html();
         var trisks = risks.split('-');
         var riskscoreval = trisks[0];
@@ -650,11 +686,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 tdata.push('cdmPWStructure|' + pw[ps][1]);
                 tdata.push('cdmStageExtra|' + pw[ps][2]);
                 tdata.push('cdmUniclass|Open');
-                if (pw[ps][2] !== 1) {
-                    tdata.push('cdmStage|' + (pw[ps][2] - 1))
-                } else {
-                    tdata.push('cdmStage|' + pw[ps][2])
-                }
+                tdata.push('cdmStage|' + cdmStageExtraToStageId[pw[ps][2]]);
                 if (cdmHazardCoordinates) {
                     tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
                 }
