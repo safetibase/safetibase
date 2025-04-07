@@ -3393,7 +3393,7 @@ async function tposcustomfilters( data, forExport) {
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '') // Re-purposing to discipline (cdmTags) for EWR as they don't have residual risk owner
         +"</select><br> </div>" 
     );
 
@@ -3411,7 +3411,7 @@ async function tposcustomfilters( data, forExport) {
     });
     $('#cdmResidualRiskOwnerfilter').multiselect({
         columns: 1,
-        placeholder: 'Select Residual Risk Owner :',
+        placeholder: 'Select Discipline :',
         search: true,
         selectAll: true
     });
