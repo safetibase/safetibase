@@ -3411,7 +3411,7 @@ async function tposcustomfilters( data, forExport) {
     });
     $('#cdmResidualRiskOwnerfilter').multiselect({
         columns: 1,
-        placeholder: 'Select Discipline :',
+        placeholder: 'Select CSM/Project Risk :',
         search: true,
         selectAll: true
     });
