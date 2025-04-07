@@ -3354,7 +3354,7 @@ async function tposcustomfilters( data, forExport) {
         var itcdmpwstructureid = it.cdmPWStructure.ID;
         var itcdmpwstructuretitle = it.cdmPWStructure.Title;
         var itcdmCurrentStatus = it.cdmCurrentStatus;
-        var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
+        var itcdmResidualRiskOwner = it.cdmTags; // Re-purposing to discipline (cdmTags) for EWR as they don't have residual risk owner
 
         if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
             distlistcdmStageExtra.push(ittitle);
@@ -3393,7 +3393,7 @@ async function tposcustomfilters( data, forExport) {
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '') // Re-purposing to discipline (cdmTags) for EWR as they don't have residual risk owner
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
         +"</select><br> </div>" 
     );
 
