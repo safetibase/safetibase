@@ -3389,20 +3389,16 @@ async function tposcustomfilters( data, forExport) {
         (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>')+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
         +"</select><br> </div>"+
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        +"</select><br> </div>"+
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-        +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
         +"</select><br> </div>" 
     );
 
-    $('#cdmStageExtrafilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Stage :',
-        search: true,
-        selectAll: true
-    });
     $('#cdmpwstructurefilter').multiselect({
         columns: 1,
         placeholder: 'Select Asset :',
@@ -3412,6 +3408,18 @@ async function tposcustomfilters( data, forExport) {
     $('#cdmResidualRiskOwnerfilter').multiselect({
         columns: 1,
         placeholder: 'Select CSM/Project Risk :',
+        search: true,
+        selectAll: true
+    });
+    $('#cdmResidualRiskOwnerfilter').multiselect({
+        columns: 1,
+        placeholder: 'Select Discipline :',
+        search: true,
+        selectAll: true
+    });
+    $('#cdmStageExtrafilter').multiselect({
+        columns: 1,
+        placeholder: 'Select Stage :',
         search: true,
         selectAll: true
     });
