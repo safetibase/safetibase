@@ -3389,13 +3389,13 @@ async function tposcustomfilters( data, forExport) {
         (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>')+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
         +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
-        +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
-        +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
         +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTags">' +  selectcdmTags
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>" 
     );
 
@@ -3411,7 +3411,7 @@ async function tposcustomfilters( data, forExport) {
         search: true,
         selectAll: true
     });
-    $('#cdmResidualRiskOwnerfilter').multiselect({
+    $('#cdmTagsfilter').multiselect({
         columns: 1,
         placeholder: 'Select Discipline :',
         search: true,
@@ -3451,6 +3451,15 @@ async function tposcustomfilters( data, forExport) {
         }
 
         flst['cdmPWStructure'] = fcdmpwstructureselected;
+
+        var fcdmTags = [];
+        var fcdmTagsselected =[];
+        fcdmTags= $('#cdmTagsfilter').find(':selected');
+        for( c=0; c<fcdmTags.length;c++){
+            fcdmTagsselected.push(fcdmTags[c].innerText.replace(/"/g,''));
+        }
+        
+        flst['cdmTags'] = fcdmTagsselected;
 
         var fcdmCurrentStatus = [];
         var fcdmCurrentStatusselected =[];
