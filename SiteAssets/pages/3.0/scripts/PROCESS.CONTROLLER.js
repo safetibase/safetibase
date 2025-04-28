@@ -3344,6 +3344,7 @@ async function tposcustomfilters( data, forExport) {
     var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
     var selectcdmStageExtra = '';
     var selectcdmpwstructure ='';
+    var selectcdmTags = ''
     var selectcdmCurrentStatus ='';
     var selectcdmResidualRiskOwner ='';
 
@@ -3393,7 +3394,7 @@ async function tposcustomfilters( data, forExport) {
         +"</select><br> </div>"+
         (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
         +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTags">' +  selectcdmTags
+        '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTagsfilter">' +  selectcdmTags
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>" 
