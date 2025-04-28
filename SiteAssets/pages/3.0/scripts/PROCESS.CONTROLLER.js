@@ -3342,6 +3342,7 @@ async function tposcustomfilters( data, forExport) {
     var distlistcdmpwstructure =[];
     var distlistcdmCurrentStatus=[];
     var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
+    var distlistcdmTags = [];
     var selectcdmStageExtra = '';
     var selectcdmpwstructure ='';
     var selectcdmTags = ''
@@ -3356,6 +3357,7 @@ async function tposcustomfilters( data, forExport) {
         var itcdmpwstructuretitle = it.cdmPWStructure.Title;
         var itcdmCurrentStatus = it.cdmCurrentStatus;
         var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
+        var itcdmTags = it.cdmTags;
 
         if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
             distlistcdmStageExtra.push(ittitle);
@@ -3382,6 +3384,11 @@ async function tposcustomfilters( data, forExport) {
             selectcdmResidualRiskOwner += '<option value="'+itcdmResidualRiskOwner+'">'+itcdmResidualRiskOwner+'</option>'
             // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
+        }
+
+        if (itcdmTags !== undefined && !distlistcdmTags.includes(itcdmTags)){
+            distlistcdmTags.push(itcdmTags);
+            selectcdmTags += '<option value="'+itcdmTags+'">'+itcdmTags+'</option>'
         }
       
     }
