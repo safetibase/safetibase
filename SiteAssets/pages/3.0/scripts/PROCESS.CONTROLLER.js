@@ -446,7 +446,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     const promises = [];
                     for (let i=0; i<cdmHazardData.length; i++) {
                         // We can only archive hazards if they have been at least design manager reviewed
-                        const legalWorkflowStates = ['Under Methods & Constructability Review', 'Under principal designer review', 'Under site manager review', 'Accepted'];
+                        const legalWorkflowStates = ['Under pre-construction review', 'Under principal designer review', 'Under site manager review', 'Accepted'];
                         if (cdmHazardData[i].cdmUniclass === 'Cancelled' && legalWorkflowStates.includes(cdmHazardData[i].cdmCurrentStatus)) {
                             hazardCounter++;
                             const hazardData = [];
@@ -1109,7 +1109,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                             "Assessment in progress", 
                                                                                             "Under peer review", 
                                                                                             "Under design manager review", 
-                                                                                            "Under Methods & Constructability Review"]), allowNull: false },
+                                                                                            "Under pre-construction review"]), allowNull: false },
                             { field: "cdmHazardCoordinates", value: validate3DCoordinates(csvObject.Coordinates), allowNull: false },
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
@@ -1404,18 +1404,18 @@ function activateDatasets(cdmSites, allHazardsData) {
                         const transitionMap = {
                             "Requires mitigation": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under Methods & Constructability Review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Assessment in progress": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under Methods & Constructability Review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under peer review": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
-                                "Under Methods & Constructability Review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under design manager review": {
-                                "Under Methods & Constructability Review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
                             }
                         };
 
@@ -1652,11 +1652,11 @@ function activateHazardEdits() {
                     } else if (preconstructionReviewStage) {
                         const canPreconstructionReview = $("#" + hi + " .ucpc").hasClass("_1");
                         if (canPreconstructionReview) {
-                            toastr.error(`This hazard is under Methods & Constructability Review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
-                        } else if (configData['Methods & Constructability Review editable workflow state']) {
-                            toastr.error(`This hazard is under Methods & Constructability Review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
+                            toastr.error(`This hazard is Under pre-construction review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                        } else if (configData['Pre-construction review editable workflow state']) {
+                            toastr.error(`This hazard is Under pre-construction review so is locked for editing for all users except construction managers. Contact a construction manager to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error(`This hazard is under Methods & Constructability Review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                            toastr.error(`This hazard is Under pre-construction review so is locked for editing. Contact a construction manager to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (principleDesignerReviewStage) {
                         const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
@@ -2063,7 +2063,7 @@ function activateHazardEdits() {
                                 const popsContent = document.getElementsByClassName("pops-content")[0];
                                 popsContent.innerHTML += svBtn;
                             } else {
-                                toastr.error('This field can only be edited through the site managers approval comment at the Methods & Constructability Review workflow stage');
+                                toastr.error('This field can only be edited through the site managers approval comment at the Pre-construction Review workflow stage');
                             }
                         } else {
                             toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located");
@@ -2233,7 +2233,7 @@ function activateRAMSBtn() {
             // $('#ramsfrm').load('../3.0/html/rams.adder.html',function(){
             // $("#addramsbtn").hide();
             $('#ramsfrm').html(
-                '<div><p>As the Construction Manager undertaking the Methods & Constructability Review, you can link this hazard to RAMS documents. The system then generates RAMS hazards which can be independently reviewed and mitigated by the construction team.</p><p>Note that you can add several RAMS hazards; just select another hazard after clicking the Create button.</p></div>' +
+                '<div><p>As the Construction Manager undertaking the Pre-Construction Review, you can link this hazard to RAMS documents. The system then generates RAMS hazards which can be independently reviewed and mitigated by the construction team.</p><p>Note that you can add several RAMS hazards; just select another hazard after clicking the Create button.</p></div>' +
                 '<div><textarea id="smmsgg" rows="3" cols="35" placeholder="Enter Construction Manager mitigation suggestion?"></textarea></div>' +
                 '<div class="select-panel" id="rams"><div class="tpos-lbl">Search for a RAMS</div><div class="tpos-select" id="div_sel_rams"></div></div><div id="rmsbutton" class="row content"><div id="addramsbtn" class="tpos-svramsbtn">Create RAMS Hazard</div></div>'
             );
@@ -4048,7 +4048,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                         if (ns === true) {
 //                                             tdata.push("cdmReviews|" + nl);
 //                                             tdata.push(
-//                                                 "cdmCurrentStatus|Under Methods & Constructability Review"
+//                                                 "cdmCurrentStatus|Under pre-construction review"
 //                                             );
 //                                             tdata.push("cdmLastReviewDate|" + ind);
 //                                             tdata.push(
@@ -4074,7 +4074,7 @@ function tposSelectPeer(lst, data, trg) {
 //                     );
 //                 }
 //                 if (a == "pcreview") {
-//                     gimmepops("Undertake the Methods & Constructability Review", "", "bigger");
+//                     gimmepops("Undertake the Pre-construction Review", "", "bigger");
 
 //                     $(".pops-content").load(
 //                         "../3.0/html/internal.design.review.form.1.html",
@@ -4133,7 +4133,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                             "]" +
 //                                             user +
 //                                             "]" +
-//                                             "completed Methods & Constructability Review]" +
+//                                             "completed Pre-construction Review]" +
 //                                             cmt +
 //                                             "^";
 //                                         hist = $("#h_" + hzd + "_cdmReviews").html();
@@ -4147,7 +4147,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                         tdata.push("cdmCurrentStatus|Under principal designer review");
 //                                         tdata.push("cdmLastReviewDate|" + ind);
 //                                         tdata.push(
-//                                             "cdmLastReviewStatus|Methods & Constructability Review completed"
+//                                             "cdmLastReviewStatus|Pre-construction Review completed"
 //                                         );
 //                                         tdata.push("cdmLastReviewer|" + unm());
 //                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -4692,7 +4692,7 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "pcreview") {
-                    gimmepops("Undertake the Methods & Constructability Review", "", "bigger");
+                    gimmepops("Undertake the pre-construction review", "", "bigger");
 
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.1.html",
@@ -4778,7 +4778,7 @@ function hazardreviewbuttonaction() {
                                         // tdata.push("cdmCurrentStatus|Under principal designer review");
                                         // tdata.push("cdmLastReviewDate|" + ind);
                                         // tdata.push(
-                                        //     "cdmLastReviewStatus|Methods & Constructability Review completed"
+                                        //     "cdmLastReviewStatus|Pre-construction Review completed"
                                         // );
                                         // tdata.push("cdmLastReviewer|" + unm());
 
@@ -4792,7 +4792,7 @@ function hazardreviewbuttonaction() {
                                             );
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Methods & Constructability Review completed"
+                                                "cdmLastReviewStatus|Pre-construction review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         } else {
@@ -4800,7 +4800,7 @@ function hazardreviewbuttonaction() {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push("cdmLastReviewDate|" + ind);
                                             tdata.push(
-                                                "cdmLastReviewStatus|Methods & Constructability Review completed"
+                                                "cdmLastReviewStatus|Pre-construction review completed"
                                             );
                                             tdata.push("cdmLastReviewer|" + unm());
                                         }
