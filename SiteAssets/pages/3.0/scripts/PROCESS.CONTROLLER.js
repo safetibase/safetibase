@@ -118,7 +118,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                                             readFile = function() {
                                                 var reader = new FileReader();
                                                 reader.onload = async function() {
-                                                    rows = reader.result.split("\n");
+                                                    const rows = reader.result.split(/\r?\n(?=(?:[^"]*"[^"]*")*[^"]*$)/);
                                                     const csvObject = {};
                                                     for (let i=0; i<rows.length; i++) {
                                                         const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
