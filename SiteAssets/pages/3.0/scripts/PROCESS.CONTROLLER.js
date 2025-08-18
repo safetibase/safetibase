@@ -3342,8 +3342,10 @@ async function tposcustomfilters( data, forExport) {
     var distlistcdmpwstructure =[];
     var distlistcdmCurrentStatus=[];
     var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
+    var distlistcdmTags = [];
     var selectcdmStageExtra = '';
     var selectcdmpwstructure ='';
+    var selectcdmTags = ''
     var selectcdmCurrentStatus ='';
     var selectcdmResidualRiskOwner ='';
 
@@ -3355,6 +3357,7 @@ async function tposcustomfilters( data, forExport) {
         var itcdmpwstructuretitle = it.cdmPWStructure.Title;
         var itcdmCurrentStatus = it.cdmCurrentStatus;
         var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
+        var itcdmTags = it.cdmTags;
 
         if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
             distlistcdmStageExtra.push(ittitle);
@@ -3382,6 +3385,11 @@ async function tposcustomfilters( data, forExport) {
             // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
+
+        if (itcdmTags !== undefined && !distlistcdmTags.includes(itcdmTags)){
+            distlistcdmTags.push(itcdmTags);
+            selectcdmTags += '<option value="'+itcdmTags+'">'+itcdmTags+'</option>'
+        }
       
     }
     $("#popscontentarea").html('');
@@ -3391,18 +3399,14 @@ async function tposcustomfilters( data, forExport) {
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
         +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
+        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
         +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
+        '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTagsfilter">' +  selectcdmTags
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
         +"</select><br> </div>" 
     );
 
-    $('#cdmStageExtrafilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Stage :',
-        search: true,
-        selectAll: true
-    });
     $('#cdmpwstructurefilter').multiselect({
         columns: 1,
         placeholder: 'Select Asset :',
@@ -3412,6 +3416,18 @@ async function tposcustomfilters( data, forExport) {
     $('#cdmResidualRiskOwnerfilter').multiselect({
         columns: 1,
         placeholder: 'Select CSM/Project Risk :',
+        search: true,
+        selectAll: true
+    });
+    $('#cdmTagsfilter').multiselect({
+        columns: 1,
+        placeholder: 'Select Discipline :',
+        search: true,
+        selectAll: true
+    });
+    $('#cdmStageExtrafilter').multiselect({
+        columns: 1,
+        placeholder: 'Select Stage :',
         search: true,
         selectAll: true
     });
@@ -3443,6 +3459,15 @@ async function tposcustomfilters( data, forExport) {
         }
 
         flst['cdmPWStructure'] = fcdmpwstructureselected;
+
+        var fcdmTags = [];
+        var fcdmTagsselected =[];
+        fcdmTags= $('#cdmTagsfilter').find(':selected');
+        for( c=0; c<fcdmTags.length;c++){
+            fcdmTagsselected.push(fcdmTags[c].innerText.replace(/"/g,''));
+        }
+        
+        flst['cdmTags'] = fcdmTagsselected;
 
         var fcdmCurrentStatus = [];
         var fcdmCurrentStatusselected =[];
