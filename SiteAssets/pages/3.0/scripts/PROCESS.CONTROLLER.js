@@ -3401,9 +3401,9 @@ async function tposcustomfilters( data, forExport) {
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTagsfilter">' +  selectcdmTags
         +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-        +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
     );
 
     $('#cdmpwstructurefilter').multiselect({
