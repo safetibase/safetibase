@@ -3397,14 +3397,13 @@ async function tposcustomfilters( data, forExport) {
         (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>')+
         '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
         +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
-        +"</select><br> </div>"+
         (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTagsfilter">' +  selectcdmTags
         +"</select><br> </div>"+
         '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-        +"</select><br> </div>" 
+        +"</select><br> </div>"+
+        '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
     );
 
     $('#cdmpwstructurefilter').multiselect({
