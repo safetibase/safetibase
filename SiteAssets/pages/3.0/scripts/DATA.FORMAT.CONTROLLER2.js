@@ -424,6 +424,9 @@ formatdatato = {
             if (lstfilter["cdmResidualRiskOwner"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
             }  
+            if (lstfilter["cdmHazardTags"].length != 0){
+                allHazards = customfilters(allHazards,lstfilter["cdmHazardTags"]);
+            } 
         };
 
         if (loadGlobalNav) {
@@ -532,6 +535,9 @@ formatdatato = {
                         fdata.push(allHazards[i]);
                     }
                     if (filterlst.includes(allHazards[i].cdmResidualRiskOwner)) {
+                        fdata.push(allHazards[i]);
+                    }
+                    if (filterlst.includes(allHazards[i].cdmHazardTags)) {
                         fdata.push(allHazards[i]);
                     }
                 }
