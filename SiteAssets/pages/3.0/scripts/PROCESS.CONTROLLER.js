@@ -600,6 +600,71 @@ function activateDatasets(cdmSites, allHazardsData) {
                 }
             }
 
+            // Export to Excel via .iqy file
+            if (ulink == 'https://mottmac.sharepoint.com/:u:/r/teams/pj-a814/ps-ewr-test/SiteAssets/files/export_to_excel.iqy?csf=1&web=1&e=lWzZ4K') {
+                // First lets check that the current user is authorised to do this.
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return x.Title === 'Design Manager' || x.Title === 'Principal Designer'; }) // We can change this to config data later
+
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        filterExportData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {console.log(JSON.stringify(error));}
+                                }
+                            })
+                        }
+                    },
+                    error: {
+                        function(error) {console.log(JSON.stringify(error));}
+                    }
+                })
+
+                // To save effort we can reuse the code for the extra button for the filters. The outcome of what we want is largely the same except we don't want to filter the data on screen, we
+                // want to filter the export data. We can just change what the apply filters button does to do achieve this. This is done in the tposcustomfilters function.
+                function filterExportData() {
+                    gimmepops("Filter Export Data",
+          
+                    '<p style="color:white">Please select the filters to apply to the export.<p>' +
+                    '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>');
+                    $('#langOpt').multiselect({
+                        columns: 1,
+                        placeholder: 'Select Languages',
+                        search: true,
+                        selectAll: true
+                    });
+                    
+                    cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[], 'export');
+                }
+            }
+
+
             if (ulink == 'importbulkupload') {
                 // First lets check that the current user is authorised to do this.
                 const userId = _spPageContextInfo.userId;
