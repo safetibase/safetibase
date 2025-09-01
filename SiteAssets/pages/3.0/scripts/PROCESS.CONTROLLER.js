@@ -570,7 +570,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                                         filterExportData()
                                         window.open(ulink, '_blank')
                                     } else {
-                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                        toastr.error('You do not have the required permissions to export data to Excel. Ask your system administrator to grant you further user roles.');
                                     }
                                 },
                                 error: {
