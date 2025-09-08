@@ -3389,7 +3389,7 @@ async function tposcustomfilters( data, forExport) {
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
 
-        if (itcdmTags !== undefined && !distlistcdmTags.includes(itcdmTags)){
+        if (itcdmTags !== undefined && itcdmTags !== null && !distlistcdmTags.includes(itcdmTags)){
             distlistcdmTags.push(itcdmTags);
             selectcdmTags += '<option value="'+itcdmTags+'">'+itcdmTags+'</option>'
         }
