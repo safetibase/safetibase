@@ -54,6 +54,11 @@ function activateDatasets(cdmSites, allHazardsData) {
             // if (ulink.startsWith('https')) {
             //     window.open(ulink, '_blank');
             // }
+
+            if (ulink == 'https://infrastructurecloud.bentley.com/13ab3cb6-cc7d-45ae-955e-ba4c0d2906b9/manage-imodel') {
+                window.open(ulink, '_blank');
+            }
+            
             if (ulink == 'addfilters'){
                 gimmepops("Filter selection pane",
           
