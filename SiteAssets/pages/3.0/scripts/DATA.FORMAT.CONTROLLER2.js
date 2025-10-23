@@ -1901,6 +1901,10 @@ function printHazardRow(h) {
                     if (role === 'Construction Manager') { 
                         isSM = 1;
                     }
+                    
+                    console.log(configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0)
+                    console.log(ite == h.cdmSite.Title)
+                    console.log(h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}`)
                     if (
                         configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
@@ -1912,6 +1916,7 @@ function printHazardRow(h) {
                         mkramsbtn = '';
                         lblramshazards = '';
                     }
+                    //
                     if (isSM === 1 && hasRAMS === 0) {
                         // Below has been changed from "Add associated RAMS hazard" to "View and add associated RAMS hazard"
                         mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="mkrams" id="mkramsbtn_' + h.ID + '" title="Only available to Construction Managers to mitigate further via RAMS hazards">View and add associated RAMS hazards</div>';
@@ -1920,9 +1925,9 @@ function printHazardRow(h) {
                     if (isSM === 1 && hasRAMS === 1) {
                         mkramsbtn = '<div class="tpos-svramsbtn mkramsbtn width-a" data-action="mkrams" id="mkramsbtn_' + h.ID + '">View and add associated RAMS hazards</div>';
                     }
-                    console.log(configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0)
-                    console.log(h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}`)
-                    console.log(requiresLDReview == 1)
+                    //console.log(configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0)
+                    //console.log(h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}`)
+                    //console.log(requiresLDReview == 1)
                     if (
                         configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to array filter.() to avoid designer being treated as a substring of principal designer. Patrick Hsu, 19 Feb 2024
                         h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
