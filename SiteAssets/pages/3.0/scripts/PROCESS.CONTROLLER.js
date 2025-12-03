@@ -3393,10 +3393,19 @@ async function tposcustomfilters( data, forExport) {
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
 
-        if (itcdmTags !== undefined && itcdmTags !== null && !distlistcdmTags.includes(itcdmTags)){
+
+        const normalize = s => String(s).replace(/\s+/g, '').toLowerCase();
+
+        if (itcdmTags !== undefined && itcdmTags !== null) {
+        const normalizedTag = normalize(itcdmTags);
+        const normalizedExisting = distlistcdmTags.map(normalize);
+
+        if (!normalizedExisting.includes(normalizedTag)) {
             distlistcdmTags.push(itcdmTags);
-            selectcdmTags += '<option value="'+itcdmTags+'">'+itcdmTags+'</option>'
+            selectcdmTags += '<option value="' + itcdmTags + '">' + itcdmTags + '</option>';
         }
+        }
+
       
     }
     $("#popscontentarea").html('');
