@@ -3415,18 +3415,6 @@ async function tposcustomfilters( data, forExport) {
         }
         }
 
-
-
-        // if (itcdmTags !== undefined && itcdmTags !== null) {
-        //     const normalizedTag = normalize(itcdmTags);
-        //     const normalizedExisting = distlistcdmTags.map(normalize);
-
-        //     if (!normalizedExisting.includes(normalizedTag)) {
-        //         distlistcdmTags.push(itcdmTags);
-        //         selectcdmTags += '<option value="' + itcdmTags + '">' + itcdmTags + '</option>';
-        //     }
-        // }
-
       
     }
     $("#popscontentarea").html('');
