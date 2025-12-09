@@ -3394,17 +3394,38 @@ async function tposcustomfilters( data, forExport) {
         }
 
 
-        const normalize = s => String(s).replace(/\s+/g, '').toLowerCase();
+        
+        const normalize = s => String(s).replace(/\s+/g, '').toLowerCase(); // for matching
+        const canonical = s => String(s).trim();                             // for display in filter
+        
+        // Build filter options from distlistcdmTags: unique by normalized key,
+        // display trimmed/canonical label
 
         if (itcdmTags !== undefined && itcdmTags !== null) {
-            const normalizedTag = normalize(itcdmTags);
-            const normalizedExisting = distlistcdmTags.map(normalize);
-
-            if (!normalizedExisting.includes(normalizedTag)) {
-                distlistcdmTags.push(itcdmTags);
-                selectcdmTags += '<option value="' + itcdmTags + '">' + itcdmTags + '</option>';
-            }
+        const normalizedTag = normalize(itcdmTags);
+        const normalizedExisting = distlistcdmTags.map(normalize);
+        if (!normalizedExisting.includes(normalizedTag)) {
+            distlistcdmTags.push(itcdmTags);
         }
+        // only add to dropdown if we haven’t already added this normalized option
+        const label = canonical(itcdmTags);
+        const dropdownHas = selectcdmTags.includes('>' + label + '<'); // simple guard
+        if (!dropdownHas) {
+            selectcdmTags += '<option value="' + label + '">' + label + '</option>';
+        }
+        }
+
+
+
+        // if (itcdmTags !== undefined && itcdmTags !== null) {
+        //     const normalizedTag = normalize(itcdmTags);
+        //     const normalizedExisting = distlistcdmTags.map(normalize);
+
+        //     if (!normalizedExisting.includes(normalizedTag)) {
+        //         distlistcdmTags.push(itcdmTags);
+        //         selectcdmTags += '<option value="' + itcdmTags + '">' + itcdmTags + '</option>';
+        //     }
+        // }
 
       
     }
@@ -3480,9 +3501,9 @@ async function tposcustomfilters( data, forExport) {
         var fcdmTagsselected =[];
         fcdmTags= $('#cdmTagsfilter').find(':selected');
         for( c=0; c<fcdmTags.length;c++){
-            fcdmTagsselected.push(fcdmTags[c].innerText.replace(/"/g,''));
+            fcdmTagsselected.push(fcdmTags[c].innerText.replace(/"/g,'').trim());
         }
-        
+
         flst['cdmHazardTags'] = fcdmTagsselected;
 
         var fcdmCurrentStatus = [];
