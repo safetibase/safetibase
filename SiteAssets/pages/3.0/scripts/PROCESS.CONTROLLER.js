@@ -250,7 +250,12 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                                                                 } else if (status.includes('Rejected')) {
                                                                     if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                        tdata = ["cdmCurrentStatus|" + "Requires mitigation", `cdmLastReviewStatus|Rejected by ${configData['Client Name']}`];
+                                                                        // Check what state the hazard should be set to on rejection
+                                                                        let rejectState = 'Requires mitigation';
+                                                                        if (configData.hasOwnProperty('Client sync reject state')) {
+                                                                            rejectState = configData['Client sync reject state'];
+                                                                        }
+                                                                        tdata = ["cdmCurrentStatus|" + rejectState, `cdmLastReviewStatus|Rejected by ${configData['Client Name']}`];
                                                                         // Check if the contract and residual risk owner have also been updated
                                                                         if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
                                                                         if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);

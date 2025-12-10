@@ -1868,6 +1868,13 @@ function printHazardRow(h) {
                         editableWorkflowStage = false;
                         break;
                 }
+
+                // Check what state the hazard should be set to on rejection. This allows us to still review hazards if they are in the rejected state.
+                let rejectState = 'Requires mitigation';
+                if (configData.hasOwnProperty('Client sync reject state')) {
+                    rejectState = configData['Client sync reject state'];
+                }
+
                 if (hc != "ra") {// if not rams hazard = design hazard
                     if (
                         (configData[workflow]['initiatereview']['userRoles'].filter(item => item === role).length > 0 && //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
@@ -1887,14 +1894,14 @@ function printHazardRow(h) {
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
                         uid() != h.Editor.ID &&
-                        h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        (h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` || (rejectState == "Under peer review" && h.cdmCurrentStatus == "Under peer review" && h.cdmLastReviewStatus.includes("Rejected")))  //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
                     }
                     if (
                         configData[workflow]['dmreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        h.cdmLastReviewStatus == `${configData[workflow]['dmreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        (h.cdmLastReviewStatus == `${configData[workflow]['dmreview']["cdmLastReviewStatus"]}` || (rejectState == "Under design manager review" && h.cdmCurrentStatus == "Under design manager review" && h.cdmLastReviewStatus.includes("Rejected"))) //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucd = 1;
                     }
@@ -1904,7 +1911,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
-                        h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        (h.cdmLastReviewStatus == `${configData[workflow]['pcreview']["cdmLastReviewStatus"]}` || (rejectState == "Under pre-construction review" && h.cdmCurrentStatus == "Under pre-construction review" && h.cdmLastReviewStatus.includes("Rejected"))) //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucpc = 1;
                     }
@@ -1923,7 +1930,7 @@ function printHazardRow(h) {
 
                     if (
                         configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to array filter.() to avoid designer being treated as a substring of principal designer. Patrick Hsu, 19 Feb 2024
-                        h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        (h.cdmLastReviewStatus == `${configData[workflow]['ldreview']["cdmLastReviewStatus"]}` || (rejectState == "Under principal designer review" && h.cdmCurrentStatus == "Under principal designer review" && h.cdmLastReviewStatus.includes("Rejected"))) && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
                         ucl = 1;
@@ -1931,7 +1938,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['smreview']["userRoles"].filter(item => item === role).length > 0 && //Make the definition of senior manager user role configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         site == h.cdmSite.Title &&
-                        h.cdmLastReviewStatus == `${configData[workflow]['smreview']["cdmLastReviewStatus"]}` && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
+                        (h.cdmLastReviewStatus == `${configData[workflow]['smreview']["cdmLastReviewStatus"]}` || (rejectState == "Under site manager review" && h.cdmCurrentStatus == "Under site manager review" && h.cdmLastReviewStatus.includes("Rejected"))) && //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                         requiresLDReview == 1
                     ) {
                         ucs = 1;
