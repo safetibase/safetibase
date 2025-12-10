@@ -2,7 +2,7 @@ configData = {
     'site': 'site', // How does the project name its work sites? E.g., sublot.
     'Residual Risk Owner': 'Residual Risk Owner', // How does the project name its residual risk owner user group? E.g. Client residual risk owner.
     'Contract': 'Contract', // How does the project name its contracts that own the works relevant to a given hazard. E.g. Future works contract.
-    'Client Review': false, // Does the project require a client review to be included in the workflow?
+    'Client Review': true, // Does the project require a client review to be included in the workflow?
     'Client Name': 'Client', // What is the name of the client of the project?
     'Archive hazards permissions': ['System admin'], // Which user roles should be authorised to archive hazards. This is given as a list. E.g., ['System admin', 'Designer', 'Construction Manager'].
     'Sync Client Hazard Permissions': ['System admin'], // Defines who can use 'Sync Client Hazards' button.
@@ -14,15 +14,16 @@ configData = {
     'Simplified system admin dashboard': false, // Do you want a simplified user dashboard for system admins?
     'Peer review editable workflow state': false, // Do you want to be able to edit hazards at peer review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Design manager review editable workflow state': false, // Do you want to be able to edit hazards at design manager review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
-    'Pre-construction review editable workflow state': false, // Do you want to be able to edit hazards at pre-construction review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
+    'Pre-construction review editable workflow state': true, // Do you want to be able to edit hazards at pre-construction review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Principal designer review editable workflow state': false, // Do you want to be able to edit hazards at principal designer review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Construction manager review editable workflow state': false, // Do you want to be able to edit hazards at construction manager review stage? If not, hazards that are at this stage will have to be sent to start of the workflow before they can be edited.
     'Construction manager approval comment populates cdmSMMitigationSuggestion': false, // Do you want the approval comment from the construction manager's review to populate the site manager's mitigation suggestion
     'Full admin edit rights': false, // Do you want the admin to be able to edit any field, at any point in the workflow?
     'Include contract': true, // Do you want to have the option to assign contracts to hazards?
     'Reopen hazards': ['System admin'], // Defines who can use the reopen hazards button
-    'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'],
+    'Exportable workflow states': ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review'], // Which workflow states should be included in the hazard export?
     'Create hazard show asset description': false,
+    'Client sync reject state': 'Under pre-construction review', // Which state should client-synced hazards be set to if rejected by the client?
  
     //Editable workflow config section. Patrick Hsu, Jan & Feb 2024
     //Default full workflows
@@ -40,7 +41,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
@@ -79,7 +80,7 @@ configData = {
         },
         'dmreview' : { 
             'nextWorkFlowState': 'Under pre-construction review', 
-            'userRoles': ['Design Manager','Designer'], // who can review/edit the hazard at this point
+            'userRoles': ['Design Manager'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
         },
