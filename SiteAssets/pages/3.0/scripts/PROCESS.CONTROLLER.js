@@ -3488,8 +3488,13 @@ async function tposcustomfilters( data, forExport) {
         var fcdmTags = [];
         var fcdmTagsselected =[];
         fcdmTags= $('#cdmTagsfilter').find(':selected');
-        for( c=0; c<fcdmTags.length;c++){
-            fcdmTagsselected.push(fcdmTags[c].innerText.replace(/"/g,'').trim());
+
+        for (var c = 0; c < fcdmTags.length; c++) {
+        var raw = fcdmTags[c].innerText;
+        var noQuotes = raw.replace(/"/g, '');
+        fcdmTagsselected.push(noQuotes);
+        var withTrailingSpace = /\s$/.test(noQuotes) ? noQuotes : (noQuotes + ' ');
+        fcdmTagsselected.push(withTrailingSpace);
         }
 
         flst['cdmHazardTags'] = fcdmTagsselected;
