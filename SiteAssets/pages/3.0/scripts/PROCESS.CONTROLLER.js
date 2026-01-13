@@ -433,7 +433,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     let succesfulArchives = 0;
                     const promises = [];
                     for (let i=0; i<cdmHazardData.length; i++) {
-                        const legalWorkflowStates = ['Requires mitigation','Under peer review','Under client review', 'Under principal designer review', 'Under principal contractor review', 'Accepted'];
+                        const legalWorkflowStates = ['Assessment in progress','Requires mitigation','Under peer review','Under client review', 'Under principal designer review', 'Under principal contractor review', 'Accepted'];
                         if (cdmHazardData[i].cdmUniclass === 'Cancelled' && legalWorkflowStates.includes(cdmHazardData[i].cdmCurrentStatus)) {
                             hazardCounter++;
                             const hazardData = [];
