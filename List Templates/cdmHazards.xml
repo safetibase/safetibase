@@ -365,7 +365,22 @@
             <Field DisplayName="cdmStageExtra" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:cdmStagesExtra}" Name="cdmStageExtra" ShowField="Title" Title="cdmStageExtra" Type="Lookup" ID="{34e94431-e4f3-451c-a727-2f9a1c0ceb1f}" SourceID="{{listid:cdmHazards}}" StaticName="cdmStageExtra" ColName="int9" RowOrdinal="0" />
             <Field ClientSideComponentId="00000000-0000-0000-0000-000000000000" DisplayName="cdmPWStructure: UAID" FieldRef="2218fe73-5e88-4445-8d5d-92a690a91d2a" Format="Dropdown" IsModern="TRUE" List="{listid:cdmPWStructures}" Name="cdmPWStructure_x003a__x0020_UAID" ShowField="UAID" Title="cdmPWStructure: UAID" Type="Lookup" ID="{58a99dff-46ab-44bb-b599-ee0e05249cd7}" SourceID="{{listid:cdmHazards}}" StaticName="cdmPWStructure_x003a__x0020_UAID" ReadOnly="TRUE" Version="2" Required="FALSE" Group="" UnlimitedLengthInDocumentLibrary="FALSE" />
             <Field ID="{76d13cd2-1bae-45a5-8b74-545b87b65037}" Name="_ColorTag" DisplaceOnUpgrade="TRUE" ShowInFileDlg="FALSE" ReadOnly="TRUE" Type="Text" DisplayName="Color Tag" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ColorTag" FromBaseType="TRUE" ColName="nvarchar16" />
-          </pnp:Fields>
+            <Field Type="Lookup"
+                  DisplayName="routeSection"
+                  Name="routeSection"
+                  StaticName="routeSection"
+                  List="{listid:YourRouteSectionList}"
+                  ShowField="Title"
+                  ID="{NEW-GUID-HERE}"
+                  SourceID="{{siteid}}" />
+            <Field Type="Lookup"
+                  DisplayName="workPackage"
+                  Name="workPackage"
+                  StaticName="workPackage"
+                  List="{listid:YourWorkPackageList}"
+                  ShowField="Title"
+                  ID="{NEW-GUID-HERE}"
+                  SourceID="{{siteid}}" />
         </pnp:ListInstance>
       </pnp:Lists>
     </pnp:ProvisioningTemplate>
