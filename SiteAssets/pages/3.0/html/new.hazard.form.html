@@ -233,32 +233,28 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 <div class="tpos-info">Then select a <span class="siteConfig"></span>. Please note that you can only select one <span class="siteConfig"></span> at a time.</div>
 
-<div class="select-panel" id="sites">
-    
-    <div class="tpos-lbl">
-        Select a <span class="siteConfig"></span>
+<div class="select-panel" id="sites" style="display: flex; justify-content: space-between; gap: 20px;">
+
+    <div style="flex: 1;">
+        <div class="tpos-lbl">
+            Select a <span class="siteConfig"></span>
+        </div>
+        <div class="tpos-select" id="div_sel_sites"></div>
+        <input class="hide" type="text" id="sctSite" value="0" placeholder="Select a site" />
     </div>
 
-    <div style="display: flex; gap: 20px; align-items: flex-start;">
-
-        <div>
-            <div class="tpos-select" id="div_sel_sites"></div>
-            <input class="hide" type="text" id="sctSite" value="0" placeholder="Select a site" />
-        </div>
-
-        <div>
-            <div class="tpos-lbl">Select a route section</div>
-            <div class="tpos-select" id="div_sel_routeSection"></div>
-            <input class="hide" type="text" id="routeSection" value="0" placeholder="Select a route section" />
-        </div>
-
-        <div>
-            <div class="tpos-lbl">Select a work package</div>
-            <div class="tpos-select" id="div_sel_workPackage"></div>
-            <input class="hide" type="text" id="workPackage" value="0" placeholder="Select a work package" />
-        </div>
-
+    <div style="flex: 1;">
+        <div class="tpos-lbl">Select a route section</div>
+        <div class="tpos-select" id="div_sel_routeSection"></div>
+        <input class="hide" type="text" id="routeSection" value="0" placeholder="Select a route section" />
     </div>
+
+    <div style="flex: 1;">
+        <div class="tpos-lbl">Select a work package</div>
+        <div class="tpos-select" id="div_sel_workPackage"></div>
+        <input class="hide" type="text" id="workPackage" value="0" placeholder="Select a work package" />
+    </div>
+
 </div>
 
 <div class="selectnext" id="next">
