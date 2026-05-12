@@ -231,11 +231,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 </div> -->
 
-<div class="tpos-info">Then select a <span class="siteConfig"></span>. Please note that you can only select one <span class="siteConfig"></span> at a time.</div>
+<div class="tpos-info">Then select a <span class="siteConfig"></span>, followed by corresponding route section and work package</div>
 
-<div class="select-panel" id="sites" style="display: flex; justify-content: space-between; gap: 20px;">
+<div style="display: flex; gap: 20px; justify-content: space-between;">
 
-    <div style="flex: 1;">
+    <div class="select-panel" id="sites" style="flex: 1;">
         <div class="tpos-lbl">
             Select a <span class="siteConfig"></span>
         </div>
@@ -243,13 +243,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         <input class="hide" type="text" id="sctSite" value="0" placeholder="Select a site" />
     </div>
 
-    <div style="flex: 1;">
+    <div class="select-panel" id="routeSectionPanel" style="flex: 1;">
         <div class="tpos-lbl">Select a route section</div>
         <div class="tpos-select" id="div_sel_routeSection"></div>
         <input class="hide" type="text" id="routeSection" value="0" placeholder="Select a route section" />
     </div>
 
-    <div style="flex: 1;">
+    <div class="select-panel" id="workPackagePanel" style="flex: 1;">
         <div class="tpos-lbl">Select a work package</div>
         <div class="tpos-select" id="div_sel_workPackage"></div>
         <input class="hide" type="text" id="workPackage" value="0" placeholder="Select a work package" />
@@ -286,6 +286,12 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     <div class="selection-panel" id="selection_panel">
         <div class="tpos-lbl">Selected <span class="siteConfig"></span></div>
         <div id="selectedsite" class="tpos-selection"></div>
+        <div id="routeSectionpanel">
+            <div id="selectedrouteSections" class="tpos-selection"></div>
+        </div>
+        <div id="workPackagepanel">
+            <div id="selectedworkPackages" class="tpos-selection"></div>
+        </div>
         <div id="pwstructurespanel">
             <div id="selectedstructures" class="tpos-selection"></div>
         </div>
@@ -328,25 +334,49 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var nt = '';
         var lbl = '';
         if (e == 'cdmSites') {
-            $('#div_sel_structures').html('');
-            $('#div_sel_tw').html('');
-            $('#div_sel_rams').html('');
-            sTerm = '<div class="qresult" data-entity="site" data-name="' + vn + '" data-value="' + v + '"><span>' + vn +
-                ' </span><span class="qrremove" data-field="sel_site">X</span></div>';
-            $('#selectedsite').html(sTerm);
+            if ($('#selectedsite .qresult[data-value="' + v + '"]').length === 0) {
+                sTerm = '<div class="qresult" data-entity="site" data-name="' + vn + '" data-value="' + v + '"><span>' + vn +
+                    ' </span><span class="qrremove" data-field="sel_site">X</span></div>';
+                $('#selectedsite').append(sTerm);
+                updateHiddenSelections();
+            }
             $('#sel_cdmSites').val('');
-            $('#selectedtw').html('');
-            $('#selectedrams').html('');
-            $('#selectedstructures').html('');
+
+            if ($('#selectedsite .qresult').length === 1) {
+                $('#selectedtw').html('');
+                $('#selectedrams').html('');
+                $('#selectedstructures').html('');
+            }
+
+            var siteIds = $('#selectedsite .qresult').map(function() { return $(this).data('value'); }).get();
+            var siteFilter = siteIds.length > 0 ? siteIds.map(function(id) { return 'cdmSite/ID eq ' + id; }).join(' or ') : 'cdmSite/ID eq ' + v;
 
             //toastr.success('uuu');
-            tposdata.get('cdmPWStructures', 'cdmSite/ID eq ' + v, '', 'sel_structures');
+            tposdata.get('cdmPWStructures', siteFilter, '', 'sel_structures');
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
             page.scroll('#next');
+        }        if (e == 'cdmRouteSections' || e == 'cdmRouteSection') {
+            t = $('#selectedrouteSections').html();
+            if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
+                sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
+                nt = t + sTerm;
+                lbl = '<div class="tpos-lbl">Selected route section(s)</div>';
+                $('#routeSectionpanel').html(lbl + '<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
+                updateHiddenSelections();
+            }
         }
-        if (e == 'cdmPWStructures') {
+        if (e == 'cdmWorkPackages' || e == 'cdmWorkPackage') {
+            t = $('#selectedworkPackages').html();
+            if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
+                sTerm = '<div class="qresult" data-entity="workPackage" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="workPackage">X</span></div>';
+                nt = t + sTerm;
+                lbl = '<div class="tpos-lbl">Selected work package(s)</div>';
+                $('#workPackagepanel').html(lbl + '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
+                updateHiddenSelections();
+            }
+        }        if (e == 'cdmPWStructures') {
             t = $("#selectedstructures").html();
 
 
@@ -456,13 +486,24 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             var crc = $(this).parent().parent();
             var crs = $(this).parent().siblings();
             $(this).parent().remove();
-            if (!crs) {
+            updateHiddenSelections();
+            if (!crs || crs.length === 0) {
                 crc.html('');
             }
         });
 
         //$('.rss').addEventListener('click',testfunction);
 
+    }
+
+    function updateHiddenSelections() {
+        var siteIds = $('#selectedsite .qresult').map(function() { return $(this).data('value'); }).get();
+        var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
+        var workPackageIds = $('#selectedworkPackages .qresult').map(function() { return $(this).data('value'); }).get();
+
+        $('#sctSite').val(siteIds.join(','));
+        $('#routeSection').val(routeSectionIds.join(','));
+        $('#workPackage').val(workPackageIds.join(','));
     }
     
     function toggleSaveButton() {
@@ -612,7 +653,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     async function savehazards() {
         $('.ms-options-wrap > .ms-options:visible').hide();
         var newhazards = [];
-        var site = 0;
+        var sites = [];
+        var routeSections = [];
+        var workPackages = [];
         var pw = [];
         var tw = [];
         var rams = [];
@@ -647,7 +690,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             selection.push(selected_ele[i].innerText)
         }
 
-        //loops through all the assets
+        //loops through all the assets and selected lookups
         for (var j = 0; j < qr.length; j++) {
             var o = qr.eq(j);
             var type = o.data('entity');
@@ -656,13 +699,20 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
             //checks if selection includes current asset
             if (selection.includes(qr[j].innerText)){
-                if (type == 'permanent') {       
+                if (type == 'permanent') {
                     var stage = o.data('stage');
                     pw.push([name, value, stage]);
-                }}
+                }
+            }
 
             if (type == 'site') {
-                site = value;
+                sites.push([name, value]);
+            }
+            if (type == 'routeSection') {
+                routeSections.push([name, value]);
+            }
+            if (type == 'workPackage') {
+                workPackages.push([name, value]);
             }
             if (type == 'temporary') {
                 tw.push([name, value]);
@@ -670,6 +720,16 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             if (type == 'rams') {
                 rams.push([name, value]);
             }
+        }
+
+        if (sites.length === 0) {
+            sites.push([null, 0]);
+        }
+        if (routeSections.length === 0) {
+            routeSections.push([null, 0]);
+        }
+        if (workPackages.length === 0) {
+            workPackages.push([null, 0]);
         }
 
         // Define the cdmStageExtra to cdmStage dictionary
@@ -715,105 +775,145 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         if (pw.length > 0) {
             for (var ps = 0; ps < pw.length; ps++) {
-                var tdata = [];
-                // toastr.success(site);
-                tdata.push('Title|' + title);
-                tdata.push('cdmSiblings|' + title);
-                tdata.push('cdmHazardDescription|' + hz);
-                tdata.push('cdmRiskDescription|' + rs);
-                tdata.push('cdmMitigationDescription|' + ms);
-                tdata.push('cdmSite|' + site);
-                tdata.push('cdmInitialRisk|' + risks);
-                tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|2');
-                tdata.push('cdmInitialRiskScore|' + rscv);
-                tdata.push('cdmResidualRiskScore|' + rscv);
-                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
-                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
-                tdata.push('cdmPWStructure|' + pw[ps][1]);
-                tdata.push('cdmSMMitigationSuggestion| ');
-                tdata.push('cdmStageExtra|' + pw[ps][2]);
-                tdata.push('cdmUniclass|Open');
-                tdata.push('cdmStage|' + cdmStageExtraToStageId[pw[ps][2]]);
-                if (cdmHazardCoordinates) {
-                    tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                for (var si = 0; si < sites.length; si++) {
+                    for (var rsi = 0; rsi < routeSections.length; rsi++) {
+                        for (var wpi = 0; wpi < workPackages.length; wpi++) {
+                            var tdata = [];
+                            // toastr.success(site);
+                            tdata.push('Title|' + title);
+                            tdata.push('cdmSiblings|' + title);
+                            tdata.push('cdmHazardDescription|' + hz);
+                            tdata.push('cdmRiskDescription|' + rs);
+                            tdata.push('cdmMitigationDescription|' + ms);
+                            if (sites[si][1]) {
+                                tdata.push('cdmSite|' + sites[si][1]);
+                            }
+                            if (routeSections[rsi][1]) {
+                                tdata.push('routeSection|' + routeSections[rsi][1]);
+                            }
+                            if (workPackages[wpi][1]) {
+                                tdata.push('workPackage|' + workPackages[wpi][1]);
+                            }
+                            tdata.push('cdmInitialRisk|' + risks);
+                            tdata.push('cdmResidualRisk|' + risks);
+                            tdata.push('cdmHazardType|2');
+                            tdata.push('cdmInitialRiskScore|' + rscv);
+                            tdata.push('cdmResidualRiskScore|' + rscv);
+                            // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                            // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+                            tdata.push('cdmPWStructure|' + pw[ps][1]);
+                            tdata.push('cdmSMMitigationSuggestion| ');
+                            tdata.push('cdmStageExtra|' + pw[ps][2]);
+                            tdata.push('cdmUniclass|Open');
+                            tdata.push('cdmStage|' + cdmStageExtraToStageId[pw[ps][2]]);
+                            if (cdmHazardCoordinates) {
+                                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                            }
+                            if (cdmGeometry) {
+                                tdata.push('cdmGeometry|' + cdmGeometry);
+                            }
+                            newhazards.push(tdata);
+                        }
+                    }
                 }
-                if (cdmGeometry) {
-                    tdata.push('cdmGeometry|' + cdmGeometry);
-                }
-                newhazards.push(tdata);
             }
 
         }
         if (tw.length > 0) {
             for (var ts = 0; ts < tw.length; ts++) {
-                var tdata = [];
-                // toastr.success(site);
-                tdata.push('Title|' + title);
-                tdata.push('cdmSiblings|' + title);
-                tdata.push('cdmHazardDescription|' + hz);
-                tdata.push('cdmRiskDescription|' + rs);
-                tdata.push('cdmMitigationDescription|' + ms);
-                tdata.push('cdmSite|' + site);
-                tdata.push('cdmInitialRisk|' + risks);
-                tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|2');
-                tdata.push('cdmInitialRiskScore|' + rscv);
-                tdata.push('cdmResidualRiskScore|' + rscv);
-                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
-                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+                for (var si = 0; si < sites.length; si++) {
+                    for (var rsi = 0; rsi < routeSections.length; rsi++) {
+                        for (var wpi = 0; wpi < workPackages.length; wpi++) {
+                            var tdata = [];
+                            // toastr.success(site);
+                            tdata.push('Title|' + title);
+                            tdata.push('cdmSiblings|' + title);
+                            tdata.push('cdmHazardDescription|' + hz);
+                            tdata.push('cdmRiskDescription|' + rs);
+                            tdata.push('cdmMitigationDescription|' + ms);
+                            if (sites[si][1]) {
+                                tdata.push('cdmSite|' + sites[si][1]);
+                            }
+                            if (routeSections[rsi][1]) {
+                                tdata.push('routeSection|' + routeSections[rsi][1]);
+                            }
+                            if (workPackages[wpi][1]) {
+                                tdata.push('workPackage|' + workPackages[wpi][1]);
+                            }
+                            tdata.push('cdmInitialRisk|' + risks);
+                            tdata.push('cdmResidualRisk|' + risks);
+                            tdata.push('cdmHazardType|2');
+                            tdata.push('cdmInitialRiskScore|' + rscv);
+                            tdata.push('cdmResidualRiskScore|' + rscv);
+                            // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                            // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
 
-                tdata.push('cdmTW|' + tw[ts][1]);
-                tdata.push('cdmEntityTitle|' + tw[ts][0]);
-                tdata.push('cdmStageMitigationSuggestion| ');
-                tdata.push('cdmSMMitigationSuggestion| ');
-                tdata.push('cdmStageExtra|2');
-                tdata.push('cdmStage|1')
-                tdata.push('cdmUniclass|Open');
-                if (cdmHazardCoordinates) {
-                    tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                            tdata.push('cdmTW|' + tw[ts][1]);
+                            tdata.push('cdmEntityTitle|' + tw[ts][0]);
+                            tdata.push('cdmStageMitigationSuggestion| ');
+                            tdata.push('cdmSMMitigationSuggestion| ');
+                            tdata.push('cdmStageExtra|2');
+                            tdata.push('cdmStage|1')
+                            tdata.push('cdmUniclass|Open');
+                            if (cdmHazardCoordinates) {
+                                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                            }
+                            if (cdmGeometry) {
+                                tdata.push('cdmGeometry|' + cdmGeometry);
+                            }
+                            newhazards.push(tdata);
+                        }
+                    }
                 }
-                if (cdmGeometry) {
-                    tdata.push('cdmGeometry|' + cdmGeometry);
-                }
-                newhazards.push(tdata);
-
             }
 
 
         }
         if (rams.length > 0) {
             for (var ras = 0; ras < rams.length; ras++) {
-                var tdata = [];
-                // toastr.success(site);
-                tdata.push('Title|' + title);
-                tdata.push('cdmSiblings|' + title);
-                tdata.push('cdmHazardDescription|' + hz);
-                tdata.push('cdmRiskDescription|' + rs);
-                tdata.push('cdmMitigationDescription|' + ms);
-                tdata.push('cdmSite|' + site);
-                tdata.push('cdmInitialRisk|' + risks);
-                tdata.push('cdmResidualRisk|' + risks);
-                tdata.push('cdmHazardType|2');
-                tdata.push('cdmInitialRiskScore|' + rscv);
-                tdata.push('cdmResidualRiskScore|' + rscv);
-                // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
-                // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
-                tdata.push('cdmStageMitigationSuggestion|Not applicable');
-                tdata.push('cdmSMMitigationSuggestion| ');
-                tdata.push('cdmRAMS|' + rams[ras][1]);
-                tdata.push('cdmEntityTitle|' + rams[ras][0]);
-                tdata.push('cdmStageExtra|1');
-                tdata.push('cdmStage|1');
-                tdata.push('cdmUniclass|Open');
-                if (cdmHazardCoordinates) {
-                    tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                for (var si = 0; si < sites.length; si++) {
+                    for (var rsi = 0; rsi < routeSections.length; rsi++) {
+                        for (var wpi = 0; wpi < workPackages.length; wpi++) {
+                            var tdata = [];
+                            // toastr.success(site);
+                            tdata.push('Title|' + title);
+                            tdata.push('cdmSiblings|' + title);
+                            tdata.push('cdmHazardDescription|' + hz);
+                            tdata.push('cdmRiskDescription|' + rs);
+                            tdata.push('cdmMitigationDescription|' + ms);
+                            if (sites[si][1]) {
+                                tdata.push('cdmSite|' + sites[si][1]);
+                            }
+                            if (routeSections[rsi][1]) {
+                                tdata.push('routeSection|' + routeSections[rsi][1]);
+                            }
+                            if (workPackages[wpi][1]) {
+                                tdata.push('workPackage|' + workPackages[wpi][1]);
+                            }
+                            tdata.push('cdmInitialRisk|' + risks);
+                            tdata.push('cdmResidualRisk|' + risks);
+                            tdata.push('cdmHazardType|2');
+                            tdata.push('cdmInitialRiskScore|' + rscv);
+                            tdata.push('cdmResidualRiskScore|' + rscv);
+                            // tdata.push('cdmIniRisk|'+$('#inirisk').prop('outerHTML'));
+                            // tdata.push('cdmResRisk|'+$('#inirisk').prop('outerHTML'));
+                            tdata.push('cdmStageMitigationSuggestion|Not applicable');
+                            tdata.push('cdmSMMitigationSuggestion| ');
+                            tdata.push('cdmRAMS|' + rams[ras][1]);
+                            tdata.push('cdmEntityTitle|' + rams[ras][0]);
+                            tdata.push('cdmStageExtra|1');
+                            tdata.push('cdmStage|1');
+                            tdata.push('cdmUniclass|Open');
+                            if (cdmHazardCoordinates) {
+                                tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
+                            }
+                            if (cdmGeometry) {
+                                tdata.push('cdmGeometry|' + cdmGeometry);
+                            }
+                            newhazards.push(tdata);
+                        }
+                    }
                 }
-                if (cdmGeometry) {
-                    tdata.push('cdmGeometry|' + cdmGeometry);
-                }
-                newhazards.push(tdata);
-
             }
 
 
@@ -826,9 +926,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#div_sel_tw').html('');
         $('#div_sel_rams').html('');
         $('#sel_cdmSites').val('');
+        $('#selectedsite').html('');
+        $('#selectedrouteSections').html('');
+        $('#selectedworkPackages').html('');
         $('#selectedtw').html('');
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
+        updateHiddenSelections();
         $('.button-row').hide();
     }
     
