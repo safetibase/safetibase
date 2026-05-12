@@ -202,13 +202,33 @@ formatdatato = {
                 fa.push("ID");
                 ft.push(1);
             })
-            .done(function() {
+            
+            .done(function () {
+
                 var od = "OData_";
+                var seen = new Set();
+                var cleanFa = [];
+                var cleanFt = [];
+
                 for (var i = 0; i < fa.length; i++) {
+                    if (!seen.has(fa[i])) {
+                        seen.add(fa[i]);
+                        cleanFa.push(fa[i]);
+                        cleanFt.push(ft[i]);
+                    }
+                }
+
+                fa = cleanFa;
+                ft = cleanFt;
+
+                for (var i = 0; i < fa.length; i++) {
+
                     var ti = fa[i];
+
                     if (ti.substring(0, 1) == "_") {
                         ti = od + ti;
                     }
+
                     if (ft[i] != 20 && ft[i] != 7) {
                         if (fa[i] != "ID") {
                             select += ti + ",";
@@ -217,70 +237,93 @@ formatdatato = {
                         }
                         ftv.push(fa[i]);
                     }
-                    
-                    if (ft[i] == 7 || ft[i] == 20) {
+
+
+                    var allowedExpands = [
+                        "CurrentMitigationOwner",
+                        "CurrentReviewOwner",
+                        "cdmSite",
+                        "cdmPWStructure",
+                        "cdmHazardOwner",
+                        "cdmHazardType",
+                        "routeSection",
+                        "workPackage",
+                        "cdmStage",
+                        "cdmStageExtra",
+                        "cdmPWElement",
+                    ];
+
+                    if ((ft[i] == 7 || ft[i] == 20) && allowedExpands.includes(ti)) {
                         select += ti + "/Title," + ti + "/ID,";
-                        expand += ti + "/Title," + ti + "/ID,";
+                        expand += ti + ",";
                         ftv.push(ti + ".Title");
                         ftv.push(ti + ".ID");
                     }
-                }
-                expand = expand.substring(0, expand.length - 1);
-                if(lst=="cdmHazards"){
-                    expand = expand + ",cdmPWStructure/UAID";
-                    select = select + ",cdmPWStructure/UAID";
-                }
-            })
-            .done(function() {
-                var order = "ID desc";
-                getListItemsByListName({
-                    listName: lst,
-                    select: select,
-                    expansion: expand,
-                    order: order, // 'ID asc'
-                    filter: null // 'OData__user/Id eq \'' + i + '\''
-                }).done(function(data) {
-                    var appurl = _spPageContextInfo.webAbsoluteUrl;
-                    if (select) {
-                        select = '?$select=' + select;
-                    } else select = '?$select=*';
-                    if (expand) {
-                        expand = '&$expand=' + expand;
-                    } else expand = '';
-                    if (order) {
-                        order = '&$orderby=' + order;
-                    } else order = '';
 
-                    var initial_url = appurl + "/_api/web/lists/getByTitle(%27" + lst + "%27)/items" + select + expand + order + '&$top=5000'
-                    full_dataset = []
-                    async function GetListItems(url) {
-                        $.ajax({
-                            url: url,
-                            method: "GET",
-                            headers: {
-                                "Accept": "application/json; odata=verbose"
-                            },
-                            success: function(data) {
-                                var response = data.d.results;
-                                if (data.d.__next) {
-                                    full_dataset = [...full_dataset, ...response];
-                                    GetListItems(data.d.__next)
-                                } else {
-                                    full_dataset = [...full_dataset, ...response];
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
-                                    $(".loading-text").remove()
-                                    // Allows for you to access the dashboard specific to your user roles. 
-                                    activateDatasets(sublot_data, full_dataset);
-                                }
-                            },
-                            error: function(error) {
-                                //console.log(error);
-                            }
-                        });
+                }
+
+                if (select.endsWith(",")) {
+                    select = select.slice(0, -1);
+                }
+
+                if (expand.endsWith(",")) {
+                    expand = expand.slice(0, -1);
+                }
+
+                if (lst == "cdmHazards") {
+                    if (!expand.includes("cdmPWStructure")) {
+                        expand += (expand ? "," : "") + "cdmPWStructure";
                     }
-                    GetListItems(initial_url);
+                    if (!select.includes("cdmPWStructure/UAID")) {
+                        select += ",cdmPWStructure/UAID";
+                    }
+                }
+
+
+            })
+            .done(function () {
+
+                var order = "ID desc";
+
+                var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+                var selectStr = select ? '?$select=' + select : '?$select=*';
+                var expandStr = expand ? '&$expand=' + expand : '';
+                var orderStr = order ? '&$orderby=' + order : '';
+
+                var initial_url = appurl + "/_api/web/lists/getByTitle('" + lst + "')/items" + selectStr + expandStr + orderStr + '&$top=5000';
+
+                full_dataset = [];
+
+                function GetListItems(url) {
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json; odata=verbose"
+                        },
+                        success: function (data) {
+                            var response = data.d.results;
+
+                            if (data.d.__next) {
+                                full_dataset = full_dataset.concat(response);
+                                GetListItems(data.d.__next);
+                            } else {
+                                full_dataset = full_dataset.concat(response);
+                                formatdatato.createTable(sublot_data, full_dataset, lst, trg, flst, true);
+                                $(".loading-text").remove();
+                                activateDatasets(sublot_data, full_dataset);
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+
+                GetListItems(initial_url);
+
             });
-        });
     },
     filterrowsdata: function(sublot_data, ftv, trg, flst, forExport ) {
 
@@ -581,7 +624,7 @@ formatdatato = {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
-                    break;
+                    break;W
                 case 5:
                     for (var i = 0; i < full_dataset.length; i++) {
                         if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null && full_dataset[i].cdmPWElement.ID == null) {

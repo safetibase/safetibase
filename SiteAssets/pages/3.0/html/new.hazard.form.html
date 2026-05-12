@@ -324,6 +324,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </script>
 
 <script>
+    (function initRouteWorkSelectors(attempts) {
+        if (window.tposdata && tposdata.get) {
+            tposdata.get('cdmRouteSections', '', '', 'sel_routeSection');
+            tposdata.get('cdmWorkPackages', '', '', 'sel_workPackage');
+        } else if (attempts < 20) {
+            setTimeout(function() { initRouteWorkSelectors(attempts + 1); }, 100);
+        }
+    })(0);
+</script>
+
+<script>
     
    async function routeSelection(e, v, vn) {
         var sTerm = '';
