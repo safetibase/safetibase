@@ -394,7 +394,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateHiddenSelections();
 
                 var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
-                var workPackageFilter = routeSectionIds.length > 0 ? routeSectionIds.map(function(id) { return 'RouteSection/ID eq ' + id; }).join(' or ') : 'RouteSection/ID eq ' + v;
+                var workPackageFilter = routeSectionIds.length > 0 ? routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or ') : 'Route Section/ID eq ' + v;
                 $('#div_sel_workPackage').html('');
                 $('#selectedworkPackages').html('');
                 $('#workPackagepanel').html('');
