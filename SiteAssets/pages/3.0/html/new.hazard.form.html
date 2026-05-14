@@ -382,9 +382,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
-            page.scroll('#next');
+            $('#next')[0].scrollIntoView({behavior: 'smooth'});
         }        
-        if (e == 'cdmRouteSection' || e == 'cdmRouteSections') {
+        if (e == 'cdmRouteSection') {
             t = $('#selectedrouteSections').html();
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
@@ -402,7 +402,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 tposdata.get('cdmWorkPackage', workPackageFilter, '', 'sel_workPackage');
             }
         }
-        if (e == 'cdmWorkPackage' || e == 'cdmWorkPackages') {
+        if (e == 'cdmWorkPackage') {
             t = $('#selectedworkPackages').html();
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="workPackage" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="workPackage">X</span></div>';
@@ -523,36 +523,51 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             var dataValue = qresult.data('value');
             var dataEntity = qresult.data('entity');
             
-            // Map entity to list name
-            var listName = '';
+            // Map entity to list names that must be restored
+            var listNames = [];
             switch(dataEntity) {
                 case 'site':
-                    listName = 'cdmSites';
+                    listNames = ['cdmSites'];
                     break;
                 case 'routeSection':
-                    listName = 'cdmRouteSection';
+                    listNames = ['cdmRouteSection'];
                     break;
                 case 'workPackage':
-                    listName = 'cdmWorkPackage';
+                    listNames = ['cdmWorkPackage'];
                     break;
                 case 'permanent':
-                    listName = 'cdmPWStructures';
+                    listNames = ['cdmPWStructures'];
                     break;
                 case 'temporary':
-                    listName = 'tw';
+                    listNames = ['tw'];
                     break;
                 case 'rams':
-                    listName = 'rams';
+                    listNames = ['rams'];
                     break;
             }
             
-            // Restore to dropdown if it's a tposdata list
-            if (listName && ['cdmSites', 'cdmRouteSection', 'cdmWorkPackage', 'cdmPWStructures'].includes(listName)) {
-                // Show the row in the dropdown table
-                $('tr.tpos-' + listName + '-select-value[data-value="' + dataValue + '"]').show();
-                // Clear the input field
-                $('#sel_' + listName).val('');
+            // Handle cascading clears for dependent selections
+            if (dataEntity == 'site') {
+                // When clearing a site, also clear dependent route sections and work packages
+                $('#selectedrouteSections').html('');
+                $('#selectedworkPackages').html('');
+                $('#routeSectionpanel').html('');
+                $('#workPackagepanel').html('');
+                $('#routeSection').val('0');
+                $('#workPackage').val('0');
+                // Also clear the dropdowns
+                $('#div_sel_routeSection').html('');
+                $('#div_sel_workPackage').html('');
             }
+            
+            // Restore to dropdown if it's a tposdata list
+            listNames.forEach(function(listName) {
+                var row = $('tr.tpos-' + listName + '-select-value[data-value="' + dataValue + '"]');
+                if (row.length) {
+                    row.show();
+                    $('#sel_' + listName).val('');
+                }
+            });
             
             var crc = $(this).parent().parent();
             var crs = $(this).parent().siblings();
