@@ -519,6 +519,41 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 
         $('.qrremove').click(function() {
+            var qresult = $(this).parent();
+            var dataValue = qresult.data('value');
+            var dataEntity = qresult.data('entity');
+            
+            // Map entity to list name
+            var listName = '';
+            switch(dataEntity) {
+                case 'site':
+                    listName = 'cdmSites';
+                    break;
+                case 'routeSection':
+                    listName = 'cdmRouteSection';
+                    break;
+                case 'workPackage':
+                    listName = 'cdmWorkPackage';
+                    break;
+                case 'permanent':
+                    listName = 'cdmPWStructures';
+                    break;
+                case 'temporary':
+                    listName = 'tw';
+                    break;
+                case 'rams':
+                    listName = 'rams';
+                    break;
+            }
+            
+            // Restore to dropdown if it's a tposdata list
+            if (listName && ['cdmSites', 'cdmRouteSection', 'cdmWorkPackage', 'cdmPWStructures'].includes(listName)) {
+                // Show the row in the dropdown table
+                $('tr.tpos-' + listName + '-select-value[data-value="' + dataValue + '"]').show();
+                // Clear the input field
+                $('#sel_' + listName).val('');
+            }
+            
             var crc = $(this).parent().parent();
             var crs = $(this).parent().siblings();
             $(this).parent().remove();
