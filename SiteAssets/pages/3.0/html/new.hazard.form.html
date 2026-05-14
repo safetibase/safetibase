@@ -327,7 +327,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     (function initRouteWorkSelectors(attempts) {
         if (window.tposdata && tposdata.get) {
             tposdata.get('cdmRouteSection', '', '', 'sel_routeSection');
+            tposdata.get('cdmRouteSections', '', '', 'sel_routeSection');
             tposdata.get('cdmWorkPackage', '', '', 'sel_workPackage');
+            tposdata.get('cdmWorkPackages', '', '', 'sel_workPackage');
         } else if (attempts < 20) {
             setTimeout(function() { initRouteWorkSelectors(attempts + 1); }, 100);
         }
@@ -357,19 +359,32 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedtw').html('');
                 $('#selectedrams').html('');
                 $('#selectedstructures').html('');
+                $('#selectedrouteSections').html('');
+                $('#selectedworkPackages').html('');
+                $('#routeSectionpanel').html('');
+                $('#workPackagepanel').html('');
+                $('#routeSection').val('0');
+                $('#workPackage').val('0');
+                updateHiddenSelections();
             }
 
             var siteIds = $('#selectedsite .qresult').map(function() { return $(this).data('value'); }).get();
             var siteFilter = siteIds.length > 0 ? siteIds.map(function(id) { return 'cdmSite/ID eq ' + id; }).join(' or ') : 'cdmSite/ID eq ' + v;
+            var siteFilterForRoute = siteIds.length > 0 ? siteIds.map(function(id) { return 'Site/ID eq ' + id; }).join(' or ') : 'Site/ID eq ' + v;
 
             //toastr.success('uuu');
             tposdata.get('cdmPWStructures', siteFilter, '', 'sel_structures');
+            tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
+            $('#div_sel_workPackage').html('');
+            $('#selectedworkPackages').html('');
+            $('#workPackagepanel').html('');
+            $('#workPackage').val('0');
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
             page.scroll('#next');
         }        
-        if (e == 'cdmRouteSections' || e == 'cdmRouteSection') {
+        if (e == 'cdmRouteSection' || e == 'cdmRouteSections') {
             t = $('#selectedrouteSections').html();
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
@@ -377,9 +392,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 lbl = '<div class="tpos-lbl">Selected route section(s)</div>';
                 $('#routeSectionpanel').html(lbl + '<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
+
+                var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
+                var workPackageFilter = routeSectionIds.length > 0 ? routeSectionIds.map(function(id) { return 'RouteSection/ID eq ' + id; }).join(' or ') : 'RouteSection/ID eq ' + v;
+                $('#div_sel_workPackage').html('');
+                $('#selectedworkPackages').html('');
+                $('#workPackagepanel').html('');
+                $('#workPackage').val('0');
+                tposdata.get('cdmWorkPackage', workPackageFilter, '', 'sel_workPackage');
             }
         }
-        if (e == 'cdmWorkPackages' || e == 'cdmWorkPackage') {
+        if (e == 'cdmWorkPackage' || e == 'cdmWorkPackages') {
             t = $('#selectedworkPackages').html();
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="workPackage" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="workPackage">X</span></div>';
