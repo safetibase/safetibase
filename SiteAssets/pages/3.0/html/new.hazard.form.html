@@ -336,23 +336,19 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 <script>
     function loadWorkPackageDropdown(routeSectionIds) {
-        var filters = [];
-        if (routeSectionIds.length > 0) {
-            filters.push(routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or '));
-            filters.push(routeSectionIds.map(function(id) { return 'Route_x0020_Section/ID eq ' + id; }).join(' or '));
+        $('#div_sel_workPackage').html('');
+        if (!routeSectionIds || routeSectionIds.length === 0) {
+            return;
         }
+
+        var filters = [
+            routeSectionIds.map(function(id) { return 'Route_x0020_Section/ID eq ' + id; }).join(' or '),
+            routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or ')
+        ];
 
         function tryFilter(index) {
             if (index >= filters.length) {
-                getListItemsByListName({
-                    listName: 'cdmWorkPackage',
-                    select: 'Title,ID',
-                    limit: 2000
-                }).done(function(data) {
-                    mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
-                }).fail(function() {
-                    $('#div_sel_workPackage').html('');
-                });
+                $('#div_sel_workPackage').html('');
                 return;
             }
 
@@ -362,7 +358,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 filter: filters[index],
                 limit: 2000
             }).done(function(data) {
-                mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
+                if (data && data.d && data.d.results && data.d.results.length > 0) {
+                    mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
+                } else {
+                    tryFilter(index + 1);
+                }
             }).fail(function() {
                 tryFilter(index + 1);
             });
