@@ -326,8 +326,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 <script>
     (function initRouteWorkSelectors(attempts) {
         if (window.tposdata && tposdata.get) {
-            tposdata.get('cdmRouteSections', '', '', 'sel_routeSection');
-            tposdata.get('cdmWorkPackages', '', '', 'sel_workPackage');
+            tposdata.get('cdmRouteSection', '', '', 'sel_routeSection');
+            tposdata.get('cdmWorkPackage', '', '', 'sel_workPackage');
         } else if (attempts < 20) {
             setTimeout(function() { initRouteWorkSelectors(attempts + 1); }, 100);
         }
@@ -368,7 +368,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
             page.scroll('#next');
-        }        if (e == 'cdmRouteSections' || e == 'cdmRouteSection') {
+        }        
+        if (e == 'cdmRouteSections' || e == 'cdmRouteSection') {
             t = $('#selectedrouteSections').html();
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
@@ -387,7 +388,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#workPackagepanel').html(lbl + '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
             }
-        }        if (e == 'cdmPWStructures') {
+        }        
+        if (e == 'cdmPWStructures') {
             t = $("#selectedstructures").html();
 
 
