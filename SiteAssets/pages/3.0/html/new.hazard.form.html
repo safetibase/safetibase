@@ -327,8 +327,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     (function initRouteWorkSelectors(attempts) {
         if (window.tposdata && tposdata.get) {
             tposdata.get('cdmRouteSection', '', '', 'sel_routeSection');
-            tposdata.get('cdmRouteSections', '', '', 'sel_routeSection');
-            tposdata.get('cdmWorkPackage', '', '', 'sel_workPackage');
             tposdata.get('cdmWorkPackage', '', '', 'sel_workPackage');
         } else if (attempts < 20) {
             setTimeout(function() { initRouteWorkSelectors(attempts + 1); }, 100);
@@ -337,7 +335,42 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </script>
 
 <script>
-    
+    function loadWorkPackageDropdown(routeSectionIds) {
+        var filters = [];
+        if (routeSectionIds.length > 0) {
+            filters.push(routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or '));
+            filters.push(routeSectionIds.map(function(id) { return 'Route_x0020_Section/ID eq ' + id; }).join(' or '));
+        }
+
+        function tryFilter(index) {
+            if (index >= filters.length) {
+                getListItemsByListName({
+                    listName: 'cdmWorkPackage',
+                    select: 'Title,ID',
+                    limit: 2000
+                }).done(function(data) {
+                    mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
+                }).fail(function() {
+                    $('#div_sel_workPackage').html('');
+                });
+                return;
+            }
+
+            getListItemsByListName({
+                listName: 'cdmWorkPackage',
+                select: 'Title,ID',
+                filter: filters[index],
+                limit: 2000
+            }).done(function(data) {
+                mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
+            }).fail(function() {
+                tryFilter(index + 1);
+            });
+        }
+
+        tryFilter(0);
+    }
+
    async function routeSelection(e, v, vn) {
         var sTerm = '';
         var t = '';
@@ -394,12 +427,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateHiddenSelections();
 
                 var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
-                var workPackageFilter = routeSectionIds.length > 0 ? routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or ') : 'Route Section/ID eq ' + v;
                 $('#div_sel_workPackage').html('');
                 $('#selectedworkPackages').html('');
                 $('#workPackagepanel').html('');
                 $('#workPackage').val('0');
-                tposdata.get('cdmWorkPackage', workPackageFilter, '', 'sel_workPackage');
+                loadWorkPackageDropdown(routeSectionIds);
             }
         }
         if (e == 'cdmWorkPackage') {
