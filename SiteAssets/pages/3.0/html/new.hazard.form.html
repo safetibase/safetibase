@@ -335,20 +335,28 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </script>
 
 <script>
-    function loadWorkPackageDropdown(routeSectionIds) {
-        $('#div_sel_workPackage').html('');
+    function loadWorkPackageDropdown(routeSectionIds, routeSectionTitles) {
+        // Don't clear the dropdown here - preserve site-filtered work packages
+        // Only refine if route section IDs are provided
         if (!routeSectionIds || routeSectionIds.length === 0) {
             return;
         }
 
+        // Build filters for the lookup field RouteSection on cdmWorkPackage
         var filters = [
-            routeSectionIds.map(function(id) { return 'Route_x0020_Section/ID eq ' + id; }).join(' or '),
-            routeSectionIds.map(function(id) { return 'Route Section/ID eq ' + id; }).join(' or ')
+            routeSectionIds.map(function(id) { return 'RouteSection/ID eq ' + id; }).join(' or '),
+            routeSectionIds.map(function(id) { return 'RouteSectionId eq ' + id; }).join(' or ')
         ];
+
+        if (routeSectionTitles && routeSectionTitles.length > 0) {
+            filters.push(routeSectionTitles.map(function(title) { return "RouteSection/Title eq '" + title.replace(/'/g, "''") + "'"; }).join(' or '));
+        }
+
+        filters = filters.filter(function(f) { return f && f.length > 0; });
 
         function tryFilter(index) {
             if (index >= filters.length) {
-                $('#div_sel_workPackage').html('');
+                console.warn('No valid filter found for cdmWorkPackage with routeSectionIds:', routeSectionIds);
                 return;
             }
 
@@ -359,11 +367,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 limit: 2000
             }).done(function(data) {
                 if (data && data.d && data.d.results && data.d.results.length > 0) {
+                    $('#div_sel_workPackage').html('');
                     mkSelect('cdmWorkPackage', data, [], 'sel_workPackage');
                 } else {
                     tryFilter(index + 1);
                 }
-            }).fail(function() {
+            }).fail(function(xhr) {
+                console.warn('Filter attempt ' + (index + 1) + ' failed for cdmWorkPackage:', filters[index], 'Status:', xhr.status);
                 tryFilter(index + 1);
             });
         }
@@ -404,11 +414,14 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             var siteIds = $('#selectedsite .qresult').map(function() { return $(this).data('value'); }).get();
             var siteFilter = siteIds.length > 0 ? siteIds.map(function(id) { return 'cdmSite/ID eq ' + id; }).join(' or ') : 'cdmSite/ID eq ' + v;
             var siteFilterForRoute = siteIds.length > 0 ? siteIds.map(function(id) { return 'Site/ID eq ' + id; }).join(' or ') : 'Site/ID eq ' + v;
+            var siteFilterForWP = siteIds.length > 0 ? siteIds.map(function(id) { return 'Site/ID eq ' + id; }).join(' or ') : 'Site/ID eq ' + v;
 
             //toastr.success('uuu');
             tposdata.get('cdmPWStructures', siteFilter, '', 'sel_structures');
             tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
-            $('#div_sel_workPackage').html('');
+            // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
+            tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
+            // Clear selections when site changes
             $('#selectedworkPackages').html('');
             $('#workPackagepanel').html('');
             $('#workPackage').val('0');
@@ -427,11 +440,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateHiddenSelections();
 
                 var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
-                $('#div_sel_workPackage').html('');
-                $('#selectedworkPackages').html('');
-                $('#workPackagepanel').html('');
-                $('#workPackage').val('0');
-                loadWorkPackageDropdown(routeSectionIds);
+                var routeSectionTitles = $('#selectedrouteSections .qresult').map(function() { return $(this).data('name'); }).get();
+                // Refine work packages further by route section (they were already filtered by site)
+                loadWorkPackageDropdown(routeSectionIds, routeSectionTitles);
             }
         }
         if (e == 'cdmWorkPackage') {
