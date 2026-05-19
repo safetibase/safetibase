@@ -435,8 +435,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
                 nt = t + sTerm;
-                lbl = '<div class="tpos-lbl">Selected route section(s)</div>';
-                $('#routeSectionpanel').html(lbl + '<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
+                $('#routeSectionpanel').html('<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
 
                 var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
@@ -448,13 +447,24 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         if (e == 'cdmWorkPackage') {
             t = $('#selectedworkPackages').html();
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
-                sTerm = '<div class="qresult" data-entity="workPackage" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="workPackage">X</span></div>';
+                var routeSectionNames = $('#selectedrouteSections .qresult').map(function() { return $(this).data('name'); }).get();
+                var routeSectionPrefix = '';
+                if (routeSectionNames.length > 0) {
+                    var routeSectionLabel = routeSectionNames[0];
+                    if (/^Route Section/i.test(routeSectionLabel)) {
+                        routeSectionPrefix = routeSectionLabel;
+                    } else {
+                        routeSectionPrefix = 'Route Section ' + routeSectionLabel;
+                    }
+                }
+                var workPackageLabel = routeSectionPrefix ? routeSectionPrefix + ' - ' + vn : vn;
+                sTerm = '<div class="qresult" data-entity="workPackage" data-name="' + workPackageLabel + '" data-value="' + v + '"><span>' + workPackageLabel + ' </span><span class="qrremove" data-field="workPackage">X</span></div>';
                 nt = t + sTerm;
                 lbl = '<div class="tpos-lbl">Selected work package(s)</div>';
                 $('#workPackagepanel').html(lbl + '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
             }
-        }        
+        }
         if (e == 'cdmPWStructures') {
             t = $("#selectedstructures").html();
 
