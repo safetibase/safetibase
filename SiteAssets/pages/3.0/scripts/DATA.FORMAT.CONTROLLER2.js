@@ -1147,7 +1147,7 @@ function buildHazardListItem(h) {
                         if (urat == "Designer") {
                             ucanedit = 1;
                         }
-                        if (urat == "Design Manager" && uid() != h.Editor.ID) {
+                        if (urat == "Design Manager" && uid() != editorId) {
                             ucandmreview = 1;
                         }
                     }
@@ -1157,11 +1157,11 @@ function buildHazardListItem(h) {
                             ucanedit = 1;
                         }
                     }
-                    if (ucanedit == 1 && uid() != h.Editor.ID) {
+                    if (ucanedit == 1 && uid() != editorId) {
                         ucanpeerreview = 1;
                     }
                 }
-                if (uid() != h.Editor.ID) {
+                if (uid() != editorId) {
                     if (urat == "Construction Manager" && urs == h.cdmSite.ID) {
                         ucanprecon = 1;
                     }
@@ -1526,8 +1526,10 @@ function printNonEditableField() {}
 function printEditableField() {}
 
 function printHazardRow(h) {
-    //alert("hi");
     var hc = "pwd";
+    var authorName = h.Author && h.Author.Title ? h.Author.Title : 'Unknown';
+    var editorName = h.Editor && h.Editor.Title ? h.Editor.Title : 'Unknown';
+    var editorId = h.Editor && h.Editor.ID ? h.Editor.ID : null;
     var hctitle = "Permanent works design hazard";
     var en = h.cdmPWStructure.Title;
     var enid = h.cdmPWStructure.ID;
@@ -1958,7 +1960,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        uid() != editorId &&
                         h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
@@ -2121,7 +2123,7 @@ function printHazardRow(h) {
                     if (
                         role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        uid() != editorId &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
                         ucp = 1;
@@ -2376,10 +2378,10 @@ function printHazardRow(h) {
         truncateText(h.cdmRiskDescription) +
         "</div>" + /*
         '                        <div class="cell">' +
-        printDate("Created", h.Author.Title, h.Created) +
+        printDate("Created", authorName, h.Created) +
         "</div>" +
         '                        <div class="cell">' +
-        printDate("Modified", h.Editor.Title, h.Modified) +
+        printDate("Modified", editorName, h.Modified) +
         "</div>" +
         '                        <div class="cell">' +
         lstrev +
@@ -2672,10 +2674,10 @@ function printHazardRow(h) {
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-150">' +
-        h.Author.Title +
+        authorName +
         "</td>" +
         '                    <td class="width-150 hazhis">' +
-        h.Editor.Title +
+        editorName +
         "</td>" +
         '                    <td class="width-150 revhis">' +
         h.cdmLastReviewer +
