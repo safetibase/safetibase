@@ -2418,13 +2418,13 @@ function printHazardRow(h) {
         '                        <div class="lbl">Owner</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
-        '                        <div class="lbl">Site</div>' +
+        '                        <div class="lbl">Site(s)</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
-        '                        <div class="lbl">Route Section</div>' +
+        '                        <div class="lbl">Route Section(s)</div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
-        '                        <div class="lbl">Work Package</div>' +
+        '                        <div class="lbl">Work Package(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
         '                        <div class="lbl">Entity</div>' +
