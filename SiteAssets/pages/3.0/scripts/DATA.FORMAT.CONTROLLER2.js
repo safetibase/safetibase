@@ -2420,10 +2420,16 @@ function printHazardRow(h) {
         '                    <td class="width-50">' +
         '                        <div class="lbl">Site</div>' +
         "                    </td>" +
-        '                    <td class="width-300">' +
+        '                    <td class="width-100">' +
+        '                        <div class="lbl">Route Section</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
+        '                        <div class="lbl">Work Package</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
         '                        <div class="lbl">Entity</div>' +
         "                    </td>" +
-        '                    <td class="width-300">' +
+        '                    <td class="width-200">' +
         '                        <div class="lbl">UAID</div>' +
         "                    </td>" +
         "                </tr>" +
@@ -2454,23 +2460,28 @@ function printHazardRow(h) {
         o +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-50 fld">' +
-        '<div class="cell cdmSite" data-siteid="' +
-        [
-        (h.cdmSite && h.cdmSite.Title) ? h.cdmSite.Title : '',
-        (h.workPackage && h.workPackage.results)
-            ? h.workPackage.results.map(function(wp) { return wp.Title; }).join(',')
-            : ''
-        ]
-        .filter(Boolean).join('-') +
-        '">' +
-        [
-        (h.cdmSite && h.cdmSite.Title) ? h.cdmSite.Title : '',
-        (h.workPackage && h.workPackage.results)
-            ? h.workPackage.results.map(function(wp) { return wp.Title; }).join(',')
-            : ''
-        ]
-        .filter(Boolean).join('-') +
+        // cdmSite
+        '                    <td class="width-100 fld">' +
+        '                        <div class="cell cdmSite">' +
+            (h.cdmSite && h.cdmSite.Title ? h.cdmSite.Title : '') +
+        '</div>' +
+        "                    </td>" +
+
+        // cdmRouteSection
+        '                    <td class="width-100 fld">' +
+        '                        <div class="cell cdmRouteSection">' +
+            (h.routeSection && h.routeSection.Title ? h.routeSection.Title : '') +
+        '</div>' +
+        "                    </td>" +
+
+        // cdmWorkPackage
+        '                    <td class="width-300 fld">' +
+        '                        <div class="cell cdmWorkPackage">' +
+            (h.workPackage && h.workPackage.results
+                ? h.workPackage.results.map(function (wp) {
+                    return wp.Title;
+                }).join(',')
+                : '') +
         '</div>' +
         "                    </td>" +
         '                    <td class="width-300 fld">' +
