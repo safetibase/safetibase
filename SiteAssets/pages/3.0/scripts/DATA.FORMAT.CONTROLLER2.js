@@ -2417,13 +2417,13 @@ function printHazardRow(h) {
         '                    <td class="width-100">' +
         '                        <div class="lbl">Owner</div>' +
         "                    </td>" +
-        '                    <td class="width-50">' +
+        '                    <td class="width-100">' +
         '                        <div class="lbl">Site</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
         '                        <div class="lbl">Route Section</div>' +
         "                    </td>" +
-        '                    <td class="width-200">' +
+        '                    <td class="width-300">' +
         '                        <div class="lbl">Work Package</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
@@ -2495,7 +2495,7 @@ function printHazardRow(h) {
                 : '') +
         '</div>' +
         "                    </td>" +
-        '                    <td class="width-300 fld">' +
+        '                    <td class="width-200 fld">' +
         // '                        <div class="cell cdmPWStructure">'+pws+'</div>'+
         // '                        <div class="cell cdmPWElement">'+pwe+'</div>'+
         // '                        <div class="cell cdmTW">'+h.cdmTW+'</div>'+
@@ -2506,7 +2506,7 @@ function printHazardRow(h) {
         pwe +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 fld">' +
+        '                    <td class="width-200 fld">' +
         '                        <div class="cell cdmuaid">' +
         h.cdmPWStructure.UAID + 
         "</div>" +
