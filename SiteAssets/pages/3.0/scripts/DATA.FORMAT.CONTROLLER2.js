@@ -2470,7 +2470,18 @@ function printHazardRow(h) {
         // cdmRouteSection
         '                    <td class="width-100 fld">' +
         '                        <div class="cell cdmRouteSection">' +
-            (h.routeSection && h.routeSection.Title ? h.routeSection.Title : '') +
+            (h.workPackage && h.workPackage.results && h.workPackage.results.length
+                ? h.workPackage.results.map(function (wp) {
+
+                    var match = wp.Title.match(/^\d+(\.\d+)*/); // get numeric prefix
+                    if (!match) return '';
+
+                    var parts = match[0].split('.');
+                    parts.pop(); // remove last segment
+
+                    return parts.join('.');
+                }).filter(Boolean).join(',')
+                : '') +
         '</div>' +
         "                    </td>" +
 
