@@ -246,7 +246,6 @@ formatdatato = {
                         "cdmPWStructure",
                         "cdmHazardOwner",
                         "cdmHazardType",
-                        "routeSection",
                         "workPackage",
                         "cdmStage",
                         "cdmStageExtra",
@@ -2456,11 +2455,23 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-50 fld">' +
-        '                        <div class="cell cdmSite" data-siteid="' +
-        h.cdmSite.ID +
+        '<div class="cell cdmSite" data-siteid="' +
+        [
+        (h.cdmSite && h.cdmSite.Title) ? h.cdmSite.Title : '',
+        (h.workPackage && h.workPackage.results)
+            ? h.workPackage.results.map(function(wp) { return wp.Title; }).join(',')
+            : ''
+        ]
+        .filter(Boolean).join('-') +
         '">' +
-        h.cdmSite.Title +
-        "</div>" +
+        [
+        (h.cdmSite && h.cdmSite.Title) ? h.cdmSite.Title : '',
+        (h.workPackage && h.workPackage.results)
+            ? h.workPackage.results.map(function(wp) { return wp.Title; }).join(',')
+            : ''
+        ]
+        .filter(Boolean).join('-') +
+        '</div>' +
         "                    </td>" +
         '                    <td class="width-300 fld">' +
         // '                        <div class="cell cdmPWStructure">'+pws+'</div>'+
