@@ -501,7 +501,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     search: false,
                     selectAll: true,
                     onOptionClick: function() {
-                        console.log("Selected structures:", $("#selectedstructures").val());
                         toggleSaveButton();
                     }
                 });
@@ -646,7 +645,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     }
     
     function toggleSaveButton() {
-        console.log("selected structure length:",$("#selectedstructures").val().length)
         if ($("#selectedstructures").val().length === 0) {
             $("#saveButton").addClass("disabled");
         } else {
@@ -838,20 +836,29 @@ async function savehazards() {
             }
         }
 
-        if (type == 'site') sites.push([name, value]);
-        if (type == 'routeSection') routeSections.push([name, value]);
-        if (type == 'workPackage') workPackages.push([name, value]);
-        if (type == 'temporary') tw.push([name, value]);
-        if (type == 'rams') rams.push([name, value]);
+    $('#selectedsite .qresult').each(function () {
+        sites.push([$(this).data('name'), $(this).data('value')]);
+    });
+
+    $('#selectedworkPackages .qresult').each(function () {
+        workPackages.push([$(this).data('name'), $(this).data('value')]);
+    });
+
+    $('#selectedtw .qresult').each(function () {
+        tw.push([$(this).data('name'), $(this).data('value')]);
+    });
+
+    $('#selectedrams .qresult').each(function () {
+        rams.push([$(this).data('name'), $(this).data('value')]);
+    });
+    
     }
 
     // ✅ MULTI-LOOKUP VALUES
     const siteIds = sites.map(s => s[1]).filter(id => id);
-    const routeSectionIds = routeSections.map(r => r[1]).filter(id => id);
     const workPackageIds = workPackages.map(w => w[1]).filter(id => id);
 
     const siteValue = siteIds.length ? siteIds.join(';#') : null;
-    const routeSectionValue = routeSectionIds.length ? routeSectionIds.join(';#') : null;
     const workPackageValue = workPackageIds.length ? workPackageIds.join(';#') : null;
 
     // Stage lookups
@@ -900,7 +907,6 @@ async function savehazards() {
         tdata.push('cdmMitigationDescription|' + ms);
 
         if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (routeSectionValue) tdata.push('routeSection|' + routeSectionValue);
         if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
 
         tdata.push('cdmInitialRisk|' + risks);
@@ -932,7 +938,6 @@ async function savehazards() {
         tdata.push('cdmMitigationDescription|' + ms);
 
         if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (routeSectionValue) tdata.push('routeSection|' + routeSectionValue);
         if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
 
         tdata.push('cdmInitialRisk|' + risks);
@@ -966,7 +971,6 @@ async function savehazards() {
         tdata.push('cdmMitigationDescription|' + ms);
 
         if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (routeSectionValue) tdata.push('routeSection|' + routeSectionValue);
         if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
 
         tdata.push('cdmInitialRisk|' + risks);
