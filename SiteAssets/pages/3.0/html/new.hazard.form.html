@@ -790,9 +790,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 async function savehazards() {
     $('.ms-options-wrap > .ms-options:visible').hide();
 
-    var newhazards = [];
     var sites = [];
-    var routeSections = [];
     var workPackages = [];
     var pw = [];
     var tw = [];
@@ -806,7 +804,10 @@ async function savehazards() {
     var rs = sanitizeInput($('#cdmRiskDescription').val());
     var ms = sanitizeInput($('#cdmMitigationDescription').val());
 
-    if (!hz) toastr.error('Please describe the hazard');
+    if (!hz) {
+        toastr.error('Please describe the hazard');
+        return;
+    }
     if (!rs) rs = 'Awaiting risk assessment';
     if (!ms) ms = 'Awaiting mitigation';
 
@@ -814,61 +815,44 @@ async function savehazards() {
     const cdmGeometry = urlParams.get("cdmGeometry");
     const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
 
-    const selected_ele = document.getElementsByClassName("selected");
-    var qr = $('.qresult');
-    var selection = [];
-
-    for (let i = 0; i < selected_ele.length; i++) {
-        selection.push(selected_ele[i].innerText);
-    }
-
-    // Collect selections
-    for (var j = 0; j < qr.length; j++) {
-        var o = qr.eq(j);
-        var type = o.data('entity');
-        var name = o.data('name');
-        var value = o.data('value');
-
-        if (selection.includes(qr[j].innerText)) {
-            if (type == 'permanent') {
-                var stage = o.data('stage');
-                pw.push([name, value, stage]);
-            }
-        }
-
     $('#selectedsite .qresult').each(function () {
-        sites.push([$(this).data('name'), $(this).data('value')]);
+        sites.push(Number($(this).data('value')));
     });
 
     $('#selectedworkPackages .qresult').each(function () {
-        workPackages.push([$(this).data('name'), $(this).data('value')]);
+        workPackages.push(Number($(this).data('value')));
     });
 
     $('#selectedtw .qresult').each(function () {
-        tw.push([$(this).data('name'), $(this).data('value')]);
+        tw.push($(this).data('value'));
     });
 
     $('#selectedrams .qresult').each(function () {
-        rams.push([$(this).data('name'), $(this).data('value')]);
+        rams.push($(this).data('value'));
     });
-    
-    }
 
-    // ✅ MULTI-LOOKUP VALUES
-    const siteIds = sites.map(s => s[1]).filter(id => id);
-    const workPackageIds = workPackages.map(w => w[1]).filter(id => id);
+    $('#selectedstructures option:selected').each(function () {
+        pw.push({
+            id: Number($(this).data('value')),
+            stage: $(this).data('stage')
+        });
+    });
 
-    const siteValue = siteIds.length ? siteIds.join(';#') : null;
-    const workPackageValue = workPackageIds.length ? workPackageIds.join(';#') : null;
+    const listMeta = await $.ajax({
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('cdmHazards')?$select=ListItemEntityTypeFullName",
+        method: "GET",
+        headers: { "Accept": "application/json; odata=verbose" }
+    });
 
-    // Stage lookups
+    const itemType = listMeta.d.ListItemEntityTypeFullName;
+
     const stageExtraToStageTitleMap = {
         "Permanent Works Construction": "Construction",
         "Temporary Works Construction": "Construction",
         "Operation": "Operation",
         "Maintenance": "Maintenance",
         "Demolition": "Demolition",
-        "Commissioning": "Commission",
+        "Commissioning": "Commission"
     };
 
     const cdmStageData = await $.ajax({
@@ -888,117 +872,86 @@ async function savehazards() {
         const stageExtraTitle = cdmStageExtraData.d.results[i].Title;
         const stageExtraId = cdmStageExtraData.d.results[i].ID;
         const stageTitle = stageExtraToStageTitleMap[stageExtraTitle];
-        const stageId = cdmStageData.d.results.find(x => x.Title === stageTitle)?.ID;
-
-        if (stageId) cdmStageExtraToStageId[stageExtraId] = stageId;
+        const stageMatch = cdmStageData.d.results.find(x => x.Title === stageTitle);
+        if (stageMatch) {
+            cdmStageExtraToStageId[stageExtraId] = stageMatch.ID;
+        }
     }
 
     var risks = $('#cdmInitialRisk').html();
     var rscv = parseInt(risks.split('-')[0], 10);
 
-    // ✅ PW
-    for (var ps = 0; ps < pw.length; ps++) {
-        var tdata = [];
+    var item = {
+        "__metadata": { "type": itemType },
+        Title: title,
+        cdmSiblings: title,
+        cdmHazardDescription: hz,
+        cdmRiskDescription: rs,
+        cdmMitigationDescription: ms,
+        cdmInitialRisk: risks,
+        cdmResidualRisk: risks,
+        cdmHazardTypeId: 2,
+        cdmInitialRiskScore: rscv,
+        cdmResidualRiskScore: rscv,
+        cdmUniclass: "Open"
+    };
 
-        tdata.push('Title|' + title);
-        tdata.push('cdmSiblings|' + title);
-        tdata.push('cdmHazardDescription|' + hz);
-        tdata.push('cdmRiskDescription|' + rs);
-        tdata.push('cdmMitigationDescription|' + ms);
-
-        if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
-
-        tdata.push('cdmInitialRisk|' + risks);
-        tdata.push('cdmResidualRisk|' + risks);
-        tdata.push('cdmHazardType|2');
-        tdata.push('cdmInitialRiskScore|' + rscv);
-        tdata.push('cdmResidualRiskScore|' + rscv);
-
-        tdata.push('cdmPWStructure|' + pw[ps][1]);
-        tdata.push('cdmSMMitigationSuggestion| ');
-        tdata.push('cdmStageExtra|' + pw[ps][2]);
-        tdata.push('cdmStage|' + cdmStageExtraToStageId[pw[ps][2]]);
-        tdata.push('cdmUniclass|Open');
-
-        if (cdmHazardCoordinates) tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
-        if (cdmGeometry) tdata.push('cdmGeometry|' + cdmGeometry);
-
-        newhazards.push(tdata);
+    if (sites.length) {
+        item.cdmSiteId = sites[0];
     }
 
-    // ✅ TW
-    for (var ts = 0; ts < tw.length; ts++) {
-        var tdata = [];
-
-        tdata.push('Title|' + title);
-        tdata.push('cdmSiblings|' + title);
-        tdata.push('cdmHazardDescription|' + hz);
-        tdata.push('cdmRiskDescription|' + rs);
-        tdata.push('cdmMitigationDescription|' + ms);
-
-        if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
-
-        tdata.push('cdmInitialRisk|' + risks);
-        tdata.push('cdmResidualRisk|' + risks);
-        tdata.push('cdmHazardType|2');
-        tdata.push('cdmInitialRiskScore|' + rscv);
-        tdata.push('cdmResidualRiskScore|' + rscv);
-
-        tdata.push('cdmTW|' + tw[ts][1]);
-        tdata.push('cdmEntityTitle|' + tw[ts][0]);
-        tdata.push('cdmStageMitigationSuggestion| ');
-        tdata.push('cdmSMMitigationSuggestion| ');
-        tdata.push('cdmStageExtra|2');
-        tdata.push('cdmStage|1');
-        tdata.push('cdmUniclass|Open');
-
-        if (cdmHazardCoordinates) tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
-        if (cdmGeometry) tdata.push('cdmGeometry|' + cdmGeometry);
-
-        newhazards.push(tdata);
+    if (workPackages.length) {
+        item.workPackageId = {
+            results: workPackages
+        };
     }
 
-    // ✅ RAMS
-    for (var ras = 0; ras < rams.length; ras++) {
-        var tdata = [];
+    if (pw.length) {
+        item.cdmPWStructureId = pw[0].id;
 
-        tdata.push('Title|' + title);
-        tdata.push('cdmSiblings|' + title);
-        tdata.push('cdmHazardDescription|' + hz);
-        tdata.push('cdmRiskDescription|' + rs);
-        tdata.push('cdmMitigationDescription|' + ms);
+        const stageExtra = pw[0].stage;
+        item.cdmStageExtraId = stageExtra;
 
-        if (siteValue) tdata.push('cdmSite|' + siteValue);
-        if (workPackageValue) tdata.push('workPackage|' + workPackageValue);
+        if (cdmStageExtraToStageId[stageExtra]) {
+            item.cdmStageId = cdmStageExtraToStageId[stageExtra];
+        }
 
-        tdata.push('cdmInitialRisk|' + risks);
-        tdata.push('cdmResidualRisk|' + risks);
-        tdata.push('cdmHazardType|2');
-        tdata.push('cdmInitialRiskScore|' + rscv);
-        tdata.push('cdmResidualRiskScore|' + rscv);
-
-        tdata.push('cdmStageMitigationSuggestion|Not applicable');
-        tdata.push('cdmSMMitigationSuggestion| ');
-        tdata.push('cdmRAMS|' + rams[ras][1]);
-        tdata.push('cdmEntityTitle|' + rams[ras][0]);
-        tdata.push('cdmStageExtra|1');
-        tdata.push('cdmStage|1');
-        tdata.push('cdmUniclass|Open');
-
-        if (cdmHazardCoordinates) tdata.push('cdmHazardCoordinates|' + cdmHazardCoordinates);
-        if (cdmGeometry) tdata.push('cdmGeometry|' + cdmGeometry);
-
-        newhazards.push(tdata);
+        item.cdmSMMitigationSuggestion = " ";
     }
 
-    // Save
-    for (var dd = 0; dd < newhazards.length; dd++) {
-        tposdata.set('cdmHazards', newhazards[dd], "addHazards");
+    if (tw.length) {
+        item.cdmTW = tw.join(',');
+        item.cdmStageExtraId = 2;
+        item.cdmStageId = 1;
     }
 
-    // Reset UI
+    if (rams.length) {
+        item.cdmRAMS = rams.join(',');
+        item.cdmStageExtraId = 1;
+        item.cdmStageId = 1;
+    }
+
+    if (cdmHazardCoordinates) item.cdmHazardCoordinates = cdmHazardCoordinates;
+    if (cdmGeometry) item.cdmGeometry = cdmGeometry;
+
+    $.ajax({
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle('cdmHazards')/items",
+        method: "POST",
+        data: JSON.stringify(item),
+        headers: {
+            "Accept": "application/json;odata=verbose",
+            "Content-Type": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+        },
+        success: function () {
+            toastr.success("Hazard saved");
+        },
+        error: function (err) {
+            console.error("FULL ERROR:", err.responseText);
+            toastr.error("Error saving hazard");
+        }
+    });
+
     $('#div_sel_structures, #div_sel_tw, #div_sel_rams').html('');
     $('#sel_cdmSites').val('');
     $('#selectedsite, #selectedrouteSections, #selectedworkPackages, #selectedtw, #selectedrams, #selectedstructures').html('');
@@ -1006,7 +959,7 @@ async function savehazards() {
     updateHiddenSelections();
     $('.button-row').hide();
 }
-    
+
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
         
