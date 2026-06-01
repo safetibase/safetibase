@@ -2479,8 +2479,8 @@ function printHazardRow(h) {
                     var parts = match[0].split('.');
                     parts.pop(); // remove last segment
 
-                    return parts.join('.');
-                }).filter(Boolean).join(',')
+                    return parts.join(';<br>');
+                }).filter(Boolean).join(';<br>')
                 : '') +
         '</div>' +
         "                    </td>" +
@@ -2491,7 +2491,7 @@ function printHazardRow(h) {
             (h.workPackage && h.workPackage.results
                 ? h.workPackage.results.map(function (wp) {
                     return wp.Title;
-                }).join(',')
+                }).join(';<br>')
                 : '') +
         '</div>' +
         "                    </td>" +
