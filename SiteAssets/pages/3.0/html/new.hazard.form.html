@@ -423,9 +423,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
             // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
             tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
-            // Clear selections when site changes
 
-            $('#workPackagepanel').html('');
+            // Clear selections when site changes
             $('#workPackage').val('0');
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
@@ -435,7 +434,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         if (e == 'cdmRouteSection') {
             t = $('#selectedrouteSections').html();
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
-                sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
+                sTerm = '<div class="qresult" data-entity="routeSection" data-rsname="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
                 nt = t + sTerm;
                 $('#routeSectionpanel').html('<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
@@ -448,30 +447,22 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
         }
         if (e == 'cdmWorkPackage') {
+
             t = $('#selectedworkPackages').html();
 
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
 
-                var routeSectionIds = $('#selectedrouteSections .qresult').map(function() {
-                    return $(this).data('value');
-                }).get();
+                var lastRoute = $('#selectedrouteSections .qresult').last();
 
-                var routeSectionNames = $('#selectedrouteSections .qresult').map(function() {
-                    return $(this).data('name');
-                }).get();
+                var routeSectionId = lastRoute.data('value');
+                var routeSectionName = lastRoute.data('rsname') || lastRoute.data('name');
 
-                var routeSectionId = routeSectionIds.length ? routeSectionIds[routeSectionIds.length - 1] : null;
-                var siteIds = $('#selectedsite .qresult').map(function() {
-                    return $(this).data('value');
-                }).get();
+                var siteId = $('#selectedsite .qresult').last().data('value');
 
-                var siteId = siteIds.length ? siteIds[siteIds.length - 1] : null;
+                var label = routeSectionName + ' - ' + vn;
 
-                var routeSectionName = routeSectionNames.length ? routeSectionNames[routeSectionNames.length - 1] : '';
-
-                var label = routeSectionName ? routeSectionName + ' - ' + vn : vn;
-
-                sTerm = '<div class="qresult" ' +
+                sTerm =
+                    '<div class="qresult" ' +
                     'data-entity="workPackage" ' +
                     'data-name="' + label + '" ' +
                     'data-value="' + v + '" ' +
@@ -483,8 +474,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
                 nt = t + sTerm;
 
-                $('#workPackagepanel').html('<div class="tpos-lbl">Selected work package(s)</div>' +
-                    '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
+                $('#workPackagepanel').html(
+                    '<div class="tpos-lbl">Selected work package(s)</div>' +
+                    '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>'
+                );
 
                 updateHiddenSelections();
                 updateVisibleInputs();
@@ -630,7 +623,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedrouteSections').html('');
                 $('#selectedworkPackages').html('');
                 $('#routeSectionpanel').html('');
-                $('#workPackagepanel').html('');
                 $('#routeSection').val('0');
                 $('#workPackage').val('0');
                 // Also clear the dropdowns
