@@ -520,7 +520,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
                 if (groupIds.length > 0) {
                     var filter = groupIds.map(function (id) {
-                        return 'AssetTypeGroup/ID eq ' + id; // ⚠️ verify internal name if needed
+                        return 'AssetTypeGroup/ID eq ' + id; 
                     }).join(' or ');
 
                     tposdata.get('cdmAssetSubGroup', filter, '', 'sel_cdmAssetSubGroup');
