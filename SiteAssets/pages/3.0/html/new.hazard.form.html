@@ -263,6 +263,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     <div class="tpos-info">Once you've selected an asset and wish to add another one, simply click the asset search box again.</div>
 
     <!--<div class="tpos-info">Proceed in the same way with asset breakdown structure (asset group type, asset sub-group, asset type).</div> -->
+<div style="display: flex; gap: 20px; justify-content: space-between;">
     <div class="select-panel" id="assetTypeGroupPanel" style="flex: 1;">
         <div class="tpos-lbl">Select asset type group</div>
         <div class="tpos-select" id="div_sel_cdmAssetTypeGroup"></div>
@@ -281,7 +282,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         <input class="hide" type="text" id="assetType" value="0" placeholder="Select asset type" />
     </div>
 
-
+</div>
 </div>
 
 <div class="selectnext" id="next">
@@ -297,6 +298,19 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         <div id="workPackagepanel">
             <div id="selectedworkPackages" class="tpos-selection"></div>
         </div>
+        
+        <div id="assetTypeGrouppanel">
+            <div id="selectedassetTypeGroup" class="tpos-selection"></div>
+        </div>
+
+        <div id="assetSubGrouppanel">
+            <div id="selectedassetSubGroup" class="tpos-selection"></div>
+        </div>
+
+        <div id="assetTypepanel">
+            <div id="selectedassetType" class="tpos-selection"></div>
+        </div>
+
     </div>
     <div class="tpos-info">Once you've selected at least one works designs, the hazard can be saved. Should you have selected more than one works, the hazard will be saved for all of them, i.e. the system will save the described hazard for each works
         design specified. Each recorded hazard will contain the same metadata as specified by you.</div>
@@ -405,6 +419,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#workPackagepanel').html('');
                 $('#routeSection').val('0');
                 $('#workPackage').val('0');
+                $('#selectedassetTypeGroup').html('');
+                $('#selectedassetSubGroup').html('');
+                $('#selectedassetType').html('');
                 updateHiddenSelections();
                 updateVisibleInputs();
             }
@@ -420,8 +437,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
             tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
             tposdata.get('cdmAssetTypeGroup', siteFilter, '', 'sel_cdmAssetTypeGroup');
-            tposdata.get('cdmAssetSubGroup', siteFilter, '', 'sel_cdmAssetSubGroup');
-            tposdata.get('cdmAssetType', siteFilter, '', 'sel_cdmAssetType');
 
 
             // Clear selections when site changes
@@ -485,75 +500,88 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
 
         if (e == 'cdmAssetTypeGroup') {
-            let t = $('#selectedassetTypeGroup').html();
+            let t = $('#selectedassetTypeGroup').html() || '';
 
             if ($('#selectedassetTypeGroup .qresult[data-value="' + v + '"]').length === 0) {
-                let sTerm = `
-                    <div class="qresult" data-entity="assetTypeGroup" data-name="${vn}" data-value="${v}">
-                        <span>${vn}</span>
-                        <span class="qrremove" data-field="sel_assetTypeGroup">X</span>
-                    </div>`;
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetTypeGroup" data-name="' + vn + '" data-value="' + v + '">' +
+                    '<span>' + vn + '</span>' +
+                    '<span class="qrremove" data-field="assetTypeGroup">X</span>' +
+                    '</div>';
 
                 $('#assetTypeGrouppanel').html(
                     '<div id="selectedassetTypeGroup" class="tpos-selection">' + t + sTerm + '</div>'
                 );
+
+                var groupIds = $('#selectedassetTypeGroup .qresult')
+                    .map(function () { return $(this).data('value'); })
+                    .get();
+
+                if (groupIds.length > 0) {
+                    var filter = groupIds.map(function (id) {
+                        return 'AssetTypeGroup/ID eq ' + id; // ⚠️ verify internal name if needed
+                    }).join(' or ');
+
+                    tposdata.get('cdmAssetSubGroup', filter, '', 'sel_cdmAssetSubGroup');
+
+                    $('#selectedassetSubGroup').html('');
+                    $('#selectedassetType').html('');
+                }
+
+                toggleSaveButton();
             }
         }
 
         if (e == 'cdmAssetSubGroup') {
-            let t = $('#selectedassetSubGroup').html();
+            let t = $('#selectedassetSubGroup').html() || '';
 
             if ($('#selectedassetSubGroup .qresult[data-value="' + v + '"]').length === 0) {
-                let sTerm = `
-                    <div class="qresult" data-entity="assetSubGroup" data-name="${vn}" data-value="${v}">
-                        <span>${vn}</span>
-                        <span class="qrremove" data-field="sel_assetSubGroup">X</span>
-                    </div>`;
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetSubGroup" data-name="' + vn + '" data-value="' + v + '">' +
+                    '<span>' + vn + '</span>' +
+                    '<span class="qrremove" data-field="assetSubGroup">X</span>' +
+                    '</div>';
 
                 $('#assetSubGrouppanel').html(
                     '<div id="selectedassetSubGroup" class="tpos-selection">' + t + sTerm + '</div>'
                 );
+                var subGroupIds = $('#selectedassetSubGroup .qresult')
+                    .map(function () { return $(this).data('value'); })
+                    .get();
+
+                if (subGroupIds.length > 0) {
+                    var filter = subGroupIds.map(function (id) {
+                        return 'AssetSubGroup/ID eq ' + id; // ⚠️ verify internal name
+                    }).join(' or ');
+
+                    tposdata.get('cdmAssetType', filter, '', 'sel_cdmAssetType');
+
+                    $('#selectedassetType').html('');
+                }
             }
         }
 
         if (e == 'cdmAssetType') {
-            let t = $('#selectedassetType').html();
+            let t = $('#selectedassetType').html() || '';
 
             if ($('#selectedassetType .qresult[data-value="' + v + '"]').length === 0) {
-                let sTerm = `
-                    <div class="qresult" data-entity="assetType" data-name="${vn}" data-value="${v}">
-                        <span>${vn}</span>
-                        <span class="qrremove" data-field="sel_assetType">X</span>
-                    </div>`;
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetType" data-name="' + vn + '" data-value="' + v + '">' +
+                    '<span>' + vn + '</span>' +
+                    '<span class="qrremove" data-field="assetType">X</span>' +
+                    '</div>';
 
                 $('#assetTypepanel').html(
                     '<div id="selectedassetType" class="tpos-selection">' + t + sTerm + '</div>'
                 );
+
+                toggleSaveButton();
             }
         }
 
-
-
-        var qrs = $('.qresult');
-        for (var k = 0; k < qrs.length; k++) {
-            var cn = qrs.eq(k);
-            if (cn.data('entity') == 'permanent') {
-                pc++;
-            }
-            if (cn.data('entity') == 'temporary') {
-                tc++;
-            }
-            if (cn.data('entity') == 'rams') {
-                rc++;
-            }
-        }
-        if (pc + tc + rc > 0) {
-            $('.button-row').show();
-
-
-        } else {
-            $('.button-row').hide();
-        }
 
 
         $('.qrremove').click(function() {
@@ -612,6 +640,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             $(this).parent().remove();
             updateHiddenSelections();
             updateVisibleInputs();
+            toggleSaveButton();
             if (!crs || crs.length === 0) {
                 crc.html('');
             }
