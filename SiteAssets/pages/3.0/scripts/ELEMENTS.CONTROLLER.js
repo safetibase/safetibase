@@ -223,16 +223,21 @@ function mkSelect (lst, data, fset, trg) {
         }
 
     });
+    var multiSelectFields = ['cdmSites','cdmRouteSection','cdmRouteSections','cdmWorkPackage','cdmWorkPackages', 'cdmPWStructures'];
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();
         if (trg === 'sel_structures' && configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset
             dv = dv.split(';')[0].split(':')[1].trim();
         }
-        $('#sel_' + lst).val(dv);
+        $('#sel_' + lst).val('');
         $('#val_' + lst).html(dvid);
 
-        $('.tpos-' + lst + '-select-value').hide();
+        if (multiSelectFields.indexOf(lst) === -1) {
+            $('.tpos-' + lst + '-select-value').hide();
+        } else {
+            $(this).hide();
+        }
         routeSelection(lst, dvid, dv);
     });
 }

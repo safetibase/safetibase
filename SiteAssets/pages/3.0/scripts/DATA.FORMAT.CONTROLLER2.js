@@ -202,13 +202,33 @@ formatdatato = {
                 fa.push("ID");
                 ft.push(1);
             })
-            .done(function() {
+            
+            .done(function () {
+
                 var od = "OData_";
+                var seen = new Set();
+                var cleanFa = [];
+                var cleanFt = [];
+
                 for (var i = 0; i < fa.length; i++) {
+                    if (!seen.has(fa[i])) {
+                        seen.add(fa[i]);
+                        cleanFa.push(fa[i]);
+                        cleanFt.push(ft[i]);
+                    }
+                }
+
+                fa = cleanFa;
+                ft = cleanFt;
+
+                for (var i = 0; i < fa.length; i++) {
+
                     var ti = fa[i];
+
                     if (ti.substring(0, 1) == "_") {
                         ti = od + ti;
                     }
+
                     if (ft[i] != 20 && ft[i] != 7) {
                         if (fa[i] != "ID") {
                             select += ti + ",";
@@ -217,70 +237,92 @@ formatdatato = {
                         }
                         ftv.push(fa[i]);
                     }
-                    
-                    if (ft[i] == 7 || ft[i] == 20) {
+
+
+                    var allowedExpands = [
+                        "CurrentMitigationOwner",
+                        "CurrentReviewOwner",
+                        "cdmSite",
+                        "cdmPWStructure",
+                        "cdmHazardOwner",
+                        "cdmHazardType",
+                        "workPackage",
+                        "cdmStage",
+                        "cdmStageExtra",
+                        "cdmPWElement",
+                    ];
+
+                    if ((ft[i] == 7 || ft[i] == 20) && allowedExpands.includes(ti)) {
                         select += ti + "/Title," + ti + "/ID,";
-                        expand += ti + "/Title," + ti + "/ID,";
+                        expand += ti + ",";
                         ftv.push(ti + ".Title");
                         ftv.push(ti + ".ID");
                     }
-                }
-                expand = expand.substring(0, expand.length - 1);
-                if(lst=="cdmHazards"){
-                    expand = expand + ",cdmPWStructure/UAID";
-                    select = select + ",cdmPWStructure/UAID";
-                }
-            })
-            .done(function() {
-                var order = "ID desc";
-                getListItemsByListName({
-                    listName: lst,
-                    select: select,
-                    expansion: expand,
-                    order: order, // 'ID asc'
-                    filter: null // 'OData__user/Id eq \'' + i + '\''
-                }).done(function(data) {
-                    var appurl = _spPageContextInfo.webAbsoluteUrl;
-                    if (select) {
-                        select = '?$select=' + select;
-                    } else select = '?$select=*';
-                    if (expand) {
-                        expand = '&$expand=' + expand;
-                    } else expand = '';
-                    if (order) {
-                        order = '&$orderby=' + order;
-                    } else order = '';
 
-                    var initial_url = appurl + "/_api/web/lists/getByTitle(%27" + lst + "%27)/items" + select + expand + order + '&$top=5000'
-                    full_dataset = []
-                    async function GetListItems(url) {
-                        $.ajax({
-                            url: url,
-                            method: "GET",
-                            headers: {
-                                "Accept": "application/json; odata=verbose"
-                            },
-                            success: function(data) {
-                                var response = data.d.results;
-                                if (data.d.__next) {
-                                    full_dataset = [...full_dataset, ...response];
-                                    GetListItems(data.d.__next)
-                                } else {
-                                    full_dataset = [...full_dataset, ...response];
-                                    formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
-                                    $(".loading-text").remove()
-                                    // Allows for you to access the dashboard specific to your user roles. 
-                                    activateDatasets(sublot_data, full_dataset);
-                                }
-                            },
-                            error: function(error) {
-                                //console.log(error);
-                            }
-                        });
+                }
+
+                if (select.endsWith(",")) {
+                    select = select.slice(0, -1);
+                }
+
+                if (expand.endsWith(",")) {
+                    expand = expand.slice(0, -1);
+                }
+
+                if (lst == "cdmHazards") {
+                    if (!expand.includes("cdmPWStructure")) {
+                        expand += (expand ? "," : "") + "cdmPWStructure";
                     }
-                    GetListItems(initial_url);
+                    if (!select.includes("cdmPWStructure/UAID")) {
+                        select += ",cdmPWStructure/UAID";
+                    }
+                }
+
+
+            })
+            .done(function () {
+
+                var order = "ID desc";
+
+                var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+                var selectStr = select ? '?$select=' + select : '?$select=*';
+                var expandStr = expand ? '&$expand=' + expand : '';
+                var orderStr = order ? '&$orderby=' + order : '';
+
+                var initial_url = appurl + "/_api/web/lists/getByTitle('" + lst + "')/items" + selectStr + expandStr + orderStr + '&$top=5000';
+
+                full_dataset = [];
+
+                function GetListItems(url) {
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json; odata=verbose"
+                        },
+                        success: function (data) {
+                            var response = data.d.results;
+
+                            if (data.d.__next) {
+                                full_dataset = full_dataset.concat(response);
+                                GetListItems(data.d.__next);
+                            } else {
+                                full_dataset = full_dataset.concat(response);
+                                formatdatato.createTable(sublot_data, full_dataset, lst, trg, flst, true);
+                                $(".loading-text").remove();
+                                activateDatasets(sublot_data, full_dataset);
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+
+                GetListItems(initial_url);
+
             });
-        });
     },
     filterrowsdata: function(sublot_data, ftv, trg, flst, forExport ) {
 
@@ -581,7 +623,7 @@ formatdatato = {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
-                    break;
+                    break;W
                 case 5:
                     for (var i = 0; i < full_dataset.length; i++) {
                         if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null && full_dataset[i].cdmPWElement.ID == null) {
@@ -1104,7 +1146,7 @@ function buildHazardListItem(h) {
                         if (urat == "Designer") {
                             ucanedit = 1;
                         }
-                        if (urat == "Design Manager" && uid() != h.Editor.ID) {
+                        if (urat == "Design Manager" && uid() != editorId) {
                             ucandmreview = 1;
                         }
                     }
@@ -1114,11 +1156,11 @@ function buildHazardListItem(h) {
                             ucanedit = 1;
                         }
                     }
-                    if (ucanedit == 1 && uid() != h.Editor.ID) {
+                    if (ucanedit == 1 && uid() != editorId) {
                         ucanpeerreview = 1;
                     }
                 }
-                if (uid() != h.Editor.ID) {
+                if (uid() != editorId) {
                     if (urat == "Construction Manager" && urs == h.cdmSite.ID) {
                         ucanprecon = 1;
                     }
@@ -1483,8 +1525,10 @@ function printNonEditableField() {}
 function printEditableField() {}
 
 function printHazardRow(h) {
-    //alert("hi");
     var hc = "pwd";
+    var authorName = h.Author && h.Author.Title ? h.Author.Title : 'Unknown';
+    var editorName = h.Editor && h.Editor.Title ? h.Editor.Title : 'Unknown';
+    var editorId = h.Editor && h.Editor.ID ? h.Editor.ID : null;
     var hctitle = "Permanent works design hazard";
     var en = h.cdmPWStructure.Title;
     var enid = h.cdmPWStructure.ID;
@@ -1915,7 +1959,7 @@ function printHazardRow(h) {
                     if (
                         configData[workflow]['peerreview']["userRoles"].filter(item => item === role).length > 0 && //Make user roles configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        uid() != editorId &&
                         h.cdmLastReviewStatus == `${configData[workflow]['peerreview']["cdmLastReviewStatus"]}` //Makes skipping stage in configurable workflow possible by marking previous chronological stage as approved. Patrick Hsu, 2 Feb 2024
                     ) {
                         ucp = 1;
@@ -2078,7 +2122,7 @@ function printHazardRow(h) {
                     if (
                         role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
-                        uid() != h.Editor.ID &&
+                        uid() != editorId &&
                         h.cdmLastReviewStatus == "Review initiated"
                     ) {
                         ucp = 1;
@@ -2333,10 +2377,10 @@ function printHazardRow(h) {
         truncateText(h.cdmRiskDescription) +
         "</div>" + /*
         '                        <div class="cell">' +
-        printDate("Created", h.Author.Title, h.Created) +
+        printDate("Created", authorName, h.Created) +
         "</div>" +
         '                        <div class="cell">' +
-        printDate("Modified", h.Editor.Title, h.Modified) +
+        printDate("Modified", editorName, h.Modified) +
         "</div>" +
         '                        <div class="cell">' +
         lstrev +
@@ -2373,13 +2417,19 @@ function printHazardRow(h) {
         '                    <td class="width-100">' +
         '                        <div class="lbl">Owner</div>' +
         "                    </td>" +
-        '                    <td class="width-50">' +
-        '                        <div class="lbl">Site</div>' +
+        '                    <td class="width-100">' +
+        '                        <div class="lbl">Site(s)</div>' +
+        "                    </td>" +
+        '                    <td class="width-100">' +
+        '                        <div class="lbl">Route Section(s)</div>' +
         "                    </td>" +
         '                    <td class="width-300">' +
+        '                        <div class="lbl">Work Package(s)</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
         '                        <div class="lbl">Entity</div>' +
         "                    </td>" +
-        '                    <td class="width-300">' +
+        '                    <td class="width-200">' +
         '                        <div class="lbl">UAID</div>' +
         "                    </td>" +
         "                </tr>" +
@@ -2410,14 +2460,42 @@ function printHazardRow(h) {
         o +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-50 fld">' +
-        '                        <div class="cell cdmSite" data-siteid="' +
-        h.cdmSite.ID +
-        '">' +
-        h.cdmSite.Title +
-        "</div>" +
+        // cdmSite
+        '                    <td class="width-100 fld">' +
+        '                        <div class="cell cdmSite">' +
+            (h.cdmSite && h.cdmSite.Title ? h.cdmSite.Title : '') +
+        '</div>' +
         "                    </td>" +
+
+        // cdmRouteSection
+        '                    <td class="width-100 fld">' +
+        '                        <div class="cell cdmRouteSection">' +
+            (h.workPackage && h.workPackage.results && h.workPackage.results.length
+                ? h.workPackage.results.map(function (wp) {
+
+                    var match = wp.Title.match(/^\d+(\.\d+)*/); // get numeric prefix
+                    if (!match) return '';
+
+                    var parts = match[0].split('.');
+                    parts.pop(); // remove last segment
+
+                    return parts.join(';<br>');
+                }).filter(Boolean).join(';<br>')
+                : '') +
+        '</div>' +
+        "                    </td>" +
+
+        // cdmWorkPackage
         '                    <td class="width-300 fld">' +
+        '                        <div class="cell cdmWorkPackage">' +
+            (h.workPackage && h.workPackage.results
+                ? h.workPackage.results.map(function (wp) {
+                    return wp.Title;
+                }).join(';<br>')
+                : '') +
+        '</div>' +
+        "                    </td>" +
+        '                    <td class="width-200 fld">' +
         // '                        <div class="cell cdmPWStructure">'+pws+'</div>'+
         // '                        <div class="cell cdmPWElement">'+pwe+'</div>'+
         // '                        <div class="cell cdmTW">'+h.cdmTW+'</div>'+
@@ -2428,7 +2506,7 @@ function printHazardRow(h) {
         pwe +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-300 fld">' +
+        '                    <td class="width-200 fld">' +
         '                        <div class="cell cdmuaid">' +
         h.cdmPWStructure.UAID + 
         "</div>" +
@@ -2629,10 +2707,10 @@ function printHazardRow(h) {
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-150">' +
-        h.Author.Title +
+        authorName +
         "</td>" +
         '                    <td class="width-150 hazhis">' +
-        h.Editor.Title +
+        editorName +
         "</td>" +
         '                    <td class="width-150 revhis">' +
         h.cdmLastReviewer +

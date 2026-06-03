@@ -37,91 +37,147 @@ cdmdata = {
                 fa.push("ID");
                 ft.push(1);
             })
-            .done(function() {
-                var od = "OData_";
-                for (var i = 0; i < fa.length; i++) {
-                    var ti = fa[i];
-                    if (ti.substring(0, 1) == "_") {
-                        ti = od + ti;
+            
+            .done(function () {
+
+            var od = "OData_";
+            var seen = {};
+            var cleanFa = [];
+            var cleanFt = [];
+
+            for (var i = 0; i < fa.length; i++) {
+                if (!seen[fa[i]]) {
+                    seen[fa[i]] = true;
+                    cleanFa.push(fa[i]);
+                    cleanFt.push(ft[i]);
+                }
+            }
+
+            fa = cleanFa;
+            ft = cleanFt;
+
+            for (var i = 0; i < fa.length; i++) {
+
+                var ti = fa[i];
+
+                if (ti.substring(0, 1) == "_") {
+                    ti = od + ti;
+                }
+
+                if (ft[i] != 20 && ft[i] != 7) {
+                    if (fa[i] != "ID") {
+                        select += ti + ",";
+                    } else {
+                        select += ti;
                     }
-                    if (ft[i] != 20 && ft[i] != 7) {
-                        if (fa[i] != "ID") {
-                            select += ti + ",";
-                        } else {
-                            select += ti;
-                        }
-                        ftv.push(fa[i]);
-                    }
-                    
-                    if (ft[i] == 7 || ft[i] == 20) {
+                    ftv.push(fa[i]);
+                }
+
+                if ((ft[i] == 7 || ft[i] == 20)) {
+                    if (ti !== "Created" && ti !== "Modified" && ti !== "ID") {
                         select += ti + "/Title," + ti + "/ID,";
-                        expand += ti + "/Title," + ti + "/ID,";
+                        expand += ti + ",";
                         ftv.push(ti + ".Title");
                         ftv.push(ti + ".ID");
                     }
                 }
-                expand = expand.substring(0, expand.length - 1);
-              
-            })
-            .done(function() {
+            }
 
-                if(lst=="cdmHazards"){
-                    expand = expand + ",cdmPWStructure/UAID";
-                    select = select + ",cdmPWStructure/UAID";
+            if (select.charAt(select.length - 1) === ",") {
+                select = select.substring(0, select.length - 1);
+            }
+
+            if (expand.charAt(expand.length - 1) === ",") {
+                expand = expand.substring(0, expand.length - 1);
+            }
+
+        })
+
+            .done(function () {
+
+                
+                if (lst == "cdmHazards") {
+
+                    if (expand.indexOf("cdmPWStructure") === -1) {
+                        expand += (expand ? "," : "") + "cdmPWStructure";
+                    }
+
+                    if (select.indexOf("cdmPWStructure/UAID") === -1) {
+                        select += ",cdmPWStructure/UAID";
+                    }
                 }
+
+
                 getListItemsByListName({
                     listName: lst,
                     select: select,
                     expansion: expand,
-                    order: order, // 'ID asc'
-                    
-                    filter: filter // 'OData__user/Id eq \'' + i + '\''
-                }).done(function(data) {
+                    order: order,
+                    filter: filter
+                })
+                .done(function (data) {
 
-                  if (format == "hazards-table") {
-                    var appurl = _spPageContextInfo.webAbsoluteUrl;
-                    if (select) {
-                        select = '?$select=' + select;
-                    } else select = '?$select=*';
-                    if (filter) {
-                        filter = '&$filter=' + filter;
-                    } else filter = '';
-                    if (expand) {
-                        expand = '&$expand=' + expand;
-                    } else expand = '';
-                    if (order) {
-                        order = '&$orderby=' + order;
-                    } else order = '';
-                    var limit = '&$top=2000';
-                    var url = appurl + "/_api/web/lists/getByTitle(%27" + lst + "%27)/items" + select + filter + expand + order + limit
-                    async function GetListItems() {
-                        $.ajax({
-                            url: url,
-                            method: "GET",
-                            headers: {
-                                "Accept": "application/json; odata=verbose"
-                            },
-                            success: function(data) {
-                                var response = data.d.results;
-                                if (data.d.__next) {
-                                    callbackMain(response, data.d.__next)
-                                } else {
-                                    callbackMain(response, null)
+                    if (format == "hazards-table") {
+
+                        var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+                        if (select) {
+                            select = '?$select=' + select;
+                        } else {
+                            select = '?$select=*';
+                        }
+
+                        if (filter) {
+                            filter = '&$filter=' + filter;
+                        } else {
+                            filter = '';
+                        }
+
+                        if (expand) {
+                            expand = '&$expand=' + expand;
+                        } else {
+                            expand = '';
+                        }
+
+                        if (order) {
+                            order = '&$orderby=' + order;
+                        } else {
+                            order = '';
+                        }
+
+                        var limit = '&$top=2000';
+
+                        var url = appurl + "/_api/web/lists/getByTitle('" + lst + "')/items" +
+                            select + filter + expand + order + limit;
+
+                        async function GetListItems() {
+                            $.ajax({
+                                url: url,
+                                method: "GET",
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: function (data) {
+                                    var response = data.d.results;
+
+                                    if (data.d.__next) {
+                                        callbackMain(response, data.d.__next);
+                                    } else {
+                                        callbackMain(response, null);
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(JSON.stringify(error));
                                 }
-                            },
-                            error: function(error) {
-                                console.log(JSON.stringify(error));
-                            }
-                        });
-                    }
-                    
-                    GetListItems();
+                            });
+                        }
 
-                    function callbackMain(response, next_url) {
-                        formatdatato.hazardtablerows(response, next_url, 0)
-                    }
+                        function callbackMain(response, next_url) {
+                            formatdatato.hazardtablerows(response, next_url, 0);
+                        }
 
-            }
+                        GetListItems();
+                    }
 
             if (format == "urbuttons") {
                 formatdatato.urbuttons(data, ftv, trg);
