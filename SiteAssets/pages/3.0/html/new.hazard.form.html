@@ -258,36 +258,27 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </div>
 
 <div class="selectnext" id="next">
-    <div class="tpos-info">Select any applicable asset (to record permanent works hazards) by clicking on it. Use the search box to quickly find the correct option(s).</div>
+    <div class="tpos-info">Select any applicable asset by clicking on it. Use the search box to quickly find the correct option(s).</div>
 
-    <div class="tpos-info">Once you've selected a asset and wish to add another one, simply click the asset search box again.</div>
+    <div class="tpos-info">Once you've selected an asset and wish to add another one, simply click the asset search box again.</div>
 
     <!--<div class="tpos-info">Proceed in the same way with asset breakdown structure (asset group type, asset sub-group, asset type).</div> -->
-    <div class="select-panel" id="assetTypeGroup">
+    <div class="select-panel" id="assetTypeGroupPanel" style="flex: 1;">
         <div class="tpos-lbl">Select asset type group</div>
         <div class="tpos-select" id="div_sel_cdmAssetTypeGroup"></div>
+        <input class="hide" type="text" id="assetTypeGroup" value="0" placeholder="Select asset type group" />
     </div>
 
-    <div id="assetTypeGrouppanel">
-        <div id="selectedassetTypeGroup" class="tpos-selection"></div>
-    </div>
-
-    <div class="select-panel" id="assetSubGroup">
+    <div class="select-panel" id="assetSubGroupPanel" style="flex: 1;">
         <div class="tpos-lbl">Select asset sub-group</div>
         <div class="tpos-select" id="div_sel_cdmAssetSubGroup"></div>
+        <input class="hide" type="text" id="assetSubGroup" value="0" placeholder="Select asset sub-group" />
     </div>
 
-    <div id="assetSubGrouppanel">
-        <div id="selectedassetSubGroup" class="tpos-selection"></div>
-    </div>
-
-    <div class="select-panel" id="assetType">
+    <div class="select-panel" id="assetTypePanel" style="flex: 1;">
         <div class="tpos-lbl">Select asset type</div>
         <div class="tpos-select" id="div_sel_cdmAssetType"></div>
-    </div>
-
-    <div id="assetTypepanel">
-        <div id="selectedassetType" class="tpos-selection"></div>
+        <input class="hide" type="text" id="assetType" value="0" placeholder="Select asset type" />
     </div>
 
 
@@ -305,15 +296,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         </div>
         <div id="workPackagepanel">
             <div id="selectedworkPackages" class="tpos-selection"></div>
-        </div>
-        <div id="pwstructurespanel">
-            <div id="selectedstructures" class="tpos-selection"></div>
-        </div>
-        <div id="twpanel">
-            <div id="selectedtw" class="tpos-selection"></div>
-        </div>
-        <div id="ramspanel">
-            <div id="selectedrams" class="tpos-selection"></div>
         </div>
     </div>
     <div class="tpos-info">Once you've selected at least one works designs, the hazard can be saved. Should you have selected more than one works, the hazard will be saved for all of them, i.e. the system will save the described hazard for each works
