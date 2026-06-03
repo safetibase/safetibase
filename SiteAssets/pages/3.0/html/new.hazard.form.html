@@ -437,9 +437,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
             // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
             tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
-            tposdata.get('cdmAssetTypeGroup', siteFilter, '', 'sel_assetTypeGroup');
-            tposdata.get('cdmAssetSubGroup', siteFilter, '', 'sel_assetSubGroup');
-            tposdata.get('cdmAssetType', siteFilter, '', 'sel_assetType');
+            tposdata.get('cdmAssetTypeGroup', siteFilter, '', 'sel_cdmAssetTypeGroup');
+            tposdata.get('cdmAssetSubGroup', siteFilter, '', 'sel_cdmAssetSubGroup');
+            tposdata.get('cdmAssetType', siteFilter, '', 'sel_cdmAssetType');
 
 
             // Clear selections when site changes
@@ -591,23 +591,12 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 case 'workPackage':
                     listNames = ['cdmWorkPackage'];
                     break;
-                case 'permanent':
-                    listNames = ['cdmPWStructures'];
-                    break;
-                case 'temporary':
-                    listNames = ['tw'];
-                    break;
-                case 'rams':
-                    listNames = ['rams'];
-                    break;
                 case 'assetTypeGroup':
                     listNames = ['cdmAssetTypeGroup'];
                     break;
-
                 case 'assetSubGroup':
                     listNames = ['cdmAssetSubGroup'];
                     break;
-
                 case 'assetType':
                     listNames = ['cdmAssetType'];
                     break;
