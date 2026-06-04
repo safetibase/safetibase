@@ -296,19 +296,24 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             <div id="selectedrouteSections" class="tpos-selection"></div>
         </div>
 
-        '<div class="tpos-lbl">Selected work package(s)</div>'
+        <div class="tpos-lbl">Selected work package(s)</div>
         <div id="workPackagepanel">
             <div id="selectedworkPackages" class="tpos-selection"></div>
         </div>
 
         <div id="assetGroupDisplayPanel">
             <div class="tpos-lbl">Selected asset group(s)</div>
-            <div id="selectedAssetGroupsDisplay" class="tpos-selection"></div>
+            <div id="selectedassetTypeGroup" class="tpos-selection"></div>
         </div>
 
         <div id="assetDisplayPanel">
             <div class="tpos-lbl">Selected asset type(s)</div>
             <div id="selectedAssetsDisplay" class="tpos-selection"></div>
+        </div>
+
+        <div style="display:none">
+            <div id="selectedassetSubGroup"></div>
+            <div id="selectedassetType"></div>
         </div>
     </div>
     <div class="tpos-info">Once you've selected at least one works designs, the hazard can be saved. Should you have selected more than one works, the hazard will be saved for all of them, i.e. the system will save the described hazard for each works
@@ -453,7 +458,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateVisibleInputs();
 
                 var routeSectionIds = $('#selectedrouteSections .qresult').map(function() { return $(this).data('value'); }).get();
-                var routeSectionTitles = $('#selectedrouteSections .qresult').map(function() { return $(this).data('name'); }).get();
+                var routeSectionTitles = $('#selectedrouteSections .qresult').map(function() { return $(this).data('rsname'); }).get();
                 // Refine work packages further by route section (they were already filtered by site)
                 loadWorkPackageDropdown(routeSectionIds, routeSectionTitles);
             }
@@ -513,13 +518,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 $('#selectedassetTypeGroup').append(sTerm);
-
-                let displayTerm =
-                    '<div class="qresult" data-value="' + v + '">' +
-                        '<span>' + vn + '</span>' +
-                    '</div>';
-
-                $('#selectedAssetGroupsDisplay').append(displayTerm);
 
                 var groupIds = $('#selectedassetTypeGroup .qresult')
                     .map(function () { return $(this).data('value'); })
@@ -691,7 +689,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     }
     
     function toggleSaveButton() {
-        if ($('#selectedassetType .qresult').length === 0) {
+        if ($('#selectedworkPackages .qresult').length === 0) {
             $("#saveButton").addClass("disabled");
         } else {
             $("#saveButton").removeClass("disabled");
