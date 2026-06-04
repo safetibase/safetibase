@@ -490,16 +490,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 nt = t + sTerm;
-
-                $('#workPackagepanel').html(
-                    '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>'
-                );
+                $('#selectedworkPackages').append(sTerm);
+                // $('#workPackagepanel').html(
+                //     '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>'
+                // );
 
                 updateHiddenSelections();
                 updateVisibleInputs();
 
-            if ($('#selectedworkPackages .qresult').length === 1) {
 
+            if ($('#selectedworkPackages .qresult').length === 1) {
+                toggleSaveButton();
                 tposdata.get('cdmAssetTypeGroup', '', '', 'sel_cdmAssetTypeGroup');
 
                 $('#selectedAssetsDisplay').html('');
@@ -535,8 +536,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     $('#selectedassetType').html('');
                     $('#selectedAssetsDisplay').html('');
                 }
-
-                toggleSaveButton();
             }
         }
 
@@ -594,8 +593,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 $('#selectedAssetsDisplay').append(displayTerm);
-
-                toggleSaveButton();
             }
         }
 
@@ -993,7 +990,6 @@ async function savehazards() {
         toastr.error("Error saving hazards");
     }
 
-    // ✅ ALWAYS RUN (even if error occurs)
     $('#div_sel_structures, #div_sel_tw, #div_sel_rams').html('');
     $('#sel_cdmSites').val('');
     $('#selectedsite, #selectedrouteSections, #selectedworkPackages, #selectedtw, #selectedrams, #selectedstructures, #selectedAssetsDisplay').html('');
