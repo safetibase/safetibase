@@ -296,8 +296,14 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             <div id="selectedrouteSections" class="tpos-selection"></div>
         </div>
 
+        '<div class="tpos-lbl">Selected work package(s)</div>'
         <div id="workPackagepanel">
             <div id="selectedworkPackages" class="tpos-selection"></div>
+        </div>
+
+        <div id="assetGroupDisplayPanel">
+            <div class="tpos-lbl">Selected asset group(s)</div>
+            <div id="selectedAssetGroupsDisplay" class="tpos-selection"></div>
         </div>
 
         <div id="assetDisplayPanel">
@@ -413,6 +419,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#routeSection').val('0');
                 $('#workPackage').val('0');
                 $('#selectedAssetsDisplay').html('');
+                $('#selectedAssetGroupsDisplay').html('')
                 updateHiddenSelections();
                 updateVisibleInputs();
             }
@@ -480,7 +487,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 nt = t + sTerm;
 
                 $('#workPackagepanel').html(
-                    '<div class="tpos-lbl">Selected work package(s)</div>' +
                     '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>'
                 );
 
@@ -496,11 +502,83 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
         }
 
+        if (e == 'cdmAssetTypeGroup') {
+
+            if ($('#selectedassetTypeGroup .qresult[data-value="' + v + '"]').length === 0) {
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetTypeGroup" data-name="' + vn + '" data-value="' + v + '">' +
+                        '<span>' + vn + '</span>' +
+                        '<span class="qrremove" data-field="assetTypeGroup">X</span>' +
+                    '</div>';
+
+                $('#selectedassetTypeGroup').append(sTerm);
+
+                let displayTerm =
+                    '<div class="qresult" data-value="' + v + '">' +
+                        '<span>' + vn + '</span>' +
+                    '</div>';
+
+                $('#selectedAssetGroupsDisplay').append(displayTerm);
+
+                var groupIds = $('#selectedassetTypeGroup .qresult')
+                    .map(function () { return $(this).data('value'); })
+                    .get();
+
+                if (groupIds.length > 0) {
+
+                    var filter = groupIds.map(function (id) {
+                        return 'AssetTypeGroup/ID eq ' + id;
+                    }).join(' or ');
+
+                    tposdata.get('cdmAssetSubGroup', filter, '', 'sel_cdmAssetSubGroup');
+
+                    $('#selectedassetSubGroup').html('');
+                    $('#selectedassetType').html('');
+                    $('#selectedAssetsDisplay').html('');
+                }
+
+                toggleSaveButton();
+            }
+        }
+
+        if (e == 'cdmAssetSubGroup') {
+
+            if ($('#selectedassetSubGroup .qresult[data-value="' + v + '"]').length === 0) {
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetSubGroup" data-name="' + vn + '" data-value="' + v + '">' +
+                        '<span>' + vn + '</span>' +
+                        '<span class="qrremove" data-field="assetSubGroup">X</span>' +
+                    '</div>';
+
+                $('#selectedassetSubGroup').append(sTerm);
+
+                var subGroupIds = $('#selectedassetSubGroup .qresult')
+                    .map(function () { return $(this).data('value'); })
+                    .get();
+
+                if (subGroupIds.length > 0) {
+
+                    var filter = subGroupIds.map(function (id) {
+                        return 'AssetSubGroup/ID eq ' + id;
+                    }).join(' or ');
+
+                    tposdata.get('cdmAssetType', filter, '', 'sel_cdmAssetType');
+
+                    $('#selectedassetType').html('');
+                    $('#selectedAssetsDisplay').html('');
+                }
+            }
+        }
+
         if (e == 'cdmAssetType') {
 
-            if ($('#selectedassetType .qresult[data-value="' + v + '"]').length === 0) {
+            var subGroupName = $('#selectedassetSubGroup .qresult')
+                .last()
+                .data('name') || '';
 
-                var subGroupName = $('#selectedassetSubGroup .qresult').last().data('name') || '';
+            if ($('#selectedassetType .qresult[data-value="' + v + '"]').length === 0) {
 
                 var label = subGroupName ? subGroupName + ' - ' + vn : vn;
 
@@ -522,57 +600,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 toggleSaveButton();
             }
         }
-
-        if (e == 'cdmAssetSubGroup') {
-            let t = $('#selectedassetSubGroup').html() || '';
-
-            if ($('#selectedassetSubGroup .qresult[data-value="' + v + '"]').length === 0) {
-
-                let sTerm =
-                    '<div class="qresult" data-entity="assetSubGroup" data-name="' + vn + '" data-value="' + v + '">' +
-                    '<span>' + vn + '</span>' +
-                    '<span class="qrremove" data-field="assetSubGroup">X</span>' +
-                    '</div>';
-
-                $('#assetSubGrouppanel').html(
-                    '<div id="selectedassetSubGroup" class="tpos-selection">' + t + sTerm + '</div>'
-                );
-                var subGroupIds = $('#selectedassetSubGroup .qresult')
-                    .map(function () { return $(this).data('value'); })
-                    .get();
-
-                if (subGroupIds.length > 0) {
-                    var filter = subGroupIds.map(function (id) {
-                        return 'AssetSubGroup/ID eq ' + id;
-                    }).join(' or ');
-
-                    tposdata.get('cdmAssetType', filter, '', 'sel_cdmAssetType');
-
-                    $('#selectedAssetsDisplay').html('');
-                }
-            }
-        }
-
-        if (e == 'cdmAssetType') {
-            let t = $('#selectedassetType').html() || '';
-
-            if ($('#selectedassetType .qresult[data-value="' + v + '"]').length === 0) {
-
-                let sTerm =
-                    '<div class="qresult" data-entity="assetType" data-name="' + vn + '" data-value="' + v + '">' +
-                    '<span>' + vn + '</span>' +
-                    '<span class="qrremove" data-field="assetType">X</span>' +
-                    '</div>';
-
-                $('#assetTypepanel').html(
-                    '<div id="selectedassetType" class="tpos-selection">' + t + sTerm + '</div>'
-                );
-
-                toggleSaveButton();
-            }
-        }
-
-
 
         $('.qrremove').click(function() {
             var qresult = $(this).parent();
@@ -614,6 +641,15 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 // Also clear the dropdowns
                 $('#div_sel_routeSection').html('');
                 $('#div_sel_workPackage').html('');
+            }
+
+            if (dataEntity == 'assetTypeGroup') {
+
+                $('#selectedAssetGroupsDisplay .qresult[data-value="' + dataValue + '"]').remove();
+
+                $('#selectedassetSubGroup').html('');
+                $('#selectedassetType').html('');
+                $('#selectedAssetsDisplay').html('');
             }
 
             if (dataEntity == 'assetType') {
@@ -826,9 +862,9 @@ async function savehazards() {
 
         var sites = [];
         var workPackages = [];
-        var assetTypeGroups = [];
-        var assetSubGroups = [];
-        var assetTypes = [];
+        // var assetTypeGroups = [];
+        // var assetSubGroups = [];
+        // var assetTypes = [];
 
 
 
@@ -858,17 +894,17 @@ async function savehazards() {
             workPackages.push(Number($(this).data('value')));
         });
 
-        $('#selectedassetTypeGroup .qresult').each(function () {
-            assetTypeGroups.push(Number($(this).data('value')));
-        });
+        // $('#selectedassetTypeGroup .qresult').each(function () {
+        //     assetTypeGroups.push(Number($(this).data('value')));
+        // });
 
-        $('#selectedassetSubGroup .qresult').each(function () {
-            assetSubGroups.push(Number($(this).data('value')));
-        });
+        // $('#selectedassetSubGroup .qresult').each(function () {
+        //     assetSubGroups.push(Number($(this).data('value')));
+        // });
 
-        $('#selectedassetType .qresult').each(function () {
-            assetTypes.push(Number($(this).data('value')));
-        });
+        // $('#selectedassetType .qresult').each(function () {
+        //     assetTypes.push(Number($(this).data('value')));
+        // });
 
 
 
@@ -919,17 +955,17 @@ async function savehazards() {
                 };
             }
 
-            if (assetTypeGroups.length) {
-                item.cdmAssetTypeGroupIds = { results: assetTypeGroups };
-            }
+            // if (assetTypeGroups.length) {
+            //     item.cdmAssetTypeGroupIds = { results: assetTypeGroups };
+            // }
 
-            if (assetSubGroups.length) {
-                item.cdmAssetSubGroupIds = { results: assetSubGroups };
-            }
+            // if (assetSubGroups.length) {
+            //     item.cdmAssetSubGroupIds = { results: assetSubGroups };
+            // }
 
-            if (assetTypes.length) {
-                item.cdmAssetTypeIds = { results: assetTypes };
-            }
+            // if (assetTypes.length) {
+            //     item.cdmAssetTypeIds = { results: assetTypes };
+            // }
 
 
             if (cdmHazardCoordinates) item.cdmHazardCoordinates = cdmHazardCoordinates;
