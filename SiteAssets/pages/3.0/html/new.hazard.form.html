@@ -286,9 +286,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </div>
 
 <div class="selectnext" id="next">
-    <div class="tpos-info">If you wish to record the same hazard for assets on another <span class="siteConfig"></span>, you can select a new <span class="siteConfig"></span> by clicking the <span class="siteConfig"></span>s search box. Selecting another <span class="siteConfig"></span> will empty all previously selected options and provide new <span class="siteConfig"></span>
-        relevant options.</div>
-
     <div class="selection-panel" id="selection_panel">
         <div class="tpos-lbl">Selected <span class="siteConfig"></span></div>
         <div id="selectedsite" class="tpos-selection"></div>
@@ -297,6 +294,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         </div>
         <div id="workPackagepanel">
             <div id="selectedworkPackages" class="tpos-selection"></div>
+        </div>
+
+        <div id="assetDisplayPanel">
+            <div class="tpos-lbl">Selected asset type(s)</div>
+            <div id="selectedAssetsDisplay" class="tpos-selection"></div>
         </div>
         
         <div id="assetTypeGrouppanel">
@@ -446,7 +448,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             $('#next')[0].scrollIntoView({behavior: 'smooth'});
         }        
         if (e == 'cdmRouteSection') {
-            t = $('#selectedrouteSections').html();
+            t = $('#selectedrouteSections').html() || '';
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
                 sTerm = '<div class="qresult" data-entity="routeSection" data-rsname="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
                 nt = t + sTerm;
@@ -462,7 +464,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
         if (e == 'cdmWorkPackage') {
 
-            t = $('#selectedworkPackages').html();
+            t = $('#selectedworkPackages').html() || '';
 
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
 
@@ -646,6 +648,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 // Also clear the dropdowns
                 $('#div_sel_routeSection').html('');
                 $('#div_sel_workPackage').html('');
+            }
+
+            if (dataEntity == 'assetType') {
+                $('#selectedAssetsDisplay .qresult[data-value="' + dataValue + '"]').remove();
             }
             
             // Restore to dropdown if it's a tposdata list
