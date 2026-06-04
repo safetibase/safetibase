@@ -436,7 +436,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
             // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
             tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
-            tposdata.get('cdmAssetTypeGroup', siteFilter, '', 'sel_cdmAssetTypeGroup');
 
 
             // Clear selections when site changes
@@ -496,11 +495,34 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
                 updateHiddenSelections();
                 updateVisibleInputs();
+
+            if ($('#selectedworkPackages .qresult').length === 1) {
+
+                tposdata.get('cdmAssetTypeGroup', '', '', 'sel_cdmAssetTypeGroup');
+
+                $('#selectedassetTypeGroup').html('');
+                $('#selectedassetSubGroup').html('');
+                $('#selectedassetType').html('');
+            }
             }
         }
 
-        if (e == 'cdmAssetTypeGroup') {
-            let t = $('#selectedassetTypeGroup').html() || '';
+        if (e == 'cdmAssetType') {
+            
+            if ($('#selectedassetType .qresult[data-value="' + v + '"]').length === 0) {
+
+                let sTerm =
+                    '<div class="qresult" data-entity="assetType" data-name="' + vn + '" data-value="' + v + '">' +
+                    '<span>' + vn + '</span>' +
+                    '<span class="qrremove" data-field="assetType">X</span>' +
+                    '</div>';
+
+                $('#selectedassetType').append(sTerm);
+
+                toggleSaveButton();
+            }
+        
+            let t = $('#selectedassetType').html() || '';
 
             if ($('#selectedassetTypeGroup .qresult[data-value="' + v + '"]').length === 0) {
 
