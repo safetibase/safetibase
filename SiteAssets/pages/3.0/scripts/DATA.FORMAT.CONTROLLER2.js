@@ -2427,10 +2427,10 @@ function printHazardRow(h) {
         '                        <div class="lbl">Work Package(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">Entity</div>' +
+        '                        <div class="lbl">Asset type group</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">UAID</div>' +
+        '                        <div class="lbl">Asset sub-group(s) - Asset type(s)</div>' +
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
@@ -2496,19 +2496,13 @@ function printHazardRow(h) {
         '</div>' +
         "                    </td>" +
         '                    <td class="width-200 fld">' +
-        // '                        <div class="cell cdmPWStructure">'+pws+'</div>'+
-        // '                        <div class="cell cdmPWElement">'+pwe+'</div>'+
-        // '                        <div class="cell cdmTW">'+h.cdmTW+'</div>'+
-        // '                        <div class="cell cdmRAMS">'+h.cdmRAMS+'</div>'+
-        '                        <div class="cell cdmEntityTitle">' +
-        en +
-        " - " +
-        pwe +
+        '                        <div class="cell cdmAssetTypeGroup">' +
+        (h.cdmAssetTypeGroup && h.cdmAssetTypeGroup.Title ? h.cdmAssetTypeGroup.Title : '') +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-200 fld">' +
-        '                        <div class="cell cdmuaid">' +
-        h.cdmPWStructure.UAID + 
+        '                        <div class="cell cdmAssetSubGroupType">' +
+        (h.cdmAssetSubGroup && h.cdmAssetSubGroup.results && h.cdmAssetSubGroup.results.length && h.cdmAssetType && h.cdmAssetType.results && h.cdmAssetType.results.length ? h.cdmAssetSubGroup.results.map(function(asg, idx) { return asg.Title + ' - ' + (h.cdmAssetType.results[idx] ? h.cdmAssetType.results[idx].Title : ''); }).join(';<br>') : '') +
         "</div>" +
         "                    </td>" +
         "                </tr>" +

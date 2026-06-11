@@ -302,11 +302,16 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         </div>
 
         <div id="assetGroupDisplayPanel">
-            <div class="tpos-lbl">Selected asset group(s)</div>
+            <div class="tpos-lbl">Entity</div>
             <div id="selectedassetTypeGroup" class="tpos-selection"></div>
         </div>
 
-        <div id="assetDisplayPanel">
+        <div id="assetSubGroupDisplayPanel">
+            <div class="tpos-lbl">UAID</div>
+            <div id="selectedAssetSubGroupTypeDisplay" class="tpos-selection"></div>
+        </div>
+
+        <div id="assetDisplayPanel" style="display:none;">
             <div class="tpos-lbl">Selected asset type(s)</div>
             <div id="selectedAssetsDisplay" class="tpos-selection"></div>
         </div>
@@ -490,10 +495,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 nt = t + sTerm;
-                $('#selectedworkPackages').append(sTerm);
-                // $('#workPackagepanel').html(
-                //     '<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>'
-                // );
+                $('#workPackagepanel').html('<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
+                $('#workPackagepanel').show();
 
                 updateHiddenSelections();
                 updateVisibleInputs();
@@ -504,6 +507,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 tposdata.get('cdmAssetTypeGroup', '', '', 'sel_cdmAssetTypeGroup');
 
                 $('#selectedAssetsDisplay').html('');
+                
+                // Show the asset type group dropdown panel after work package selection
+                $('#assetTypeGroupPanel').show();
+                $('#assetTypeGroupPanel')[0].scrollIntoView({behavior: 'smooth'});
             }
             }
         }
@@ -535,6 +542,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     $('#selectedassetSubGroup').html('');
                     $('#selectedassetType').html('');
                     $('#selectedAssetsDisplay').html('');
+                    
+                    // Show asset sub-group panel after asset type group selection
+                    $('#assetSubGroupPanel').show();
+                    $('#assetSubGroupPanel')[0].scrollIntoView({behavior: 'smooth'});
                 }
             }
         }
@@ -565,6 +576,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
                     $('#selectedassetType').html('');
                     $('#selectedAssetsDisplay').html('');
+                    
+                    // Show asset type panel after asset sub-group selection
+                    $('#assetTypePanel').show();
+                    $('#assetTypePanel')[0].scrollIntoView({behavior: 'smooth'});
                 }
             }
         }
@@ -593,6 +608,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 $('#selectedAssetsDisplay').append(displayTerm);
+                
+                updateHiddenSelections();
+                updateVisibleInputs();
+                toggleSaveButton();
             }
         }
 
@@ -636,6 +655,39 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 // Also clear the dropdowns
                 $('#div_sel_routeSection').html('');
                 $('#div_sel_workPackage').html('');
+                // Clear asset selections
+                $('#selectedassetTypeGroup').html('');
+                $('#selectedassetSubGroup').html('');
+                $('#selectedassetType').html('');
+                $('#selectedAssetsDisplay').html('');
+                $('#selectedAssetSubGroupTypeDisplay').html('');
+                // Hide asset panels
+                $('#assetTypeGroupPanel').hide();
+                $('#assetSubGroupPanel').hide();
+                $('#assetTypePanel').hide();
+                // Clear asset dropdowns
+                $('#div_sel_cdmAssetTypeGroup').html('');
+                $('#div_sel_cdmAssetSubGroup').html('');
+                $('#div_sel_cdmAssetType').html('');
+                toggleSaveButton();
+            }
+
+            if (dataEntity == 'workPackage') {
+                // When clearing a work package, also clear dependent asset selections
+                $('#selectedassetTypeGroup').html('');
+                $('#selectedassetSubGroup').html('');
+                $('#selectedassetType').html('');
+                $('#selectedAssetsDisplay').html('');
+                $('#selectedAssetSubGroupTypeDisplay').html('');
+                // Hide asset panels
+                $('#assetTypeGroupPanel').hide();
+                $('#assetSubGroupPanel').hide();
+                $('#assetTypePanel').hide();
+                // Clear asset dropdowns
+                $('#div_sel_cdmAssetTypeGroup').html('');
+                $('#div_sel_cdmAssetSubGroup').html('');
+                $('#div_sel_cdmAssetType').html('');
+                toggleSaveButton();
             }
 
             if (dataEntity == 'assetTypeGroup') {
@@ -645,10 +697,35 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedassetSubGroup').html('');
                 $('#selectedassetType').html('');
                 $('#selectedAssetsDisplay').html('');
+                $('#selectedAssetSubGroupTypeDisplay').html('');
+                
+                // Hide panels when asset type group is cleared
+                $('#assetSubGroupPanel').hide();
+                $('#assetTypePanel').hide();
+                
+                // Clear the dropdowns
+                $('#div_sel_cdmAssetSubGroup').html('');
+                $('#div_sel_cdmAssetType').html('');
+                toggleSaveButton();
+            }
+
+            if (dataEntity == 'assetSubGroup') {
+                $('#selectedassetType').html('');
+                $('#selectedAssetsDisplay').html('');
+                $('#selectedAssetSubGroupTypeDisplay').html('');
+                
+                // Hide asset type panel when asset sub-group is cleared
+                $('#assetTypePanel').hide();
+                
+                // Clear the dropdown
+                $('#div_sel_cdmAssetType').html('');
+                toggleSaveButton();
             }
 
             if (dataEntity == 'assetType') {
                 $('#selectedAssetsDisplay .qresult[data-value="' + dataValue + '"]').remove();
+                updateVisibleInputs();
+                toggleSaveButton();
             }
             
             // Restore to dropdown if it's a tposdata list
@@ -665,7 +742,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             $(this).parent().remove();
             updateHiddenSelections();
             updateVisibleInputs();
-            //toggleSaveButton();
+            toggleSaveButton();
             if (!crs || crs.length === 0) {
                 crc.html('');
             }
@@ -686,15 +763,25 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     }
     
     function toggleSaveButton() {
-        if ($('#selectedworkPackages .qresult').length === 0) {
-            $("#saveButton").addClass("disabled");
-        } else {
+        var hasAssetTypes = $('#selectedAssetsDisplay .qresult').length > 0;
+        
+        if (hasAssetTypes) {
+            // Show button row and enable save button
+            $('.button-row').show();
             $("#saveButton").removeClass("disabled");
+        } else {
+            // Hide button row and disable save button
+            $('.button-row').hide();
+            $("#saveButton").addClass("disabled");
         }
     }
 
     $(document).ready(function() {
         toggleSaveButton();
+        // Hide asset panels initially - they'll show when their parent is selected
+        $('#assetTypeGroupPanel').hide();
+        $('#assetSubGroupPanel').hide();
+        $('#assetTypePanel').hide();
     });
     
 
@@ -848,6 +935,28 @@ function updateVisibleInputs() {
         .map(function () { return $(this).data('name'); })
         .get().join('; ');
     $('.tpos-cdmWorkPackage-select-input').val(wpText);
+    
+    // UAID - combine asset sub-group and asset type
+    var uaidData = [];
+    $('#selectedassetSubGroup .qresult').each(function() {
+        var subGroupName = $(this).data('name');
+        var subGroupId = $(this).data('value');
+        
+        // Find all asset types associated with this sub-group
+        $('#selectedassetType .qresult').each(function() {
+            var assetTypeId = $(this).data('value');
+            var assetTypeName = $(this).data('name');
+            // Assuming the qresult in selectedAssetSubGroupTypeDisplay should show this combination
+            uaidData.push(subGroupName + ' - ' + assetTypeName);
+        });
+    });
+    
+    // Update UAID display
+    var uaidHtml = '';
+    uaidData.forEach(function(item) {
+        uaidHtml += '<div class="qresult"><span>' + item + '</span></div>';
+    });
+    $('#selectedAssetSubGroupTypeDisplay').html(uaidHtml);
 }
 
 async function savehazards() {
