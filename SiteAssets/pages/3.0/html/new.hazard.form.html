@@ -237,56 +237,53 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
     <div class="select-panel" id="sites" style="flex: 1;">
         <div class="tpos-lbl">
-            Select a <span class="siteConfig"></span>
+            Select <span class="siteConfig"></span>
         </div>
         <div class="tpos-select" id="div_sel_sites"></div>
         <input class="hide" type="text" id="sctSite" value="0" placeholder="Select a site" />
     </div>
 
     <div class="select-panel" id="routeSectionPanel" style="flex: 1;">
-        <div class="tpos-lbl">Select a route section</div>
+        <div class="tpos-lbl">Select route section(s)</div>
         <div class="tpos-select" id="div_sel_routeSection"></div>
         <input class="hide" type="text" id="routeSection" value="0" placeholder="Select a route section" />
     </div>
 
     <div class="select-panel" id="workPackagePanel" style="flex: 1;">
-        <div class="tpos-lbl">Select a work package</div>
+        <div class="tpos-lbl">Select work package(s)</div>
         <div class="tpos-select" id="div_sel_workPackage"></div>
         <input class="hide" type="text" id="workPackage" value="0" placeholder="Select a work package" />
     </div>
 
 </div>
 
-<div class="selectnext" id="next">
-    <div class="tpos-info">Select any applicable asset by clicking on it. Use the search box to quickly find the correct option(s).</div>
-
-    <div class="tpos-info">Once you've selected an asset and wish to add another one, simply click the asset search box again.</div>
-
-    <!--<div class="tpos-info">Proceed in the same way with asset breakdown structure (asset group type, asset sub-group, asset type).</div> -->
+<div class="selectnext" id="next" style="margin-top: 75px; margin-bottom: 1.5em; clear: both;">
 <div style="display: flex; gap: 20px; justify-content: space-between;">
     <div class="select-panel" id="assetTypeGroupPanel" style="flex: 1;">
-        <div class="tpos-lbl">Select asset type group</div>
+        <div class="tpos-lbl">Select asset type group(s)</div>
         <div class="tpos-select" id="div_sel_cdmAssetTypeGroup"></div>
         <input class="hide" type="text" id="assetTypeGroup" value="0" placeholder="Select asset type group" />
     </div>
 
     <div class="select-panel" id="assetSubGroupPanel" style="flex: 1;">
-        <div class="tpos-lbl">Select asset sub-group</div>
+        <div class="tpos-lbl">Select asset sub-group(s)</div>
         <div class="tpos-select" id="div_sel_cdmAssetSubGroup"></div>
         <input class="hide" type="text" id="assetSubGroup" value="0" placeholder="Select asset sub-group" />
     </div>
 
     <div class="select-panel" id="assetTypePanel" style="flex: 1;">
-        <div class="tpos-lbl">Select asset type</div>
+        <div class="tpos-lbl">Select asset type(s)</div>
         <div class="tpos-select" id="div_sel_cdmAssetType"></div>
         <input class="hide" type="text" id="assetType" value="0" placeholder="Select asset type" />
     </div>
 
 </div>
+    <div class="tpos-info" style="margin-top: 250px;">Select any applicable asset by clicking on it. Use the search box to quickly find the correct option(s).</div>
+    <div class="tpos-info">Once you've selected an asset and wish to add another one, simply click the asset search box again.</div>
 </div>
 
-<div class="selectnext" id="next">
-    <div class="selection-panel" id="selection_panel">
+<div class="selectnext" id="selection-next" style="clear: both; margin-top: 2em;">
+    <div class="selection-panel" id="selection_panel" style="clear: both;">
 
         <div class="tpos-lbl">Selected <span class="siteConfig"></span></div>
         <div id="selectedsite" class="tpos-selection"></div>
@@ -301,13 +298,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             <div id="selectedworkPackages" class="tpos-selection"></div>
         </div>
 
-        <div id="assetGroupDisplayPanel">
-            <div class="tpos-lbl">Entity</div>
+        <div id="assetGroupDisplayPanel" style="margin-top: 1em;">
+            <div class="tpos-lbl">Selected asset type group(s)</div>
             <div id="selectedassetTypeGroup" class="tpos-selection"></div>
         </div>
 
         <div id="assetSubGroupDisplayPanel">
-            <div class="tpos-lbl">UAID</div>
+            <div class="tpos-lbl">Selected asset sub-group(s) and asset type(s)</div>
             <div id="selectedAssetSubGroupTypeDisplay" class="tpos-selection"></div>
         </div>
 
@@ -661,10 +658,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedassetType').html('');
                 $('#selectedAssetsDisplay').html('');
                 $('#selectedAssetSubGroupTypeDisplay').html('');
-                // Hide asset panels
-                $('#assetTypeGroupPanel').hide();
-                $('#assetSubGroupPanel').hide();
-                $('#assetTypePanel').hide();
+                // Keep asset panels visible as blank template boxes
+                $('#assetTypeGroupPanel').show();
+                $('#assetSubGroupPanel').show();
+                $('#assetTypePanel').show();
                 // Clear asset dropdowns
                 $('#div_sel_cdmAssetTypeGroup').html('');
                 $('#div_sel_cdmAssetSubGroup').html('');
@@ -679,10 +676,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedassetType').html('');
                 $('#selectedAssetsDisplay').html('');
                 $('#selectedAssetSubGroupTypeDisplay').html('');
-                // Hide asset panels
-                $('#assetTypeGroupPanel').hide();
-                $('#assetSubGroupPanel').hide();
-                $('#assetTypePanel').hide();
+                // Keep asset panels visible as blank template boxes
+                $('#assetTypeGroupPanel').show();
+                $('#assetSubGroupPanel').show();
+                $('#assetTypePanel').show();
                 // Clear asset dropdowns
                 $('#div_sel_cdmAssetTypeGroup').html('');
                 $('#div_sel_cdmAssetSubGroup').html('');
@@ -699,9 +696,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedAssetsDisplay').html('');
                 $('#selectedAssetSubGroupTypeDisplay').html('');
                 
-                // Hide panels when asset type group is cleared
-                $('#assetSubGroupPanel').hide();
-                $('#assetTypePanel').hide();
+                // Keep asset panels visible as blank template boxes
+                $('#assetSubGroupPanel').show();
+                $('#assetTypePanel').show();
                 
                 // Clear the dropdowns
                 $('#div_sel_cdmAssetSubGroup').html('');
@@ -714,8 +711,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#selectedAssetsDisplay').html('');
                 $('#selectedAssetSubGroupTypeDisplay').html('');
                 
-                // Hide asset type panel when asset sub-group is cleared
-                $('#assetTypePanel').hide();
+                // Keep asset panels visible as blank template boxes
+                $('#assetTypePanel').show();
                 
                 // Clear the dropdown
                 $('#div_sel_cdmAssetType').html('');
@@ -778,10 +775,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
     $(document).ready(function() {
         toggleSaveButton();
-        // Hide asset panels initially - they'll show when their parent is selected
-        $('#assetTypeGroupPanel').hide();
-        $('#assetSubGroupPanel').hide();
-        $('#assetTypePanel').hide();
+        // Keep asset panels visible as blank template boxes until selections are made
+        $('#assetTypeGroupPanel').show();
+        $('#assetSubGroupPanel').show();
+        $('#assetTypePanel').show();
     });
     
 
@@ -966,11 +963,9 @@ async function savehazards() {
 
         var sites = [];
         var workPackages = [];
-        // var assetTypeGroups = [];
-        // var assetSubGroups = [];
-        // var assetTypes = [];
-
-
+        var assetTypeGroups = [];
+        var assetSubGroups = [];
+        var assetTypes = [];
 
         var title1 = new Date();
         var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
@@ -998,17 +993,38 @@ async function savehazards() {
             workPackages.push(Number($(this).data('value')));
         });
 
-        // $('#selectedassetTypeGroup .qresult').each(function () {
-        //     assetTypeGroups.push(Number($(this).data('value')));
-        // });
+        var assetTypeGroupNames = $('#selectedassetTypeGroup .qresult').map(function () { return $(this).data('name'); }).get();
+        var assetSubGroupNames = $('#selectedassetSubGroup .qresult').map(function () { return $(this).data('name'); }).get();
+        var assetTypeNames = $('#selectedassetType .qresult').map(function () { return $(this).data('name'); }).get();
+        var assetTypeString = '';
+        if (assetTypeNames.length) {
+            var assetTypeLabels = $('#selectedAssetsDisplay .qresult span').map(function () { return $(this).text(); }).get();
+            if (assetTypeGroupNames.length === 1) {
+                assetTypeString = assetTypeLabels.map(function (label) {
+                    return assetTypeGroupNames[0] + ' - ' + label;
+                }).join(', ');
+            } else {
+                assetTypeString = assetTypeLabels.join(', ');
+                if (assetSubGroupNames.length) {
+                    assetTypeString = assetSubGroupNames.join(', ') + ' - ' + assetTypeString;
+                }
+                if (assetTypeGroupNames.length) {
+                    assetTypeString = assetTypeGroupNames.join(', ') + ' - ' + assetTypeString;
+                }
+            }
+        }
 
-        // $('#selectedassetSubGroup .qresult').each(function () {
-        //     assetSubGroups.push(Number($(this).data('value')));
-        // });
+        $('#selectedassetTypeGroup .qresult').each(function () {
+            assetTypeGroups.push(Number($(this).data('value')));
+        });
 
-        // $('#selectedassetType .qresult').each(function () {
-        //     assetTypes.push(Number($(this).data('value')));
-        // });
+        $('#selectedassetSubGroup .qresult').each(function () {
+            assetSubGroups.push(Number($(this).data('value')));
+        });
+
+        $('#selectedassetType .qresult').each(function () {
+            assetTypes.push(Number($(this).data('value')));
+        });
 
 
 
@@ -1041,7 +1057,7 @@ async function savehazards() {
                 cdmInitialRiskScore: rscv,
                 cdmResidualRiskScore: rscv,
                 cdmUniclass: "Open",
-                cdmSiteId: siteId
+                cdmSiteId: siteId,
             };
 
             let filteredWP = $('#selectedworkPackages .qresult')
@@ -1059,22 +1075,18 @@ async function savehazards() {
                 };
             }
 
+            if (assetTypes.length) {
+                item.assetTypeId = {
+                    results: assetTypes
+                };
+            }
+
             // if (assetTypeGroups.length) {
             //     item.cdmAssetTypeGroupIds = { results: assetTypeGroups };
             // }
 
             // if (assetSubGroups.length) {
             //     item.cdmAssetSubGroupIds = { results: assetSubGroups };
-            // }
-
-            // if (assetTypes.length) {
-            //     item.cdmAssetTypeIds = { results: assetTypes };
-            // }
-
-
-            if (cdmHazardCoordinates) item.cdmHazardCoordinates = cdmHazardCoordinates;
-            if (cdmGeometry) item.cdmGeometry = cdmGeometry;
-
             try {
                 await $.ajax({
                     url: _spPageContextInfo.webAbsoluteUrl +
@@ -1101,7 +1113,8 @@ async function savehazards() {
 
     $('#div_sel_structures, #div_sel_tw, #div_sel_rams').html('');
     $('#sel_cdmSites').val('');
-    $('#selectedsite, #selectedrouteSections, #selectedworkPackages, #selectedtw, #selectedrams, #selectedstructures, #selectedAssetsDisplay').html('');
+    $('#selectedsite, #selectedrouteSections, #selectedworkPackages, #selectedtw, #selectedrams, #selectedstructures, #selectedAssetsDisplay, #selectedassetTypeGroup, #selectedAssetSubGroupTypeDisplay, #selectedassetSubGroup, #selectedassetType').html('');
+    $('#assetGroupDisplayPanel, #assetSubGroupDisplayPanel, #assetDisplayPanel').hide();
 
     updateHiddenSelections();
     updateVisibleInputs();

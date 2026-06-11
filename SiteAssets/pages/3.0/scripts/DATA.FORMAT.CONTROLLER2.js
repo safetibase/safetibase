@@ -367,6 +367,18 @@ formatdatato = {
             })
             .done(function() {
                 var od = "OData_";
+                var allowedExpands = [
+                    "CurrentMitigationOwner",
+                    "CurrentReviewOwner",
+                    "cdmSite",
+                    "cdmPWStructure",
+                    "cdmHazardOwner",
+                    "cdmHazardType",
+                    "workPackage",
+                    "cdmStage",
+                    "cdmStageExtra",
+                    "cdmPWElement"
+                ];
                 for (var i = 0; i < fa.length; i++) {
                     var ti = fa[i];
                     if (ti.substring(0, 1) == "_") {
@@ -382,15 +394,28 @@ formatdatato = {
                     }
                     
                     if (ft[i] == 7 || ft[i] == 20) {
-                        select += ti + "/Title," + ti + "/ID,";
-                        expand += ti + "/Title," + ti + "/ID,";
-                        ftv.push(ti + ".Title");
-                        ftv.push(ti + ".ID");
+                        if (allowedExpands.includes(ti)) {
+                            select += ti + "/Title," + ti + "/ID,";
+                            expand += ti + "/Title," + ti + "/ID,";
+                            ftv.push(ti + ".Title");
+                            ftv.push(ti + ".ID");
+                        } else {
+                            select += ti + ",";
+                        }
                     }
                 }
-                expand = expand.substring(0, expand.length - 1);
+                if (select.endsWith(",")) {
+                    select = select.substring(0, select.length - 1);
+                }
+                if (expand.endsWith(",")) {
+                    expand = expand.substring(0, expand.length - 1);
+                }
                 if(lst=="cdmHazards"){
-                    expand = expand + ",cdmPWStructure/UAID";
+                    if (expand) {
+                        expand = expand + ",cdmPWStructure/UAID";
+                    } else {
+                        expand = "cdmPWStructure/UAID";
+                    }
                     select = select + ",cdmPWStructure/UAID";
                 }
             })
@@ -2430,7 +2455,7 @@ function printHazardRow(h) {
         '                        <div class="lbl">Asset type group</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">Asset sub-group(s) - Asset type(s)</div>' +
+        '                        <div class="lbl">Asset type</div>' +
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
@@ -2495,16 +2520,30 @@ function printHazardRow(h) {
                 : '') +
         '</div>' +
         "                    </td>" +
-        '                    <td class="width-200 fld">' +
-        '                        <div class="cell cdmAssetTypeGroup">' +
-        (h.cdmAssetTypeGroup && h.cdmAssetTypeGroup.Title ? h.cdmAssetTypeGroup.Title : '') +
-        "</div>" +
-        "                    </td>" +
-        '                    <td class="width-200 fld">' +
-        '                        <div class="cell cdmAssetSubGroupType">' +
-        (h.cdmAssetSubGroup && h.cdmAssetSubGroup.results && h.cdmAssetSubGroup.results.length && h.cdmAssetType && h.cdmAssetType.results && h.cdmAssetType.results.length ? h.cdmAssetSubGroup.results.map(function(asg, idx) { return asg.Title + ' - ' + (h.cdmAssetType.results[idx] ? h.cdmAssetType.results[idx].Title : ''); }).join(';<br>') : '') +
-        "</div>" +
-        "                    </td>" +
+        (function() {
+            var assetTypeValue = (h.assetType || '').toString().trim();
+            if (!assetTypeValue) {
+                return '                    <td class="width-200 fld">' +
+                    '                        <div class="cell cdmAssetTypeGroup"></div>' +
+                    "                    </td>" +
+                    '                    <td class="width-200 fld">' +
+                    '                        <div class="cell cdmAssetSubGroupType"></div>' +
+                    "                    </td>" +"";
+            }
+            var firstDashIndex = assetTypeValue.indexOf('-');
+            var assetTypeGroupText = assetTypeValue;
+            var assetTypeRestText = '';
+            if (firstDashIndex >= 0) {
+                assetTypeGroupText = assetTypeValue.slice(0, firstDashIndex).trim();
+                assetTypeRestText = assetTypeValue.slice(firstDashIndex + 1).trim();
+            }
+            return '                    <td class="width-200 fld">' +
+                '                        <div class="cell cdmAssetTypeGroup">' + assetTypeGroupText + '</div>' +
+                "                    </td>" +
+                '                    <td class="width-200 fld">' +
+                '                        <div class="cell cdmAssetSubGroupType">' + assetTypeRestText + '</div>' +
+                "                    </td>";
+        })() +
         "                </tr>" +
         "            </table>" +
         "        </div>" +

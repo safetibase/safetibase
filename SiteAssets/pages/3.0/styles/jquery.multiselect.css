@@ -10,7 +10,7 @@
     text-align: left;
     border: 1px solid #aaa;
     background-color: #fff;
-    padding: 5px 20px 5px 5px;
+    padding: 8px 20px 8px 8px;
     margin-top: 1px;
     font-size: 13px;
     color: #aaa;
@@ -81,9 +81,9 @@
     position: relative;
     display: inline-block;
     width: 100%;
-    padding: 8px 4px;
-    margin: 1px 0;
-    color:black;
+    padding: 12px 8px;
+    margin: 4px 0;
+    color: black;
 }
 
 .ms-options-wrap > .ms-options > ul li.selected label,
@@ -92,8 +92,8 @@
 }
 
 .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 8px;
     position: absolute;
-    left: 4px;
-    top: 7px;
+    left: 6px;
+    top: 11px;
 }
