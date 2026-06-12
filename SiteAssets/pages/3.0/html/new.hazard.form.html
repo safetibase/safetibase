@@ -1104,7 +1104,11 @@ async function savehazards() {
             }
         }
 
-        toastr.success("Hazards saved");
+        toastr.success("Hazards saved", "", {
+            timeOut: 0,
+            extendedTimeOut: 0,
+            closeButton: true
+        });
 
     } catch (err) {
         console.error("GENERAL ERROR:", err);
@@ -1127,6 +1131,10 @@ $(document).click(function (e) {
     if (!$(e.target).closest('.ms-options-wrap').length) {
         $('.ms-options-wrap > .ms-options:visible').hide();
     }
+});
+
+$(document).on('click', 'tr[class*="select-value"]', function () {
+    $(this).closest('.tpos-select').find('table').hide();
 });
 
     function expandRiskMatrix() {

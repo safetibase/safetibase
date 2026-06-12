@@ -2480,7 +2480,13 @@ function printHazardRow(h) {
         '                        <div class="lbl">Work Package(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">Asset type</div>' +
+        '                        <div class="lbl">Asset type group(s)</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
+        '                        <div class="lbl">Asset type sub-group(s)</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
+        '                        <div class="lbl">Asset type(s)</div>' +
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
@@ -2519,20 +2525,17 @@ function printHazardRow(h) {
 
         // cdmRouteSection
         '                    <td class="width-100 fld">' +
-        '                        <div class="cell cdmRouteSection">' +
+        '   <div class="cell cdmRouteSection">' +
             (h.workPackage && h.workPackage.results && h.workPackage.results.length
                 ? h.workPackage.results.map(function (wp) {
 
-                    var match = wp.Title.match(/^\d+(\.\d+)*/); // get numeric prefix
-                    if (!match) return '';
+                    var match = wp.Title.match(/^\d+/); // get first number only
+                    return match ? match[0] : '';
 
-                    var parts = match[0].split('.');
-                    parts.pop(); // remove last segment
-
-                    return parts.join(';<br>');
-                }).filter(Boolean).join(';<br>')
+                }).filter(Boolean).join('<br>')
                 : '') +
         '</div>' +
+
         "                    </td>" +
 
         // cdmWorkPackage
@@ -2541,31 +2544,53 @@ function printHazardRow(h) {
             (h.workPackage && h.workPackage.results
                 ? h.workPackage.results.map(function (wp) {
                     return wp.Title;
-                }).join(';<br>')
+                }).join('<br>')
                 : '') +
         '</div>' +
         "                    </td>" +
-        '                    <td class="width-100 fld">' +
-        '                        <div class="cell assetType">' +
+
+        '                    <td class="width-200 fld">' +
+        '   <div class="cell assetTypeGroup">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
 
                     var assetType = at.Title || "";
-
                     var subGroup = assetSubGroupMap[assetType];
                     var subGroupTitle = subGroup ? subGroup.Title : "";
-
                     var typeGroup = assetTypeGroupMap[subGroupTitle];
-                    var typeGroupName = typeGroup ? typeGroup.AssetTypeGroup : "";
 
-                    return [assetType, subGroupTitle, typeGroupName]
-                        .filter(Boolean)
-                        .join(' | ');
+                    return typeGroup ? typeGroup.AssetTypeGroup : "";
 
-                }).join('<br>')
+                }).filter(Boolean).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +
+
+        '                    <td class="width-200 fld">' +
+        '  <div class="cell assetSubGroup">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+
+                    var assetType = at.Title || "";
+                    var subGroup = assetSubGroupMap[assetType];
+
+                    return subGroup ? subGroup.Title : "";
+
+                }).filter(Boolean).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
+
+        '                    <td class="width-200 fld">' +
+        ' <div class="cell assetType">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+                    return at.Title || "";
+                }).filter(Boolean).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
+
         "                </tr>" +
         "            </table>" +
         "        </div>" +
