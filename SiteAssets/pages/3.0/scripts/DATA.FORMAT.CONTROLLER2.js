@@ -250,6 +250,7 @@ formatdatato = {
                         "cdmStage",
                         "cdmStageExtra",
                         "cdmPWElement",
+                        "assetType"
                     ];
 
                     if ((ft[i] == 7 || ft[i] == 20) && allowedExpands.includes(ti)) {
@@ -377,7 +378,8 @@ formatdatato = {
                     "workPackage",
                     "cdmStage",
                     "cdmStageExtra",
-                    "cdmPWElement"
+                    "cdmPWElement",
+                    "assetType"
                 ];
                 for (var i = 0; i < fa.length; i++) {
                     var ti = fa[i];
@@ -671,11 +673,24 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var rows = "";
+
+        var assetSubGroupMap = {};   // key: AssetType Title → sub group object
+        var assetTypeGroupMap = {};  // key: SubGroup Title → type group object
+
+        cdmAssetSubGroup.forEach(function(item) {
+            assetSubGroupMap[item.Title] = item;
+        });
+
+        cdmAssetType.forEach(function(item) {
+            assetTypeGroupMap[item.Title] = item;
+        });
+
         for (var cc = 0; cc < tcnt; cc++) {
             var ht = tlist[cc];
             var user = ht.Editor.Title;
             var date = ukdate(ht.Modified);
             var action = ht.cdmAction;
+
             rows +=
                 "<tr><td>" +
                 date +
@@ -704,6 +719,19 @@ formatdatato = {
         for (var cc = 0; cc < tcnt; cc++) {
             // build rows
             var h = tlist[cc];
+ 
+            var assetType = h.AssetType ? h.AssetType.Title : "";
+
+            var subGroup = assetSubGroupMap[assetType];
+            var subGroupTitle = subGroup ? subGroup.Title : "";
+
+            var typeGroup = assetTypeGroupMap[subGroupTitle];
+            var typeGroupName = typeGroup ? typeGroup.AssetTypeGroup : "";
+
+            h.assetTypeResolved = assetType;
+            h.assetSubGroupResolved = subGroupTitle;
+            h.assetTypeGroupResolved = typeGroupName;
+
             
             // var hitem=buildHazardListItem(h);
             var hitem = printHazardRow(h);
@@ -2452,9 +2480,6 @@ function printHazardRow(h) {
         '                        <div class="lbl">Work Package(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">Asset type group</div>' +
-        "                    </td>" +
-        '                    <td class="width-200">' +
         '                        <div class="lbl">Asset type</div>' +
         "                    </td>" +
         "                </tr>" +
@@ -2520,30 +2545,27 @@ function printHazardRow(h) {
                 : '') +
         '</div>' +
         "                    </td>" +
-        (function() {
-            var assetTypeValue = (h.assetType || '').toString().trim();
-            if (!assetTypeValue) {
-                return '                    <td class="width-200 fld">' +
-                    '                        <div class="cell cdmAssetTypeGroup"></div>' +
-                    "                    </td>" +
-                    '                    <td class="width-200 fld">' +
-                    '                        <div class="cell cdmAssetSubGroupType"></div>' +
-                    "                    </td>" +"";
-            }
-            var firstDashIndex = assetTypeValue.indexOf('-');
-            var assetTypeGroupText = assetTypeValue;
-            var assetTypeRestText = '';
-            if (firstDashIndex >= 0) {
-                assetTypeGroupText = assetTypeValue.slice(0, firstDashIndex).trim();
-                assetTypeRestText = assetTypeValue.slice(firstDashIndex + 1).trim();
-            }
-            return '                    <td class="width-200 fld">' +
-                '                        <div class="cell cdmAssetTypeGroup">' + assetTypeGroupText + '</div>' +
-                "                    </td>" +
-                '                    <td class="width-200 fld">' +
-                '                        <div class="cell cdmAssetSubGroupType">' + assetTypeRestText + '</div>' +
-                "                    </td>";
-        })() +
+        '                    <td class="width-100 fld">' +
+        '                        <div class="cell assetType">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+
+                    var assetType = at.Title || "";
+
+                    var subGroup = assetSubGroupMap[assetType];
+                    var subGroupTitle = subGroup ? subGroup.Title : "";
+
+                    var typeGroup = assetTypeGroupMap[subGroupTitle];
+                    var typeGroupName = typeGroup ? typeGroup.AssetTypeGroup : "";
+
+                    return [assetType, subGroupTitle, typeGroupName]
+                        .filter(Boolean)
+                        .join(' | ');
+
+                }).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
         "                </tr>" +
         "            </table>" +
         "        </div>" +
