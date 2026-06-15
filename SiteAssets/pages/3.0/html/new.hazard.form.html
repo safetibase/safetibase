@@ -1126,15 +1126,21 @@ async function savehazards() {
 }
 
 $(document).click(function (e) {
-
-    // If click is NOT inside multiselect
-    if (!$(e.target).closest('.ms-options-wrap').length) {
-        $('.ms-options-wrap > .ms-options:visible').hide();
+    if (!$(e.target).closest('.tpos-select').length) {
+        $('.tpos-select tr.dvs').hide();
     }
 });
 
+
 $(document).on('click', 'tr[class*="select-value"]', function () {
-    $(this).closest('.tpos-select').find('table').hide();
+
+    var $dropdown = $(this).closest('.tpos-select');
+
+    setTimeout(function () {
+        // Hide only the option rows, not the table
+        $dropdown.find('tr.dvs').hide();
+    }, 50);
+
 });
 
     function expandRiskMatrix() {
