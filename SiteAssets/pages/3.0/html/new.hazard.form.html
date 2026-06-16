@@ -1125,7 +1125,7 @@ async function savehazards() {
     $('.button-row').hide();
 }
 
-$(document).click(function (e) {
+$(document).on('click', function (e) {
     if (!$(e.target).closest('.tpos-select').length) {
         $('.tpos-select tr.dvs').hide();
     }
@@ -1134,14 +1134,23 @@ $(document).click(function (e) {
 
 $(document).on('click', 'tr[class*="select-value"]', function () {
 
-    var $dropdown = $(this).closest('.tpos-select');
-
-    setTimeout(function () {
-        // Hide only the option rows, not the table
-        $dropdown.find('tr.dvs').hide();
-    }, 50);
+    var $row = $(this);
+    $row.css('display', 'none');
 
 });
+
+$(document).on('click', '.tpos-select', function (e) {
+
+    if ($(e.target).closest('tr.dvs').length) return;
+
+    var $dropdown = $(this);
+
+    $dropdown.find('tr.dvs').each(function () {
+        this.style.display = 'table-row';
+    });
+
+});
+
 
     function expandRiskMatrix() {
         const openingText = '<div>The following tables define the terms of the risk matrix. The score is the product of the severity and the likelihood.</div>';
