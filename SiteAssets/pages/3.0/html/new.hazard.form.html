@@ -304,7 +304,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         </div>
 
         <div id="assetSubGroupDisplayPanel">
-            <div class="tpos-lbl">Selected asset sub-group(s) and asset type(s)</div>
+            <div class="tpos-lbl">Selected asset sub-group(s)</div>
             <div id="selectedAssetSubGroupTypeDisplay" class="tpos-selection"></div>
         </div>
 
@@ -707,6 +707,9 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
 
             if (dataEntity == 'assetSubGroup') {
+                qresult.remove();
+                updateVisibleInputs();
+                toggleSaveButton();
                 $('#selectedassetType').html('');
                 $('#selectedAssetsDisplay').html('');
                 $('#selectedAssetSubGroupTypeDisplay').html('');
@@ -932,28 +935,62 @@ function updateVisibleInputs() {
         .map(function () { return $(this).data('name'); })
         .get().join('; ');
     $('.tpos-cdmWorkPackage-select-input').val(wpText);
-    
-    // UAID - combine asset sub-group and asset type
-    var uaidData = [];
-    $('#selectedassetSubGroup .qresult').each(function() {
+
+    // Asset Breakdown Structure (Type & SubGroup)
+    var subGroupHtml = '';
+
+    $('#selectedassetSubGroup .qresult').each(function () {
+
+        var name = $(this).data('name');
+        var value = $(this).data('value');
+
+        subGroupHtml +=
+            '<div class="qresult" data-entity="assetSubGroup" data-value="' + value + '">' +
+                '<span>' + name + '</span>' +
+                '<span class="qrremove" data-field="assetSubGroup">X</span>' +
+            '</div>';
+    });
+
+    $('#selectedAssetSubGroupTypeDisplay').html(subGroupHtml);
+
+    var assetHtml = [];
+
+    $('#selectedassetSubGroup .qresult').each(function () {
+
         var subGroupName = $(this).data('name');
-        var subGroupId = $(this).data('value');
-        
-        // Find all asset types associated with this sub-group
-        $('#selectedassetType .qresult').each(function() {
-            var assetTypeId = $(this).data('value');
+
+        $('#selectedassetType .qresult').each(function () {
+
             var assetTypeName = $(this).data('name');
-            // Assuming the qresult in selectedAssetSubGroupTypeDisplay should show this combination
-            uaidData.push(subGroupName + ' - ' + assetTypeName);
+
+            assetHtml.push({
+                label: subGroupName + ' - ' + assetTypeName,
+                value: $(this).data('value')
+            });
+
         });
+
     });
-    
-    // Update UAID display
-    var uaidHtml = '';
-    uaidData.forEach(function(item) {
-        uaidHtml += '<div class="qresult"><span>' + item + '</span></div>';
+
+    var finalHtml = '';
+
+    assetHtml.forEach(function (item) {
+
+        finalHtml +=
+            '<div class="qresult" data-entity="assetType" data-value="' + item.value + '">' +
+                '<span>' + item.label + '</span>' +
+                '<span class="qrremove" data-field="assetType">X</span>' +
+            '</div>';
     });
-    $('#selectedAssetSubGroupTypeDisplay').html(uaidHtml);
+
+    $('#selectedAssetsDisplay').html(finalHtml);
+
+    if (assetHtml.length > 0) {
+        $('#assetDisplayPanel').show();
+    } else {
+        $('#assetDisplayPanel').hide();
+    }
+
 }
 
 async function savehazards() {
