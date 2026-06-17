@@ -437,7 +437,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             var siteFilterForWP = siteIds.length > 0 ? siteIds.map(function(id) { return 'Site/ID eq ' + id; }).join(' or ') : 'Site/ID eq ' + v;
 
             //toastr.success('uuu');
-            tposdata.get('cdmPWStructures', siteFilter, '', 'sel_structures');
+            //tposdata.get('cdmPWStructures', siteFilter, '', 'sel_structures');
             tposdata.get('cdmRouteSection', siteFilterForRoute, '', 'sel_routeSection');
             // Load work packages filtered by site (same logic as route sections), will be further refined when route section is selected
             tposdata.get('cdmWorkPackage', siteFilterForWP, '', 'sel_workPackage');
@@ -612,7 +612,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
         }
 
-        $('.qrremove').click(function() {
+        $(document).on('click', '.qrremove', function () {
             var qresult = $(this).parent();
             var dataValue = qresult.data('value');
             var dataEntity = qresult.data('entity');
@@ -707,23 +707,18 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             }
 
             if (dataEntity == 'assetSubGroup') {
-                qresult.remove();
+
+                $('#selectedassetSubGroup .qresult[data-value="' + dataValue + '"]').remove();
+
+                $('#selectedassetType').html('');
+
                 updateVisibleInputs();
                 toggleSaveButton();
-                $('#selectedassetType').html('');
-                $('#selectedAssetsDisplay').html('');
-                $('#selectedAssetSubGroupTypeDisplay').html('');
-                
-                // Keep asset panels visible as blank template boxes
-                $('#assetTypePanel').show();
-                
-                // Clear the dropdown
-                $('#div_sel_cdmAssetType').html('');
-                toggleSaveButton();
+
             }
 
             if (dataEntity == 'assetType') {
-                $('#selectedAssetsDisplay .qresult[data-value="' + dataValue + '"]').remove();
+                $('#selectedassetType .qresult[data-value="' + dataValue + '"]').remove();
                 updateVisibleInputs();
                 toggleSaveButton();
             }
@@ -739,7 +734,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             
             var crc = $(this).parent().parent();
             var crs = $(this).parent().siblings();
-            $(this).parent().remove();
+            //$(this).parent().remove();
             updateHiddenSelections();
             updateVisibleInputs();
             toggleSaveButton();

@@ -98,12 +98,12 @@ cdmdata = {
                 
                 if (lst == "cdmHazards") {
 
-                    if (expand.indexOf("cdmPWStructure") === -1) {
-                        expand += (expand ? "," : "") + "cdmPWStructure";
+                    if (expand.indexOf("assetType") === -1) {
+                        expand += (expand ? "," : "") + "assetType";
                     }
 
-                    if (select.indexOf("cdmPWStructure/UAID") === -1) {
-                        select += ",cdmPWStructure/UAID";
+                    if (select.indexOf("assetType/Title") === -1) {
+                        select += ",assetType/Title,assetType/ID";
                     }
                 }
 
@@ -1216,7 +1216,7 @@ jsonImport = {
             $("#div_" + trg).html("");
 
             var srccolumns = ["Worksite", "DNI", "DNI Reason", "Amended", "Amend Details", "Design Type", "Design House", "Hazard Record No", "Pre-Existing No", "Element", "Temporary Works Number", "Temporary Works Design", "Activity", "Occurrence of Hazard", "Hazard Description", "Risk", "Initial Likelihood", "Initial Consequence", "Initial Index", "IRN", "Design Mitigation", "Residual Likelihood", "Residual Consequence", "Residual Index", "RRN", "Refer to Design Document", "For Option Evaluation", "For Mitigation and Control", "Suggested Mitigation", "Detail of Impact", "Additional Design Detail", "MML Response", "Designer Discussion Date", "Construction Review Comments", "Residual Hazard Passed to Operator", "HazardTriangle", "Construction Team Mitigation", "RAMS No", "RAGEmail", "Harmed", "EmailTo", "EmailCC", "Additional Design Work Required", "Associated Hazard", "Child Hazard", "Created", "Created By", "Design", "Design Mitigation Owner", "MitigatedBy", "Modified", "New RAG Item", "On the RAG list?", "Other Works Impact", "Project Phase", "Residual Hazard", "Residual Risk Owner", "RHS", "rTitle", "Should it be on the RAG", "Status", "Temporary Works Description", "App Created By", "App Modified By", "Assigned To", "Construction Review By", "Construction Review Date", "Construction Review No", "Construction Team Reviewed", "Content Type", "Date Action Taken", "DRR - Create Tasks", "Flagged for Removal", "Folder Child Count", "ID", "Item Child Count", "Principal Designer Review By", "Principal Designer Review Comments", "Principal Designer Review Date", "Principal Designer Review No", "Principal Designer Reviewed", "Locked", "Lockedby", "Manager Review By", "Manager Review Comments", "Manager Review Date", "Manager Review No", "Manager Reviewed", "Mitigation Approved By", "Mitigation Checked By", "Modified By", "OriginCode", "OriginID", "OriginList", "Peer Review By", "Peer Review Comments", "Peer Review Date", "Peer Review Number", "Peer Reviewed", "PR Link", "ProjectStage", "Target Date", "Task Created", "Task Updated", "TempConcat", "Title", "Ready For Construction", "RAG Email Sent", "Mitigate - Email RAG", "Reset Reviews"];
-            var trgcolumns = ["ID", "Title", "cdmHazardDescription", "cdmSite", "cdmPWStructure", "cdmTW", "cdmRAMS", "cdmStageExtra", "cdmHazardOwner", "cdmRiskDescription", "cdmMitigationDescription", "cdmResidualRiskScore", "cdmLastReviewType", "cdmLastReviewDate", "cdmLastReviewSnapshot", "cdmLastReviewer", "cdmStageMitigationSuggestion", "cdmLastReviewStatus", "cdmHazardType", "cdmInitialRiskScore", "cdmInitialRAG", "cdmResidualRAG", "cdmHazardCoordinates", "cdmSMMitigationSuggestion", "cdmHazardTags", "cdmPWElement", "Modified By", "cdmEntityTitle", "cdmRelatedRAMS", "cdmParent", "cdmRAGSuggestion", "cdmUniclass", "cdmLinks", "cdmCurrentStatus", "cdmInitialRisk", "cdmResidualRisk", "cdmReviews", "cdmIniRisk", "cdmResRisk", "CurrentMitigationOwner", "cdmSiblings", "CurrentReviewOwner", "cdmFamily", "cdmLegacyId", "Item Type", "Path"];
+            var trgcolumns = ["ID", "Title", "cdmHazardDescription", "cdmSite", "cdmTW", "cdmRAMS", "cdmStageExtra", "cdmHazardOwner", "cdmRiskDescription", "cdmMitigationDescription", "cdmResidualRiskScore", "cdmLastReviewType", "cdmLastReviewDate", "cdmLastReviewSnapshot", "cdmLastReviewer", "cdmStageMitigationSuggestion", "cdmLastReviewStatus", "cdmHazardType", "cdmInitialRiskScore", "cdmInitialRAG", "cdmResidualRAG", "cdmHazardCoordinates", "cdmSMMitigationSuggestion", "cdmHazardTags", "cdmPWElement", "Modified By", "cdmEntityTitle", "cdmRelatedRAMS", "cdmParent", "cdmRAGSuggestion", "cdmUniclass", "cdmLinks", "cdmCurrentStatus", "cdmInitialRisk", "cdmResidualRisk", "cdmReviews", "cdmIniRisk", "cdmResRisk", "CurrentMitigationOwner", "cdmSiblings", "CurrentReviewOwner", "cdmFamily", "cdmLegacyId", "Item Type", "Path"];
 
             // var options =
             //   '<tr><td class="hide" id="val_' +
@@ -1353,11 +1353,10 @@ function xtrafilter(lst, flt, title) {
     var stf = 'cdmStageExtra';
     var of = 'cdmHazardOwner';
     var tf = 'cdmHazardType';
-    var cpwf = 'cdmPWStructure';
     var ctwf = 'cdmTW';
     var crmf = 'cdmRAMS';
-    var poslists = ['cdmSites', 'cdmPWStructures', 'cdmStagesExtra', 'cdmPWElementTerms', 'cdmCompanies', 'cdmHazardTypes'];
-    var posfilters = ['cdmSite', 'cdmPWStructure', 'cdmStageExtra', 'cdmPWElement', 'cdmHazardOwner', 'cdmHazardType'];
+    var poslists = ['cdmSites',  'cdmStagesExtra', 'cdmPWElementTerms', 'cdmCompanies', 'cdmHazardTypes'];
+    var posfilters = ['cdmSite',  'cdmStageExtra', 'cdmPWElement', 'cdmHazardOwner', 'cdmHazardType'];
 
     for (var cc = 0; cc < poslists; cc++) {
         getListItemsByListName({
