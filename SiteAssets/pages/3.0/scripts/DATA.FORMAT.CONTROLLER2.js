@@ -547,12 +547,12 @@ formatdatato = {
     
         $("#" + trg).html(row);
         var fa = [
-            "cdmPWStructure/ID ne null",
+            //"cdmPWStructure/ID ne null",
             "cdmTW ne null",
             "cdmRAMS ne null",
             "cdmResidualRiskScore gt 9",
             "cdmHazardOwner/ID eq null",
-            "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
+            //"cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
             "startswith(cdmCurrentStatus,'Under')"
             ];
 
@@ -594,12 +594,12 @@ formatdatato = {
                 fdata = allHazards;
             } else {
                 for (i=0 ; i< allHazards.length ; i++){
-                    if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
-                        fdata.push(allHazards[i]);
-                    }
-                    if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
-                        fdata.push(allHazards[i]);
-                    }
+                    // if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
+                    //     fdata.push(allHazards[i]);
+                    // }
+                    // if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
+                    //     fdata.push(allHazards[i]);
+                    // }
                     if (filterlst.includes(allHazards[i].cdmCurrentStatus)) {
                         fdata.push(allHazards[i]);
                     }
@@ -618,7 +618,9 @@ formatdatato = {
             switch(filter_id) {
                 case 0:
                     for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null) {
+                        if (full_dataset[i].cdmSite.ID == sublot_id 
+                            //&& full_dataset[i].cdmPWStructure.ID != null
+                        ) {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
@@ -653,7 +655,9 @@ formatdatato = {
                     break;W
                 case 5:
                     for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null && full_dataset[i].cdmPWElement.ID == null) {
+                        if (full_dataset[i].cdmSite.ID == sublot_id 
+                            //&& full_dataset[i].cdmPWStructure.ID != null 
+                            && full_dataset[i].cdmPWElement.ID == null) {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
@@ -798,12 +802,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
 
         function loadMore(startingIndex) {
@@ -883,12 +887,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
 
 
@@ -998,12 +1002,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
         // var tpos_search =
         //   '<div class="filter-row"><input id="tpos_search" placeholder="Search here" /></div>';
@@ -1177,7 +1181,9 @@ function buildHazardListItem(h) {
     //   requiresLDReview = 1;
     // }
 
-    if (isDesignHazard == 1 && (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")) {
+    if (isDesignHazard == 1 
+        //&& (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")
+    ) {
         requiresLDReview = 1;
     }
 
@@ -1189,8 +1195,9 @@ function buildHazardListItem(h) {
             var urat = $(ura[ii]).data("elementname");
             var urct = $(urc[ii]).data("elementid");
             var urst = $(urs[ii]).data("elementid");
-            if (!h.cdmStageExtra.Title.includes("Construction") &&
-                h.cdmStageExtra.Title != "Commission"
+            if (true
+                // !h.cdmStageExtra.Title.includes("Construction") &&
+                // h.cdmStageExtra.Title != "Commission"
             ) {
                 if (urct == h.cdmHazardOwner.ID) {
                     // belongs to your company
@@ -1692,7 +1699,9 @@ function printHazardRow(h) {
 
     //Switches between 2 workflow objects. Patrick Hsu, 22 Feb 2024
     var workflow = "";
-    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
+    if (true
+        //h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")
+    ) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
     }
