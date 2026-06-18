@@ -2553,15 +2553,8 @@ function printHazardRow(h) {
         '   <div class="cell assetTypeGroup">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
-
-                    var assetType = at.Title || "";
-                    var subGroup = assetSubGroupMap[assetType];
-                    var subGroupTitle = subGroup ? subGroup.Title : "";
-                    var typeGroup = assetTypeGroupMap[subGroupTitle];
-
-                    return typeGroup ? typeGroup.AssetTypeGroup : "";
-
-                }).filter(Boolean).join('<br>')
+                    return at.Title;
+                }).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +
@@ -2570,13 +2563,8 @@ function printHazardRow(h) {
         '  <div class="cell assetSubGroup">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
-
-                    var assetType = at.Title || "";
-                    var subGroup = assetSubGroupMap[assetType];
-
-                    return subGroup ? subGroup.Title : "";
-
-                }).filter(Boolean).join('<br>')
+                    return at.Title;
+                }).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +
@@ -2585,8 +2573,8 @@ function printHazardRow(h) {
         ' <div class="cell assetType">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
-                    return at.Title || "";
-                }).filter(Boolean).join('<br>')
+                    return at.Title;
+                }).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +
