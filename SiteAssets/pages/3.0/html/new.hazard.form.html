@@ -1025,6 +1025,24 @@ async function savehazards() {
             workPackages.push(Number($(this).data('value')));
         });
 
+        var invalidSites = [];
+
+        sites.forEach(function (siteId) {
+
+            var hasRoute = $('#selectedworkPackages .qresult').filter(function () {
+                return Number($(this).data('siteid')) === siteId;
+            }).length > 0;
+
+            if (!hasRoute) {
+                invalidSites.push(siteId);
+            }
+        });
+
+        if (invalidSites.length > 0) {
+            toastr.error("You must select at least one route section for each site you chose");
+            return;
+        }
+
         var assetTypeGroupNames = $('#selectedassetTypeGroup .qresult').map(function () { return $(this).data('name'); }).get();
         var assetSubGroupNames = $('#selectedassetSubGroup .qresult').map(function () { return $(this).data('name'); }).get();
         var assetTypeNames = $('#selectedassetType .qresult').map(function () { return $(this).data('name'); }).get();
