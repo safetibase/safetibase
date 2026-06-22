@@ -5187,7 +5187,7 @@ function toggleInfoPanel() {
                 $("#h_" + hzd + " .hazhis").addClass("highlight");
                 cdmdata.get(
                     "cdmHazardHistory",
-                    "cdmHazard eq '" + id + "'",
+                    "cdmHazard eq " + id,
                     "Modified desc",
                     "hazhistory",
                     "h_" + id + "_changehistory"

@@ -28,6 +28,33 @@ cdmdata = {
             return; 
         }
 
+        if (format === "frmedit_updateview" && lst === "cdmHazards") {
+
+            var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+            var url = appurl +
+                "/_api/web/lists/getByTitle('cdmHazards')/items" +
+                "?$select=ID,Title,cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription,cdmCurrentStatus" +
+                (filter ? "&$filter=" + filter : "") +
+                "&$top=1";
+
+            console.log("✅ USING SAFE UPDATEVIEW QUERY:", url);
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                headers: { "Accept": "application/json; odata=verbose" },
+                success: function (data) {
+                    formatdatato.hazardtablerowitems(data, [], trg, wpt);
+                },
+                error: function (err) {
+                    console.log("❌ UPDATEVIEW ERROR:", err);
+                }
+            });
+
+            return;
+        }
+
         var fa = [];
         var ft = [];
         var ftv = [];
@@ -395,7 +422,7 @@ cdmdata = {
                 // fn(oListItem);
                 cdmdata.get(
                     "cdmHazards",
-                    "ID eq '" + hzd + "'",
+                    "ID eq " + hzd,
                     null,
                     "frmedit_updateview",null,[]
                 );
@@ -899,7 +926,7 @@ tposdata = {
             // fn(oListItem);
             tposdata.get(
                 "cdmHazards",
-                "ID eq '" + hzd + "'",
+                "ID eq " + hzd,
                 null,
                 "frmedit_updateview"
             );
