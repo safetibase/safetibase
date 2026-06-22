@@ -1359,8 +1359,8 @@ function xtrafilter(lst, flt, title) {
     var tf = 'cdmHazardType';
     var ctwf = 'cdmTW';
     var crmf = 'cdmRAMS';
-    var poslists = ['cdmSites',  'cdmStagesExtra', 'cdmPWElementTerms', 'cdmCompanies', 'cdmHazardTypes'];
-    var posfilters = ['cdmSite',  'cdmStageExtra', 'cdmPWElement', 'cdmHazardOwner', 'cdmHazardType'];
+    var poslists = ['cdmSites', 'cdmPWStructures','cdmStagesExtra', 'cdmPWElementTerms', 'cdmCompanies', 'cdmHazardTypes', 'cdmWorkPackage', 'cdmRouteSection', 'cdmAssetType', 'cdmAssetSubGroup'];
+    var posfilters = ['cdmSite', 'cdmPWStructures', 'cdmStageExtra', 'cdmPWElement', 'cdmHazardOwner', 'cdmHazardType', 'cdmWorkPackage', 'cdmRouteSection', 'cdmAssetType', 'cdmAssetSubGroup'];
 
     for (var cc = 0; cc < poslists; cc++) {
         getListItemsByListName({
