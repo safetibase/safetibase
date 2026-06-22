@@ -829,20 +829,24 @@ formatdatato = {
         if (tcnt === 0) {
             wpt = '';
         }
-        $("#" + trg).textContent = wpt;
+        $("#" + trg).html(wpt);
 
         for (var cc = 0; cc < tcnt; cc++) {
             // build rows
             var h = tlist[cc];
- 
-            var assetType = h.AssetType ? h.AssetType.Title : "";
 
-            var subGroup = assetSubGroupMap[assetType];
-            var subGroupTitle = subGroup ? subGroup.Title : "";
+            var assetType = h.assetType && h.assetType.results && h.assetType.results[0]
+                ? h.assetType.results[0].Title
+                : "";
 
-            var typeGroup = assetTypeGroupMap[subGroupTitle];
-            var typeGroupName = typeGroup ? typeGroup.AssetTypeGroup : "";
+            var subGroupTitle = window.assetTypeToSubGroupMap
+                ? window.assetTypeToSubGroupMap[assetType] || ""
+                : "";
 
+            var typeGroupName = window.assetTypeGroupMap
+                ? window.assetTypeGroupMap[subGroupTitle] || ""
+                : "";
+                
             h.assetTypeResolved = assetType;
             h.assetSubGroupResolved = subGroupTitle;
             h.assetTypeGroupResolved = typeGroupName;

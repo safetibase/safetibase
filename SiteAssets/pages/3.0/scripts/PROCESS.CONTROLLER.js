@@ -3515,7 +3515,7 @@ async function tposcustomfilters(data, forExport) {
 
         $('#riskOwnerFilter').multiselect({
             columns: 1,
-            placeholder: 'Select Risk Owner',
+            placeholder: 'Select CDM/Project Risk',
             search: true,
             selectAll: true
         });
