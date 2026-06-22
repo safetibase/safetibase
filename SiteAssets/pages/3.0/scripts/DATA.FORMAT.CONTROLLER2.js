@@ -333,7 +333,6 @@ formatdatato = {
                                         method: "GET",
                                         headers: { "Accept": "application/json; odata=verbose" }
                                     })
-
                                 ]).then(function (results) {
 
                                     var assetTypes = results[0].d.results;
@@ -343,13 +342,31 @@ formatdatato = {
                                     var assetTypeGroupMap = {};
 
                                     assetTypes.forEach(function (item) {
-                                        assetTypeToSubGroupMap[item.Title] =
-                                            item.AssetSubGroup ? item.AssetSubGroup.Title : "";
-                                    });
+
+                                        var type = item.Title;
+                                        var subGroup = item.AssetSubGroup ? item.AssetSubGroup.Title : "";
+
+                                        assetTypeToSubGroupMap[type] = subGroup;
+
+                                    })
 
                                     assetSubGroups.forEach(function (item) {
-                                        assetTypeGroupMap[item.Title] =
-                                            item.AssetTypeGroup ? item.AssetTypeGroup.Title : "";
+
+                                        var subGroup = item.Title;
+
+                                        var group =
+                                            item.AssetTypeGroup &&
+                                            item.AssetTypeGroup.results &&
+                                            item.AssetTypeGroup.results.length > 0
+                                                ? item.AssetTypeGroup.results.map(function(g) {
+                                                    return g.Title;
+                                                }).join(", ")
+                                                : "";
+
+                                        console.log("SUBGROUP:", subGroup, "→ GROUP:", group);
+
+                                        assetTypeGroupMap[subGroup] = group;
+
                                     });
 
                                     window.assetTypeToSubGroupMap = assetTypeToSubGroupMap;
