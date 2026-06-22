@@ -667,29 +667,72 @@ formatdatato = {
         $("#stats.tpos-area-content").prepend(refresh_hazards)
         $('.refresh-hazards-btn').click(function() {init(true)});
 
-        function customfilters ( allHazards, filterlst){
+        function customfilters(allHazards, filterlst, field) {
+
             var fdata = [];
-            if(filterlst ==[]){
-                fdata = allHazards;
-            } else {
-                for (i=0 ; i< allHazards.length ; i++){
-                    // if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
-                    //     fdata.push(allHazards[i]);
-                    // }
-                    // if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
-                    //     fdata.push(allHazards[i]);
-                    // }
-                    if (filterlst.includes(allHazards[i].cdmCurrentStatus)) {
-                        fdata.push(allHazards[i]);
-                    }
-                    if (filterlst.includes(allHazards[i].cdmResidualRiskOwner)) {
-                        fdata.push(allHazards[i]);
-                    }
-                    if (filterlst.includes(allHazards[i].cdmHazardTags)) {
-                        fdata.push(allHazards[i]);
-                    }
+
+            for (var i = 0; i < allHazards.length; i++) {
+
+                var h = allHazards[i];
+                var values = [];
+
+                if (field === "cdmSite" && h.cdmSite) {
+                    values = [h.cdmSite.Title];
+                }
+
+                if (field === "routeSection" && h.workPackage && h.workPackage.results) {
+                    values = h.workPackage.results.map(function (wp) {
+                        var m = wp.Title.match(/^\d+/);
+                        return m ? m[0] : "";
+                    });
+                }
+
+                if (field === "workPackage" && h.workPackage && h.workPackage.results) {
+                    values = h.workPackage.results.map(function (wp) {
+                        return wp.Title;
+                    });
+                }
+
+                if (field === "assetType" && h.assetType && h.assetType.results) {
+                    values = h.assetType.results.map(function (at) {
+                        return at.Title;
+                    });
+                }
+
+                if (field === "assetSubGroup" && h.assetType && h.assetType.results) {
+                    values = h.assetType.results.map(function (at) {
+                        return window.assetTypeToSubGroupMap[at.Title] || "";
+                    });
+                }
+
+                if (field === "assetTypeGroup" && h.assetType && h.assetType.results) {
+                    values = h.assetType.results.map(function (at) {
+                        var sg = window.assetTypeToSubGroupMap[at.Title] || "";
+                        return window.assetTypeGroupMap[sg] || "";
+                    });
+                }
+
+                if (field === "cdmCurrentStatus") {
+                    values = [h.cdmCurrentStatus];
+                }
+
+                if (field === "cdmResidualRiskOwner") {
+                    values = [h.cdmResidualRiskOwner];
+                }
+
+                if (field === "cdmHazardTags") {
+                    values = [h.cdmHazardTags];
+                }
+
+                var match = values.some(function (v) {
+                    return filterlst.includes(v);
+                });
+
+                if (match) {
+                    fdata.push(h);
                 }
             }
+
             return fdata;
         }
         function filterFullDataset(full_dataset, sublot_id, filter_id) {
