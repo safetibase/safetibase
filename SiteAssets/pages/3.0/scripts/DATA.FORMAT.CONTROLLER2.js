@@ -363,8 +363,6 @@ formatdatato = {
                                                 }).join(", ")
                                                 : "";
 
-                                        console.log("SUBGROUP:", subGroup, "→ GROUP:", group);
-
                                         assetTypeGroupMap[subGroup] = group;
 
                                     });
@@ -548,12 +546,26 @@ formatdatato = {
         if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
         } else {
-            if (lstfilter["cdmStageExtra"].length != 0){
-                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            if (lstfilter["cdmSite"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["cdmSite"], "cdmSite");
             }
-            if (lstfilter["cdmPWStructure"].length != 0){
-                allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
+
+            if (lstfilter["workPackage"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["workPackage"], "workPackage");
             }
+
+            if (lstfilter["assetType"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetType"], "assetType");
+            }
+
+            if (lstfilter["assetSubGroup"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetSubGroup"], "assetSubGroup");
+            }
+
+            if (lstfilter["assetTypeGroup"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetTypeGroup"], "assetTypeGroup");
+            }
+
             if (lstfilter["cdmCurrentStatus"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
             } 

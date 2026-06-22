@@ -3335,446 +3335,217 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-async function tposcustomfilters( data, forExport) {
-    // var tlist=[];
-    // if (maindata.length = 0 ) {
-    //     tlist = data.d.results;
-    // }
-    // else {
-    //     tlist = maindata;
-    // }
+async function tposcustomfilters(data, forExport) {
+
     var tlist = data;
- 
-    var distlistcdmStageExtra=[];
-    var distlistcdmpwstructure =[];
-    var distlistcdmCurrentStatus=[];
-    var distlistcdmResidualRiskOwner = [];// ['HS2 Infrastructure Management SME​​','HS2 Rail Systems Interface Engineer'];
-    var distlistcdmTags = [];
-    var selectcdmStageExtra = '';
-    var selectcdmpwstructure ='';
-    var selectcdmTags = ''
-    var selectcdmCurrentStatus ='';
-    var selectcdmResidualRiskOwner ='';
+
+    var distSites = [];
+    var distRouteSections = [];
+    var distWorkPackages = [];
+    var distAssetTypes = [];
+    var distSubGroups = [];
+    var distGroups = [];
+    var distStatus = [];
+    var distRiskOwner = [];
+    var distTags = [];
+
+    var selectSites = '';
+    var selectRouteSections = '';
+    var selectWorkPackages = '';
+    var selectAssetTypes = '';
+    var selectSubGroups = '';
+    var selectGroups = '';
+    var selectStatus = '';
+    var selectRiskOwner = '';
+    var selectTags = '';
+
+    const normalize = s => String(s || "").replace(/\s+/g, ' ').trim();
 
     for (var cc = 0; cc < tlist.length; cc++) {
-        var it = tlist[cc];
-        var itid = it.cdmStageExtra.ID;
-        var ittitle = it.cdmStageExtra.Title;
-        var itcdmpwstructureid = it.cdmPWStructure.ID;
-        var itcdmpwstructuretitle = it.cdmPWStructure.Title;
-        var itcdmCurrentStatus = it.cdmCurrentStatus;
-        var itcdmResidualRiskOwner = it.cdmResidualRiskOwner; 
-        var itcdmTags = it.cdmHazardTags; // This field is Discipline (e.g. Highways) on East West Rail project
 
-        if (ittitle !== undefined && !distlistcdmStageExtra.includes(ittitle)){
-            distlistcdmStageExtra.push(ittitle);
-            selectcdmStageExtra += '<option value="'+ittitle+'">'+ittitle+'</option>'
+        var h = tlist[cc];
+
+        // ✅ Site
+        if (h.cdmSite && h.cdmSite.Title && !distSites.includes(h.cdmSite.Title)) {
+            distSites.push(h.cdmSite.Title);
+            selectSites += '<option value="' + h.cdmSite.Title + '">' + h.cdmSite.Title + '</option>';
         }
 
-        if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
-            if (configData['Create hazard show asset description']) {
-                const assetUAID = it.cdmPWStructure.UAID;
-                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+`Asset: ${itcdmpwstructuretitle}; UAID: ${assetUAID}`+'</option>';
-            } else {
-                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>';
+        // ✅ Work Packages + Route Sections
+        if (h.workPackage && h.workPackage.results) {
+            h.workPackage.results.forEach(function (wp) {
+
+                var title = wp.Title;
+
+                if (!distWorkPackages.includes(title)) {
+                    distWorkPackages.push(title);
+                    selectWorkPackages += '<option value="' + title + '">' + title + '</option>';
+                }
+
+                var match = title.match(/^\d+/);
+                if (match) {
+                    var rs = match[0];
+                    if (!distRouteSections.includes(rs)) {
+                        distRouteSections.push(rs);
+                        selectRouteSections += '<option value="' + rs + '">' + rs + '</option>';
+                    }
+                }
+
+            });
+        }
+
+        // ✅ Asset hierarchy
+        if (h.assetType && h.assetType.results) {
+
+            h.assetType.results.forEach(function (at) {
+
+                var type = at.Title;
+                var subGroup = window.assetTypeToSubGroupMap[type] || '';
+                var group = window.assetTypeGroupMap[subGroup] || '';
+
+                if (type && !distAssetTypes.includes(type)) {
+                    distAssetTypes.push(type);
+                    selectAssetTypes += '<option value="' + type + '">' + type + '</option>';
+                }
+
+                if (subGroup && !distSubGroups.includes(subGroup)) {
+                    distSubGroups.push(subGroup);
+                    selectSubGroups += '<option value="' + subGroup + '">' + subGroup + '</option>';
+                }
+
+                if (group && !distGroups.includes(group)) {
+                    distGroups.push(group);
+                    selectGroups += '<option value="' + group + '">' + group + '</option>';
+                }
+
+            });
+        }
+
+        // ✅ Status
+        if ((!forExport || configData['Exportable workflow states'].includes(h.cdmCurrentStatus)) &&
+            h.cdmCurrentStatus && !distStatus.includes(h.cdmCurrentStatus)) {
+
+            distStatus.push(h.cdmCurrentStatus);
+            selectStatus += '<option value="' + h.cdmCurrentStatus + '">' + h.cdmCurrentStatus + '</option>';
+        }
+
+        // ✅ Risk Owner
+        if (h.cdmResidualRiskOwner && !distRiskOwner.includes(h.cdmResidualRiskOwner)) {
+            distRiskOwner.push(h.cdmResidualRiskOwner);
+            selectRiskOwner += '<option value="' + h.cdmResidualRiskOwner + '">' + h.cdmResidualRiskOwner + '</option>';
+        }
+
+        // ✅ Tags
+        if (h.cdmHazardTags) {
+
+            var tag = normalize(h.cdmHazardTags);
+
+            if (!distTags.includes(tag)) {
+                distTags.push(tag);
+                selectTags += '<option value="' + tag + '">' + tag + '</option>';
             }
-            distlistcdmpwstructure.push(itcdmpwstructureid);
         }
-
-        if (!forExport && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) || (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus) && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus))){
-            distlistcdmCurrentStatus.push(itcdmCurrentStatus);
-            selectcdmCurrentStatus += '<option value="'+itcdmCurrentStatus+'">'+itcdmCurrentStatus+'</option>'
-        }
-
-        if (itcdmResidualRiskOwner !== undefined && !distlistcdmResidualRiskOwner.includes(itcdmResidualRiskOwner)){
-            distlistcdmResidualRiskOwner.push(itcdmResidualRiskOwner);
-            selectcdmResidualRiskOwner += '<option value="'+itcdmResidualRiskOwner+'">'+itcdmResidualRiskOwner+'</option>'
-            // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
-            // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
-        }
-
-
-        
-        const normalize = s => String(s).replace(/\s+/g, '').toLowerCase(); // for matching
-        const canonical = s => String(s).trim();                             // for display in filter
-        
-        // Build filter options from distlistcdmTags: unique by normalized key,
-        // display trimmed/canonical label
-
-        if (itcdmTags !== undefined && itcdmTags !== null) {
-        const normalizedTag = normalize(itcdmTags);
-        const normalizedExisting = distlistcdmTags.map(normalize);
-        if (!normalizedExisting.includes(normalizedTag)) {
-            distlistcdmTags.push(itcdmTags);
-        }
-        // only add to dropdown if we haven’t already added this normalized option
-        const label = canonical(itcdmTags);
-        const dropdownHas = selectcdmTags.includes('>' + label + '<'); // simple guard
-        if (!dropdownHas) {
-            selectcdmTags += '<option value="' + label + '">' + label + '</option>';
-        }
-        }
-
-      
     }
+
     $("#popscontentarea").html('');
+
     $(".pops-content").append(
-        (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right" type="button">export</button>')+
-        '<div class ="customfiltersection" id="popscontentarea1"> <select name="cdmpwstructurefilter[]" multiple id="cdmpwstructurefilter">' +  selectcdmpwstructure
-        +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea2"> <select name="cdmStageExtrafilter[]" multiple id="cdmStageExtrafilter">' +  selectcdmStageExtra
-        +"</select><br> </div>"+
-        (forExport === undefined ? '<div class ="customfiltersection" id="popscontentarea3"> <select name="cdmResidualRiskOwnerfilter[]" multiple id="cdmResidualRiskOwnerfilter">' +  selectcdmResidualRiskOwner : '')
-        +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea4"> <select name="cdmTagsfilter[]" multiple id="cdmTagsfilter">' +  selectcdmTags
-        +"</select><br> </div>"+
-        '<div class ="customfiltersection" id="popscontentarea5"> <select name="cdmCurrentStatusfilter[]" multiple id="cdmCurrentStatusfilter">' +  selectcdmCurrentStatus
-        +"</select><br> </div>" 
+        (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right">export</button>') +
+
+        '<div class="customfiltersection"><select multiple id="siteFilter">' + selectSites + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="routeFilter">' + selectRouteSections + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="wpFilter">' + selectWorkPackages + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="groupFilter">' + selectGroups + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="subGroupFilter">' + selectSubGroups + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="assetTypeFilter">' + selectAssetTypes + '</select></div>' +
+
+        '<div class="customfiltersection"><select multiple id="statusFilter">' + selectStatus + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="riskOwnerFilter">' + selectRiskOwner + '</select></div>' +
+        '<div class="customfiltersection"><select multiple id="tagsFilter">' + selectTags + '</select></div>'
     );
 
-    $('#cdmpwstructurefilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Asset :',
-        search: true,
-        selectAll: true
-    });
-    $('#cdmResidualRiskOwnerfilter').multiselect({
-        columns: 1,
-        placeholder: 'Select CSM/Project Risk :',
-        search: true,
-        selectAll: true
-    });
-    $('#cdmTagsfilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Discipline :',
-        search: true,
-        selectAll: true
-    });
-    $('#cdmStageExtrafilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Stage :',
-        search: true,
-        selectAll: true
-    });
-    $('#cdmCurrentStatusfilter').multiselect({
-        columns: 1,
-        placeholder: 'Select Status :',
-        search: true,
-        selectAll: true
-    });
+        $('#siteFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Site(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#routeFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Route Section(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#wpFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Work Package(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#groupFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Asset Type Group(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#subGroupFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Asset Type Sub-group(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#assetTypeFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Asset Type(s)',
+            search: true,
+            selectAll: true
+        });
+
+        $('#statusFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Status',
+            search: true,
+            selectAll: true
+        });
+
+        $('#riskOwnerFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Risk Owner',
+            search: true,
+            selectAll: true
+        });
+
+        $('#tagsFilter').multiselect({
+            columns: 1,
+            placeholder: 'Select Discipline',
+            search: true,
+            selectAll: true
+        });
+
 
     $('#applyfilters').click(function () {
-        var fcdmStageExtra = [];
-        var fcdmStageExtraselected =[];
-        fcdmStageExtra=$('#cdmStageExtrafilter').find(':selected');
-        for( a=0; a<fcdmStageExtra.length;a++){
-            fcdmStageExtraselected.push(fcdmStageExtra[a].innerText);
-        }
-        flst['cdmStageExtra'] = fcdmStageExtraselected;
 
-        var fcdmpwstructure = [];
-        var fcdmpwstructureselected =[];
-        fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
-        for( b=0; b<fcdmpwstructure.length;b++){
-            if (configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset'])
-                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText.split(';')[0].split(':')[1].trimStart());
-            } else {
-                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
-            }
-        }
+        flst['cdmSite'] = $('#siteFilter').val() || [];
+        flst['routeSection'] = $('#routeFilter').val() || [];
+        flst['workPackage'] = $('#wpFilter').val() || [];
+        flst['assetTypeGroup'] = $('#groupFilter').val() || [];
+        flst['assetSubGroup'] = $('#subGroupFilter').val() || [];
+        flst['assetType'] = $('#assetTypeFilter').val() || [];
 
-        flst['cdmPWStructure'] = fcdmpwstructureselected;
+        flst['cdmCurrentStatus'] = $('#statusFilter').val() || [];
+        flst['cdmResidualRiskOwner'] = $('#riskOwnerFilter').val() || [];
+        flst['cdmHazardTags'] = $('#tagsFilter').val() || [];
 
-        var fcdmTags = [];
-        var fcdmTagsselected =[];
-        fcdmTags= $('#cdmTagsfilter').find(':selected');
+        cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl', flst);
 
-        for (var c = 0; c < fcdmTags.length; c++) {
-        var raw = fcdmTags[c].innerText;
-        var noQuotes = raw.replace(/"/g, '');
-        fcdmTagsselected.push(noQuotes);
-        var withTrailingSpace = /\s$/.test(noQuotes) ? noQuotes : (noQuotes + ' ');
-        fcdmTagsselected.push(withTrailingSpace);
-        }
-
-        flst['cdmHazardTags'] = fcdmTagsselected;
-
-        var fcdmCurrentStatus = [];
-        var fcdmCurrentStatusselected =[];
-        fcdmCurrentStatus= $('#cdmCurrentStatusfilter').find(':selected');
-        for( c=0; c<fcdmCurrentStatus.length;c++){
-            fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace(/"/g,''));
-        }
-        
-        flst['cdmCurrentStatus'] = fcdmCurrentStatusselected;
-
-        var fcdmResidualRiskOwner = [];
-        var fcdmResidualRiskOwnerselected =[];
-        fcdmResidualRiskOwner= $('#cdmResidualRiskOwnerfilter').find(':selected');
-        for( c=0; c<fcdmResidualRiskOwner.length;c++){
-            fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
-        }
-        flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
-
-        cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
-
-
-        //alert("stop");
         $("#pops").remove();
-        
     });
 
-    $('#applyfiltersforexport').click(() => {
-
-        /*
-        Maps hazard info to column names used in the Export Excel file. It also sanitises
-        the hazard information. This sanitisation will need to be reversed when the
-        CSV is reimported once changes have been made by the user. */
-        const mappingObj = (obj) => {
-            var result = {};
-            result.ID = sanitiseInput(obj.ID);
-            result.Site = sanitiseInput(obj.cdmSite.Title);
-            result["PW Structure"] = sanitiseInput(obj.cdmPWStructure.Title);
-            result.Stage = sanitiseInput(obj.cdmStageExtra.Title);
-            result["Hazard Type"] = sanitiseInput(obj.cdmHazardType.Title);
-            result["Hazard Owner"] = sanitiseInput(obj.cdmHazardOwner.Title);
-            result["Hazard Tags"] = sanitiseInput(obj.cdmHazardTags);
-            result.Entity = sanitiseInput(obj.cdmEntityTitle);
-            result["Hazard Description"] = sanitiseInput(obj.cdmHazardDescription);
-            result["Risk Description"] = sanitiseInput(obj.cdmRiskDescription);
-            result["Mitigation Description"] = sanitiseInput(obj.cdmMitigationDescription);
-            result["Initial Risk"] = sanitiseInput(obj.cdmInitialRisk);
-            result["Residual Risk"] = sanitiseInput(obj.cdmResidualRisk);
-            result["Designer Mitigation Suggestions"] = sanitiseInput(obj.cdmStageMitigationSuggestion);
-            result.Status = sanitiseInput(obj.cdmUniclass);
-            result.RAMS = sanitiseInput(obj.cdmRAMS);
-            result["Last Review Status"] = sanitiseInput(obj.cdmLastReviewStatus);
-            result["Last Reviewer"] = sanitiseInput(obj.cdmLastReviewer);
-            result["Last Review Type"] = sanitiseInput(obj.cdmLastReviewType);
-            result["Last Review Date"] = sanitiseInput(obj.cdmLastReviewDate);
-            result["Workflow Status"] = sanitiseInput(obj.cdmCurrentStatus);
-            result.Coordinates = sanitiseInput(obj.cdmHazardCoordinates);
-            result.Geometry = sanitiseInput(obj.cdmGeometry);
-            result.TW = sanitiseInput(obj.cdmTW);
-            result["Residual Risk Owner"] = sanitiseInput(obj.cdmResidualRiskOwner);
-            result["Current Mitigation Owner"] = sanitiseInput(obj.CurrentMitigationOwner.Title);
-            result["Current Review Owner"] = sanitiseInput(obj.CurrentReviewOwner.Title);
-            result["PW Links"] = sanitiseInput(obj.cdmLinks);
-            result.Title = sanitiseInput(obj.Title);
-            result.Created = sanitiseInput(obj.Created);
-            result["Created By"] = sanitiseInput(obj.Author.Title);
-            result.Modified = sanitiseInput(obj.Modified);
-            result["Modified By"] = sanitiseInput(obj.Editor.Title);
-            result.cdmReviews = sanitiseInput(obj.cdmReviews);
-
-            return result
-        }
-
-        /*
-        Returns a boolean based on whether a given hazard complies with the filters selected by
-        the user in the filter pane on export. If no filters are selected for a given filter, it
-        skips the compliance check as otherwise it would exclude everything. */
-        const filterHazards = (hazard, filterParam) => {
-            // We need to also filter out RAMS and TW hazards, so we'll add a case here to return false if this is the case
-            if (hazard.cdmRAMS || hazard.cdmTW) {
-                return false;
-            }
-
-            var flag = true;
-            if (filterParam.cdmPWStructure.length && flag) {
-                flag = filterParam.cdmPWStructure.includes(hazard.cdmPWStructure.Title);
-            }
-
-            if (filterParam.cdmStageExtra.length && flag) {
-                flag = filterParam.cdmStageExtra.includes(hazard.cdmStageExtra.Title);
-            }
-
-            if (filterParam.cdmCurrentStatus.length && flag) {
-                flag = filterParam.cdmCurrentStatus.includes(hazard.cdmCurrentStatus);
-            }
-
-            if (filterParam.cdmHazardTags.length && flag) {
-                flag = filterParam.cdmHazardTags.includes(hazard.cdmHazardTags);
-            }
-
-            return flag;
-        }
-
-        /*
-        Download function for CSV file. Needs to convert to Blob to ensure full dataset is downloaded.
-        If this is not done, the data will be truncated on download. */
-        var downloadCSV = (data, fileName) => {
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-            var blob = new Blob([data], {type: "text/csv;charset=utf-8"})
-            var url = window.URL.createObjectURL(blob);
-            a.href = url;
-            a.download = fileName;
-            a.click();
-            window.URL.revokeObjectURL(url);
-        };
-
-        /*
-        Download funtion for the macro template
-        */
-        const downloadTemplate = () => {
-            // First construct the url to the macro template
-            const libraryName = 'SiteAssets/files';
-            const fileName = 'template.xlsm';
-            const fileUrl = `${_spPageContextInfo.webAbsoluteUrl}/_layouts/download.aspx?SourceUrl=${_spPageContextInfo.webAbsoluteUrl}/${libraryName}/${fileName}`;
-
-            // Create an invisible element with a link to the fileUrl and click this
-            const a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-            a.href = fileUrl;
-            a.download = fileName;
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        /*
-        Sanitises values for CSV by wrapping values in quotes and ensuring that existing
-        quotation marks don't cause issues by replacing them with double quotes. Null values
-        should not be wrapped in quotes as this causes them to be entered into the CSV as text. */
-        const sanitiseInput = (value) => {
-            if (typeof value === "string") {
-                sanitisedString = `"${value.replace(/\"/g, '""')}"`;
-                return sanitisedString;
-            } else if (value) {
-                return `"${value}"`;
-            } else {
-                return null;
-            }
-        }
-
-        const uploadRollbackToSharepoint = async (data) => {
-            
-            // Function to upload the array buffer to sharepoint
-            const uploadArrayBuffer = async (arrayBuffer) => {
-                
-                // Construct the filename
-                const date = new Date();
-                const dateFormatted = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}T${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-                const fileName = `Export for rollback ${dateFormatted}.csv`;
-
-                // Construct the endpoint
-                const serverUrl = _spPageContextInfo.webAbsoluteUrl;
-                const serverRelativeUrlToFolder = 'SiteAssets/files';
-                const fileCollectionEndpoint = `${serverUrl}/_api/web/getfolderbyserverrelativeurl('${serverRelativeUrlToFolder}')/files/add(overwrite=true, url='${fileName}')`;
-                
-                return $.ajax({
-                    url: fileCollectionEndpoint,
-                    type: 'POST',
-                    data: arrayBuffer,
-                    processData: false,
-                    headers: {
-                        'accept': 'application/json;odata=verbose',
-                        'X-RequestDigest': jQuery('#__REQUESTDIGEST').val()
-                    }
-                })
-            }
-
-            // First lets convert the data to a csv blob
-            const blob = new Blob([data], {type: "text/csv;charset=utf-8"});
-
-            // Now convert the blob to an array buffer that we can upload to sharepoint
-            const arrayBuffer = await blob.arrayBuffer();
-            
-            // Now post the array buffer to sharepoint
-            const file = uploadArrayBuffer(arrayBuffer);
-
-            // Handle the resolved or rejected promise
-            file.then(() => {
-                toastr.success('Successfully saved a rollback csv. Should you need to rollback the data to its current state, contact an admin to import the timestamped rollback csv.', '', {
-                    timeOut: 30000
-                })
-            }).catch((error) => {
-                console.log(error);
-                toastr.error('Failed to save a rollback csv to SharePoint. Please do not proceed with any bulk edits.', '', {
-                    timeOut: 30000
-                })
-            })
-        }
-
-        /**
-         * Before we do the export, we need to check that the user has selected a status
-         */
-        if ($('#cdmCurrentStatusfilter').find(':selected').length === 0) {
-            toastr.error('You must select at least one status value to filter on');
-            return;
-        }
-
-        /**
-         * Step 1:
-         * filterParam is populated with the values selected by the user for each filter dropdown.
-         * This is used on export to ensure that only hazards meeting the filter requirements
-         * are exported
-         */ 
-        let filterParam = {
-            cdmPWStructure: [],
-            cdmStageExtra: [],
-            cdmCurrentStatus: [],
-            cdmHazardTags: [],
-        };
-
-        const assetFilterSelected = $('#cdmpwstructurefilter').find(':selected');
-        for (i=0; i<assetFilterSelected.length; i++) {
-            filterParam.cdmPWStructure.push(assetFilterSelected[i].innerText);
-        }
-
-        const stageFilterSelected = $('#cdmStageExtrafilter').find(':selected');
-        for (i=0; i<stageFilterSelected.length; i++) {
-            filterParam.cdmStageExtra.push(stageFilterSelected[i].innerText);
-        }
-
-        const statusFilterSelected = $('#cdmCurrentStatusfilter').find(':selected');
-        for (i=0; i<statusFilterSelected.length; i++) {
-            filterParam.cdmCurrentStatus.push(statusFilterSelected[i].innerText);
-        }
-
-        const disciplineFilterSelected = $('#cdmTagsfilter').find(':selected');
-        for (i=0; i<disciplineFilterSelected.length; i++) {
-            filterParam.cdmHazardTags.push(disciplineFilterSelected[i].innerText);
-        }
-
-        /**
-         * Step 2:
-         * Create CSV file.
-         */
-        let csvContent = "";
-        let csvHeader = Object.keys(mappingObj(tlist[0])).join(',');
-        let csvValues = tlist.filter(element => filterHazards(element, filterParam))
-                            .map(element => Object.values(mappingObj(element)).join(','))
-                            .join('\n');
-        csvContent += csvHeader + '\n' + csvValues;
-
-        /**
-         * Step 3:
-         * Download CSV file.
-         */
-        downloadCSV(csvContent, `safetibase_export_${Date.now()}.csv`);
-
-        /**
-         * Step 4:
-         * Download the macro template
-         */
-        downloadTemplate();
-
-        /**
-         * Step 5:
-         * Save a copy of the csv to SharePoint as a rollback copy
-         */
-        uploadRollbackToSharepoint(csvContent);
-
-        $(".pops-title").html("");
-        $(".pops-content").html("");
-        $("#pops").remove();
-    })
-
-  
-   
     $(".btn-cancel").click(function () {
         $(".pops-title").html("");
         $(".pops-content").html("");
