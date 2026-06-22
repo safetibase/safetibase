@@ -3382,12 +3382,19 @@ async function tposcustomfilters(data, forExport) {
                     selectWorkPackages += '<option value="' + title + '">' + title + '</option>';
                 }
 
-                var match = title.match(/^\d+/);
-                if (match) {
-                    var rs = match[0];
-                    if (!distRouteSections.includes(rs)) {
-                        distRouteSections.push(rs);
-                        selectRouteSections += '<option value="' + rs + '">' + rs + '</option>';
+                if (title === "Routewide") {
+                    if (!distRouteSections.includes("Routewide")) {
+                        distRouteSections.push("Routewide");
+                        selectRouteSections += '<option value="Routewide">Routewide</option>';
+                    }
+                } else {
+                    var match = title.match(/^\d+/);
+                    if (match) {
+                        var rs = match[0];
+                        if (!distRouteSections.includes(rs)) {
+                            distRouteSections.push(rs);
+                            selectRouteSections += '<option value="' + rs + '">' + rs + '</option>';
+                        }
                     }
                 }
 

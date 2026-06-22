@@ -1775,9 +1775,9 @@ function printHazardRow(h) {
 
     var defaultHazardDescription = "Hazard detail and description should be entered here. We strongly recommend identifying the potential 'harm'"
     var descCoordEmpty = 1 // Mandatory fields hazard description and coordinates empty 
-    if(h.cdmHazardCoordinates === null || h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
+    if(h.cdmHazardDescription === null || h.cdmHazardDescription === "" || h.cdmHazardDescription === defaultHazardDescription){
         warning +=
-                '<div class="clr_5_active">Mandatory fields "hazard description" and/or "coordinates" have not been populated so this hazard is therefore locked for transfer to peer review stage.</div>';
+                '<div class="clr_5_active">Mandatory field "hazard description" has not been populated so this hazard is therefore locked for transfer to peer review stage.</div>';
     }
     else {
         descCoordEmpty = 0;
@@ -2618,7 +2618,11 @@ function printHazardRow(h) {
             (h.workPackage && h.workPackage.results && h.workPackage.results.length
                 ? h.workPackage.results.map(function (wp) {
 
-                    var match = wp.Title.match(/^\d+/); // get first number only
+                    if (wp.Title === "Routewide") {
+                        return "Routewide";
+                    }
+
+                    var match = wp.Title.match(/^\d+/);
                     return match ? match[0] : '';
 
                 }).filter(Boolean).join('<br>')
