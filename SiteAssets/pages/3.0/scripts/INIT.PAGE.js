@@ -1503,7 +1503,7 @@ function getsearchresults(v) {
     );
     cdmdata.get(
         "cdmHazards",
-        'cdmTW eq' + v,
+        'cdmTW eq \'' + v + '\'',
         "Modified desc",
         "hazards-search",
         "twmatch",

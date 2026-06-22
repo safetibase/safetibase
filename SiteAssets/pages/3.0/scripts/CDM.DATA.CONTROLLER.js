@@ -2,6 +2,32 @@ var flst =[];
 cdmdata = {
     get: function(lst, filter, order, format, trg ,flst,wpt, forExport) {
 
+        if (format === "hazards-search" && lst === "cdmHazards") {
+
+            var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+            var url = appurl +
+                "/_api/web/lists/getByTitle('cdmHazards')/items" +
+                "?$select=ID,Title,cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription,cdmCurrentStatus" +
+                (filter ? "&$filter=" + filter : "") +
+                "&$orderby=Modified desc" +
+                "&$top=200";
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                headers: { "Accept": "application/json; odata=verbose" },
+                success: function (data) {
+                    formatdatato.hazardtablerowitems(data, [], trg, wpt);
+                },
+                error: function (err) {
+                    console.log("SEARCH ERROR:", err);
+                }
+            });
+
+            return; 
+        }
+
         var fa = [];
         var ft = [];
         var ftv = [];
@@ -189,13 +215,13 @@ cdmdata = {
             if (format == "stats-table-row") {
                 formatdatato.statstablerows(data, ftv, trg,flst);
             }
-            if (format === "hazards-search") {
+            // if (format === "hazards-search") {
 
-                select = "ID,Title,cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription,cdmCurrentStatus";
+            //     select = "ID,Title,cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription,cdmCurrentStatus";
 
-                expand = "";
+            //     expand = "";
 
-            }
+            // }
 
             if (format == "hazards-table-rams") {
                 formatdatato.hazardtablerowsRAMS(data, ftv, trg);
