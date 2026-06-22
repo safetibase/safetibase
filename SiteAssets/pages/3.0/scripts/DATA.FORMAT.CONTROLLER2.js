@@ -296,6 +296,7 @@ formatdatato = {
                 full_dataset = [];
 
                 function GetListItems(url) {
+
                     $.ajax({
                         url: url,
                         method: "GET",
@@ -303,17 +304,66 @@ formatdatato = {
                             "Accept": "application/json; odata=verbose"
                         },
                         success: function (data) {
+
                             var response = data.d.results;
 
                             if (data.d.__next) {
+
                                 full_dataset = full_dataset.concat(response);
                                 GetListItems(data.d.__next);
+
                             } else {
+
                                 full_dataset = full_dataset.concat(response);
-                                formatdatato.createTable(sublot_data, full_dataset, lst, trg, flst, true);
-                                $(".loading-text").remove();
-                                activateDatasets(sublot_data, full_dataset);
+
+                                var hazards = full_dataset;
+
+                                var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+                                Promise.all([
+
+                                    $.ajax({
+                                        url: appurl + "/_api/web/lists/getByTitle('cdmAssetType')/items?$select=Title,AssetSubGroup/Title&$expand=AssetSubGroup&$top=5000",
+                                        method: "GET",
+                                        headers: { "Accept": "application/json; odata=verbose" }
+                                    }),
+
+                                    $.ajax({
+                                        url: appurl + "/_api/web/lists/getByTitle('cdmAssetSubGroup')/items?$select=Title,AssetTypeGroup/Title&$expand=AssetTypeGroup&$top=5000",
+                                        method: "GET",
+                                        headers: { "Accept": "application/json; odata=verbose" }
+                                    })
+
+                                ]).then(function (results) {
+
+                                    var assetTypes = results[0].d.results;
+                                    var assetSubGroups = results[1].d.results;
+
+                                    var assetTypeToSubGroupMap = {};
+                                    var assetTypeGroupMap = {};
+
+                                    assetTypes.forEach(function (item) {
+                                        assetTypeToSubGroupMap[item.Title] =
+                                            item.AssetSubGroup ? item.AssetSubGroup.Title : "";
+                                    });
+
+                                    assetSubGroups.forEach(function (item) {
+                                        assetTypeGroupMap[item.Title] =
+                                            item.AssetTypeGroup ? item.AssetTypeGroup.Title : "";
+                                    });
+
+                                    window.assetTypeToSubGroupMap = assetTypeToSubGroupMap;
+                                    window.assetTypeGroupMap = assetTypeGroupMap;
+
+                                    formatdatato.createTable(sublot_data, hazards, lst, trg, flst, true);
+
+                                    $(".loading-text").remove();
+                                    activateDatasets(sublot_data, hazards);
+
+                                });
+
                             }
+
                         },
                         error: function (error) {
                             console.log(error);
@@ -678,17 +728,6 @@ formatdatato = {
         var tcnt = tlist.length;
         var rows = "";
 
-        var assetSubGroupMap = {};   // key: AssetType Title → sub group object
-        var assetTypeGroupMap = {};  // key: SubGroup Title → type group object
-
-        cdmAssetSubGroup.forEach(function(item) {
-            assetSubGroupMap[item.Title] = item;
-        });
-
-        cdmAssetType.forEach(function(item) {
-            assetTypeGroupMap[item.Title] = item;
-        });
-
         for (var cc = 0; cc < tcnt; cc++) {
             var ht = tlist[cc];
             var user = ht.Editor.Title;
@@ -742,21 +781,7 @@ formatdatato = {
             
             $("#" + trg).append(hitem);
             //alert(1);
-            
-            // $('.ramsonly').hide();
-            if (h.cdmRAMS) {
-                // $("#h_" + h.ID + " .ramshide").hide();
-                $("#h_" + h.ID + " .ramsonly").show();
-            }
-            // if (h.cdmHazardType.Title == "Safety") {
-            //     $("#h_" + h.ID + " .safetyhide").hide();
-            // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+        
         }
 
         reopenHazardAction();
@@ -2383,16 +2408,6 @@ function printHazardRow(h) {
         h.ID +
         "</div>" + legid +
 
-        '                        <div class="cell">' +
-        '                            <div class="cell-cell-img" title="' +
-        h.cdmStageExtra.Title +
-        '">' +
-        '                                <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
-        h.cdmStageExtra.ID +
-        '.svg" alt="' +
-        h.cdmStageExtra.Title +
-        '">' +
-        "                            </div>" +
         '                            <div class="cell-cell-img" title="' +
         h.cdmHazardType.Title +
         '">' +
@@ -2471,9 +2486,6 @@ function printHazardRow(h) {
         '                        <div class="lbl">Reference</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
-        '                        <div class="lbl">Stage</div>' +
-        "                    </td>" +
-        '                    <td class="width-100">' +
         '                        <div class="lbl">Type</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
@@ -2504,14 +2516,6 @@ function printHazardRow(h) {
         '</div>' +
         legid +
         "</td>" +
-        '                    <td class="width-100 fld">' +
-        '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
-        h.cdmStageExtra.ID +
-        '.svg" alt="\'+stt+\'">' +
-        '                        <div class="cell cdmStageExtra">' +
-        h.cdmStageExtra.Title +
-        "</div>" +
-        "                    </td>" +
         '                    <td class="width-100 fld">' +
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
@@ -2562,8 +2566,16 @@ function printHazardRow(h) {
         '   <div class="cell assetTypeGroup">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
-                    return at.Title;
-                }).join('<br>')
+
+                    var subGroup = window.assetTypeToSubGroupMap
+                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        : "";
+
+                    return (window.assetTypeGroupMap && window.assetTypeGroupMap[subGroup])
+                        ? window.assetTypeGroupMap[subGroup]
+                        : "";
+
+                }).filter(Boolean).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +
@@ -2572,8 +2584,12 @@ function printHazardRow(h) {
         '  <div class="cell assetSubGroup">' +
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
-                    return at.Title;
-                }).join('<br>')
+
+                    return window.assetTypeToSubGroupMap
+                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        : "";
+
+                }).filter(Boolean).join('<br>')
                 : '') +
         '                        </div>' +
         '                    </td>' +

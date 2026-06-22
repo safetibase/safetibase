@@ -189,8 +189,12 @@ cdmdata = {
             if (format == "stats-table-row") {
                 formatdatato.statstablerows(data, ftv, trg,flst);
             }
-            if (format == "hazards-search") {
-                formatdatato.hazardtablerowitems(data, ftv, trg, wpt);
+            if (format === "hazards-search") {
+
+                select = "ID,Title,cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription,cdmCurrentStatus";
+
+                expand = "";
+
             }
 
             if (format == "hazards-table-rams") {

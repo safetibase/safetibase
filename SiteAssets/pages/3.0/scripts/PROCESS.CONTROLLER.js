@@ -4612,7 +4612,7 @@ function hazardreviewbuttonaction() {
 
             var stage = $("#h_" + hzd + " .cdmStageExtra").html();
             var workflow = "";
-            if (stage.includes("Construction") || stage.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
+            if (true) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
                 workflow = "ConstructionCommission";
             }
         
