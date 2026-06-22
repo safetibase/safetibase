@@ -223,7 +223,7 @@ function mkSelect (lst, data, fset, trg) {
         }
 
     });
-    var multiSelectFields = ['cdmSites','cdmRouteSection','cdmRouteSections','cdmWorkPackage','cdmWorkPackages', 'cdmAssetTypeGroup','cdmAssetSubGroup','cdmAssetType'];
+    var multiSelectFields = ['cdmSites','cdmRouteSection','cdmRouteSections','cdmWorkPackage', 'cdmPWStructures','cdmAssetTypeGroup','cdmAssetSubGroup','cdmAssetType'];
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();
