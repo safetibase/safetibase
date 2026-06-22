@@ -250,6 +250,7 @@ formatdatato = {
                         "cdmStage",
                         "cdmStageExtra",
                         "cdmPWElement",
+                        "assetType"
                     ];
 
                     if ((ft[i] == 7 || ft[i] == 20) && allowedExpands.includes(ti)) {
@@ -295,6 +296,7 @@ formatdatato = {
                 full_dataset = [];
 
                 function GetListItems(url) {
+
                     $.ajax({
                         url: url,
                         method: "GET",
@@ -302,17 +304,81 @@ formatdatato = {
                             "Accept": "application/json; odata=verbose"
                         },
                         success: function (data) {
+
                             var response = data.d.results;
 
                             if (data.d.__next) {
+
                                 full_dataset = full_dataset.concat(response);
                                 GetListItems(data.d.__next);
+
                             } else {
+
                                 full_dataset = full_dataset.concat(response);
-                                formatdatato.createTable(sublot_data, full_dataset, lst, trg, flst, true);
-                                $(".loading-text").remove();
-                                activateDatasets(sublot_data, full_dataset);
+
+                                var hazards = full_dataset;
+
+                                var appurl = _spPageContextInfo.webAbsoluteUrl;
+
+                                Promise.all([
+
+                                    $.ajax({
+                                        url: appurl + "/_api/web/lists/getByTitle('cdmAssetType')/items?$select=Title,AssetSubGroup/Title&$expand=AssetSubGroup&$top=5000",
+                                        method: "GET",
+                                        headers: { "Accept": "application/json; odata=verbose" }
+                                    }),
+
+                                    $.ajax({
+                                        url: appurl + "/_api/web/lists/getByTitle('cdmAssetSubGroup')/items?$select=Title,AssetTypeGroup/Title&$expand=AssetTypeGroup&$top=5000",
+                                        method: "GET",
+                                        headers: { "Accept": "application/json; odata=verbose" }
+                                    })
+                                ]).then(function (results) {
+
+                                    var assetTypes = results[0].d.results;
+                                    var assetSubGroups = results[1].d.results;
+
+                                    var assetTypeToSubGroupMap = {};
+                                    var assetTypeGroupMap = {};
+
+                                    assetTypes.forEach(function (item) {
+
+                                        var type = item.Title;
+                                        var subGroup = item.AssetSubGroup ? item.AssetSubGroup.Title : "";
+
+                                        assetTypeToSubGroupMap[type] = subGroup;
+
+                                    })
+
+                                    assetSubGroups.forEach(function (item) {
+
+                                        var subGroup = item.Title;
+
+                                        var group =
+                                            item.AssetTypeGroup &&
+                                            item.AssetTypeGroup.results &&
+                                            item.AssetTypeGroup.results.length > 0
+                                                ? item.AssetTypeGroup.results.map(function(g) {
+                                                    return g.Title;
+                                                }).join(", ")
+                                                : "";
+
+                                        assetTypeGroupMap[subGroup] = group;
+
+                                    });
+
+                                    window.assetTypeToSubGroupMap = assetTypeToSubGroupMap;
+                                    window.assetTypeGroupMap = assetTypeGroupMap;
+
+                                    formatdatato.createTable(sublot_data, hazards, lst, trg, flst, true);
+
+                                    $(".loading-text").remove();
+                                    activateDatasets(sublot_data, hazards);
+
+                                });
+
                             }
+
                         },
                         error: function (error) {
                             console.log(error);
@@ -367,6 +433,19 @@ formatdatato = {
             })
             .done(function() {
                 var od = "OData_";
+                var allowedExpands = [
+                    "CurrentMitigationOwner",
+                    "CurrentReviewOwner",
+                    "cdmSite",
+                    "cdmPWStructure",
+                    "cdmHazardOwner",
+                    "cdmHazardType",
+                    "workPackage",
+                    "cdmStage",
+                    "cdmStageExtra",
+                    "cdmPWElement",
+                    "assetType"
+                ];
                 for (var i = 0; i < fa.length; i++) {
                     var ti = fa[i];
                     if (ti.substring(0, 1) == "_") {
@@ -382,15 +461,28 @@ formatdatato = {
                     }
                     
                     if (ft[i] == 7 || ft[i] == 20) {
-                        select += ti + "/Title," + ti + "/ID,";
-                        expand += ti + "/Title," + ti + "/ID,";
-                        ftv.push(ti + ".Title");
-                        ftv.push(ti + ".ID");
+                        if (allowedExpands.includes(ti)) {
+                            select += ti + "/Title," + ti + "/ID,";
+                            expand += ti + "/Title," + ti + "/ID,";
+                            ftv.push(ti + ".Title");
+                            ftv.push(ti + ".ID");
+                        } else {
+                            select += ti + ",";
+                        }
                     }
                 }
-                expand = expand.substring(0, expand.length - 1);
+                if (select.endsWith(",")) {
+                    select = select.substring(0, select.length - 1);
+                }
+                if (expand.endsWith(",")) {
+                    expand = expand.substring(0, expand.length - 1);
+                }
                 if(lst=="cdmHazards"){
-                    expand = expand + ",cdmPWStructure/UAID";
+                    if (expand) {
+                        expand = expand + ",cdmPWStructure/UAID";
+                    } else {
+                        expand = "cdmPWStructure/UAID";
+                    }
                     select = select + ",cdmPWStructure/UAID";
                 }
             })
@@ -454,12 +546,26 @@ formatdatato = {
         if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
         } else {
-            if (lstfilter["cdmStageExtra"].length != 0){
-                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            if (lstfilter["cdmSite"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["cdmSite"], "cdmSite");
             }
-            if (lstfilter["cdmPWStructure"].length != 0){
-                allHazards = customfilters(allHazards,lstfilter["cdmPWStructure"]);
+
+            if (lstfilter["workPackage"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["workPackage"], "workPackage");
             }
+
+            if (lstfilter["assetType"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetType"], "assetType");
+            }
+
+            if (lstfilter["assetSubGroup"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetSubGroup"], "assetSubGroup");
+            }
+
+            if (lstfilter["assetTypeGroup"].length != 0){
+                allHazards = customfilters(allHazards, lstfilter["assetTypeGroup"], "assetTypeGroup");
+            }
+
             if (lstfilter["cdmCurrentStatus"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
             } 
@@ -520,12 +626,12 @@ formatdatato = {
     
         $("#" + trg).html(row);
         var fa = [
-            "cdmPWStructure/ID ne null",
+            //"cdmPWStructure/ID ne null",
             "cdmTW ne null",
             "cdmRAMS ne null",
             "cdmResidualRiskScore gt 9",
             "cdmHazardOwner/ID eq null",
-            "cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
+            //"cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
             "startswith(cdmCurrentStatus,'Under')"
             ];
 
@@ -567,12 +673,12 @@ formatdatato = {
                 fdata = allHazards;
             } else {
                 for (i=0 ; i< allHazards.length ; i++){
-                    if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
-                        fdata.push(allHazards[i]);
-                    }
-                    if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
-                        fdata.push(allHazards[i]);
-                    }
+                    // if (filterlst.includes(allHazards[i].cdmStageExtra.Title)) {
+                    //     fdata.push(allHazards[i]);
+                    // }
+                    // if (filterlst.includes(allHazards[i].cdmPWStructure.Title)) {
+                    //     fdata.push(allHazards[i]);
+                    // }
                     if (filterlst.includes(allHazards[i].cdmCurrentStatus)) {
                         fdata.push(allHazards[i]);
                     }
@@ -591,7 +697,9 @@ formatdatato = {
             switch(filter_id) {
                 case 0:
                     for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null) {
+                        if (full_dataset[i].cdmSite.ID == sublot_id 
+                            //&& full_dataset[i].cdmPWStructure.ID != null
+                        ) {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
@@ -626,7 +734,9 @@ formatdatato = {
                     break;W
                 case 5:
                     for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmPWStructure.ID != null && full_dataset[i].cdmPWElement.ID == null) {
+                        if (full_dataset[i].cdmSite.ID == sublot_id 
+                            //&& full_dataset[i].cdmPWStructure.ID != null 
+                            && full_dataset[i].cdmPWElement.ID == null) {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
@@ -646,11 +756,13 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var rows = "";
+
         for (var cc = 0; cc < tcnt; cc++) {
             var ht = tlist[cc];
             var user = ht.Editor.Title;
             var date = ukdate(ht.Modified);
             var action = ht.cdmAction;
+
             rows +=
                 "<tr><td>" +
                 date +
@@ -679,27 +791,26 @@ formatdatato = {
         for (var cc = 0; cc < tcnt; cc++) {
             // build rows
             var h = tlist[cc];
+ 
+            var assetType = h.AssetType ? h.AssetType.Title : "";
+
+            var subGroup = assetSubGroupMap[assetType];
+            var subGroupTitle = subGroup ? subGroup.Title : "";
+
+            var typeGroup = assetTypeGroupMap[subGroupTitle];
+            var typeGroupName = typeGroup ? typeGroup.AssetTypeGroup : "";
+
+            h.assetTypeResolved = assetType;
+            h.assetSubGroupResolved = subGroupTitle;
+            h.assetTypeGroupResolved = typeGroupName;
+
             
             // var hitem=buildHazardListItem(h);
             var hitem = printHazardRow(h);
             
             $("#" + trg).append(hitem);
             //alert(1);
-            
-            // $('.ramsonly').hide();
-            if (h.cdmRAMS) {
-                // $("#h_" + h.ID + " .ramshide").hide();
-                $("#h_" + h.ID + " .ramsonly").show();
-            }
-            // if (h.cdmHazardType.Title == "Safety") {
-            //     $("#h_" + h.ID + " .safetyhide").hide();
-            // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+        
         }
 
         reopenHazardAction();
@@ -745,12 +856,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
 
         function loadMore(startingIndex) {
@@ -830,12 +941,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
 
 
@@ -945,12 +1056,12 @@ formatdatato = {
             // if (h.cdmHazardType.Title == "Safety") {
             //     $("#h_" + h.ID + " .safetyhide").hide();
             // }
-            if (
-                h.cdmStageExtra.Title.includes("Construction") ||
-                h.cdmStageExtra.Title == "Commission"
-            ) {
-                // $("#h_" + h.ID + " .stagehide").hide();
-            }
+            // if (
+            //     h.cdmStageExtra.Title.includes("Construction") ||
+            //     h.cdmStageExtra.Title == "Commission"
+            // ) {
+            //     // $("#h_" + h.ID + " .stagehide").hide();
+            // }
         }
         // var tpos_search =
         //   '<div class="filter-row"><input id="tpos_search" placeholder="Search here" /></div>';
@@ -1124,7 +1235,9 @@ function buildHazardListItem(h) {
     //   requiresLDReview = 1;
     // }
 
-    if (isDesignHazard == 1 && (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")) {
+    if (isDesignHazard == 1 
+        //&& (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")
+    ) {
         requiresLDReview = 1;
     }
 
@@ -1136,8 +1249,9 @@ function buildHazardListItem(h) {
             var urat = $(ura[ii]).data("elementname");
             var urct = $(urc[ii]).data("elementid");
             var urst = $(urs[ii]).data("elementid");
-            if (!h.cdmStageExtra.Title.includes("Construction") &&
-                h.cdmStageExtra.Title != "Commission"
+            if (true
+                // !h.cdmStageExtra.Title.includes("Construction") &&
+                // h.cdmStageExtra.Title != "Commission"
             ) {
                 if (urct == h.cdmHazardOwner.ID) {
                     // belongs to your company
@@ -1639,7 +1753,9 @@ function printHazardRow(h) {
 
     //Switches between 2 workflow objects. Patrick Hsu, 22 Feb 2024
     var workflow = "";
-    if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
+    if (true
+        //h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")
+    ) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
     }
@@ -2321,16 +2437,6 @@ function printHazardRow(h) {
         h.ID +
         "</div>" + legid +
 
-        '                        <div class="cell">' +
-        '                            <div class="cell-cell-img" title="' +
-        h.cdmStageExtra.Title +
-        '">' +
-        '                                <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
-        h.cdmStageExtra.ID +
-        '.svg" alt="' +
-        h.cdmStageExtra.Title +
-        '">' +
-        "                            </div>" +
         '                            <div class="cell-cell-img" title="' +
         h.cdmHazardType.Title +
         '">' +
@@ -2409,9 +2515,6 @@ function printHazardRow(h) {
         '                        <div class="lbl">Reference</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
-        '                        <div class="lbl">Stage</div>' +
-        "                    </td>" +
-        '                    <td class="width-100">' +
         '                        <div class="lbl">Type</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
@@ -2427,10 +2530,13 @@ function printHazardRow(h) {
         '                        <div class="lbl">Work Package(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">Entity</div>' +
+        '                        <div class="lbl">Asset type group(s)</div>' +
         "                    </td>" +
         '                    <td class="width-200">' +
-        '                        <div class="lbl">UAID</div>' +
+        '                        <div class="lbl">Asset type sub-group(s)</div>' +
+        "                    </td>" +
+        '                    <td class="width-200">' +
+        '                        <div class="lbl">Asset type(s)</div>' +
         "                    </td>" +
         "                </tr>" +
         "                <tr>" +
@@ -2439,14 +2545,6 @@ function printHazardRow(h) {
         '</div>' +
         legid +
         "</td>" +
-        '                    <td class="width-100 fld">' +
-        '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
-        h.cdmStageExtra.ID +
-        '.svg" alt="\'+stt+\'">' +
-        '                        <div class="cell cdmStageExtra">' +
-        h.cdmStageExtra.Title +
-        "</div>" +
-        "                    </td>" +
         '                    <td class="width-100 fld">' +
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
@@ -2469,20 +2567,17 @@ function printHazardRow(h) {
 
         // cdmRouteSection
         '                    <td class="width-100 fld">' +
-        '                        <div class="cell cdmRouteSection">' +
+        '   <div class="cell cdmRouteSection">' +
             (h.workPackage && h.workPackage.results && h.workPackage.results.length
                 ? h.workPackage.results.map(function (wp) {
 
-                    var match = wp.Title.match(/^\d+(\.\d+)*/); // get numeric prefix
-                    if (!match) return '';
+                    var match = wp.Title.match(/^\d+/); // get first number only
+                    return match ? match[0] : '';
 
-                    var parts = match[0].split('.');
-                    parts.pop(); // remove last segment
-
-                    return parts.join(';<br>');
-                }).filter(Boolean).join(';<br>')
+                }).filter(Boolean).join('<br>')
                 : '') +
         '</div>' +
+
         "                    </td>" +
 
         // cdmWorkPackage
@@ -2491,26 +2586,53 @@ function printHazardRow(h) {
             (h.workPackage && h.workPackage.results
                 ? h.workPackage.results.map(function (wp) {
                     return wp.Title;
-                }).join(';<br>')
+                }).join('<br>')
                 : '') +
         '</div>' +
         "                    </td>" +
+
         '                    <td class="width-200 fld">' +
-        // '                        <div class="cell cdmPWStructure">'+pws+'</div>'+
-        // '                        <div class="cell cdmPWElement">'+pwe+'</div>'+
-        // '                        <div class="cell cdmTW">'+h.cdmTW+'</div>'+
-        // '                        <div class="cell cdmRAMS">'+h.cdmRAMS+'</div>'+
-        '                        <div class="cell cdmEntityTitle">' +
-        en +
-        " - " +
-        pwe +
-        "</div>" +
-        "                    </td>" +
+        '   <div class="cell assetTypeGroup">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+
+                    var subGroup = window.assetTypeToSubGroupMap
+                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        : "";
+
+                    return (window.assetTypeGroupMap && window.assetTypeGroupMap[subGroup])
+                        ? window.assetTypeGroupMap[subGroup]
+                        : "";
+
+                }).filter(Boolean).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
+
         '                    <td class="width-200 fld">' +
-        '                        <div class="cell cdmuaid">' +
-        h.cdmPWStructure.UAID + 
-        "</div>" +
-        "                    </td>" +
+        '  <div class="cell assetSubGroup">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+
+                    return window.assetTypeToSubGroupMap
+                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        : "";
+
+                }).filter(Boolean).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
+
+        '                    <td class="width-200 fld">' +
+        ' <div class="cell assetType">' +
+            (h.assetType && h.assetType.results
+                ? h.assetType.results.map(function (at) {
+                    return at.Title;
+                }).join('<br>')
+                : '') +
+        '                        </div>' +
+        '                    </td>' +
+
         "                </tr>" +
         "            </table>" +
         "        </div>" +

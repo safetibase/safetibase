@@ -1503,7 +1503,7 @@ function getsearchresults(v) {
     );
     cdmdata.get(
         "cdmHazards",
-        'cdmTW eq \'' + v + '\'',
+        'cdmTW eq' + v,
         "Modified desc",
         "hazards-search",
         "twmatch",
@@ -1511,7 +1511,7 @@ function getsearchresults(v) {
     );
     cdmdata.get(
         "cdmHazards",
-        'cdmParent eq \'' + vn + '\'',
+        'cdmParent eq ' + vn,
         "Modified desc",
         "hazards-table-rams",
         "ramsmatch"

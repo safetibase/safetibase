@@ -220,7 +220,7 @@ a.ms-tv-header:hover {
 }
 
 .tpos-area-content-filler {
-    min-height: 15px;
+    min-height: 50px;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
