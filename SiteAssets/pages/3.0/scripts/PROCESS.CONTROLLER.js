@@ -3365,43 +3365,19 @@ async function tposcustomfilters(data, forExport) {
 
         var h = tlist[cc];
 
-        // ✅ Site
         if (h.cdmSite && h.cdmSite.Title && !distSites.includes(h.cdmSite.Title)) {
             distSites.push(h.cdmSite.Title);
-            selectSites += '<option value="' + h.cdmSite.Title + '">' + h.cdmSite.Title + '</option>';
         }
 
-        // ✅ Work Packages + Route Sections
         if (h.workPackage && h.workPackage.results) {
             h.workPackage.results.forEach(function (wp) {
-
                 var title = wp.Title;
-
                 if (!distWorkPackages.includes(title)) {
                     distWorkPackages.push(title);
-                    selectWorkPackages += '<option value="' + title + '">' + title + '</option>';
                 }
-
-                if (title === "Routewide") {
-                    if (!distRouteSections.includes("Routewide")) {
-                        distRouteSections.push("Routewide");
-                        selectRouteSections += '<option value="Routewide">Routewide</option>';
-                    }
-                } else {
-                    var match = title.match(/^\d+/);
-                    if (match) {
-                        var rs = match[0];
-                        if (!distRouteSections.includes(rs)) {
-                            distRouteSections.push(rs);
-                            selectRouteSections += '<option value="' + rs + '">' + rs + '</option>';
-                        }
-                    }
-                }
-
             });
         }
 
-        // ✅ Asset hierarchy
         if (h.assetType && h.assetType.results) {
 
             h.assetType.results.forEach(function (at) {
@@ -3412,47 +3388,84 @@ async function tposcustomfilters(data, forExport) {
 
                 if (type && !distAssetTypes.includes(type)) {
                     distAssetTypes.push(type);
-                    selectAssetTypes += '<option value="' + type + '">' + type + '</option>';
                 }
 
                 if (subGroup && !distSubGroups.includes(subGroup)) {
                     distSubGroups.push(subGroup);
-                    selectSubGroups += '<option value="' + subGroup + '">' + subGroup + '</option>';
                 }
 
                 if (group && !distGroups.includes(group)) {
                     distGroups.push(group);
-                    selectGroups += '<option value="' + group + '">' + group + '</option>';
                 }
 
             });
         }
 
-        // ✅ Status
         if ((!forExport || configData['Exportable workflow states'].includes(h.cdmCurrentStatus)) &&
             h.cdmCurrentStatus && !distStatus.includes(h.cdmCurrentStatus)) {
 
             distStatus.push(h.cdmCurrentStatus);
-            selectStatus += '<option value="' + h.cdmCurrentStatus + '">' + h.cdmCurrentStatus + '</option>';
         }
 
-        // ✅ Risk Owner
         if (h.cdmResidualRiskOwner && !distRiskOwner.includes(h.cdmResidualRiskOwner)) {
             distRiskOwner.push(h.cdmResidualRiskOwner);
-            selectRiskOwner += '<option value="' + h.cdmResidualRiskOwner + '">' + h.cdmResidualRiskOwner + '</option>';
         }
 
-        // ✅ Tags
         if (h.cdmHazardTags) {
 
             var tag = normalize(h.cdmHazardTags);
 
             if (!distTags.includes(tag)) {
                 distTags.push(tag);
-                selectTags += '<option value="' + tag + '">' + tag + '</option>';
             }
         }
     }
+
+    distSites = [...new Set(distSites)].sort();
+
+    distWorkPackages = [...new Set(distWorkPackages)];
+    distWorkPackages.sort(function (a, b) {
+
+        if (a === "Routewide") return -1;
+        if (b === "Routewide") return 1;
+
+        var pa = a.split('.').map(Number);
+        var pb = b.split('.').map(Number);
+
+        for (var i = 0; i < Math.max(pa.length, pb.length); i++) {
+            var na = pa[i] || 0;
+            var nb = pb[i] || 0;
+            if (na !== nb) return na - nb;
+        }
+
+        return 0;
+    });
+
+    distAssetTypes = [...new Set(distAssetTypes)].sort();
+    distSubGroups = [...new Set(distSubGroups)].sort();
+    distGroups = [...new Set(distGroups)].sort();
+    distStatus = [...new Set(distStatus)].sort();
+    distRiskOwner = [...new Set(distRiskOwner)].sort();
+    distTags = [...new Set(distTags)].sort();
+
+    selectSites = '';
+    selectWorkPackages = '';
+    selectAssetTypes = '';
+    selectSubGroups = '';
+    selectGroups = '';
+    selectStatus = '';
+    selectRiskOwner = '';
+    selectTags = '';
+
+    distSites.forEach(v => selectSites += '<option value="' + v + '">' + v + '</option>');
+    distWorkPackages.forEach(v => selectWorkPackages += '<option value="' + v + '">' + v + '</option>');
+    distAssetTypes.forEach(v => selectAssetTypes += '<option value="' + v + '">' + v + '</option>');
+    distSubGroups.forEach(v => selectSubGroups += '<option value="' + v + '">' + v + '</option>');
+    distGroups.forEach(v => selectGroups += '<option value="' + v + '">' + v + '</option>');
+    distStatus.forEach(v => selectStatus += '<option value="' + v + '">' + v + '</option>');
+    distRiskOwner.forEach(v => selectRiskOwner += '<option value="' + v + '">' + v + '</option>');
+    distTags.forEach(v => selectTags += '<option value="' + v + '">' + v + '</option>');
+
 
     $("#popscontentarea").html('');
 
@@ -3460,7 +3473,7 @@ async function tposcustomfilters(data, forExport) {
         (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right">export</button>') +
 
         '<div class="customfiltersection"><select multiple id="siteFilter">' + selectSites + '</select></div>' +
-        '<div class="customfiltersection"><select multiple id="routeFilter">' + selectRouteSections + '</select></div>' +
+        //'<div class="customfiltersection"><select multiple id="routeFilter">' + selectRouteSections + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="wpFilter">' + selectWorkPackages + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="groupFilter">' + selectGroups + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="subGroupFilter">' + selectSubGroups + '</select></div>' +
@@ -3478,12 +3491,12 @@ async function tposcustomfilters(data, forExport) {
             selectAll: true
         });
 
-        $('#routeFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Route Section(s)',
-            search: true,
-            selectAll: true
-        });
+        // $('#routeFilter').multiselect({
+        //     columns: 1,
+        //     placeholder: 'Select Route Section(s)',
+        //     search: true,
+        //     selectAll: true
+        // });
 
         $('#wpFilter').multiselect({
             columns: 1,
