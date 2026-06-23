@@ -1548,7 +1548,7 @@ function activateHazardEdits() {
             var ucanprecon = 0;
             var ucansmreview = 0;
             var ucanldreview = 0;
-            toastr.warning('registered');
+            //toastr.warning('registered');
 
             var hi = $(this)
                 .parents(".row-hazard")
@@ -1559,11 +1559,11 @@ function activateHazardEdits() {
             var hc = $("#" + hi + " .row-header").html();
             var o = $("#" + hi + " .cdmHazardOwner").html();
             var s = $("#" + hi + " .cdmSite").html();
-            var stage = $("#" + hi + " .cdmStageExtra").html();
+            //var stage = $("#" + hi + " .cdmStageExtra").html();
             var lastrevstatus = $("#" + hi + " .cdmLastReviewStatus").html();
             var revstatus = $("#" + hi + " .cdmCurrentStatus").html();
-            // var mitigationowner=$('#'+hi+' .CurrentMitigationOwner').html();
-            // var reviewowner=$('#'+hi+' .CurrentReviewOwner').html();
+            var mitigationowner=$('#'+hi+' .CurrentMitigationOwner').html();
+            var reviewowner=$('#'+hi+' .CurrentReviewOwner').html();
             var flds;
             var fld = "";
             var uce = $("#" + hi + " .uce").hasClass("_1");

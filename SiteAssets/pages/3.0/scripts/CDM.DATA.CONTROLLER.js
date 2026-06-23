@@ -66,34 +66,25 @@ cdmdata = {
                 "?$select=" +
                 "ID,Title," +
                 "cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription," +
-                "cdmCurrentStatus,cdmResidualRisk,cdmInitialRisk," +
-                "cdmLastReviewStatus,cdmLastReviewDate,cdmLastReviewer,cdmReviews," +
-                "LegacyID,Created,Modified," +
-                "cdmEntityTitle,cdmTW,cdmRAMS," +
-                "cdmHazardTags,cdmUniclass,cdmLinks," +
-                "cdmContract,cdmResidualRiskOwner,cdmPASRiskClassification," +
-                "cdmSMMitigationSuggestion,cdmStageMitigationSuggestion," +
-                "cdmParent,cdmHazardCoordinates," +
-                "cdmInitialRAG,cdmResidualRAG," +
-                "Author/Title,Author/ID," +
-                "Editor/Title,Editor/ID," +
-                "cdmSite/Title,cdmSite/ID," +
+                "cdmCurrentStatus," +
                 "cdmPWStructure/Title,cdmPWStructure/ID," +
                 "cdmPWElement/Title,cdmPWElement/ID," +
+                "cdmSite/Title,cdmSite/ID," +
                 "cdmHazardOwner/Title,cdmHazardOwner/ID," +
                 "cdmHazardType/Title,cdmHazardType/ID," +
                 "cdmStageExtra/Title,cdmStageExtra/ID," +
-                "CurrentMitigationOwner/Title,CurrentMitigationOwner/ID," +
-                "CurrentReviewOwner/Title,CurrentReviewOwner/ID," +
                 "workPackage/Title,workPackage/ID," +
-                "assetType/Title,assetType/ID" +
+                "assetType/Title,assetType/ID," +
+                "Author/Title,Author/ID," +
+                "Editor/Title,Editor/ID," +
+                "CurrentMitigationOwner/Title,CurrentMitigationOwner/ID," +
+                "CurrentReviewOwner/Title,CurrentReviewOwner/ID" +
                 (filter ? "&$filter=" + filter : "") +
                 "&$expand=" +
-                "Author,Editor," +
-                "cdmSite,cdmPWStructure,cdmPWElement," +
+                "cdmPWStructure,cdmPWElement,cdmSite," +
                 "cdmHazardOwner,cdmHazardType,cdmStageExtra," +
-                "CurrentMitigationOwner,CurrentReviewOwner," +
-                "workPackage,assetType" +
+                "workPackage,assetType," +
+                "Author,Editor,CurrentMitigationOwner,CurrentReviewOwner" +
                 "&$top=1";
 
             $.ajax({
