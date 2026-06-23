@@ -92,7 +92,23 @@ cdmdata = {
                 method: "GET",
                 headers: { "Accept": "application/json; odata=verbose" },
                 success: function (data) {
-                    formatdatato.hazardtablerowitems(data, [], trg, wpt);
+
+                    var h = data.d.results[0];
+
+                    var html = printHazardRow(h);
+
+                    var rowId = "#h_" + h.ID;
+
+                    if ($(rowId).length) {
+                        $(rowId).replaceWith(html);
+                    }
+
+                    reopenHazardAction();
+                    hazardreviewbuttonaction();
+                    toggleCollapse();
+                    toggleInfoPanel();
+                    activateHazardEdits();
+                    activateRAMSBtn();
                 },
                 error: function (err) {
                     console.log("UPDATEVIEW ERROR:", err);
@@ -471,7 +487,7 @@ cdmdata = {
                     "cdmHazards",
                     "ID eq " + hzd,
                     null,
-                    "frmedit_updateview",null,[]
+                    "frmedit_updateview","hazardstable",[]
                 );
             }
         }
