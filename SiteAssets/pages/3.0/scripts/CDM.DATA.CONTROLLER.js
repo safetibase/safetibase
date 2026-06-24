@@ -66,7 +66,9 @@ cdmdata = {
                 "?$select=" +
                 "ID,Title," +
                 "cdmHazardDescription,cdmRiskDescription,cdmMitigationDescription," +
-                "cdmCurrentStatus," +
+                "cdmCurrentStatus,cdmResidualRisk,cdmInitialRisk," +
+                "cdmLastReviewStatus,cdmLastReviewDate,cdmLastReviewer,cdmReviews," +
+                "LegacyID,Created,Modified," +
                 "cdmPWStructure/Title,cdmPWStructure/ID," +
                 "cdmPWElement/Title,cdmPWElement/ID," +
                 "cdmSite/Title,cdmSite/ID," +
