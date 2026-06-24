@@ -313,13 +313,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             <div id="selectedAssetsDisplay" class="tpos-selection"></div>
         </div>
 
+        <div id="stageDisplayPanel" style="margin-top:1em;">
+            <div class="tpos-lbl">Select stage(s)</div>
+            <div id="pwstructurespanel"></div>
+        </div>
+
         <div style="display:none">
             <div id="selectedassetSubGroup"></div>
             <div id="selectedassetType"></div>
         </div>
     </div>
-    <div class="tpos-info">Once you've selected at least one works designs, the hazard can be saved. Should you have selected more than one works, the hazard will be saved for all of them, i.e. the system will save the described hazard for each works
-        design specified. Each recorded hazard will contain the same metadata as specified by you.</div>
+    <div class="tpos-info">Once you've selected at least one hazard stage, the hazard can be saved. Should you have selected more than one, the hazard will be saved for all of them, i.e. the system will save the described hazard for each stage (e.g. Operations, Demolition) specified. Each recorded hazard will contain the same metadata as specified by you.</div>
 </div>
 
 <div class="selectnext">
@@ -559,6 +563,24 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
                 $('#selectedassetSubGroup').append(sTerm);
 
+                var subGroupHtml = '';
+
+                $('#selectedassetSubGroup .qresult').each(function () {
+
+                    var name = $(this).data('name');
+                    var value = $(this).data('value');
+
+                    subGroupHtml +=
+                        '<div class="qresult" data-entity="assetSubGroup" data-value="' + value + '">' +
+                            '<span>' + name + '</span>' +
+                            '<span class="qrremove" data-field="assetSubGroup">X</span>' +
+                        '</div>';
+                });
+
+                $('#selectedAssetSubGroupTypeDisplay').html(subGroupHtml);
+                $('#assetSubGroupDisplayPanel').show();
+
+
                 var subGroupIds = $('#selectedassetSubGroup .qresult')
                     .map(function () { return $(this).data('value'); })
                     .get();
@@ -610,142 +632,141 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateVisibleInputs();
                 toggleSaveButton();
             }
+            loadStageDropdown();
+            $('#stageDisplayPanel').show();
         }
 
         $(document).on('click', '.qrremove', function () {
-            var qresult = $(this).parent();
-            var dataValue = qresult.data('value');
-            var dataEntity = qresult.data('entity');
-            
-            // Map entity to list names that must be restored
-            var listNames = [];
-            switch(dataEntity) {
-                case 'site':
-                    listNames = ['cdmSites'];
-                    break;
-                case 'routeSection':
-                    listNames = ['cdmRouteSection'];
-                    break;
-                case 'workPackage':
-                    listNames = ['cdmWorkPackage'];
-                    break;
-                case 'assetTypeGroup':
-                    listNames = ['cdmAssetTypeGroup'];
-                    break;
-                case 'assetSubGroup':
-                    listNames = ['cdmAssetSubGroup'];
-                    break;
-                case 'assetType':
-                    listNames = ['cdmAssetType'];
-                    break;
 
-            }
-            
-            // Handle cascading clears for dependent selections
-            if (dataEntity == 'site') {
-                // When clearing a site, also clear dependent route sections and work packages
-                $('#selectedrouteSections').html('');
-                $('#selectedworkPackages').html('');
-                $('#routeSectionpanel').html('');
-                $('#routeSection').val('0');
-                $('#workPackage').val('0');
-                // Also clear the dropdowns
-                $('#div_sel_routeSection').html('');
-                $('#div_sel_workPackage').html('');
-                // Clear asset selections
-                $('#selectedassetTypeGroup').html('');
-                $('#selectedassetSubGroup').html('');
-                $('#selectedassetType').html('');
-                $('#selectedAssetsDisplay').html('');
-                $('#selectedAssetSubGroupTypeDisplay').html('');
-                // Keep asset panels visible as blank template boxes
-                $('#assetTypeGroupPanel').show();
-                $('#assetSubGroupPanel').show();
-                $('#assetTypePanel').show();
-                // Clear asset dropdowns
-                $('#div_sel_cdmAssetTypeGroup').html('');
-                $('#div_sel_cdmAssetSubGroup').html('');
-                $('#div_sel_cdmAssetType').html('');
-                toggleSaveButton();
-            }
+            var $item = $(this).parent();
+            var value = $item.data('value');
+            var entity = $item.data('entity');
 
-            if (dataEntity == 'workPackage') {
-                // When clearing a work package, also clear dependent asset selections
-                $('#selectedassetTypeGroup').html('');
-                $('#selectedassetSubGroup').html('');
-                $('#selectedassetType').html('');
-                $('#selectedAssetsDisplay').html('');
-                $('#selectedAssetSubGroupTypeDisplay').html('');
-                // Keep asset panels visible as blank template boxes
-                $('#assetTypeGroupPanel').show();
-                $('#assetSubGroupPanel').show();
-                $('#assetTypePanel').show();
-                // Clear asset dropdowns
-                $('#div_sel_cdmAssetTypeGroup').html('');
-                $('#div_sel_cdmAssetSubGroup').html('');
-                $('#div_sel_cdmAssetType').html('');
-                toggleSaveButton();
-            }
+            $item.remove();
 
-            if (dataEntity == 'assetTypeGroup') {
+            if (entity === 'site') {
 
-                $('#selectedAssetGroupsDisplay .qresult[data-value="' + dataValue + '"]').remove();
-
-                $('#selectedassetSubGroup').html('');
-                $('#selectedassetType').html('');
-                $('#selectedAssetsDisplay').html('');
-                $('#selectedAssetSubGroupTypeDisplay').html('');
-                
-                // Keep asset panels visible as blank template boxes
-                $('#assetSubGroupPanel').show();
-                $('#assetTypePanel').show();
-                
-                // Clear the dropdowns
-                $('#div_sel_cdmAssetSubGroup').html('');
-                $('#div_sel_cdmAssetType').html('');
-                toggleSaveButton();
-            }
-
-            if (dataEntity == 'assetSubGroup') {
-
-                $('#selectedassetSubGroup .qresult[data-value="' + dataValue + '"]').remove();
-
-                $('#selectedassetType').html('');
-
-                updateVisibleInputs();
-                toggleSaveButton();
-
-            }
-
-            if (dataEntity == 'assetType') {
-                $('#selectedassetType .qresult[data-value="' + dataValue + '"]').remove();
-                updateVisibleInputs();
-                toggleSaveButton();
-            }
-            
-            // Restore to dropdown if it's a tposdata list
-            listNames.forEach(function(listName) {
-                var row = $('tr.tpos-' + listName + '-select-value[data-value="' + dataValue + '"]');
-                if (row.length) {
-                    row.show();
-                    $('#sel_' + listName).val('');
+                if ($('#selectedsite .qresult').length === 0) {
+                    $('#selectedrouteSections').html('');
+                    $('#selectedworkPackages').html('');
+                    $('#div_sel_routeSection').html('');
+                    $('#div_sel_workPackage').html('');
                 }
-            });
-            
-            var crc = $(this).parent().parent();
-            var crs = $(this).parent().siblings();
-            //$(this).parent().remove();
+            }
+
+            if (entity === 'workPackage') {
+
+                if ($('#selectedworkPackages .qresult').length === 0) {
+                    $('#selectedassetTypeGroup').html('');
+                    $('#selectedassetSubGroup').html('');
+                    $('#selectedassetType').html('');
+                    $('#selectedAssetsDisplay').html('');
+                    $('#div_sel_cdmAssetTypeGroup').html('');
+                    $('#div_sel_cdmAssetSubGroup').html('');
+                    $('#div_sel_cdmAssetType').html('');
+                }
+            }
+
+            if (entity === 'assetTypeGroup') {
+
+                if ($('#selectedassetTypeGroup .qresult').length === 0) {
+                    $('#selectedassetSubGroup').html('');
+                    $('#selectedassetType').html('');
+                    $('#selectedAssetsDisplay').html('');
+                    $('#div_sel_cdmAssetSubGroup').html('');
+                    $('#div_sel_cdmAssetType').html('');
+                    $('#assetSubGroupPanel').hide();
+                    $('#assetTypePanel').hide();
+                }
+            }
+
+            if (entity === 'assetSubGroup') {
+
+                var value = $item.data('value');
+
+                $('#selectedassetSubGroup .qresult[data-value="' + value + '"]').remove();
+
+                if ($('#selectedassetSubGroup .qresult').length === 0) {
+
+                    $('#selectedAssetSubGroupTypeDisplay').html('');
+                    $('#selectedassetType').html('');
+                    $('#selectedAssetsDisplay').html('');
+
+                    $('#div_sel_cdmAssetType').html('');
+
+                    $('#assetSubGroupDisplayPanel').hide();
+                    $('#assetTypePanel').hide();
+                    $('#assetDisplayPanel').hide();
+                }
+            }
+
+
+            if (entity === 'assetType') {
+
+                var value = $item.data('value');
+
+                $('#selectedassetType .qresult[data-value="' + value + '"]').remove();
+
+                if ($('#selectedassetType .qresult').length === 0) {
+
+                    $('#selectedAssetsDisplay').html('');
+
+                    $('#assetDisplayPanel').hide();
+                }
+            }
+
             updateHiddenSelections();
             updateVisibleInputs();
             toggleSaveButton();
-            if (!crs || crs.length === 0) {
-                crc.html('');
-            }
         });
 
         //$('.rss').addEventListener('click',testfunction);
 
     }
+
+    async function loadStageDropdown() {
+
+    let sTerm = '';
+
+    const url = _spPageContextInfo.webAbsoluteUrl +
+        "/_api/web/lists/getByTitle('cdmStagesExtra')/items?$select=Title,ID";
+
+    const data = await $.ajax({
+        url: url,
+        method: 'GET',
+        headers: {
+            "Accept": "application/json; odata=verbose"
+        }
+    });
+
+    for (var i = 0; i < data.d.results.length; i++) {
+
+        var item = data.d.results[i];
+
+        if (item.Title !== "Temporary Works Construction") {
+
+            sTerm += '<option value="' + item.ID + '">' + item.Title + '</option>';
+        }
+    }
+
+    $('#pwstructurespanel').html(
+        '<div class="customfiltersection">' +
+            '<select id="selectedstructures" multiple>' +
+                sTerm +
+            '</select>' +
+        '</div>'
+    );
+
+    $("#selectedstructures").multiselect({
+        columns: 1,
+        placeholder: 'Select stage(s):',
+        search: false,
+        selectAll: true,
+        onOptionClick: function () {
+            toggleSaveButton();
+        }
+    });
+}
 
     function updateHiddenSelections() {
         var siteIds = $('#selectedsite .qresult').map(function() { return $(this).data('value'); }).get();
@@ -758,16 +779,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     }
     
     function toggleSaveButton() {
-        var hasAssetTypes = $('#selectedAssetsDisplay .qresult').length > 0;
-        
-        if (hasAssetTypes) {
-            // Show button row and enable save button
-            $('.button-row').show();
-            $("#saveButton").removeClass("disabled");
-        } else {
-            // Hide button row and disable save button
-            $('.button-row').hide();
+
+        var selected = $("#selectedstructures").val() || [];
+
+        if (selected.length === 0) {
             $("#saveButton").addClass("disabled");
+        } else {
+            $("#saveButton").removeClass("disabled");
         }
     }
 
@@ -948,6 +966,11 @@ function updateVisibleInputs() {
 
     $('#selectedAssetSubGroupTypeDisplay').html(subGroupHtml);
 
+    if ($('#selectedassetSubGroup .qresult').length === 0) {
+        $('#selectedAssetSubGroupTypeDisplay').html('');
+        $('#assetSubGroupDisplayPanel').hide();
+    }
+
     var assetHtml = [];
 
     $('#selectedassetSubGroup .qresult').each(function () {
@@ -1077,7 +1100,6 @@ async function savehazards() {
         });
 
 
-
         const listMeta = await $.ajax({
             url: _spPageContextInfo.webAbsoluteUrl +
                  "/_api/web/lists/getByTitle('cdmHazards')?$select=ListItemEntityTypeFullName",
@@ -1109,6 +1131,15 @@ async function savehazards() {
                 cdmUniclass: "Open",
                 cdmSiteId: siteId,
             };
+                    
+            var stages = ($("#selectedstructures").val() || []).map(Number);
+            
+            if (stages.length) {
+                item.cdmStageId = {
+                    results: stages
+                };
+            }
+
 
             let filteredWP = $('#selectedworkPackages .qresult')
                 .filter(function () {
@@ -1169,6 +1200,9 @@ async function savehazards() {
     $('#sel_cdmSites').val('');
     $('#selectedsite, #selectedrouteSections, #selectedworkPackages, #selectedtw, #selectedrams, #selectedstructures, #selectedAssetsDisplay, #selectedassetTypeGroup, #selectedAssetSubGroupTypeDisplay, #selectedassetSubGroup, #selectedassetType').html('');
     $('#assetGroupDisplayPanel, #assetSubGroupDisplayPanel, #assetDisplayPanel').hide();
+    $('#selectedstructures').val([]);
+    $('#pwstructurespanel').html('');
+    $('#stageDisplayPanel').hide();
 
     updateHiddenSelections();
     updateVisibleInputs();

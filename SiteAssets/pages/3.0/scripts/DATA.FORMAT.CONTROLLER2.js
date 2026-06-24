@@ -566,6 +566,9 @@ formatdatato = {
                 allHazards = customfilters(allHazards, lstfilter["assetTypeGroup"], "assetTypeGroup");
             }
 
+            if (lstfilter["cdmStageExtra"].length != 0){
+                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            }
             if (lstfilter["cdmCurrentStatus"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
             } 
@@ -1275,15 +1278,15 @@ function buildHazardListItem(h) {
     if (h.cdmHazardType.Title == "Health") {
         isHealthHazard = 1;
     }
-    // if (isDesignHazard == 1 && h.cdmStageExtra.Title == "Construction") {
-    //   requiresLDReview = 1;
-    // }
-    // if (isDesignHazard == 1 && h.cdmStageExtra.Title == "Commission") {
-    //   requiresLDReview = 1;
-    // }
+    if (isDesignHazard == 1 && h.cdmStageExtra.Title == "Construction") {
+      requiresLDReview = 1;
+    }
+    if (isDesignHazard == 1 && h.cdmStageExtra.Title == "Commission") {
+      requiresLDReview = 1;
+    }
 
     if (isDesignHazard == 1 
-        //&& (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")
+        && (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title != "Commission")
     ) {
         requiresLDReview = 1;
     }
@@ -1296,9 +1299,9 @@ function buildHazardListItem(h) {
             var urat = $(ura[ii]).data("elementname");
             var urct = $(urc[ii]).data("elementid");
             var urst = $(urs[ii]).data("elementid");
-            if (true
-                // !h.cdmStageExtra.Title.includes("Construction") &&
-                // h.cdmStageExtra.Title != "Commission"
+            if (
+                !h.cdmStageExtra.Title.includes("Construction") &&
+                h.cdmStageExtra.Title != "Commission"
             ) {
                 if (urct == h.cdmHazardOwner.ID) {
                     // belongs to your company
@@ -1800,8 +1803,8 @@ function printHazardRow(h) {
 
     //Switches between 2 workflow objects. Patrick Hsu, 22 Feb 2024
     var workflow = "";
-    if (true
-        //h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")
+    if (
+        h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")
     ) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
@@ -2483,6 +2486,17 @@ function printHazardRow(h) {
         '                        <div class="cell lg">Ref: ' +
         h.ID +
         "</div>" + legid +
+        
+        '                        <div class="cell">' +
+        '                            <div class="cell-cell-img" title="' +
+        h.cdmStageExtra.Title +
+        '">' +
+        '                                <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
+        h.cdmStageExtra.ID +
+        '.svg" alt="' +
+        h.cdmStageExtra.Title +
+        '">' +
+        "                            </div>" +
 
         '                            <div class="cell-cell-img" title="' +
         h.cdmHazardType.Title +
@@ -2562,6 +2576,9 @@ function printHazardRow(h) {
         '                        <div class="lbl">Reference</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
+            '                        <div class="lbl">Stage</div>' +
+        "                    </td>" +
+        '                    <td class="width-100">' +
         '                        <div class="lbl">Type</div>' +
         "                    </td>" +
         '                    <td class="width-100">' +
@@ -2592,6 +2609,14 @@ function printHazardRow(h) {
         '</div>' +
         legid +
         "</td>" +
+        '                    <td class="width-100 fld">' +
+        '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/stages/' +
+        h.cdmStageExtra.ID +
+        '.svg" alt="\'+stt+\'">' +
+        '                        <div class="cell cdmStageExtra">' +
+        h.cdmStageExtra.Title +
+        "</div>" +
+        "                    </td>" +
         '                    <td class="width-100 fld">' +
         '                        <img style="width:16px;height:16px;" src="../../pages/2.0/img/types/' +
         h.cdmHazardType.ID +
