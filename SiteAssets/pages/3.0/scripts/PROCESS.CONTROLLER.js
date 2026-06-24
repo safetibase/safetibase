@@ -3348,6 +3348,7 @@ async function tposcustomfilters(data, forExport) {
     var distStatus = [];
     var distRiskOwner = [];
     var distTags = [];
+    var distStages = [];
 
     var selectSites = '';
     var selectRouteSections = '';
@@ -3358,6 +3359,7 @@ async function tposcustomfilters(data, forExport) {
     var selectStatus = '';
     var selectRiskOwner = '';
     var selectTags = '';
+    var selectStages = '';
 
     const normalize = s => String(s || "").replace(/\s+/g, ' ').trim();
 
@@ -3379,7 +3381,6 @@ async function tposcustomfilters(data, forExport) {
         }
 
         if (h.assetType && h.assetType.results) {
-
             h.assetType.results.forEach(function (at) {
 
                 var type = at.Title;
@@ -3397,13 +3398,20 @@ async function tposcustomfilters(data, forExport) {
                 if (group && !distGroups.includes(group)) {
                     distGroups.push(group);
                 }
-
             });
+        }
+
+        if (h.cdmStageExtra && h.cdmStageExtra.Title) {
+
+            var title = h.cdmStageExtra.Title;
+
+            if (!distStages.includes(title)) {
+                distStages.push(title);
+            }
         }
 
         if ((!forExport || configData['Exportable workflow states'].includes(h.cdmCurrentStatus)) &&
             h.cdmCurrentStatus && !distStatus.includes(h.cdmCurrentStatus)) {
-
             distStatus.push(h.cdmCurrentStatus);
         }
 
@@ -3412,9 +3420,7 @@ async function tposcustomfilters(data, forExport) {
         }
 
         if (h.cdmHazardTags) {
-
             var tag = normalize(h.cdmHazardTags);
-
             if (!distTags.includes(tag)) {
                 distTags.push(tag);
             }
@@ -3425,7 +3431,6 @@ async function tposcustomfilters(data, forExport) {
 
     distWorkPackages = [...new Set(distWorkPackages)];
     distWorkPackages.sort(function (a, b) {
-
         if (a === "Routewide") return -1;
         if (b === "Routewide") return 1;
 
@@ -3447,15 +3452,7 @@ async function tposcustomfilters(data, forExport) {
     distStatus = [...new Set(distStatus)].sort();
     distRiskOwner = [...new Set(distRiskOwner)].sort();
     distTags = [...new Set(distTags)].sort();
-
-    selectSites = '';
-    selectWorkPackages = '';
-    selectAssetTypes = '';
-    selectSubGroups = '';
-    selectGroups = '';
-    selectStatus = '';
-    selectRiskOwner = '';
-    selectTags = '';
+    distStages = [...new Set(distStages)].sort();
 
     distSites.forEach(v => selectSites += '<option value="' + v + '">' + v + '</option>');
     distWorkPackages.forEach(v => selectWorkPackages += '<option value="' + v + '">' + v + '</option>');
@@ -3465,7 +3462,7 @@ async function tposcustomfilters(data, forExport) {
     distStatus.forEach(v => selectStatus += '<option value="' + v + '">' + v + '</option>');
     distRiskOwner.forEach(v => selectRiskOwner += '<option value="' + v + '">' + v + '</option>');
     distTags.forEach(v => selectTags += '<option value="' + v + '">' + v + '</option>');
-
+    distStages.forEach(v => selectStages += '<option value="' + v + '">' + v + '</option>');
 
     $("#popscontentarea").html('');
 
@@ -3473,80 +3470,25 @@ async function tposcustomfilters(data, forExport) {
         (forExport === undefined ? '<button id="applyfilters" style="float:right">apply filters</button>' : '<button id="applyfiltersforexport" style="float:right">export</button>') +
 
         '<div class="customfiltersection"><select multiple id="siteFilter">' + selectSites + '</select></div>' +
-        //'<div class="customfiltersection"><select multiple id="routeFilter">' + selectRouteSections + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="wpFilter">' + selectWorkPackages + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="groupFilter">' + selectGroups + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="subGroupFilter">' + selectSubGroups + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="assetTypeFilter">' + selectAssetTypes + '</select></div>' +
-
+        '<div class="customfiltersection"><select multiple id="stageFilter">' + selectStages + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="statusFilter">' + selectStatus + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="riskOwnerFilter">' + selectRiskOwner + '</select></div>' +
         '<div class="customfiltersection"><select multiple id="tagsFilter">' + selectTags + '</select></div>'
     );
 
-        $('#siteFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Site(s)',
-            search: true,
-            selectAll: true
-        });
-
-        // $('#routeFilter').multiselect({
-        //     columns: 1,
-        //     placeholder: 'Select Route Section(s)',
-        //     search: true,
-        //     selectAll: true
-        // });
-
-        $('#wpFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Work Package(s)',
-            search: true,
-            selectAll: true
-        });
-
-        $('#groupFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Asset Type Group(s)',
-            search: true,
-            selectAll: true
-        });
-
-        $('#subGroupFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Asset Type Sub-group(s)',
-            search: true,
-            selectAll: true
-        });
-
-        $('#assetTypeFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Asset Type(s)',
-            search: true,
-            selectAll: true
-        });
-
-        $('#statusFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Status',
-            search: true,
-            selectAll: true
-        });
-
-        $('#riskOwnerFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select CDM/Project Risk',
-            search: true,
-            selectAll: true
-        });
-
-        $('#tagsFilter').multiselect({
-            columns: 1,
-            placeholder: 'Select Discipline',
-            search: true,
-            selectAll: true
-        });
-
+    $('#siteFilter').multiselect({ columns: 1, placeholder: 'Select Site(s)', search: true, selectAll: true });
+    $('#wpFilter').multiselect({ columns: 1, placeholder: 'Select Work Package(s)', search: true, selectAll: true });
+    $('#groupFilter').multiselect({ columns: 1, placeholder: 'Select Asset Type Group(s)', search: true, selectAll: true });
+    $('#subGroupFilter').multiselect({ columns: 1, placeholder: 'Select Asset Type Sub-group(s)', search: true, selectAll: true });
+    $('#assetTypeFilter').multiselect({ columns: 1, placeholder: 'Select Asset Type(s)', search: true, selectAll: true });
+    $('#stageFilter').multiselect({ columns: 1, placeholder: 'Select Stage(s)', search: true, selectAll: true });
+    $('#statusFilter').multiselect({ columns: 1, placeholder: 'Select Status', search: true, selectAll: true });
+    $('#riskOwnerFilter').multiselect({ columns: 1, placeholder: 'Select CDM/Project Risk', search: true, selectAll: true });
+    $('#tagsFilter').multiselect({ columns: 1, placeholder: 'Select Discipline(s)', search: true, selectAll: true });
 
     $('#applyfilters').click(function () {
 
@@ -3556,7 +3498,7 @@ async function tposcustomfilters(data, forExport) {
         flst['assetTypeGroup'] = $('#groupFilter').val() || [];
         flst['assetSubGroup'] = $('#subGroupFilter').val() || [];
         flst['assetType'] = $('#assetTypeFilter').val() || [];
-
+        flst['cdmStage'] = $('#stageFilter').val() || [];
         flst['cdmCurrentStatus'] = $('#statusFilter').val() || [];
         flst['cdmResidualRiskOwner'] = $('#riskOwnerFilter').val() || [];
         flst['cdmHazardTags'] = $('#tagsFilter').val() || [];
