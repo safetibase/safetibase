@@ -632,7 +632,11 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 updateVisibleInputs();
                 toggleSaveButton();
             }
-            loadStageDropdown();
+
+            if (!$('#selectedstructures').length) {
+                loadStageDropdown();
+            }
+
             $('#stageDisplayPanel').show();
         }
 
@@ -726,6 +730,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
     async function loadStageDropdown() {
 
+    if ($("#selectedstructures").length) {
+        return;
+    }
+
     let sTerm = '';
 
     const url = _spPageContextInfo.webAbsoluteUrl +
@@ -744,7 +752,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var item = data.d.results[i];
 
         if (item.Title !== "Temporary Works Construction") {
-
             sTerm += '<option value="' + item.ID + '">' + item.Title + '</option>';
         }
     }
@@ -764,7 +771,13 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         selectAll: true,
         onOptionClick: function () {
             toggleSaveButton();
+            $('.button-row').show();
         }
+    });
+
+    $("#selectedstructures").on('change', function () {
+        toggleSaveButton();
+        $('.button-row').show();
     });
 }
 
@@ -780,12 +793,20 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     
     function toggleSaveButton() {
 
-        var selected = $("#selectedstructures").val() || [];
+        var $el = $("#selectedstructures");
 
-        if (selected.length === 0) {
+        if ($el.length === 0) {
+            $("#saveButton").addClass("disabled");
+            return;
+        }
+
+        var selected = $el.val();
+
+        if (!selected || selected.length === 0) {
             $("#saveButton").addClass("disabled");
         } else {
             $("#saveButton").removeClass("disabled");
+            $(".button-row").show();
         }
     }
 
@@ -1017,9 +1038,6 @@ async function savehazards() {
     try {
 
         var sites = [];
-        var workPackages = [];
-        var assetTypeGroups = [];
-        var assetSubGroups = [];
         var assetTypes = [];
 
         var title1 = new Date();
@@ -1036,22 +1054,17 @@ async function savehazards() {
         if (!rs) rs = 'Awaiting risk assessment';
         if (!ms) ms = 'Awaiting mitigation';
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const cdmGeometry = urlParams.get("cdmGeometry");
-        const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
-
         $('#selectedsite .qresult').each(function () {
             sites.push(Number($(this).data('value')));
         });
 
-        $('#selectedworkPackages .qresult').each(function () {
-            workPackages.push(Number($(this).data('value')));
+        $('#selectedassetType .qresult').each(function () {
+            assetTypes.push(Number($(this).data('value')));
         });
 
         var invalidSites = [];
 
         sites.forEach(function (siteId) {
-
             var hasRoute = $('#selectedworkPackages .qresult').filter(function () {
                 return Number($(this).data('siteid')) === siteId;
             }).length > 0;
@@ -1066,40 +1079,6 @@ async function savehazards() {
             return;
         }
 
-        var assetTypeGroupNames = $('#selectedassetTypeGroup .qresult').map(function () { return $(this).data('name'); }).get();
-        var assetSubGroupNames = $('#selectedassetSubGroup .qresult').map(function () { return $(this).data('name'); }).get();
-        var assetTypeNames = $('#selectedassetType .qresult').map(function () { return $(this).data('name'); }).get();
-        var assetTypeString = '';
-        if (assetTypeNames.length) {
-            var assetTypeLabels = $('#selectedAssetsDisplay .qresult span').map(function () { return $(this).text(); }).get();
-            if (assetTypeGroupNames.length === 1) {
-                assetTypeString = assetTypeLabels.map(function (label) {
-                    return assetTypeGroupNames[0] + ' - ' + label;
-                }).join(', ');
-            } else {
-                assetTypeString = assetTypeLabels.join(', ');
-                if (assetSubGroupNames.length) {
-                    assetTypeString = assetSubGroupNames.join(', ') + ' - ' + assetTypeString;
-                }
-                if (assetTypeGroupNames.length) {
-                    assetTypeString = assetTypeGroupNames.join(', ') + ' - ' + assetTypeString;
-                }
-            }
-        }
-
-        $('#selectedassetTypeGroup .qresult').each(function () {
-            assetTypeGroups.push(Number($(this).data('value')));
-        });
-
-        $('#selectedassetSubGroup .qresult').each(function () {
-            assetSubGroups.push(Number($(this).data('value')));
-        });
-
-        $('#selectedassetType .qresult').each(function () {
-            assetTypes.push(Number($(this).data('value')));
-        });
-
-
         const listMeta = await $.ajax({
             url: _spPageContextInfo.webAbsoluteUrl +
                  "/_api/web/lists/getByTitle('cdmHazards')?$select=ListItemEntityTypeFullName",
@@ -1112,34 +1091,16 @@ async function savehazards() {
         var risks = $('#cdmInitialRisk').html();
         var rscv = parseInt(risks.split('-')[0], 10);
 
+        var stages = ($("#selectedstructures").val() || []).map(Number);
+
+        if (stages.length === 0) {
+            toastr.error("Please select at least one stage");
+            return;
+        }
+
+        var createdIds = [];
+
         for (const siteId of sites) {
-
-            var title = title10.toString() + '^' + uid();
-
-            var item = {
-                "__metadata": { "type": itemType },
-                Title: title,
-                cdmSiblings: title,
-                cdmHazardDescription: hz,
-                cdmRiskDescription: rs,
-                cdmMitigationDescription: ms,
-                cdmInitialRisk: risks,
-                cdmResidualRisk: risks,
-                cdmHazardTypeId: 2,
-                cdmInitialRiskScore: rscv,
-                cdmResidualRiskScore: rscv,
-                cdmUniclass: "Open",
-                cdmSiteId: siteId,
-            };
-                    
-            var stages = ($("#selectedstructures").val() || []).map(Number);
-            
-            if (stages.length) {
-                item.cdmStageId = {
-                    results: stages
-                };
-            }
-
 
             let filteredWP = $('#selectedworkPackages .qresult')
                 .filter(function () {
@@ -1150,46 +1111,72 @@ async function savehazards() {
                 })
                 .get();
 
-            if (filteredWP.length) {
-                item.workPackageId = {
-                    results: filteredWP
+            for (const stageId of stages) {
+
+                var uniqueUid = uid();
+                var title = title10.toString() + '^' + uniqueUid;
+
+                var item = {
+                    "__metadata": { "type": itemType },
+                    Title: title,
+                    cdmSiblings: title,
+                    cdmHazardDescription: hz,
+                    cdmRiskDescription: rs,
+                    cdmMitigationDescription: ms,
+                    cdmInitialRisk: risks,
+                    cdmResidualRisk: risks,
+                    cdmHazardTypeId: 2,
+                    cdmInitialRiskScore: rscv,
+                    cdmResidualRiskScore: rscv,
+                    cdmUniclass: "Open",
+                    cdmSiteId: siteId,
+                    cdmStageId: stageId
                 };
-            }
 
-            if (assetTypes.length) {
-                item.assetTypeId = {
-                    results: assetTypes
-                };
-            }
+                if (filteredWP.length) {
+                    item.workPackageId = {
+                        results: filteredWP
+                    };
+                }
 
-            // if (assetTypeGroups.length) {
-            //     item.cdmAssetTypeGroupIds = { results: assetTypeGroups };
-            // }
+                if (assetTypes.length) {
+                    item.assetTypeId = {
+                        results: assetTypes
+                    };
+                }
 
-            // if (assetSubGroups.length) {
-            //     item.cdmAssetSubGroupIds = { results: assetSubGroups };
-            try {
-                await $.ajax({
-                    url: _spPageContextInfo.webAbsoluteUrl +
-                         "/_api/web/lists/getByTitle('cdmHazards')/items",
-                    method: "POST",
-                    data: JSON.stringify(item),
-                    headers: {
-                        "Accept": "application/json;odata=verbose",
-                        "Content-Type": "application/json;odata=verbose",
-                        "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                try {
+                    const res = await $.ajax({
+                        url: _spPageContextInfo.webAbsoluteUrl +
+                             "/_api/web/lists/getByTitle('cdmHazards')/items",
+                        method: "POST",
+                        data: JSON.stringify(item),
+                        headers: {
+                            "Accept": "application/json;odata=verbose",
+                            "Content-Type": "application/json;odata=verbose",
+                            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                        }
+                    });
+
+                    if (res && res.d && res.d.Id) {
+                        createdIds.push(res.d.Id);
                     }
-                });
-            } catch (err) {
-                console.error("SAVE FAILED FOR SITE:", siteId, err.responseText);
+
+                } catch (err) {
+                    console.error("SAVE FAILED:", err.responseText);
+                }
             }
         }
 
-        toastr.success("Hazards saved", "", {
-            timeOut: 0,
-            extendedTimeOut: 0,
-            closeButton: true
-        });
+        toastr.success(
+            "Hazards created: " + createdIds.join(", "),
+            "",
+            {
+                timeOut: 0,
+                extendedTimeOut: 0,
+                closeButton: true
+            }
+        );
 
     } catch (err) {
         console.error("GENERAL ERROR:", err);
@@ -1208,6 +1195,7 @@ async function savehazards() {
     updateVisibleInputs();
     $('.button-row').hide();
 }
+
 
 $(document).on('click', function (e) {
     if (!$(e.target).closest('.tpos-select').length) {
