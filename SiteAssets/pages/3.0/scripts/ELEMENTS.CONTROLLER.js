@@ -179,8 +179,14 @@ function mkSelect (lst, data, fset, trg) {
             ittitle = `<b>Asset</b>: ${ittitle}; <b>UAID</b>: ${it.UAID}`;
             ittitleHidden = `Asset: ${ittitle}; UAID: ${it.UAID}`;
         }
-        options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitleHidden.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
-
+        //options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitleHidden.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
+        options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" ' +
+            'data-list="' + lst + '" ' +
+            'data-value="' + itid + '" ' +
+            'data-name="' + ittitleHidden + '">' +
+            '<td class="hide">*' + ittitleHidden.toLowerCase() + '</td>' +
+            '<td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td>' +
+            '</tr>';
     }
     $('#div_' + trg).html('<table class="tpos-select-table">' + options + '</table>');
     $('#div_' + trg).show();

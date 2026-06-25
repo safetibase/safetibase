@@ -970,6 +970,27 @@ function updateVisibleInputs() {
         .get().join('; ');
     $('.tpos-cdmWorkPackage-select-input').val(wpText);
 
+    // Asset Type Group
+    var groupText = $('#selectedassetTypeGroup .qresult')
+        .map(function () { return $(this).data('name'); })
+        .get().join('; ');
+
+    $('.tpos-cdmAssetTypeGroup-select-input').val(groupText);
+
+    // Asset Type Group
+    var groupText = $('#selectedassetTypeGroup .qresult')
+        .map(function () { return $(this).data('name'); })
+        .get().join('; ');
+
+    $('.tpos-cdmAssetTypeGroup-select-input').val(groupText);
+
+    // Asset Type
+    var assetTypeText = $('#selectedassetType .qresult')
+        .map(function () { return $(this).data('name'); })
+        .get().join('; ');
+
+    $('.tpos-cdmAssetType-select-input').val(assetTypeText);
+
     // Asset Breakdown Structure (Type & SubGroup)
     var subGroupHtml = '';
 
