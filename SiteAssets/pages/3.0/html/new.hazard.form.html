@@ -998,12 +998,12 @@ function updateVisibleInputs() {
 
     $('.tpos-cdmAssetTypeGroup-select-input').val(groupText);
 
-    // Asset Type Group
-    var groupText = $('#selectedassetTypeGroup .qresult')
+    // Asset Type Sub-Group
+    var subGroupText = $('#selectedassetSubGroup .qresult')
         .map(function () { return $(this).data('name'); })
         .get().join('; ');
 
-    $('.tpos-cdmAssetTypeGroup-select-input').val(groupText);
+    $('.tpos-cdmAssetSubGroup-select-input').val(subGroupText);
 
     // Asset Type
     var assetTypeText = $('#selectedassetType .qresult')
