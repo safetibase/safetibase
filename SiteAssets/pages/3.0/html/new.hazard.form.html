@@ -457,7 +457,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         if (e == 'cdmRouteSection') {
             t = $('#selectedrouteSections').html() || '';
             if ($('#selectedrouteSections .qresult[data-value="' + v + '"]').length === 0) {
-                sTerm = '<div class="qresult" data-entity="routeSection" data-rsname="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
+                sTerm = '<div class="qresult" data-entity="routeSection" data-name="' + vn + '" data-value="' + v + '"><span>' + vn + ' </span><span class="qrremove" data-field="routeSection">X</span></div>';
                 nt = t + sTerm;
                 $('#routeSectionpanel').html('<div id="selectedrouteSections" class="tpos-selection">' + nt + '</div>');
                 updateHiddenSelections();
@@ -527,6 +527,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 $('#selectedassetTypeGroup').append(sTerm);
+                
+                updateHiddenSelections();  
+                updateVisibleInputs(); 
+
 
                 var groupIds = $('#selectedassetTypeGroup .qresult')
                     .map(function () { return $(this).data('value'); })
@@ -562,6 +566,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '</div>';
 
                 $('#selectedassetSubGroup').append(sTerm);
+                updateHiddenSelections();  
+                updateVisibleInputs(); 
 
                 var subGroupHtml = '';
 
@@ -802,7 +808,22 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         var selected = $el.val();
 
-        if (!selected || selected.length === 0) {
+        var hasSite = $('#selectedsite .qresult').length > 0;
+        var hasRoute = $('#selectedrouteSections .qresult').length > 0;
+        var hasWP = $('#selectedworkPackages .qresult').length > 0;
+        var hasGroup = $('#selectedassetTypeGroup .qresult').length > 0;
+        var hasSubGroup = $('#selectedassetSubGroup .qresult').length > 0;
+        var hasAssetType = $('#selectedassetType .qresult').length > 0;
+
+        if (
+            !selected || selected.length === 0 ||
+            !hasSite ||
+            !hasRoute ||
+            !hasWP ||
+            !hasGroup ||
+            !hasSubGroup ||
+            !hasAssetType
+        ) {
             $("#saveButton").addClass("disabled");
         } else {
             $("#saveButton").removeClass("disabled");
