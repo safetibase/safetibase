@@ -566,8 +566,12 @@ formatdatato = {
                 allHazards = customfilters(allHazards, lstfilter["assetTypeGroup"], "assetTypeGroup");
             }
 
-            if (lstfilter["cdmStageExtra"].length != 0){
-                allHazards = customfilters(allHazardsMain,lstfilter["cdmStageExtra"]);
+            if (
+                lstfilter["cdmStageExtra"] &&
+                Array.isArray(lstfilter["cdmStageExtra"]) &&
+                lstfilter["cdmStageExtra"].length !== 0
+            ) {
+                allHazards = customfilters(allHazardsMain, lstfilter["cdmStageExtra"]);
             }
             if (lstfilter["cdmCurrentStatus"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
