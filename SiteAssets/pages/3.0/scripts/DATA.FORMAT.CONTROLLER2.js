@@ -1804,8 +1804,13 @@ function printHazardRow(h) {
     //Switches between 2 workflow objects. Patrick Hsu, 22 Feb 2024
     var workflow = "";
     if (
-        h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")
-    ) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
+        h.cdmStageExtra &&
+        typeof h.cdmStageExtra.Title === "string" &&
+        (
+            h.cdmStageExtra.Title.includes("Construction") ||
+            h.cdmStageExtra.Title.includes("Commission")
+        )
+    )   { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
     }
