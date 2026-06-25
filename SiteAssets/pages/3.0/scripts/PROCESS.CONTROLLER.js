@@ -3498,7 +3498,7 @@ async function tposcustomfilters(data, forExport) {
         flst['assetTypeGroup'] = $('#groupFilter').val() || [];
         flst['assetSubGroup'] = $('#subGroupFilter').val() || [];
         flst['assetType'] = $('#assetTypeFilter').val() || [];
-        flst['cdmStage'] = $('#stageFilter').val() || [];
+        flst['cdmStageExtra'] = $('#stageFilter').val() || [];
         flst['cdmCurrentStatus'] = $('#statusFilter').val() || [];
         flst['cdmResidualRiskOwner'] = $('#riskOwnerFilter').val() || [];
         flst['cdmHazardTags'] = $('#tagsFilter').val() || [];

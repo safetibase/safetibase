@@ -569,9 +569,9 @@ formatdatato = {
             if (
                 lstfilter["cdmStageExtra"] &&
                 Array.isArray(lstfilter["cdmStageExtra"]) &&
-                lstfilter["cdmStageExtra"].length !== 0
+                lstfilter["cdmStageExtra"].length > 0
             ) {
-                allHazards = customfilters(allHazardsMain, lstfilter["cdmStageExtra"]);
+                allHazards = customfilters(allHazards, lstfilter["cdmStageExtra"], "cdmStageExtra");
             }
             if (lstfilter["cdmCurrentStatus"].length != 0){
                 allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
@@ -732,6 +732,10 @@ formatdatato = {
 
                 if (field === "cdmHazardTags") {
                     values = [h.cdmHazardTags];
+                }
+
+                if (field === "cdmStageExtra" && h.cdmStageExtra && h.cdmStageExtra.Title) {
+                    values = [h.cdmStageExtra.Title];
                 }
 
                 var match = values.some(function (v) {
