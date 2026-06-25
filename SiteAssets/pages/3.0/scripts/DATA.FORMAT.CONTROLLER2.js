@@ -620,12 +620,12 @@ formatdatato = {
                 '<td id="s_ua_' +
                 si +
                 '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                '<td id="s_ne_' +
-                si +
-                '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                '<td id="s_ur_' +
-                si +
-                '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                // '<td id="s_ne_' +
+                // si +
+                // '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                // '<td id="s_ur_' +
+                // si +
+                // '"><i class="fa fa-spinner fa-spin"></i></td>' +
                 "</tr>";
             sa.push(si);
             stit.push(st);
@@ -652,8 +652,11 @@ formatdatato = {
             "Under review"
         ];
 
-        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ne_", "s_ur_"];
-        var fclr = ["pwd", "twd", "ra", "red", "red", "red", "blue"];
+        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", //"s_ne_", "s_ur_"
+
+        ];
+        var fclr = ["pwd", "twd", "ra", "red", "red", //"red", "blue"
+        ];
         for (var dd = 0; dd < sa.length; dd++) {
             for (var ee = 0; ee < fa.length; ee++) {
                 var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
