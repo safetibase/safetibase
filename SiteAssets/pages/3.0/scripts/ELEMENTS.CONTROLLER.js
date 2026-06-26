@@ -214,7 +214,7 @@ function mkSelect (lst, data, fset, trg) {
     });
     $('#sel_' + lst).click(function () {
         var st = $(this).val().toLowerCase();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == '') {
             $('tr').each(function () {
                 if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {

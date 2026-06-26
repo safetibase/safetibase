@@ -2757,7 +2757,7 @@ function tposSelectOwner(lst, data, hzdt, trg) {
     });
     $("#sel_" + lst).click(function() {
         var st = $(this).val();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == "") {
             $("tr").each(function() {
                 if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
@@ -2871,7 +2871,7 @@ function tposSelectElement(lst, data, trg) {
     });
     $("#sel_" + lst).click(function() {
         var st = $(this).val();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == "") {
             $("tr").each(function() {
                 if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
@@ -2975,7 +2975,7 @@ function tposSelectTag(lst, data, trg) {
     });
     $("#sel_" + lst).click(function() {
         var st = $(this).val();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == "") {
             $("tr").each(function() {
                 if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
@@ -3079,7 +3079,7 @@ function tposSelectUniclass(lst, data, trg) {
     });
     $("#sel_" + lst).click(function() {
         var st = $(this).val();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == "") {
             $("tr").each(function() {
                 if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
@@ -3179,7 +3179,7 @@ function tposSelectHazardType(lst, data, trg) {
     });
     $("#sel_" + lst).click(function() {
         var st = $(this).val();
-        toastr.success(st);
+        //toastr.success(st);
         if (!st || st == "") {
             $("tr").each(function() {
                 if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
@@ -3280,7 +3280,7 @@ function tposSelectdropdown(lst, data, trg, col) {
     });
     $("#sel_" + lst).click(function () {
       var st = $(this).val();
-      toastr.success(st);
+      //toastr.success(st);
       if (!st || st == "") {
         $("tr").each(function () {
           if ($(this).hasClass("tpos-" + lst + "-select-value") == 1) {
