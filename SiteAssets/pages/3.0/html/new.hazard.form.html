@@ -471,20 +471,17 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
         if (e == 'cdmWorkPackage') {
 
-            t = $('#selectedworkPackages').html() || '';
+            var t = $('#selectedworkPackages').html() || '';
 
             if ($('#selectedworkPackages .qresult[data-value="' + v + '"]').length === 0) {
 
-                var lastRoute = $('#selectedrouteSections .qresult').last();
-
-                var routeSectionId = lastRoute.data('value');
-                var routeSectionName = lastRoute.data('rsname') || lastRoute.data('name');
-
+                var routeNumber = (vn.match(/^\d+/) || [''])[0];
+                var routeSectionId = $('#selectedrouteSections .qresult').last().data('value');
                 var siteId = $('#selectedsite .qresult').last().data('value');
 
-                var label = routeSectionName + ' - ' + vn;
+                var label = routeNumber ? 'Route Section ' + routeNumber + ' - ' + vn : vn;
 
-                sTerm =
+                var sTerm =
                     '<div class="qresult" ' +
                     'data-entity="workPackage" ' +
                     'data-name="' + label + '" ' +
@@ -495,7 +492,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                     '<span class="qrremove" data-field="workPackage">X</span>' +
                     '</div>';
 
-                nt = t + sTerm;
+                var nt = t + sTerm;
+
                 $('#workPackagepanel').html('<div id="selectedworkPackages" class="tpos-selection">' + nt + '</div>');
                 $('#workPackagepanel').show();
 
@@ -1107,9 +1105,7 @@ async function savehazards() {
         var invalidSites = [];
 
         sites.forEach(function (siteId) {
-            var hasRoute = $('#selectedworkPackages .qresult').filter(function () {
-                return Number($(this).data('siteid')) === siteId;
-            }).length > 0;
+            var hasRoute = $('#selectedrouteSections .qresult').length > 0;
 
             if (!hasRoute) {
                 invalidSites.push(siteId);
