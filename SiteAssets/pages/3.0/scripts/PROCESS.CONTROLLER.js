@@ -3080,7 +3080,14 @@ function tposSelectUniclass(lst, data, trg) {
         // $('#h_'+hzd+'_cdmHazardOwnerTitle').html(dv);
         // $('#h_'+hzd+'_cdmHazardOwner').val(dvid);
         var tdata = [];
+
         tdata.push("cdmUniclass|" + dv);
+
+        if (dv === "Eliminated") {
+            tdata.push("cdmResidualRisk|0-Low-clr_1^0-None^0-None");
+            tdata.push("cdmResidualRiskScore|0");
+        }
+
         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
         $("#pops").remove();
     });
