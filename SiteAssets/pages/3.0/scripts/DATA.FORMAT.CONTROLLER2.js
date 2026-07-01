@@ -1524,14 +1524,22 @@ function printHazardRow(h) {
         '<span class="cell cdmPWElement">' + h.cdmPWElement.Title + "</span>";
     }
     var o = h.cdmHazardOwner.Title;
+    var coord = h.cdmHazardCoordinates;
+    var hasSignificant = h.cdmSignificant.Title;
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
     var permissions = "";
+
     if (!o) {
         o = '<span class="clr_5">Unassigned</span>';
-        warning =
+        warning +=
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
+    }
+
+    if (!coord && hasSignificant == "Significant") {
+        warning +=
+            '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
 
     var revstatus = h.cdmCurrentStatus;
