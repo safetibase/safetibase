@@ -2199,7 +2199,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
-    var significantMarker = '';
+
     var haztags = '';
     var unitags = '';
     var links = '';

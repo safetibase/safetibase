@@ -305,8 +305,8 @@ cdmdata = {
                 var title = t.length > 2 ? t[2] : v;
                 var displayValue = v;
 
-                if (f === "cdmHazardType" || f === "cdmSignificant") {
-                    var lookupListName = f === "cdmHazardType" ? "cdmHazardTypes" : "cdmSignificant";
+                if (f === "cdmSignificant") {
+                    var lookupListName = f === "cdmSignificant" ? "cdmSignificant" : "";
                     displayValue = await getLookupDisplayValue(lookupListName, v);
                     displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
                 } else {
@@ -832,8 +832,8 @@ tposdata = {
                 var title = t.length > 2 ? t[2] : v;
                 var displayValue = v;
 
-                if (f == "cdmHazardType" || f == "cdmSignificant") {
-                    var lookupListName = f == "cdmHazardType" ? "cdmHazardTypes" : "cdmSignificant";
+                if (f == "cdmSignificant") {
+                    var lookupListName = f == "cdmSignificant" ? "cdmSignificant" : "";
                     displayValue = await getLookupDisplayValue(lookupListName, v);
                     displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
                 } else {
