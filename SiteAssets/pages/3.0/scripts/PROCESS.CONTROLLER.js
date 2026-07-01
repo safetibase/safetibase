@@ -4679,14 +4679,31 @@ function hazardreviewbuttonaction() {
                                             nl = nl + hist;
                                         }
                                         tdata.push("cdmReviews|" + nl);
-                                        tdata.push(
-                                            `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
-                                        );
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
                                             "cdmLastReviewStatus|Design manager review - approved"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
+
+                                        // BBV have requested that insginificant hazrds stop at this stage and significant hazards are communicated to them, but not reviewed by them.
+                                        // We need to add two new workflow states for this: "Design manager approved" and "Communicated to construction team". The config workflow object 
+                                        // assumes one possible transition state so the best option is to add the transition to the new workflow states in here.
+                                        const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim(); // Probably more complex than this
+                                        const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
+                                        if (!significantState) { // No significant state defined: the user is prompted to fill this in before they can continue
+                                            toastr.error("You must mark the hazard as Significant or Non-Significant before you can continue");
+                                            $("#pops").remove();
+                                            return;
+                                        } else if (significantState === "Non-Significant") { // Non-Significant: hazard goes to Design manager approved state
+                                            tdata.push("cdmCurrentStatus|Design manager approved");
+                                        } else if (significantState === "Significant" && !hasCooordinates) { // Significant and no coordinates: the user is prompted to add coordinates before they can continue
+                                            toastr.error("You must add coordinates to the hazard before you can continue");
+                                            $("#pops").remove();
+                                            return;
+                                        } else if (significantState === "Significant" && hasCooordinates) { // Significant and has coordinates: the hazards goes to Communicated to construction team state
+                                            tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                        }
+
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                                         $("#pops").remove();
                                     }

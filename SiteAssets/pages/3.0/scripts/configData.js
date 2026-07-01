@@ -40,7 +40,7 @@ configData = {
             'cdmReviewHistory': 'completed peer review]'
         },
         'dmreview' : { 
-            'nextWorkFlowState': 'Communicated to construction team', 
+            'nextWorkFlowState': 'Under pre-construction review', 
             'userRoles': ['Design Manager', 'Site Team'], // who can review/edit the hazard at this point
             'cdmLastReviewStatus': 'Peer review - approved',
             'cdmReviewHistory': 'completed design manager review]'
