@@ -1392,14 +1392,14 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250">coordinates</td>' +
-        '                    <td class="width-250">significants</td>' +
+        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">htags</td>' +
         '                    <td class="width-250">utags</td>' +
         '                    <td class="width-250">links</td>' +
@@ -2191,7 +2191,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
-    var significantmarker = '';
+    var significantMarker = '';
     var haztags = '';
     var unitags = '';
     var links = '';
@@ -2199,7 +2199,7 @@ function printHazardRow(h) {
     var contracts ='';
     var PASRiskClassification ='';
     var hiddenrail ='';
-    if (h.cdmSignificant) { significantmarker = h.cdmSignificant.Title; }
+    if (h.cdmSignificant) { significantMarker = h.cdmSignificant.Title; }
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2533,7 +2533,7 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Significant or Non-Significant</div>' +
+        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl">Hazard tags</div>' +
@@ -2554,7 +2554,7 @@ function printHazardRow(h) {
 
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
-        significantmarker +
+        significantMarker +
         "</div>" +
         "                    </td>" +
         
