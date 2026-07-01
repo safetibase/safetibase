@@ -2199,7 +2199,7 @@ function printHazardRow(h) {
     var contracts ='';
     var PASRiskClassification ='';
     var hiddenrail ='';
-    if (h.cdmSignificant) { significantMarker = h.cdmSignificant.Title; }
+    var significantMarker = (h.cdmSignificant && h.cdmSignificant.Title) || "";
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2842,46 +2842,46 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
 function decodeCoordinates(str, uce, hid) {
     var strings = [];
     var eds = "";
-    if (!str || str == "") {
+
+    if (!str || str === "undefined" || str === undefined) {
         if (uce == 0) {
-            return;
-            //return "";
+            return "";
         } else {
             return '<div title="Manage coordinates"> + </div>';
         }
-    } else {
-        // if we get a string of coordinates
-        strings = str.split("^");
-        var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
-
-        for (var i = 0; i < strings.length; i++) {
-            var string = strings[i];
-            var st = string.split(",");
-            var x = st[0];
-            var y = st[1];
-            var z = st[2];
-
-            if (string != "") {
-                t +=
-                    '<tr class="ctagtd"><td class="ctagtd">' +
-                    x +
-                    '</td><td class="ctagtd">' +
-                    y +
-                    '</td><td class="ctagtd">' +
-                    z +
-                    "</td></tr>";
-            }
-        }
-        var ctags =
-            '<table class="width-250 centered" title="Click to manage coordinates">' +
-            t +
-            '</table><div class="hide" id="h_' +
-            hid +
-            '_fullco">' +
-            str +
-            "</div>";
-        return ctags;
     }
+
+    strings = str.split("^");
+    var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
+
+    for (var i = 0; i < strings.length; i++) {
+        var string = strings[i];
+        var st = string.split(",");
+        var x = st[0];
+        var y = st[1];
+        var z = st[2];
+
+        if (string != "") {
+            t +=
+                '<tr class="ctagtd"><td class="ctagtd">' +
+                x +
+                '</td><td class="ctagtd">' +
+                y +
+                '</td><td class="ctagtd">' +
+                z +
+                "</td></tr>";
+        }
+    }
+
+    return (
+        '<table class="width-250 centered" title="Click to manage coordinates">' +
+        t +
+        '</table><div class="hide" id="h_' +
+        hid +
+        '_fullco">' +
+        str +
+        "</div>"
+    );
 }
 
 function printDate(role, username, date) {
