@@ -306,8 +306,7 @@ cdmdata = {
                 var displayValue = v;
 
                 if (f === "cdmSignificant") {
-                    var lookupListName = f === "cdmSignificant" ? "cdmSignificant" : "";
-                    displayValue = await getLookupDisplayValue(lookupListName, v);
+                    displayValue = await getLookupDisplayValue("cdmSignificant", v);
                     displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
                 } else {
                     displayValue = title;
@@ -833,8 +832,7 @@ tposdata = {
                 var displayValue = v;
 
                 if (f == "cdmSignificant") {
-                    var lookupListName = f == "cdmSignificant" ? "cdmSignificant" : "";
-                    displayValue = await getLookupDisplayValue(lookupListName, v);
+                    displayValue = await getLookupDisplayValue("cdmSignificant", v);
                     displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
                 } else {
                     displayValue = title;
