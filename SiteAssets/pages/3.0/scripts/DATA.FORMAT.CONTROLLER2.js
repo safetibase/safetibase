@@ -1392,12 +1392,14 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250">coordinates</td>' +
+        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">htags</td>' +
         '                    <td class="width-250">utags</td>' +
         '                    <td class="width-250">links</td>' +
@@ -1522,14 +1524,22 @@ function printHazardRow(h) {
         '<span class="cell cdmPWElement">' + h.cdmPWElement.Title + "</span>";
     }
     var o = h.cdmHazardOwner.Title;
+    var coord = h.cdmHazardCoordinates;
+    var hasSignificant = h.cdmSignificant.Title;
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
     var permissions = "";
+
     if (!o) {
         o = '<span class="clr_5">Unassigned</span>';
-        warning =
+        warning +=
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
+    }
+
+    if (!coord && hasSignificant == "Significant") {
+        warning +=
+            '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
 
     var revstatus = h.cdmCurrentStatus;
@@ -2189,6 +2199,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
+
     var haztags = '';
     var unitags = '';
     var links = '';
@@ -2196,6 +2207,7 @@ function printHazardRow(h) {
     var contracts ='';
     var PASRiskClassification ='';
     var hiddenrail ='';
+    var significantMarker = (h.cdmSignificant && h.cdmSignificant.Title) || "";
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2529,6 +2541,9 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
+        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
+        "                    </td>" +
+        '                    <td class="width-250">' +
         '                        <div class="lbl">Hazard tags</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
@@ -2544,6 +2559,13 @@ function printHazardRow(h) {
         decodeCoordinates(h.cdmHazardCoordinates, uce, h.ID) +
         "</div>" +
         "                    </td>" +
+
+        '                    <td class="width-250 fld">' +
+        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
+        significantMarker +
+        "</div>" +
+        "                    </td>" +
+        
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmHazardTags pointer" title="Click to assign a hazard tag">' +
         haztags +
@@ -2828,46 +2850,46 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
 function decodeCoordinates(str, uce, hid) {
     var strings = [];
     var eds = "";
-    if (!str || str == "") {
+
+    if (!str || str === "undefined" || str === undefined) {
         if (uce == 0) {
-            return;
-            //return "";
+            return "";
         } else {
             return '<div title="Manage coordinates"> + </div>';
         }
-    } else {
-        // if we get a string of coordinates
-        strings = str.split("^");
-        var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
-
-        for (var i = 0; i < strings.length; i++) {
-            var string = strings[i];
-            var st = string.split(",");
-            var x = st[0];
-            var y = st[1];
-            var z = st[2];
-
-            if (string != "") {
-                t +=
-                    '<tr class="ctagtd"><td class="ctagtd">' +
-                    x +
-                    '</td><td class="ctagtd">' +
-                    y +
-                    '</td><td class="ctagtd">' +
-                    z +
-                    "</td></tr>";
-            }
-        }
-        var ctags =
-            '<table class="width-250 centered" title="Click to manage coordinates">' +
-            t +
-            '</table><div class="hide" id="h_' +
-            hid +
-            '_fullco">' +
-            str +
-            "</div>";
-        return ctags;
     }
+
+    strings = str.split("^");
+    var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
+
+    for (var i = 0; i < strings.length; i++) {
+        var string = strings[i];
+        var st = string.split(",");
+        var x = st[0];
+        var y = st[1];
+        var z = st[2];
+
+        if (string != "") {
+            t +=
+                '<tr class="ctagtd"><td class="ctagtd">' +
+                x +
+                '</td><td class="ctagtd">' +
+                y +
+                '</td><td class="ctagtd">' +
+                z +
+                "</td></tr>";
+        }
+    }
+
+    return (
+        '<table class="width-250 centered" title="Click to manage coordinates">' +
+        t +
+        '</table><div class="hide" id="h_' +
+        hid +
+        '_fullco">' +
+        str +
+        "</div>"
+    );
 }
 
 function printDate(role, username, date) {

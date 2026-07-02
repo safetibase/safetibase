@@ -1525,7 +1525,7 @@ function activateHazardEdits() {
             var ucanprecon = 0;
             var ucansmreview = 0;
             var ucanldreview = 0;
-            toastr.warning('registered');
+            //toastr.warning('registered');
 
             var hi = $(this)
                 .parents(".row-hazard")
@@ -2014,6 +2014,18 @@ function activateHazardEdits() {
                                 $("#pops").remove();
                             });
                         // activateCoordinatesSave();
+                    }
+                    if (fld == "cdmSignificant") {
+                        var cv = $(this).html();
+                        var tdata = [];
+                        if (cv == "Significant") {
+                            tdata.push("cdmSignificant|2");
+                        } else {
+                            tdata.push("cdmSignificant|1");
+                        }
+                        toastr.success("Toggling hazard between significant and non-significant");
+                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                        $("#pops").remove();
                     }
                     if (fld == "cdmHazardTags") {
                         gimmepops(
