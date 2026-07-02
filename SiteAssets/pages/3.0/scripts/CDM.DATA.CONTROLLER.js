@@ -1,4 +1,25 @@
 var flst =[];
+
+function getLookupDisplayValue(listName, value) {
+    if (value === undefined || value === null || value === "") {
+        return Promise.resolve(value);
+    }
+
+    if (typeof value === "string" && value.trim() !== "" && isNaN(value)) {
+        return Promise.resolve(value);
+    }
+
+    return getListItemsByListName({
+        listName: listName,
+        select: "ID,Title",
+        filter: "ID eq " + value,
+        limit: 1
+    }).then(function(data) {
+        var items = data.d.results || [];
+        return items.length ? items[0].Title : value;
+    });
+}
+
 cdmdata = {
     get: function(lst, filter, order, format, trg ,flst,wpt, forExport) {
 
@@ -281,8 +302,21 @@ cdmdata = {
                 var t = data[cc].toString().split("|");
                 var f = t[0];
                 var v = t[1];
+                var title = t.length > 2 ? t[2] : v;
+                var displayValue = v;
+
+                if (f === "cdmSignificant") {
+                    var lookupListName = f === "cdmSignificant" ? "cdmSignificant" : "";
+                    displayValue = await getLookupDisplayValue(lookupListName, v);
+                    displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
+                } else {
+                    displayValue = title;
+                }
+
+                hdata.push("field " + f + " to value " + displayValue);
+
                 oListItem.set_item(f, v);
-                hdata.push("field " + f + " to value " + v);
+
             }
         }
         hListItem.set_item("Title", "updated");
@@ -778,7 +812,8 @@ tposdata = {
 
     },
 
-    update: function(lst, data, callback) {
+    update: async function(lst, data, callback) {
+        
         var ml = list(lst);
         var itemCreateInfo = new SP.ListItemCreationInformation();
         var oListItem = ml.getItemById(hzd);
@@ -794,10 +829,24 @@ tposdata = {
                 var t = data[cc].toString().split("|");
                 var f = t[0];
                 var v = t[1];
+                var title = t.length > 2 ? t[2] : v;
+                var displayValue = v;
+
+                if (f == "cdmSignificant") {
+                    var lookupListName = f == "cdmSignificant" ? "cdmSignificant" : "";
+                    displayValue = await getLookupDisplayValue(lookupListName, v);
+                    displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
+                } else {
+                    displayValue = title;
+                }
+
+                hdata.push("updated field " + f + " to values " + displayValue);
+
                 oListItem.set_item(f, v);
-                hdata.push("updated field " + f + " to value " + v);
+
             }
         }
+
         hListItem.set_item("Title", "Updated");
         hListItem.set_item("cdmHazard", hid);
         hListItem.set_item("cdmAction", hdata.toString());
