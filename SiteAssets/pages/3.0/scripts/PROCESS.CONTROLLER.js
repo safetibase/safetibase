@@ -3096,7 +3096,7 @@ function tposSelectUniclass(lst, data, trg) {
         tdata.push("cdmUniclass|" + dv);
 
         if (dv === "Eliminated") {
-            tdata.push("cdmResidualRisk|0-Low-clr_1^0-None^0-None");
+            tdata.push("cdmResidualRisk|0-Eliminated-clr_0^0-Eliminated^0-Eliminated");
             tdata.push("cdmResidualRiskScore|0");
         }
 
