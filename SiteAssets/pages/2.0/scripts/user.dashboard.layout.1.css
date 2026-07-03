@@ -759,9 +759,9 @@ a.ms-tv-header:hover {
 }
 
 .tpos-border-risk-Blue {
-    border: 1px solid rgb(84, 92, 240);
-    border-right: 8px solid rgb(50, 42, 210);
-    background-color: rgba(16, 31, 198);
+    border: 1px solid rgb(16, 31, 198);
+    border-right: 8px solid rgb(16, 31, 198);
+    background-color: rgb(153, 159, 224);
 }
 
 .tpos-border-risk-Red {
