@@ -2659,7 +2659,10 @@ function printHazardRow(h) {
             (h.workPackage && h.workPackage.results && h.workPackage.results.length
                 ? h.workPackage.results.map(function (wp) {
 
-                    if (wp.Title === "Routewide") {
+                    const isRoutewide = (value) =>
+                        value?.replace(/\s+/g, "").toLowerCase() === "routewide";
+
+                    if (isRoutewide(wp.Title)) {
                         return "Routewide";
                     }
 

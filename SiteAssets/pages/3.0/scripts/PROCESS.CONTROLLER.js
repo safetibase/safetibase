@@ -3431,8 +3431,11 @@ async function tposcustomfilters(data, forExport) {
 
     distWorkPackages = [...new Set(distWorkPackages)];
     distWorkPackages.sort(function (a, b) {
-        if (a === "Routewide") return -1;
-        if (b === "Routewide") return 1;
+        const isRoutewide = (value) =>
+            value?.replace(/\s+/g, "").toLowerCase() === "routewide";
+
+        if (isRoutewide(a)) return -1;
+        if (isRoutewide(b)) return 1;
 
         var pa = a.split('.').map(Number);
         var pb = b.split('.').map(Number);
