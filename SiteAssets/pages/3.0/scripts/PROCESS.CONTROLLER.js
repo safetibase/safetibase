@@ -543,6 +543,7 @@ function activateDatasets(cdmSites, allHazardsData) {
 
             // Export to Excel via .iqy file
             if (ulink == 'https://mottmac.sharepoint.com/:u:/r/teams/pj-a814/ps-ewr-test/SiteAssets/files/export_to_excel.iqy?csf=1&web=1&e=lWzZ4K') {
+                // Change when push to LIVE 'https://eastwestrailwaycouk.sharepoint.com/:u:/r/sites/SafetiBase1/SiteAssets/pages/3.0/export_to_excel.iqy?csf=1&web=1&e=OXhwEo'
                 // First lets check that the current user is authorised to do this.
                 const userId = _spPageContextInfo.userId;
                 const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
