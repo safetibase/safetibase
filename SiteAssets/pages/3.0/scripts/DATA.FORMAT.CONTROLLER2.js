@@ -574,13 +574,13 @@ formatdatato = {
                 allHazards = customfilters(allHazards, lstfilter["cdmStageExtra"], "cdmStageExtra");
             }
             if (lstfilter["cdmCurrentStatus"].length != 0){
-                allHazards = customfilters(allHazards,lstfilter["cdmCurrentStatus"]);
+                allHazards = customfilters(allHazards, lstfilter["cdmCurrentStatus"], "cdmCurrentStatus");
             } 
             if (lstfilter["cdmResidualRiskOwner"].length != 0){
-                allHazards = customfilters(allHazards,lstfilter["cdmResidualRiskOwner"]);
+                allHazards = customfilters(allHazards, lstfilter["cdmResidualRiskOwner"], "cdmResidualRiskOwner");
             }  
             if (lstfilter["cdmHazardTags"].length != 0){
-                allHazards = customfilters(allHazards,lstfilter["cdmHazardTags"]);
+                allHazards = customfilters(allHazards, lstfilter["cdmHazardTags"], "cdmHazardTags");
             } 
         };
 
@@ -723,23 +723,23 @@ formatdatato = {
                 }
 
                 if (field === "cdmCurrentStatus") {
-                    values = [h.cdmCurrentStatus];
+                    values = [String(h.cdmCurrentStatus || "").replace(/\s+/g, " ").trim()];
                 }
 
                 if (field === "cdmResidualRiskOwner") {
-                    values = [h.cdmResidualRiskOwner];
+                    values = [String(h.cdmResidualRiskOwner || "").replace(/\s+/g, " ").trim()];
                 }
 
                 if (field === "cdmHazardTags") {
-                    values = [h.cdmHazardTags];
+                    values = [String(h.cdmHazardTags || "").replace(/\s+/g, " ").trim()];
                 }
 
-                if (field === "cdmStageExtra" && h.cdmStageExtra && h.cdmStageExtra.Title) {
-                    values = [h.cdmStageExtra.Title];
-                }
+                var normalizedFilters = filterlst.map(function (v) {
+                    return String(v || "").replace(/\s+/g, " ").trim();
+                });
 
                 var match = values.some(function (v) {
-                    return filterlst.includes(v);
+                    return normalizedFilters.includes(v);
                 });
 
                 if (match) {
