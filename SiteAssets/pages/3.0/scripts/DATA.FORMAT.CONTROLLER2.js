@@ -1653,7 +1653,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1672,7 +1672,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1691,7 +1691,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under peer review')){
                         rucp = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1720,7 +1720,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
-                    break;   
+                    break;                    
                     
                 case('Under principal designer review'):
                     rucl = 3;
@@ -1761,6 +1761,27 @@ function printHazardRow(h) {
                     break; 
 
                 case('Accepted'):
+                    if(workflowStates.includes('Requires mitigation')){
+                        ruce = 1;
+                    }
+                    if(workflowStates.includes('Under peer review')){
+                        rucp = 1;
+                    }   
+                    if(workflowStates.includes('Under design manager review')){
+                        rucd = 1;
+                    }  
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmLastReviewStatus == "Pre-construction review completed"){
+                        rucpc = 1;
+                    } 
+                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                        rucl = 1;
+                    }  
+                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                        rucs = 1;
+                    }  
+                    break;
+                
+                case('Communicated to construction team'): // BBV requested that review actions are removed from workflow stage 4 hence this new workflow stage
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
@@ -1828,7 +1849,12 @@ function printHazardRow(h) {
 
         }
 
-            if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
+            if (
+                revstatus != "Accepted" &&
+                revstatus != `Ready for review by ${configData['Client Name']}` &&
+                revstatus != `Accepted by ${configData['Client Name']}` &&
+                revstatus != "Communicated to construction team"
+            ) {
                 // We need to work out which stages of the workflow are editable - this is read from the config file
                 const editableWorkflowStages = [].concat(
                     configData['Peer review editable workflow state'] ? ['Under peer review'] : []
@@ -2117,11 +2143,21 @@ function printHazardRow(h) {
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
+                }
+                if (revstatus == "Communicated to construction team") { // Workflow stage 4 but with no review actions. Requested by BBV.
+                    if (configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0) {
+                        uce = 1;
+                    }
+                    if (hc != "ra") {
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
+                    } else { // RAMS
+                        (ruce = 1), (rucp = 1), (rucs = 1);
+                    }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
-                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing. You can still advance this hazard to client review.</div>';
+                        warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits and advance this hazard to client review.</div>';
                     } else {
-                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
+                        warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits.</div>';
                     }
                 }
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
