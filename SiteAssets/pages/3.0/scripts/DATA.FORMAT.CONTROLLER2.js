@@ -2796,6 +2796,10 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
     var rrlt = rr3data[1];
 
     var bclr = "tpos-border-right-Green";
+    if (rrclr == "clr_6") {
+        rrrclr = "tpos-border-risk-Blue";
+        bclr = "tpos-border-right-Blue";
+    }
     if (rrclr == "clr_5") {
         rrrclr = "tpos-border-risk-Red";
         bclr = "tpos-border-right-Red";

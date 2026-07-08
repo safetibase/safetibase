@@ -3092,7 +3092,15 @@ function tposSelectUniclass(lst, data, trg) {
         // $('#h_'+hzd+'_cdmHazardOwnerTitle').html(dv);
         // $('#h_'+hzd+'_cdmHazardOwner').val(dvid);
         var tdata = [];
+
         tdata.push("cdmUniclass|" + dv);
+
+        if (dv === "Eliminated") {
+            tdata.push("cdmResidualRisk|0-Eliminated-clr_6^0-Eliminated^0-Eliminated");
+            tdata.push("cdmResidualRiskScore|0");
+            tdata.push("cdmSignificant|2"); // Eliminated risks are non-significant
+        }
+
         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
         $("#pops").remove();
     });
