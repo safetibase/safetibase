@@ -340,14 +340,22 @@ formatdatato = {
                                     var assetTypes = results[0].d.results;
                                     var assetSubGroups = results[1].d.results;
 
+                                    console.log("assetTypes response", assetTypes);
+                                    console.log("assetSubGroups response", assetSubGroups);
+
                                     var assetTypeToSubGroupMap = {};
                                     var assetTypeGroupMap = {};
 
                                     assetTypes.forEach(function (item) {
 
                                         var type = item.Title;
-                                        var subGroup = item.AssetSubGroup ? item.AssetSubGroup.Title : "";
+                                        var subGroup = getSharePointLookupTitle(item.AssetSubGroup);
+                                        var normalizedType = normalizeAssetMapKey(type);
 
+                                        console.log("asset type mapping", { type: type, subGroup: subGroup, rawAssetSubGroup: item.AssetSubGroup });
+                                        if (normalizedType) {
+                                            assetTypeToSubGroupMap[normalizedType] = subGroup;
+                                        }
                                         assetTypeToSubGroupMap[type] = subGroup;
 
                                     })
@@ -355,19 +363,19 @@ formatdatato = {
                                     assetSubGroups.forEach(function (item) {
 
                                         var subGroup = item.Title;
+                                        var normalizedSubGroup = normalizeAssetMapKey(subGroup);
+                                        var group = getSharePointLookupTitles(item.AssetTypeGroup).join(", ");
 
-                                        var group =
-                                            item.AssetTypeGroup &&
-                                            item.AssetTypeGroup.results &&
-                                            item.AssetTypeGroup.results.length > 0
-                                                ? item.AssetTypeGroup.results.map(function(g) {
-                                                    return g.Title;
-                                                }).join(", ")
-                                                : "";
-
+                                        console.log("asset subgroup mapping", { subGroup: subGroup, group: group, rawAssetTypeGroup: item.AssetTypeGroup });
+                                        if (normalizedSubGroup) {
+                                            assetTypeGroupMap[normalizedSubGroup] = group;
+                                        }
                                         assetTypeGroupMap[subGroup] = group;
 
                                     });
+
+                                    console.log("assetTypeToSubGroupMap created", assetTypeToSubGroupMap);
+                                    console.log("assetTypeGroupMap created", assetTypeGroupMap);
 
                                     window.assetTypeToSubGroupMap = assetTypeToSubGroupMap;
                                     window.assetTypeGroupMap = assetTypeGroupMap;
@@ -715,14 +723,20 @@ formatdatato = {
 
                 if (field === "assetSubGroup" && h.assetType && h.assetType.results) {
                     values = h.assetType.results.map(function (at) {
-                        return window.assetTypeToSubGroupMap[at.Title] || "";
+                        return window.assetTypeToSubGroupMap
+                            ? getMappedAssetValue(window.assetTypeToSubGroupMap, at.Title)
+                            : "";
                     });
                 }
 
                 if (field === "assetTypeGroup" && h.assetType && h.assetType.results) {
                     values = h.assetType.results.map(function (at) {
-                        var sg = window.assetTypeToSubGroupMap[at.Title] || "";
-                        return window.assetTypeGroupMap[sg] || "";
+                        var sg = window.assetTypeToSubGroupMap
+                            ? getMappedAssetValue(window.assetTypeToSubGroupMap, at.Title)
+                            : "";
+                        return window.assetTypeGroupMap
+                            ? getMappedAssetValue(window.assetTypeGroupMap, sg)
+                            : "";
                     });
                 }
 
@@ -858,16 +872,19 @@ formatdatato = {
                 : "";
 
             var subGroupTitle = window.assetTypeToSubGroupMap
-                ? window.assetTypeToSubGroupMap[assetType] || ""
+                ? getMappedAssetValue(window.assetTypeToSubGroupMap, assetType)
                 : "";
 
             var typeGroupName = window.assetTypeGroupMap
-                ? window.assetTypeGroupMap[subGroupTitle] || ""
+                ? getMappedAssetValue(window.assetTypeGroupMap, subGroupTitle)
                 : "";
                 
             h.assetTypeResolved = assetType;
             h.assetSubGroupResolved = subGroupTitle;
             h.assetTypeGroupResolved = typeGroupName;
+            console.log("h.assetTypeResolved: ", h.assetTypeResolved);
+            console.log("h.assetSubGroupResolved: ", h.assetSubGroupResolved);
+            console.log("h.assetTypeGroupResolved: ", h.assetTypeGroupResolved);
 
             
             // var hitem=buildHazardListItem(h);
@@ -1702,6 +1719,99 @@ function hrf(hi, ft, fi, ucanedit, editrequired, val, imgsrc) {
 function printNonEditableField() {}
 
 function printEditableField() {}
+
+function normalizeAssetMapKey(value) {
+    if (value === null || value === undefined) {
+        return "";
+    }
+    return String(value)
+        .toLowerCase()
+        .replace(/^\s*\[[^\]]*\]\s*/g, "")
+        .replace(/[\{\}\(\)\/\\.,&+!?:;\'"-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function getSharePointLookupTitle(value) {
+    if (!value) {
+        return "";
+    }
+
+    if (Array.isArray(value)) {
+        for (var i = 0; i < value.length; i++) {
+            if (value[i] && value[i].Title) {
+                return value[i].Title;
+            }
+        }
+        return "";
+    }
+
+    if (value.results && Array.isArray(value.results)) {
+        for (var j = 0; j < value.results.length; j++) {
+            if (value.results[j] && value.results[j].Title) {
+                return value.results[j].Title;
+            }
+        }
+        return "";
+    }
+
+    if (typeof value === "object" && value.Title) {
+        return value.Title;
+    }
+
+    return String(value);
+}
+
+function getSharePointLookupTitles(value) {
+    if (!value) {
+        return [];
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(function (item) {
+            return item && item.Title ? item.Title : "";
+        }).filter(Boolean);
+    }
+
+    if (value.results && Array.isArray(value.results)) {
+        return value.results.map(function (item) {
+            return item && item.Title ? item.Title : "";
+        }).filter(Boolean);
+    }
+
+    if (typeof value === "object" && value.Title) {
+        return [value.Title];
+    }
+
+    return [String(value)];
+}
+
+function getMappedAssetValue(map, key) {
+    if (!map) {
+        return "";
+    }
+
+    var normalizedKey = normalizeAssetMapKey(key);
+    if (!normalizedKey) {
+        return "";
+    }
+
+    if (map[normalizedKey] !== undefined) {
+        return map[normalizedKey];
+    }
+
+    if (map[key] !== undefined) {
+        return map[key];
+    }
+
+    for (var existingKey in map) {
+        if (normalizeAssetMapKey(existingKey) === normalizedKey) {
+            return map[existingKey];
+        }
+    }
+
+    return "";
+}
 
 function printHazardRow(h) {
     var hc = "pwd";
@@ -2695,13 +2805,28 @@ function printHazardRow(h) {
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
 
+                    console.log("assetType item:", at);
+
                     var subGroup = window.assetTypeToSubGroupMap
-                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        ? getMappedAssetValue(window.assetTypeToSubGroupMap, at.Title)
                         : "";
 
-                    return (window.assetTypeGroupMap && window.assetTypeGroupMap[subGroup])
-                        ? window.assetTypeGroupMap[subGroup]
+                    console.log("Title:", at.Title);
+                    console.log("subGroup:", subGroup);
+
+                    var result = window.assetTypeGroupMap
+                        ? getMappedAssetValue(window.assetTypeGroupMap, subGroup)
                         : "";
+
+                    console.log("assetTypeGroupMap lookup", {
+                        atTitle: at.Title,
+                        subGroup: subGroup,
+                        availableKeys: window.assetTypeGroupMap ? Object.keys(window.assetTypeGroupMap) : [],
+                        result: result,
+                        fullMap: window.assetTypeGroupMap || {}
+                    });
+
+                    return result;
 
                 }).filter(Boolean).join('<br>')
                 : '') +
@@ -2714,7 +2839,7 @@ function printHazardRow(h) {
                 ? h.assetType.results.map(function (at) {
 
                     return window.assetTypeToSubGroupMap
-                        ? window.assetTypeToSubGroupMap[at.Title] || ""
+                        ? getMappedAssetValue(window.assetTypeToSubGroupMap, at.Title)
                         : "";
 
                 }).filter(Boolean).join('<br>')
