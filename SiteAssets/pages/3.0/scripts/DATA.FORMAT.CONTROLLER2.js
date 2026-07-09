@@ -240,8 +240,8 @@ formatdatato = {
 
 
                     var allowedExpands = [
-                        "CurrentMitigationOwner",
-                        "CurrentReviewOwner",
+                        //"CurrentMitigationOwner",
+                        //"CurrentReviewOwner",
                         "cdmSite",
                         "cdmPWStructure",
                         "cdmHazardOwner",
@@ -250,7 +250,9 @@ formatdatato = {
                         "cdmStage",
                         "cdmStageExtra",
                         "cdmPWElement",
-                        "assetType"
+                        "assetType",
+                        "Author",
+                        "Editor"
                     ];
 
                     if ((ft[i] == 7 || ft[i] == 20) && allowedExpands.includes(ti)) {
@@ -434,8 +436,8 @@ formatdatato = {
             .done(function() {
                 var od = "OData_";
                 var allowedExpands = [
-                    "CurrentMitigationOwner",
-                    "CurrentReviewOwner",
+                    //"CurrentMitigationOwner",
+                    //"CurrentReviewOwner",
                     "cdmSite",
                     "cdmPWStructure",
                     "cdmHazardOwner",
@@ -444,7 +446,9 @@ formatdatato = {
                     "cdmStage",
                     "cdmStageExtra",
                     "cdmPWElement",
-                    "assetType"
+                    "assetType",
+                    "Author",
+                    "Editor"
                 ];
                 for (var i = 0; i < fa.length; i++) {
                     var ti = fa[i];
@@ -1719,21 +1723,21 @@ function printHazardRow(h) {
     }
     var mitsdisplay = "";
     var revsdisplay = "";
-    var mitsowner = h.CurrentMitigationOwner.Title;
-    var revsowner = h.CurrentReviewOwner.Title;
-    var moi = h.CurrentMitigationOwner.ID;
-    var roi = h.CurrentReviewOwner.ID;
-    if (!moi) {
-        mitsdisplay = "";
-    } else {
-        mitsdisplay = "last assessed by: " + mitsowner;
-    }
+    // var mitsowner = h.CurrentMitigationOwner.Title;
+    // var revsowner = h.CurrentReviewOwner.Title;
+    // var moi = h.CurrentMitigationOwner.ID;
+    // var roi = h.CurrentReviewOwner.ID;
+    // if (!moi) {
+    //     mitsdisplay = "";
+    // } else {
+    //     mitsdisplay = "last assessed by: " + mitsowner;
+    // }
 
-    if (!roi) {
-        revsdisplay = "";
-    } else {
-        revsdisplay = "last reviewed by: " + revsowner;
-    }
+    // if (!roi) {
+    //     revsdisplay = "";
+    // } else {
+    //     revsdisplay = "last reviewed by: " + revsowner;
+    // }
 
     var pws = h.cdmPWStructure.Title;
     if (!pws) {
