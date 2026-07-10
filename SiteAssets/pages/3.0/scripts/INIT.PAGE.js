@@ -104,7 +104,7 @@ function setUpHomeNav() {
 
 //write function setup guidance nav
 function setUpGuidanceNav(){
-    $('#guidance-buttons').html(`<a class = "home-button" href="https://pwlink.bentley.com/link?ds=ewrco-pw.bentley.com~3Aewrco-pw-04&doc=46c422284b7743f290bc563ae6dc382e&wa=bb23e83f64544931b077d60fb77bc2b8&p=13ab3cb6cc7d45ae955eba4c0d2906b9&app=pwe" target="_blank" >Guidance</a>
+    $('#guidance-buttons').html(`<a class = "home-button" href="https://pwlink.bentley.com/link?ds=ewrco-pw.bentley.com~3Aewrco-pw-04&doc=6d4dff54056c463980ccd9aea7c7f1b7&wa=bb23e83f64544931b077d60fb77bc2b8&p=13ab3cb6cc7d45ae955eba4c0d2906b9" target="_blank" >Guidance</a>
     <a class = "home-button" href="https://sway.cloud.microsoft/XhyNgVtPohj4vNKo" target="_blank" >Introduction</a>`);
 }
 
