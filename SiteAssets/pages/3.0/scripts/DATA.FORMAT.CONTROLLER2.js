@@ -1525,7 +1525,7 @@ function printHazardRow(h) {
     }
     var o = h.cdmHazardOwner.Title;
     var coord = h.cdmHazardCoordinates;
-    var hasSignificant = h.cdmSignificant.Title;
+    var hasSignificant = h.cdmSignificant && h.cdmSignificant != "undefined";
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
@@ -1537,7 +1537,7 @@ function printHazardRow(h) {
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
     }
 
-    if (!coord && hasSignificant == "Significant") {
+    if (!coord && hasSignificant) {
         warning +=
             '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
@@ -1653,7 +1653,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1672,7 +1672,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1691,7 +1691,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under peer review')){
                         rucp = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant.Title == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -2243,7 +2243,7 @@ function printHazardRow(h) {
     var contracts ='';
     var PASRiskClassification ='';
     var hiddenrail ='';
-    var significantMarker = (h.cdmSignificant && h.cdmSignificant.Title) || "";
+    var significantMarker = h.cdmSignificant || "";
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }

@@ -302,17 +302,8 @@ cdmdata = {
                 var t = data[cc].toString().split("|");
                 var f = t[0];
                 var v = t[1];
-                var title = t.length > 2 ? t[2] : v;
-                var displayValue = v;
 
-                if (f === "cdmSignificant") {
-                    displayValue = await getLookupDisplayValue("cdmSignificant", v);
-                    displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
-                } else {
-                    displayValue = title;
-                }
-
-                hdata.push("field " + f + " to value " + displayValue);
+                hdata.push("field " + f + " to value " + v);
 
                 oListItem.set_item(f, v);
 
@@ -828,17 +819,8 @@ tposdata = {
                 var t = data[cc].toString().split("|");
                 var f = t[0];
                 var v = t[1];
-                var title = t.length > 2 ? t[2] : v;
-                var displayValue = v;
 
-                if (f == "cdmSignificant") {
-                    displayValue = await getLookupDisplayValue("cdmSignificant", v);
-                    displayValue = displayValue === undefined || displayValue === null || displayValue === "" ? title : displayValue;
-                } else {
-                    displayValue = title;
-                }
-
-                hdata.push("updated field " + f + " to values " + displayValue);
+                hdata.push("updated field " + f + " to values " + v);
 
                 oListItem.set_item(f, v);
 

@@ -2019,9 +2019,9 @@ function activateHazardEdits() {
                         var cv = $(this).html();
                         var tdata = [];
                         if (cv == "Significant") {
-                            tdata.push("cdmSignificant|2");
+                            tdata.push("cdmSignificant|Non-Significant");
                         } else {
-                            tdata.push("cdmSignificant|1");
+                            tdata.push("cdmSignificant|Significant");
                         }
                         toastr.success("Toggling hazard between significant and non-significant");
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -3098,7 +3098,7 @@ function tposSelectUniclass(lst, data, trg) {
         if (dv === "Eliminated") {
             tdata.push("cdmResidualRisk|0-Eliminated-clr_6^0-Eliminated^0-Eliminated");
             tdata.push("cdmResidualRiskScore|0");
-            tdata.push("cdmSignificant|2"); // Eliminated risks are non-significant
+            tdata.push("cdmSignificant|Non-Significant"); // Eliminated risks are non-significant
         }
 
         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
