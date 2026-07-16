@@ -1392,12 +1392,14 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250">coordinates</td>' +
+        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">htags</td>' +
         '                    <td class="width-250">utags</td>' +
         '                    <td class="width-250">links</td>' +
@@ -1522,14 +1524,22 @@ function printHazardRow(h) {
         '<span class="cell cdmPWElement">' + h.cdmPWElement.Title + "</span>";
     }
     var o = h.cdmHazardOwner.Title;
+    var coord = h.cdmHazardCoordinates;
+    var hasSignificant = h.cdmSignificant && h.cdmSignificant != "undefined";
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
     var permissions = "";
+
     if (!o) {
         o = '<span class="clr_5">Unassigned</span>';
-        warning =
+        warning +=
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
+    }
+
+    if (!coord && hasSignificant) {
+        warning +=
+            '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
 
     var revstatus = h.cdmCurrentStatus;
@@ -1643,7 +1653,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1662,7 +1672,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 2;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1681,7 +1691,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under peer review')){
                         rucp = 1;
                     }  
-                    if(workflowStates.includes('Under pre-construction review')){
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmSignificant == "Significant"){ // BBV requested only significant hazards to go beyond workflow stage 3
                         rucpc = 2;
                     }
                     if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
@@ -1710,7 +1720,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
                         rucs = 2;
                     }  
-                    break;   
+                    break;                    
                     
                 case('Under principal designer review'):
                     rucl = 3;
@@ -1751,6 +1761,27 @@ function printHazardRow(h) {
                     break; 
 
                 case('Accepted'):
+                    if(workflowStates.includes('Requires mitigation')){
+                        ruce = 1;
+                    }
+                    if(workflowStates.includes('Under peer review')){
+                        rucp = 1;
+                    }   
+                    if(workflowStates.includes('Under design manager review')){
+                        rucd = 1;
+                    }  
+                    if(workflowStates.includes('Under pre-construction review') && h.cdmLastReviewStatus == "Pre-construction review completed"){
+                        rucpc = 1;
+                    } 
+                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                        rucl = 1;
+                    }  
+                    if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
+                        rucs = 1;
+                    }  
+                    break;
+                
+                case('Communicated to construction team'): // BBV requested that review actions are removed from workflow stage 4 hence this new workflow stage
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
                     }
@@ -1818,7 +1849,12 @@ function printHazardRow(h) {
 
         }
 
-            if (revstatus != "Accepted" && revstatus != `Ready for review by ${configData['Client Name']}` && revstatus != `Accepted by ${configData['Client Name']}`) {
+            if (
+                revstatus != "Accepted" &&
+                revstatus != `Ready for review by ${configData['Client Name']}` &&
+                revstatus != `Accepted by ${configData['Client Name']}` &&
+                revstatus != "Communicated to construction team"
+            ) {
                 // We need to work out which stages of the workflow are editable - this is read from the config file
                 const editableWorkflowStages = [].concat(
                     configData['Peer review editable workflow state'] ? ['Under peer review'] : []
@@ -2107,11 +2143,21 @@ function printHazardRow(h) {
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
+                }
+                if (revstatus == "Communicated to construction team") { // Workflow stage 4 but with no review actions. Requested by BBV.
+                    if (configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0) {
+                        uce = 1;
+                    }
+                    if (hc != "ra") {
+                        updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
+                    } else { // RAMS
+                        (ruce = 1), (rucp = 1), (rucs = 1);
+                    }
                     if (configData['Client Review']) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
-                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing. You can still advance this hazard to client review.</div>';
+                        warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits and advance this hazard to client review.</div>';
                     } else {
-                        warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
+                        warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits.</div>';
                     }
                 }
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
@@ -2189,6 +2235,7 @@ function printHazardRow(h) {
         legid = '<div class="cell lg">Legacy: ' + h.cdmLegacyId + '</div>';
 
     }
+
     var haztags = '';
     var unitags = '';
     var links = '';
@@ -2196,6 +2243,7 @@ function printHazardRow(h) {
     var contracts ='';
     var PASRiskClassification ='';
     var hiddenrail ='';
+    var significantMarker = h.cdmSignificant || "";
     if (h.cdmHazardTags) { haztags = h.cdmHazardTags; }
     if (h.cdmUniclass) { unitags = h.cdmUniclass; }
     if (h.cdmLinks) { links = h.cdmLinks; }
@@ -2529,6 +2577,9 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
+        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
+        "                    </td>" +
+        '                    <td class="width-250">' +
         '                        <div class="lbl">Hazard tags</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
@@ -2544,6 +2595,13 @@ function printHazardRow(h) {
         decodeCoordinates(h.cdmHazardCoordinates, uce, h.ID) +
         "</div>" +
         "                    </td>" +
+
+        '                    <td class="width-250 fld">' +
+        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
+        significantMarker +
+        "</div>" +
+        "                    </td>" +
+        
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmHazardTags pointer" title="Click to assign a hazard tag">' +
         haztags +
@@ -2774,6 +2832,10 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
     var rrlt = rr3data[1];
 
     var bclr = "tpos-border-right-Green";
+    if (rrclr == "clr_6") {
+        rrrclr = "tpos-border-risk-Blue";
+        bclr = "tpos-border-right-Blue";
+    }
     if (rrclr == "clr_5") {
         rrrclr = "tpos-border-risk-Red";
         bclr = "tpos-border-right-Red";
@@ -2828,46 +2890,46 @@ function decodeRisk(tp, rr, clr, dynamic=false) {
 function decodeCoordinates(str, uce, hid) {
     var strings = [];
     var eds = "";
-    if (!str || str == "") {
+
+    if (!str || str === "undefined" || str === undefined) {
         if (uce == 0) {
-            return;
-            //return "";
+            return "";
         } else {
             return '<div title="Manage coordinates"> + </div>';
         }
-    } else {
-        // if we get a string of coordinates
-        strings = str.split("^");
-        var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
-
-        for (var i = 0; i < strings.length; i++) {
-            var string = strings[i];
-            var st = string.split(",");
-            var x = st[0];
-            var y = st[1];
-            var z = st[2];
-
-            if (string != "") {
-                t +=
-                    '<tr class="ctagtd"><td class="ctagtd">' +
-                    x +
-                    '</td><td class="ctagtd">' +
-                    y +
-                    '</td><td class="ctagtd">' +
-                    z +
-                    "</td></tr>";
-            }
-        }
-        var ctags =
-            '<table class="width-250 centered" title="Click to manage coordinates">' +
-            t +
-            '</table><div class="hide" id="h_' +
-            hid +
-            '_fullco">' +
-            str +
-            "</div>";
-        return ctags;
     }
+
+    strings = str.split("^");
+    var t = "<tr><th>x</th><th>y</th><th>z</th></tr>";
+
+    for (var i = 0; i < strings.length; i++) {
+        var string = strings[i];
+        var st = string.split(",");
+        var x = st[0];
+        var y = st[1];
+        var z = st[2];
+
+        if (string != "") {
+            t +=
+                '<tr class="ctagtd"><td class="ctagtd">' +
+                x +
+                '</td><td class="ctagtd">' +
+                y +
+                '</td><td class="ctagtd">' +
+                z +
+                "</td></tr>";
+        }
+    }
+
+    return (
+        '<table class="width-250 centered" title="Click to manage coordinates">' +
+        t +
+        '</table><div class="hide" id="h_' +
+        hid +
+        '_fullco">' +
+        str +
+        "</div>"
+    );
 }
 
 function printDate(role, username, date) {

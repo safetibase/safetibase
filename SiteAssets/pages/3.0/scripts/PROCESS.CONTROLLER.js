@@ -1525,7 +1525,7 @@ function activateHazardEdits() {
             var ucanprecon = 0;
             var ucansmreview = 0;
             var ucanldreview = 0;
-            toastr.warning('registered');
+            //toastr.warning('registered');
 
             var hi = $(this)
                 .parents(".row-hazard")
@@ -2014,6 +2014,18 @@ function activateHazardEdits() {
                                 $("#pops").remove();
                             });
                         // activateCoordinatesSave();
+                    }
+                    if (fld == "cdmSignificant") {
+                        var cv = $(this).html();
+                        var tdata = [];
+                        if (cv == "Significant") {
+                            tdata.push("cdmSignificant|Non-Significant");
+                        } else {
+                            tdata.push("cdmSignificant|Significant");
+                        }
+                        toastr.success("Toggling hazard between significant and non-significant");
+                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                        $("#pops").remove();
                     }
                     if (fld == "cdmHazardTags") {
                         gimmepops(
@@ -3080,7 +3092,15 @@ function tposSelectUniclass(lst, data, trg) {
         // $('#h_'+hzd+'_cdmHazardOwnerTitle').html(dv);
         // $('#h_'+hzd+'_cdmHazardOwner').val(dvid);
         var tdata = [];
+
         tdata.push("cdmUniclass|" + dv);
+
+        if (dv === "Eliminated") {
+            tdata.push("cdmResidualRisk|0-Eliminated-clr_6^0-Eliminated^0-Eliminated");
+            tdata.push("cdmResidualRiskScore|0");
+            tdata.push("cdmSignificant|Non-Significant"); // Eliminated risks are non-significant
+        }
+
         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
         $("#pops").remove();
     });
@@ -4679,19 +4699,34 @@ function hazardreviewbuttonaction() {
                                             nl = nl + hist;
                                         }
                                         tdata.push("cdmReviews|" + nl);
-                                        tdata.push(
-                                            `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
-                                        );
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
                                             "cdmLastReviewStatus|Design manager review - approved"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
+
+                                        // BBV have requested that insginificant hazrds stop at this stage and significant hazards are communicated to them, but not reviewed by them.
+                                        // We need to add two new workflow states for this: "Design manager approved" and "Communicated to construction team". The config workflow object 
+                                        // assumes one possible transition state so the best option is to add the transition to the new workflow states in here.
+                                        const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim();
+                                        const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
+                                        if (!significantState) { // No significant state defined: the user is prompted to fill this in before they can continue
+                                            toastr.error("You must mark the hazard as Significant or Non-Significant before you can continue");
+                                            $("#pops").remove();
+                                            return;
+                                        } else if (significantState === "Non-Significant") { // Non-Significant: hazard goes to Design manager approved state
+                                            tdata.push("cdmCurrentStatus|Accepted");
+                                        } else if (significantState === "Significant" && !hasCooordinates) { // Significant and no coordinates: the user is prompted to add coordinates before they can continue
+                                            $("#pops").remove();
+                                            toastr.error("Coordinates are required for significant hazards. Please add coordinates before you can continue.");
+                                            return;
+                                        } else if (significantState === "Significant" && hasCooordinates) { // Significant and has coordinates: the hazards goes to Communicated to construction team state
+                                            tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                        }
+
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                                         $("#pops").remove();
                                     }
-                                    // cdmdata.update('cdmHazards',tdata,'frmedit_updateview');
-                                    // $('#pops').remove();
                                 });
                         }
                     );

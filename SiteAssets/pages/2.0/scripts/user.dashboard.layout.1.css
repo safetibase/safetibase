@@ -754,6 +754,16 @@ a.ms-tv-header:hover {
     border-right: 8px solid rgb(0, 255, 0);
 }
 
+.tpos-border-right-Blue {
+    border-right: 8px solid rgb(16, 31, 198);
+}
+
+.tpos-border-risk-Blue {
+    border: 1px solid rgb(16, 31, 198);
+    border-right: 8px solid rgb(16, 31, 198);
+    background-color: rgb(153, 159, 224);
+}
+
 .tpos-border-risk-Red {
     border: 1px solid rgb(255, 0, 0);
     border-right: 8px solid rgb(255, 0, 0);
@@ -1120,6 +1130,13 @@ a.ms-tv-header:hover {
     color: rgb(160, 160, 160);
 }
 
+.clr_6 {
+    background-color: rgba(255, 23, 20, 0.1);
+    border: 1px dotted rgb(52, 77, 236);
+    color: rgb(160, 160, 160);
+}
+
+
 .clr_1:hover {
     background-color: rgba(55, 229, 0, 0.5);
     border: 1px solid rgb(55, 229, 0);
@@ -1155,6 +1172,14 @@ a.ms-tv-header:hover {
     cursor: pointer;
 }
 
+.clr_6:hover {
+    background-color: rgba(47, 61, 208, 0.5);
+    border: 1px solid rgb(86, 112, 241);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+
 .clr_1_active {
     background-color: rgba(55, 229, 0, 0.5);
     border: 1px solid rgb(55, 229, 0);
@@ -1184,6 +1209,13 @@ a.ms-tv-header:hover {
     border: 1px solid rgb(255, 23, 20);
     color: rgb(255, 255, 255);
 }
+
+.clr_6_active {
+    background-color: rgba(47, 61, 208, 0.5);
+    border: 1px solid rgb(86, 112, 241);
+    color: rgb(255, 255, 255);
+}
+
 
 .sevs,
 .liks {
