@@ -340,9 +340,6 @@ formatdatato = {
                                     var assetTypes = results[0].d.results;
                                     var assetSubGroups = results[1].d.results;
 
-                                    console.log("assetTypes response", assetTypes);
-                                    console.log("assetSubGroups response", assetSubGroups);
-
                                     var assetTypeToSubGroupMap = {};
                                     var assetTypeGroupMap = {};
 
@@ -352,7 +349,6 @@ formatdatato = {
                                         var subGroup = getSharePointLookupTitle(item.AssetSubGroup);
                                         var normalizedType = normalizeAssetMapKey(type);
 
-                                        console.log("asset type mapping", { type: type, subGroup: subGroup, rawAssetSubGroup: item.AssetSubGroup });
                                         if (normalizedType) {
                                             assetTypeToSubGroupMap[normalizedType] = subGroup;
                                         }
@@ -366,16 +362,12 @@ formatdatato = {
                                         var normalizedSubGroup = normalizeAssetMapKey(subGroup);
                                         var group = getSharePointLookupTitles(item.AssetTypeGroup).join(", ");
 
-                                        console.log("asset subgroup mapping", { subGroup: subGroup, group: group, rawAssetTypeGroup: item.AssetTypeGroup });
                                         if (normalizedSubGroup) {
                                             assetTypeGroupMap[normalizedSubGroup] = group;
                                         }
                                         assetTypeGroupMap[subGroup] = group;
 
                                     });
-
-                                    console.log("assetTypeToSubGroupMap created", assetTypeToSubGroupMap);
-                                    console.log("assetTypeGroupMap created", assetTypeGroupMap);
 
                                     window.assetTypeToSubGroupMap = assetTypeToSubGroupMap;
                                     window.assetTypeGroupMap = assetTypeGroupMap;
@@ -632,12 +624,9 @@ formatdatato = {
                 '<td id="s_ua_' +
                 si +
                 '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                // '<td id="s_ne_' +
-                // si +
-                // '"><i class="fa fa-spinner fa-spin"></i></td>' +
-                // '<td id="s_ur_' +
-                // si +
-                // '"><i class="fa fa-spinner fa-spin"></i></td>' +
+                '<td id="s_ur_' +
+                si +
+                '"><i class="fa fa-spinner fa-spin"></i></td>' +
                 "</tr>";
             sa.push(si);
             stit.push(st);
@@ -645,12 +634,11 @@ formatdatato = {
     
         $("#" + trg).html(row);
         var fa = [
-            //"cdmPWStructure/ID ne null",
             "cdmTW ne null",
             "cdmRAMS ne null",
             "cdmResidualRiskScore gt 9",
             "cdmHazardOwner/ID eq null",
-            //"cdmPWStructure/ID ne null and cdmPWElement/ID eq null",
+            "startswith(cdmCurrentStatus,'Under')",
             "startswith(cdmCurrentStatus,'Under')"
             ];
 
@@ -660,15 +648,11 @@ formatdatato = {
             "RAMS hazards",
             "High (residual) risk hazards",
             "Unassigned hazards",
-            "Permanent works hazards without element",
             "Under review"
         ];
 
-        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", //"s_ne_", "s_ur_"
-
-        ];
-        var fclr = ["pwd", "twd", "ra", "red", "red", //"red", "blue"
-        ];
+        var ftrg = ["s_pw_", "s_tw_", "s_ra_", "s_hr_", "s_ua_", "s_ur_"];        
+        var fclr = ["pwd", "twd", "ra", "red", "red", "blue"];
         for (var dd = 0; dd < sa.length; dd++) {
             for (var ee = 0; ee < fa.length; ee++) {
                 var filtered_data = filterFullDataset(allHazards, sa[dd], ee);
@@ -806,19 +790,11 @@ formatdatato = {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
-                    break;W
+                    break;
                 case 5:
                     for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id 
-                            //&& full_dataset[i].cdmPWStructure.ID != null 
-                            && full_dataset[i].cdmPWElement.ID == null) {
-                            filteredDataset.push(full_dataset[i]);
-                        }
-                    }
-                    break;
-                case 6:
-                    for (var i = 0; i < full_dataset.length; i++) {
-                        if (full_dataset[i].cdmSite.ID == sublot_id && full_dataset[i].cdmCurrentStatus.startsWith("Under")) {
+                        var currentStatus = full_dataset[i].cdmCurrentStatus;
+                        if (full_dataset[i].cdmSite.ID == sublot_id && currentStatus && String(currentStatus).startsWith("Under")) {
                             filteredDataset.push(full_dataset[i]);
                         }
                     }
@@ -882,10 +858,6 @@ formatdatato = {
             h.assetTypeResolved = assetType;
             h.assetSubGroupResolved = subGroupTitle;
             h.assetTypeGroupResolved = typeGroupName;
-            console.log("h.assetTypeResolved: ", h.assetTypeResolved);
-            console.log("h.assetSubGroupResolved: ", h.assetSubGroupResolved);
-            console.log("h.assetTypeGroupResolved: ", h.assetTypeGroupResolved);
-
             
             // var hitem=buildHazardListItem(h);
             var hitem = printHazardRow(h);
@@ -2805,26 +2777,13 @@ function printHazardRow(h) {
             (h.assetType && h.assetType.results
                 ? h.assetType.results.map(function (at) {
 
-                    console.log("assetType item:", at);
-
                     var subGroup = window.assetTypeToSubGroupMap
                         ? getMappedAssetValue(window.assetTypeToSubGroupMap, at.Title)
                         : "";
 
-                    console.log("Title:", at.Title);
-                    console.log("subGroup:", subGroup);
-
                     var result = window.assetTypeGroupMap
                         ? getMappedAssetValue(window.assetTypeGroupMap, subGroup)
                         : "";
-
-                    console.log("assetTypeGroupMap lookup", {
-                        atTitle: at.Title,
-                        subGroup: subGroup,
-                        availableKeys: window.assetTypeGroupMap ? Object.keys(window.assetTypeGroupMap) : [],
-                        result: result,
-                        fullMap: window.assetTypeGroupMap || {}
-                    });
 
                     return result;
 
