@@ -648,6 +648,7 @@ formatdatato = {
             "RAMS hazards",
             "High (residual) risk hazards",
             "Unassigned hazards",
+            //"Permanent works hazards without element",
             "Under review"
         ];
 
