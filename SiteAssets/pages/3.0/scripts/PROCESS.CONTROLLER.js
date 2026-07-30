@@ -4709,19 +4709,73 @@ function hazardreviewbuttonaction() {
                                         // We need to add two new workflow states for this: "Design manager approved" and "Communicated to construction team". The config workflow object 
                                         // assumes one possible transition state so the best option is to add the transition to the new workflow states in here.
                                         const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim();
+                                        const currentStatus = $("#h_" + hzd + " .cdmUniclass").first().text().trim();
+                                        const projectStage = $("#h_" + hzd + " .cdmStage").first().text().trim().toLowerCase();
                                         const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
-                                        if (!significantState) { // No significant state defined: the user is prompted to fill this in before they can continue
+
+                                        if (!significantState) {
+                                            // No significant state defined
                                             toastr.error("You must mark the hazard as Significant or Non-Significant before you can continue");
                                             $("#pops").remove();
                                             return;
-                                        } else if (significantState === "Non-Significant") { // Non-Significant: hazard goes to Design manager approved state
+                                        }
+
+                                        if (significantState === "Non-Significant") {
+
+                                            // Non-Significant hazards must be Eliminated, Cancelled or Mitigated
+                                            const validStatuses = ["Eliminated", "Cancelled", "Mitigated"];
+
+                                            if (!validStatuses.includes(currentStatus)) {
+                                                toastr.error(
+                                                    "Non-Significant hazards must have a status of Eliminated, Cancelled or Mitigated before progressing."
+                                                );
+                                                $("#pops").remove();
+                                                return;
+                                            }
+
                                             tdata.push("cdmCurrentStatus|Accepted");
-                                        } else if (significantState === "Significant" && !hasCooordinates) { // Significant and no coordinates: the user is prompted to add coordinates before they can continue
-                                            $("#pops").remove();
-                                            toastr.error("Coordinates are required for significant hazards. Please add coordinates before you can continue.");
-                                            return;
-                                        } else if (significantState === "Significant" && hasCooordinates) { // Significant and has coordinates: the hazards goes to Communicated to construction team state
-                                            tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                        }
+                                        else if (significantState === "Significant") {
+
+                                            // Significant hazards require coordinates
+                                            if (!hasCooordinates) {
+                                                toastr.error(
+                                                    "Coordinates are required for significant hazards. Please add coordinates before you can continue."
+                                                );
+                                                $("#pops").remove();
+                                                return;
+                                            }
+
+                                            // Significant + Construction = automatically transfer to BBV
+                                            if (projectStage === "construction") {
+                                                tdata.push("cdmCurrentStatus|For transfer to BBV");
+                                            }
+
+                                            // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
+                                            else if (
+                                                projectStage === "operation" ||
+                                                projectStage === "maintenance"
+                                            ) {
+
+                                                const isTransferStatus =
+                                                    currentStatus.startsWith("For transfer to") &&
+                                                    currentStatus !== "For transfer to BBV";
+
+                                                if (!isTransferStatus) {
+                                                    toastr.error(
+                                                        "Significant hazards in Operations or Maintenance must have a status of 'For transfer to <company>' (not BBV) before progressing."
+                                                    );
+                                                    $("#pops").remove();
+                                                    return;
+                                                }
+
+                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                            }
+
+                                            // Significant + any other stage = no additional validation
+                                            else {
+                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                            }
                                         }
 
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
