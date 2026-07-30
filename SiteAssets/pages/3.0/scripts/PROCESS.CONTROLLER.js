@@ -1560,7 +1560,7 @@ function activateHazardEdits() {
             var hc = $("#" + hi + " .row-header").html();
             var o = $("#" + hi + " .cdmHazardOwner").html();
             var s = $("#" + hi + " .cdmSite").html();
-            //var stage = $("#" + hi + " .cdmStageExtra").html();
+            var stage = $("#" + hi + " .cdmStageExtra").html();
             var lastrevstatus = $("#" + hi + " .cdmLastReviewStatus").html();
             var revstatus = $("#" + hi + " .cdmCurrentStatus").html();
             var mitigationowner=$('#'+hi+' .CurrentMitigationOwner').html();
