@@ -4711,6 +4711,7 @@ function hazardreviewbuttonaction() {
                                         const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim();
                                         const currentStatus = $("#h_" + hzd + " .cdmUniclass").first().text().trim();
                                         const projectStage = $("#h_" + hzd + " .cdmStage").first().text().trim().toLowerCase();
+                                        const normalizedProjectStage = projectStage.replace(/\s+/g, "");
                                         const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
 
                                         if (!significantState) {
@@ -4747,14 +4748,16 @@ function hazardreviewbuttonaction() {
                                             }
 
                                             // Significant + Construction = automatically transfer to BBV
-                                            if (projectStage === "construction") {
+                                            if (normalizedProjectStage === "construction") {
                                                 tdata.push("cdmCurrentStatus|For transfer to BBV");
                                             }
 
                                             // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
                                             else if (
-                                                projectStage === "operation" ||
-                                                projectStage === "maintenance"
+                                                normalizedProjectStage === "operation" ||
+                                                normalizedProjectStage === "operations" ||
+                                                normalizedProjectStage === "maintenance" ||
+                                                normalizedProjectStage === "maintenances"
                                             ) {
 
                                                 const isTransferStatus =
