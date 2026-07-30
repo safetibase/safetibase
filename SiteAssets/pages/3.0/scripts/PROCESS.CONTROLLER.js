@@ -4710,7 +4710,7 @@ function hazardreviewbuttonaction() {
                                         // assumes one possible transition state so the best option is to add the transition to the new workflow states in here.
                                         const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim();
                                         const currentStatus = $("#h_" + hzd + " .cdmUniclass").first().text().trim();
-                                        const projectStage = $("#h_" + hzd + " .cdmStage").first().text().trim().toLowerCase();
+                                        const projectStage = $("#h_" + hzd + " .cdmStageExtra").first().text().trim().toLowerCase();
                                         const normalizedProjectStage = projectStage.replace(/\s+/g, "");
                                         const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
 
@@ -4746,10 +4746,9 @@ function hazardreviewbuttonaction() {
                                                 $("#pops").remove();
                                                 return;
                                             }
-
-                                            console.log("normalizedProjectStage",normalizedProjectStage)
+                                            
                                             // Significant + Construction = automatically transfer to BBV
-                                            if (normalizedProjectStage === "construction" && currentStatus !== "For transfer to BBV") {
+                                            if (normalizedProjectStage.includes("construction") && currentStatus !== "For transfer to BBV") {
                                                 toastr.error(
                                                     "Significant hazards in Construction stage must have a status of 'For transfer to BBV' before progressing."
                                                 );
