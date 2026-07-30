@@ -4747,9 +4747,14 @@ function hazardreviewbuttonaction() {
                                                 return;
                                             }
 
+                                            console.log("normalizedProjectStage",normalizedProjectStage)
                                             // Significant + Construction = automatically transfer to BBV
-                                            if (normalizedProjectStage === "construction") {
-                                                tdata.push("cdmUniclass|For transfer to BBV");
+                                            if (normalizedProjectStage === "construction" && currentStatus !== "For transfer to BBV") {
+                                                toastr.error(
+                                                    "Significant hazards in Construction stage must have a status of 'For transfer to BBV' before progressing."
+                                                );
+                                                $("#pops").remove();
+                                                return;
                                             }
 
                                             // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
