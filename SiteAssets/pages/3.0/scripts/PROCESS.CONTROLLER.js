@@ -4755,7 +4755,7 @@ function hazardreviewbuttonaction() {
                                             // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
                                             else if (
                                                 normalizedProjectStage === "operation" ||
-                                                normalizedProjectStage === "maintenance" ||
+                                                normalizedProjectStage === "maintenance"
                                             ) {
 
                                                 const isTransferStatus =
