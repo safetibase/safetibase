@@ -1505,6 +1505,40 @@ function activateHazardOwnerEdit() {
         });
 }
 var hzd = 0;
+
+function syncSignificantTransferStatus(targetHazardId, significantState, stageText) {
+    const normalizedProjectStage = (stageText || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "");
+    const statusSelector = `#h_${targetHazardId} .cdmUniclass`;
+
+    if (significantState !== "Significant" || !normalizedProjectStage.includes("construction")) {
+        return $.Deferred().resolve(null).promise();
+    }
+
+    return getListItemsByListName({
+        listName: "cdmStatus",
+        select: "Title,ID",
+        expansion: null,
+        order: null,
+        filter: ""
+    }).then(r => {
+        const statusItems = r && r.d && r.d.results ? r.d.results : [];
+        const transferStatusItem = statusItems.find(item => {
+            const title = (item.Title || "").toLowerCase();
+            return title.includes("transfer") && title.includes("bbv");
+        });
+
+        if (!transferStatusItem || !transferStatusItem.Title) {
+            return null;
+        }
+
+        const transferStatus = transferStatusItem.Title;
+        $(statusSelector).first().text(transferStatus);
+        return transferStatus;
+    }).fail(() => null);
+}
 // function setUAID(k){
 //     //alert(k);
 
@@ -2017,15 +2051,27 @@ function activateHazardEdits() {
                     }
                     if (fld == "cdmSignificant") {
                         var cv = $(this).html();
+                        var nextSignificantState = cv == "Significant" ? "Non-Significant" : "Significant";
                         var tdata = [];
+                        var stage = $("#" + hi + " .cdmStageExtra").first().text().trim();
+
                         if (cv == "Significant") {
                             tdata.push("cdmSignificant|Non-Significant");
+                            toastr.success("Toggling hazard between significant and non-significant");
+                            cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                            $("#pops").remove();
                         } else {
                             tdata.push("cdmSignificant|Significant");
+                            toastr.success("Toggling hazard between significant and non-significant");
+
+                            syncSignificantTransferStatus(id, nextSignificantState, stage).then(function(transferStatus) {
+                                if (transferStatus) {
+                                    tdata.push("cdmUniclass|" + transferStatus);
+                                }
+                                cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                                $("#pops").remove();
+                            });
                         }
-                        toastr.success("Toggling hazard between significant and non-significant");
-                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        $("#pops").remove();
                     }
                     if (fld == "cdmHazardTags") {
                         gimmepops(
