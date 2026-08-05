@@ -4771,8 +4771,7 @@ function hazardreviewbuttonaction() {
                                         if (significantState === "Non-Significant") {
 
                                             // Non-Significant hazards must be Eliminated, Cancelled or Mitigated
-                                            const validStatuses = ["Eliminated", "Cancelled", "Mitigated"];
-
+                                            const validStatuses = ["eliminated", "cancelled", "mitigated"];
                                             if (!validStatuses.includes(currentStatus)) {
                                                 toastr.error(
                                                     "Non-Significant hazards must have a status of Eliminated, Cancelled or Mitigated before progressing."
@@ -4815,7 +4814,7 @@ function hazardreviewbuttonaction() {
 
                                                 if (!isTransferStatus) {
                                                     toastr.error(
-                                                        "Significant hazards in Operations or Maintenance must have a status of 'For transfer to <company>' (not BBV) before progressing."
+                                                        "Significant hazards in Operations or Maintenance must have a status of 'For transfer to &lt;company (not BBV)&gt;' before progressing."
                                                     );
                                                     $("#pops").remove();
                                                     return;
