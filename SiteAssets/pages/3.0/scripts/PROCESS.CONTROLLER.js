@@ -1505,6 +1505,40 @@ function activateHazardOwnerEdit() {
         });
 }
 var hzd = 0;
+
+function syncSignificantTransferStatus(targetHazardId, significantState, stageText) {
+    const normalizedProjectStage = (stageText || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "");
+    const statusSelector = `#h_${targetHazardId} .cdmUniclass`;
+
+    if (significantState !== "Significant" || !normalizedProjectStage.includes("construction")) {
+        return $.Deferred().resolve(null).promise();
+    }
+
+    return getListItemsByListName({
+        listName: "cdmStatus",
+        select: "Title,ID",
+        expansion: null,
+        order: null,
+        filter: ""
+    }).then(r => {
+        const statusItems = r && r.d && r.d.results ? r.d.results : [];
+        const transferStatusItem = statusItems.find(item => {
+            const title = (item.Title || "").toLowerCase();
+            return title.includes("transfer") && title.includes("bbv");
+        });
+
+        if (!transferStatusItem || !transferStatusItem.Title) {
+            return null;
+        }
+
+        const transferStatus = transferStatusItem.Title;
+        $(statusSelector).first().text(transferStatus);
+        return transferStatus;
+    }).fail(() => null);
+}
 // function setUAID(k){
 //     //alert(k);
 
@@ -2017,15 +2051,27 @@ function activateHazardEdits() {
                     }
                     if (fld == "cdmSignificant") {
                         var cv = $(this).html();
+                        var nextSignificantState = cv == "Significant" ? "Non-Significant" : "Significant";
                         var tdata = [];
+                        var stage = $("#" + hi + " .cdmStageExtra").first().text().trim();
+
                         if (cv == "Significant") {
                             tdata.push("cdmSignificant|Non-Significant");
+                            toastr.success("Toggling hazard between significant and non-significant");
+                            cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                            $("#pops").remove();
                         } else {
                             tdata.push("cdmSignificant|Significant");
+                            toastr.success("Toggling hazard between significant and non-significant");
+
+                            syncSignificantTransferStatus(id, nextSignificantState, stage).then(function(transferStatus) {
+                                if (transferStatus) {
+                                    tdata.push("cdmUniclass|" + transferStatus);
+                                }
+                                cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                                $("#pops").remove();
+                            });
                         }
-                        toastr.success("Toggling hazard between significant and non-significant");
-                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
-                        $("#pops").remove();
                     }
                     if (fld == "cdmHazardTags") {
                         gimmepops(
@@ -4709,19 +4755,78 @@ function hazardreviewbuttonaction() {
                                         // We need to add two new workflow states for this: "Design manager approved" and "Communicated to construction team". The config workflow object 
                                         // assumes one possible transition state so the best option is to add the transition to the new workflow states in here.
                                         const significantState = $("#h_" + hzd + " .cdmSignificant").first().text().trim();
+                                        const currentStatus = $("#h_" + hzd + " .cdmUniclass").first().text().trim().toLowerCase();
+                                        const isTransferToBBV = currentStatus.includes("transfer") && currentStatus.includes("bbv");
+                                        const projectStage = $("#h_" + hzd + " .cdmStageExtra").first().text().trim().toLowerCase();
+                                        const normalizedProjectStage = projectStage.replace(/\s+/g, "");
                                         const hasCooordinates = $("#h_" + hzd + "_fullco").length > 0;
-                                        if (!significantState) { // No significant state defined: the user is prompted to fill this in before they can continue
+
+                                        if (!significantState) {
+                                            // No significant state defined
                                             toastr.error("You must mark the hazard as Significant or Non-Significant before you can continue");
                                             $("#pops").remove();
                                             return;
-                                        } else if (significantState === "Non-Significant") { // Non-Significant: hazard goes to Design manager approved state
+                                        }
+
+                                        if (significantState === "Non-Significant") {
+
+                                            // Non-Significant hazards must be Eliminated, Cancelled or Mitigated
+                                            const validStatuses = ["eliminated", "cancelled", "mitigated"];
+                                            if (!validStatuses.includes(currentStatus)) {
+                                                toastr.error(
+                                                    "Non-Significant hazards must have a status of Eliminated, Cancelled or Mitigated before progressing."
+                                                );
+                                                $("#pops").remove();
+                                                return;
+                                            }
+
                                             tdata.push("cdmCurrentStatus|Accepted");
-                                        } else if (significantState === "Significant" && !hasCooordinates) { // Significant and no coordinates: the user is prompted to add coordinates before they can continue
-                                            $("#pops").remove();
-                                            toastr.error("Coordinates are required for significant hazards. Please add coordinates before you can continue.");
-                                            return;
-                                        } else if (significantState === "Significant" && hasCooordinates) { // Significant and has coordinates: the hazards goes to Communicated to construction team state
-                                            tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                        }
+                                        else if (significantState === "Significant") {
+
+                                            // Significant hazards require coordinates
+                                            if (!hasCooordinates) {
+                                                toastr.error(
+                                                    "Coordinates are required for significant hazards. Please add coordinates before you can continue."
+                                                );
+                                                $("#pops").remove();
+                                                return;
+                                            }
+                                            
+                                            // Significant + Construction = automatically transfer to BBV
+                                            if (normalizedProjectStage.includes("construction") && !isTransferToBBV) {
+                                                toastr.error(
+                                                    "Significant hazards in Construction stage must have a status of 'For transfer to BBV' before progressing."
+                                                );
+                                                $("#pops").remove();
+                                                return;
+                                            }
+
+                                            // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
+                                            else if (
+                                                normalizedProjectStage === "operation" ||
+                                                normalizedProjectStage === "maintenance"
+                                            ) {
+
+                                                const isTransferStatus =
+                                                    currentStatus.startsWith("for transfer") &&
+                                                    !isTransferToBBV;
+
+                                                if (!isTransferStatus) {
+                                                    toastr.error(
+                                                        "Significant hazards in Operations or Maintenance must have a status of 'For transfer to &lt;company (not BBV)&gt;' before progressing."
+                                                    );
+                                                    $("#pops").remove();
+                                                    return;
+                                                }
+
+                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                            }
+
+                                            // Significant + any other stage = no additional validation
+                                            else {
+                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
+                                            }
                                         }
 
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
