@@ -105,9 +105,9 @@ formatdatato = {
             var t = mkBtn(
                 "review",
                 "design",
-                "Undertake pre-construction reviews",
+                "View hazards communicated to construction team",
                 "pcrHazard",
-                "Click to view hazards for review"
+                "Click to view hazards"
             );
             t += mkBtn(
                 "review",
@@ -2207,7 +2207,7 @@ function printHazardRow(h) {
         rucp +
         '"></div><div title="Design manager review"  class="prm-cell rucd _' +
         rucd +
-        '"></div><div title="Pre-construction review" class="prm-cell rucpc _' +
+        '"></div><div title="Communicated to construction team" class="prm-cell rucpc _' +
         rucpc +
         '"></div><div title="Principal designer review" class="prm-cell rucl _' +
         rucl +

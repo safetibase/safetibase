@@ -451,7 +451,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     const promises = [];
                     for (let i=0; i<cdmHazardData.length; i++) {
                         // We can only archive hazards if they have been at least design manager reviewed
-                        const legalWorkflowStates = ['Under pre-construction review', 'Under principal designer review', 'Under site manager review', 'Accepted'];
+                        const legalWorkflowStates = ['Under pre-construction review', 'Communicated to construction team', 'Under principal designer review', 'Under site manager review', 'Accepted'];
                         if (cdmHazardData[i].cdmUniclass === 'Cancelled' && legalWorkflowStates.includes(cdmHazardData[i].cdmCurrentStatus)) {
                             hazardCounter++;
                             const hazardData = [];
@@ -1114,7 +1114,8 @@ function activateDatasets(cdmSites, allHazardsData) {
                                                                                             "Assessment in progress", 
                                                                                             "Under peer review", 
                                                                                             "Under design manager review", 
-                                                                                            "Under pre-construction review"]), allowNull: false },
+                                                                                            "Under pre-construction review",
+                                                                                            "Communicated to construction team"]), allowNull: false },
                             { field: "cdmHazardCoordinates", value: validate3DCoordinates(csvObject.Coordinates), allowNull: false },
                             { field: "cdmResidualRiskOwner", value: csvObject["Residual Risk Owner"], allowNull: true },
                             { field: "CurrentMitigationOwner", value: currentUserID, allowNull: false },
@@ -1409,18 +1410,22 @@ function activateDatasets(cdmSites, allHazardsData) {
                         const transitionMap = {
                             "Requires mitigation": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
+                                "Communicated to construction team": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Assessment in progress": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`,
+                                "Communicated to construction team": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${formattedDate}]${currentUserName}]requested peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under peer review": {
                                 "Under design manager review": `${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`,
+                                "Communicated to construction team": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${formattedDate}]${peerReviewer}]completed peer review]bulk edited^${previousReviewSummary}`
                             },
                             "Under design manager review": {
-                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
+                                "Under pre-construction review": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`,
+                                "Communicated to construction team": `${formattedDate}]${designManager}]completed design manager review]bulk edited^${previousReviewSummary}`
                             }
                         };
 
@@ -1669,7 +1674,6 @@ function activateHazardEdits() {
                     const preconstructionReviewStage = $("#" + hi + " .rucpc").hasClass('_3');
                     const principleDesignerReviewStage = $("#" + hi + " .rucl").hasClass('_3');
                     const constructionManagerReviewStage = $("#" + hi + " .rucs").hasClass('_3');
-                    
                     if (peerReviewStage) {
                         const canPeerReview = $("#" + hi + " .ucp").hasClass("_1");
                         if (canPeerReview) {
@@ -2126,7 +2130,7 @@ function activateHazardEdits() {
                                 const popsContent = document.getElementsByClassName("pops-content")[0];
                                 popsContent.innerHTML += svBtn;
                             } else {
-                                toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
+                                toastr.error('This field can only be edited through the site managers approval comment at the communicated to construction team workflow stage');
                             }
                         } else {
                             toastr.error("You cannot provide a construction manager's mitigation suggestion because you are not a construction manager for the site where this hazard is located");
@@ -2296,7 +2300,7 @@ function activateRAMSBtn() {
             // $('#ramsfrm').load('../3.0/html/rams.adder.html',function(){
             // $("#addramsbtn").hide();
             $('#ramsfrm').html(
-                '<div><p>As the Construction Manager undertaking the Pre-Construction Review, you can link this hazard to RAMS documents. The system then generates RAMS hazards which can be independently reviewed and mitigated by the construction team.</p><p>Note that you can add several RAMS hazards; just select another hazard after clicking the Create button.</p></div>' +
+                '<div><p>As the Construction Manager, you can link this hazard to RAMS documents. The system then generates RAMS hazards which can be independently reviewed and mitigated by the construction team.</p><p>Note that you can add several RAMS hazards; just select another hazard after clicking the Create button.</p></div>' +
                 '<div><textarea id="smmsgg" rows="3" cols="35" placeholder="Enter Construction Manager mitigation suggestion?"></textarea></div>' +
                 '<div class="select-panel" id="rams"><div class="tpos-lbl">Search for a RAMS</div><div class="tpos-select" id="div_sel_rams"></div></div><div id="rmsbutton" class="row content"><div id="addramsbtn" class="tpos-svramsbtn">Create RAMS Hazard</div></div>'
             );

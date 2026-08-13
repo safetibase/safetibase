@@ -395,7 +395,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Communicated to construction team" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -403,7 +403,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     1,
-                    "Hazards for pre-construction review",
+                    "Hazards communicated to construction team",
                     "a",
                     "blue",
                     null
@@ -432,7 +432,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Communicated to construction team" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -440,7 +440,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     4,
-                    "Hazards for pre-construction review",
+                    "Hazards communicated to construction team",
                     "d",
                     "blue",
                     null
@@ -704,7 +704,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under pre-construction review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Communicated to construction team" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -712,7 +712,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 11,
-                "Under pre-construction review",
+                "Communicated to construction team",
                 "cprecon",
                 "blue",
                 null
@@ -1179,7 +1179,7 @@ function setupReviewableHazards(a, allHazardsData) {
         }
         if (a == 'pcrHazard') {
             if (tjs == 'Construction Manager') {
-                cst = 'Under pre-construction review';
+                cst = 'Communicated to construction team';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
