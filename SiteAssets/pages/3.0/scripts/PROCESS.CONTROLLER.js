@@ -4796,41 +4796,7 @@ function hazardreviewbuttonaction() {
                                                 $("#pops").remove();
                                                 return;
                                             }
-                                            
-                                            // Significant + Construction = automatically transfer to BBV
-                                            if (normalizedProjectStage.includes("construction") && !isTransferToBBV) {
-                                                toastr.error(
-                                                    "Significant hazards in Construction stage must have a status of 'For transfer to BBV' before progressing."
-                                                );
-                                                $("#pops").remove();
-                                                return;
-                                            }
-
-                                            // Significant + Operations/Maintenance = must already be for transfer to another company (not BBV)
-                                            else if (
-                                                normalizedProjectStage === "operation" ||
-                                                normalizedProjectStage === "maintenance"
-                                            ) {
-
-                                                const isTransferStatus =
-                                                    currentStatus.startsWith("for transfer") &&
-                                                    !isTransferToBBV;
-
-                                                if (!isTransferStatus) {
-                                                    toastr.error(
-                                                        "Significant hazards in Operations or Maintenance must have a status of 'For transfer to &lt;company (not BBV)&gt;' before progressing."
-                                                    );
-                                                    $("#pops").remove();
-                                                    return;
-                                                }
-
-                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
-                                            }
-
-                                            // Significant + any other stage = no additional validation
-                                            else {
-                                                tdata.push("cdmCurrentStatus|Communicated to construction team");
-                                            }
+                                            tdata.push("cdmCurrentStatus|Communicated to construction team");
                                         }
 
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");

@@ -1392,16 +1392,14 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250">coordinates</td>' +
-        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">htags</td>' +
-        '                    <td class="width-250">utags</td>' +
+        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">links</td>' +
         "                </tr>" +
         "            </table>" +
@@ -2589,13 +2587,10 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
-        "                    </td>" +
-        '                    <td class="width-250">' +
         '                        <div class="lbl">Hazard tags</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Status</div>' +
+        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl">Links</div>' +
@@ -2607,11 +2602,6 @@ function printHazardRow(h) {
         decodeCoordinates(h.cdmHazardCoordinates, uce, h.ID) +
         "</div>" +
         "                    </td>" +
-
-        '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
-        significantMarker +
-        "</div>" +
         "                    </td>" +
         
         '                    <td class="width-250 fld">' +
@@ -2620,8 +2610,9 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmUniclass pointer" title="Click to manage status">' +
-        unitags +
+        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
+        significantMarker +
+        "</div>" +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
