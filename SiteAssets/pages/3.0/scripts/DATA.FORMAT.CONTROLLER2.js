@@ -2138,10 +2138,22 @@ function printHazardRow(h) {
 
             } else {
                 if (revstatus == "Accepted") {
+                    // BBV specific exception to allow admins to edit accepted hazards
+                    if (role == 'System admin' && configData['Full admin edit rights']) {
+                        uce = 1;
+                    }
+
+                    // Update progress bar colour
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
+                    }
+
+                    // Potential for client review. Technically this should only happen after the communicated to construction team stage but that is too restrictive because of hazards
+                    // that have gone through the old workflow and are accepted. The condition for this is if they are accepted and workflow stage 4 has been completed.
+                    if (configData['Client Review'] && rucpc == 1) {
+                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
                 if (revstatus == "Communicated to construction team") { // Workflow stage 4 but with no review actions. Requested by BBV.
