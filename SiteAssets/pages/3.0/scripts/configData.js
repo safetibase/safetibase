@@ -3,6 +3,7 @@ configData = {
     'Residual Risk Owner': 'HS2 Residual Risk Owner', // How does the project name its residual risk owner user group? E.g. Client residual risk owner.
     'Contract': 'HS2 Future Works Contract', // How does the project name its contracts that own the works relevant to a given hazard. E.g. Future works contract.
     'Client Review': true, // Does the project require a client review to be included in the workflow?
+    'Client Review Permissions': ['System admin', 'Construction Manager'], // Which user roles should be authorised to submit hazards for client review. This is given as a list. E.g., ['System admin', 'Designer', 'Construction Manager'].
     'Client Name': 'HS2', // What is the name of the client of the project?
     'Archive hazards permissions': ['System admin'], // Which user roles should be authorised to archive hazards. This is given as a list. E.g., ['System admin', 'Designer', 'Construction Manager'].
     'Sync Client Hazard Permissions': ['System admin'], // Defines who can use 'Sync Client Hazards' button.

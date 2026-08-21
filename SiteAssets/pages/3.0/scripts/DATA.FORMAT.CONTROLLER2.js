@@ -2150,7 +2150,7 @@ function printHazardRow(h) {
 
                     // Potential for client review. Technically this should only happen after the communicated to construction team stage but that is too restrictive because of hazards
                     // that have gone through the old workflow and are accepted. The condition for this is if they are accepted and workflow stage 4 has been completed.
-                    if (configData['Client Review'] && rucpc == 1) {
+                    if (configData['Client Review'] && rucpc == 1 && configData['Client Review Permissions'].filter(item => item === role).length > 0) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
@@ -2163,7 +2163,7 @@ function printHazardRow(h) {
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
-                    if (configData['Client Review']) {
+                    if (configData['Client Review'] && configData['Client Review Permissions'].filter(item => item === role).length > 0) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                         warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits and advance this hazard to client review.</div>';
                     } else {
