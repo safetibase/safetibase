@@ -1523,7 +1523,7 @@ function printHazardRow(h) {
     }
     var o = h.cdmHazardOwner.Title;
     var coord = h.cdmHazardCoordinates;
-    var hasSignificant = h.cdmSignificant && h.cdmSignificant != "undefined";
+    var isSignificant = h.cdmSignificant === "Significant";
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
@@ -1535,7 +1535,7 @@ function printHazardRow(h) {
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
     }
 
-    if (!coord && hasSignificant) {
+    if (!coord && isSignificant) {
         warning +=
             '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
