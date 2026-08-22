@@ -1392,16 +1392,14 @@ function buildHazardListItem(h) {
         '            <table class="tpos-tbl">' +
         "                <tr>" +
         '                    <td class="width-250"><div class="lbl">Coordinates</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Hazard tags</div></td>' +
-        '                    <td class="width-250"><div class="lbl">Uniclass tags</div></td>' +
+        '                    <td class="width-250"><div class="lbl">Significant or Non-Significant (click to toggle)</div></td>' +
         '                    <td class="width-250"><div class="lbl">Links</div></td>' +
         "                </tr>" +
         "                <tr>" +
         '                    <td class="width-250">coordinates</td>' +
-        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">htags</td>' +
-        '                    <td class="width-250">utags</td>' +
+        '                    <td class="width-250">significant</td>' +
         '                    <td class="width-250">links</td>' +
         "                </tr>" +
         "            </table>" +
@@ -1525,7 +1523,7 @@ function printHazardRow(h) {
     }
     var o = h.cdmHazardOwner.Title;
     var coord = h.cdmHazardCoordinates;
-    var hasSignificant = h.cdmSignificant && h.cdmSignificant != "undefined";
+    var isSignificant = h.cdmSignificant === "Significant";
     var warning = "";
     var isLocked = 0;
     var requiresLDReview = 1;
@@ -1537,7 +1535,7 @@ function printHazardRow(h) {
             '<div class="clr_5_active">This hazard has not been assigned to an owner and is therefore locked for editing.</div>';
     }
 
-    if (!coord && hasSignificant) {
+    if (!coord && isSignificant) {
         warning +=
             '<div class="clr_5_active">Hazard is marked as "Significant" but no co-ordinates have been assigned.</div>';
     }
@@ -2138,10 +2136,22 @@ function printHazardRow(h) {
 
             } else {
                 if (revstatus == "Accepted") {
+                    // BBV specific exception to allow admins to edit accepted hazards
+                    if (role == 'System admin' && configData['Full admin edit rights']) {
+                        uce = 1;
+                    }
+
+                    // Update progress bar colour
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
+                    }
+
+                    // Potential for client review. Technically this should only happen after the communicated to construction team stage but that is too restrictive because of hazards
+                    // that have gone through the old workflow and are accepted. The condition for this is if they are accepted and workflow stage 4 has been completed.
+                    if (configData['Client Review'] && rucpc == 1 && configData['Client Review Permissions'].filter(item => item === role).length > 0) {
+                        revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                     }
                 }
                 if (revstatus == "Communicated to construction team") { // Workflow stage 4 but with no review actions. Requested by BBV.
@@ -2153,7 +2163,7 @@ function printHazardRow(h) {
                     } else { // RAMS
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
-                    if (configData['Client Review']) {
+                    if (configData['Client Review'] && configData['Client Review Permissions'].filter(item => item === role).length > 0) {
                         revbtn = '<div class="tpos-rvbtn" data-action="clientreview" title="Click to advance the hazard in the workflow">Submit for Client Review</div>';
                         warning = '<div class="clr_5_active">This hazard has been communicated to the construction team so it is locked for editing. Construction managers and engineers can still make edits and advance this hazard to client review.</div>';
                     } else {
@@ -2577,13 +2587,10 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
-        "                    </td>" +
-        '                    <td class="width-250">' +
         '                        <div class="lbl">Hazard tags</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Status</div>' +
+        '                        <div class="lbl">Significant or Non-Significant (click to toggle)</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl">Links</div>' +
@@ -2595,11 +2602,6 @@ function printHazardRow(h) {
         decodeCoordinates(h.cdmHazardCoordinates, uce, h.ID) +
         "</div>" +
         "                    </td>" +
-
-        '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
-        significantMarker +
-        "</div>" +
         "                    </td>" +
         
         '                    <td class="width-250 fld">' +
@@ -2608,8 +2610,9 @@ function printHazardRow(h) {
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
-        '                        <div class="cell cdmUniclass pointer" title="Click to manage status">' +
-        unitags +
+        '                        <div class="cell cdmSignificant pointer" title="Click to toggle">' +
+        significantMarker +
+        "</div>" +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +

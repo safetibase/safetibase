@@ -1131,7 +1131,7 @@ a.ms-tv-header:hover {
 }
 
 .clr_6 {
-    background-color: rgba(255, 23, 20, 0.1);
+    background-color: rgba(52, 77, 236, 0.1);
     border: 1px dotted rgb(52, 77, 236);
     color: rgb(160, 160, 160);
 }
@@ -1173,7 +1173,7 @@ a.ms-tv-header:hover {
 }
 
 .clr_6:hover {
-    background-color: rgba(47, 61, 208, 0.5);
+    background-color: rgba(86, 112, 241, 0.5);
     border: 1px solid rgb(86, 112, 241);
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -1211,7 +1211,7 @@ a.ms-tv-header:hover {
 }
 
 .clr_6_active {
-    background-color: rgba(47, 61, 208, 0.5);
+    background-color: rgba(86, 112, 241, 0.5);
     border: 1px solid rgb(86, 112, 241);
     color: rgb(255, 255, 255);
 }
