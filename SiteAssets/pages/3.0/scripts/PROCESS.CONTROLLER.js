@@ -2181,13 +2181,12 @@ async function editHazardMetadata(hazardId, field) {
                 .filter(item => selectedWorkPackages.includes(Number(item.ID)) && item.RouteSection)
                 .map(item => Number(item.RouteSection.ID));
         } else if (field === "cdmWorkPackage") {
-            const responses = await Promise.all([
-                getItems("cdmWorkPackage", "ID,Title,RouteSection/ID", "RouteSection"),
-                getItems("cdmRouteSection", "ID", "")
-            ]);
-            const routeIds = responses[1].d.results.map(item => Number(item.ID));
-            items = responses[0].d.results.filter(item =>
-                (!routeIds.length || routeIds.includes(Number(item.RouteSection?.ID)))
+            const response = await getItems("cdmWorkPackage", "ID,Title,RouteSection/ID", "RouteSection");
+            const selectedRouteSectionIds = response.d.results
+                .filter(item => selectedWorkPackages.includes(Number(item.ID)) && item.RouteSection)
+                .map(item => Number(item.RouteSection.ID));
+            items = response.d.results.filter(item =>
+                item.RouteSection && selectedRouteSectionIds.includes(Number(item.RouteSection.ID))
             );
             selected = selectedWorkPackages;
         } else if (field === "assetTypeGroup") {
@@ -2208,13 +2207,25 @@ async function editHazardMetadata(hazardId, field) {
                 getItems("cdmAssetSubGroup", "ID,Title,AssetTypeGroup/ID", "AssetTypeGroup"),
                 getItems("cdmAssetType", "ID,AssetSubGroup/ID", "AssetSubGroup")
             ]);
-            items = responses[0].d.results;
-            selected = responses[1].d.results
+            const selectedSubGroupIds = responses[1].d.results
                 .filter(item => selectedAssetTypes.includes(Number(item.ID)) && item.AssetSubGroup)
                 .map(item => Number(item.AssetSubGroup.ID));
+            const selectedGroupIds = responses[0].d.results
+                .filter(item => selectedSubGroupIds.includes(Number(item.ID)) && item.AssetTypeGroup)
+                .reduce((result, item) => result.concat((item.AssetTypeGroup?.results || [item.AssetTypeGroup]).filter(Boolean).map(group => Number(group.ID))), []);
+            items = responses[0].d.results.filter(item =>
+                item.AssetTypeGroup && (item.AssetTypeGroup.results || [item.AssetTypeGroup])
+                    .some(group => selectedGroupIds.includes(Number(group.ID)))
+            );
+            selected = selectedSubGroupIds;
         } else if (field === "assetType") {
             const response = await getItems("cdmAssetType", "ID,Title,AssetSubGroup/ID", "AssetSubGroup");
-            items = response.d.results;
+            const selectedSubGroupIds = response.d.results
+                .filter(item => selectedAssetTypes.includes(Number(item.ID)) && item.AssetSubGroup)
+                .map(item => Number(item.AssetSubGroup.ID));
+            items = response.d.results.filter(item =>
+                item.AssetSubGroup && selectedSubGroupIds.includes(Number(item.AssetSubGroup.ID))
+            );
             selected = selectedAssetTypes;
         }
 
@@ -2262,7 +2273,7 @@ async function editHazardMetadata(hazardId, field) {
                     }
                 });
                 $("#pops").remove();
-                cdmdata.get("cdmHazards", "ID eq " + hazardId, null, null, null, null, null, "frmedit_updateview");
+                cdmdata.get("cdmHazards", "ID eq " + hazardId, null, "frmedit_updateview");
             } catch (error) {
                 console.error("Failed to update hazard metadata", error);
                 toastr.error("Could not update the hazard metadata");
