@@ -1611,7 +1611,7 @@ function activateHazardEdits() {
                     .split(" ");
                 for (var cc = 0; cc < flds.length; cc++) {
                     var tst = flds[cc].substring(0, 3);
-                    if (tst == "cdm") {
+                    if (tst == "cdm" || ["assetTypeGroup", "assetSubGroup", "assetType"].includes(flds[cc])) {
                         fld = flds[cc];
                     }
                 }
