@@ -1611,7 +1611,7 @@ function activateHazardEdits() {
                     .split(" ");
                 for (var cc = 0; cc < flds.length; cc++) {
                     var tst = flds[cc].substring(0, 3);
-                    if (tst == "cdm") {
+                    if (tst == "cdm" || ["assetTypeGroup", "assetSubGroup", "assetType"].includes(flds[cc])) {
                         fld = flds[cc];
                     }
                 }
@@ -1719,6 +1719,9 @@ function activateHazardEdits() {
                         toastr.error("Not permitted");
                     }
                 } else {
+                    if (["cdmSite", "cdmRouteSection", "cdmWorkPackage", "assetTypeGroup", "assetSubGroup", "assetType"].includes(fld)) {
+                        editHazardMetadata(hzd, fld);
+                    }
                     if (fld == "cdmUniclass") {
                         gimmepops(
                             "Assigning a status",
@@ -2113,6 +2116,173 @@ function activateHazardEdits() {
             // }
         });
 
+}
+
+async function editHazardMetadata(hazardId, field) {
+    const listNames = {
+        cdmSite: "Site(s)",
+        cdmRouteSection: "Route Section(s)",
+        cdmWorkPackage: "Work Package(s)",
+        assetTypeGroup: "Asset type group(s)",
+        assetSubGroup: "Asset type sub-group(s)",
+        assetType: "Asset type(s)"
+    };
+
+    function getItems(listName, select, expand) {
+        const query = [
+            "$select=" + select,
+            expand ? "$expand=" + expand : "",
+            "$top=5000"
+        ].filter(Boolean).join("&");
+        return $.ajax({
+            url: `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle('${listName}')/items?${query}`,
+            method: "GET",
+            headers: { "Accept": "application/json;odata=verbose" }
+        });
+    }
+
+    function ids(items) {
+        return (items || []).map(item => Number(item.ID));
+    }
+
+    function lookupId(item) {
+        return item && item.ID ? Number(item.ID) : null;
+    }
+
+    try {
+        const hazardResponse = await getItems(
+            "cdmHazards",
+            "ID,cdmSite/ID,workPackage/ID,assetType/ID",
+            "cdmSite,workPackage,assetType"
+        );
+        const hazard = hazardResponse.d.results.find(item => Number(item.ID) === Number(hazardId));
+        if (!hazard) {
+            toastr.error("Could not load the hazard metadata");
+            return;
+        }
+
+        const selectedSite = lookupId(hazard.cdmSite);
+        const selectedWorkPackages = ids(hazard.workPackage && hazard.workPackage.results);
+        const selectedAssetTypes = ids(hazard.assetType && hazard.assetType.results);
+        let items = [];
+        let selected = [];
+
+        if (field === "cdmSite") {
+            const response = await getItems("cdmSites", "ID,Title", "");
+            items = response.d.results;
+            selected = selectedSite ? [selectedSite] : [];
+        } else if (field === "cdmRouteSection") {
+            const responses = await Promise.all([
+                getItems("cdmRouteSection", "ID,Title,Site/ID", "Site"),
+                getItems("cdmWorkPackage", "ID,RouteSection/ID", "RouteSection")
+            ]);
+            items = responses[0].d.results.filter(item => !selectedSite || Number(item.Site?.ID) === selectedSite);
+            selected = responses[1].d.results
+                .filter(item => selectedWorkPackages.includes(Number(item.ID)) && item.RouteSection)
+                .map(item => Number(item.RouteSection.ID));
+        } else if (field === "cdmWorkPackage") {
+            const response = await getItems("cdmWorkPackage", "ID,Title,RouteSection/ID", "RouteSection");
+            const selectedRouteSectionIds = response.d.results
+                .filter(item => selectedWorkPackages.includes(Number(item.ID)) && item.RouteSection)
+                .map(item => Number(item.RouteSection.ID));
+            items = response.d.results.filter(item =>
+                item.RouteSection && selectedRouteSectionIds.includes(Number(item.RouteSection.ID))
+            );
+            selected = selectedWorkPackages;
+        } else if (field === "assetTypeGroup") {
+            const responses = await Promise.all([
+                getItems("cdmAssetTypeGroup", "ID,Title", ""),
+                getItems("cdmAssetSubGroup", "ID,AssetTypeGroup/ID", "AssetTypeGroup"),
+                getItems("cdmAssetType", "ID,AssetSubGroup/ID", "AssetSubGroup")
+            ]);
+            const selectedSubGroups = responses[2].d.results
+                .filter(item => selectedAssetTypes.includes(Number(item.ID)) && item.AssetSubGroup)
+                .map(item => Number(item.AssetSubGroup.ID));
+            selected = responses[1].d.results
+                .filter(item => selectedSubGroups.includes(Number(item.ID)))
+                .reduce((result, item) => result.concat((item.AssetTypeGroup?.results || [item.AssetTypeGroup]).filter(Boolean).map(group => Number(group.ID))), []);
+            items = responses[0].d.results;
+        } else if (field === "assetSubGroup") {
+            const responses = await Promise.all([
+                getItems("cdmAssetSubGroup", "ID,Title,AssetTypeGroup/ID", "AssetTypeGroup"),
+                getItems("cdmAssetType", "ID,AssetSubGroup/ID", "AssetSubGroup")
+            ]);
+            const selectedSubGroupIds = responses[1].d.results
+                .filter(item => selectedAssetTypes.includes(Number(item.ID)) && item.AssetSubGroup)
+                .map(item => Number(item.AssetSubGroup.ID));
+            const selectedGroupIds = responses[0].d.results
+                .filter(item => selectedSubGroupIds.includes(Number(item.ID)) && item.AssetTypeGroup)
+                .reduce((result, item) => result.concat((item.AssetTypeGroup?.results || [item.AssetTypeGroup]).filter(Boolean).map(group => Number(group.ID))), []);
+            items = responses[0].d.results.filter(item =>
+                item.AssetTypeGroup && (item.AssetTypeGroup.results || [item.AssetTypeGroup])
+                    .some(group => selectedGroupIds.includes(Number(group.ID)))
+            );
+            selected = selectedSubGroupIds;
+        } else if (field === "assetType") {
+            const response = await getItems("cdmAssetType", "ID,Title,AssetSubGroup/ID", "AssetSubGroup");
+            const selectedSubGroupIds = response.d.results
+                .filter(item => selectedAssetTypes.includes(Number(item.ID)) && item.AssetSubGroup)
+                .map(item => Number(item.AssetSubGroup.ID));
+            items = response.d.results.filter(item =>
+                item.AssetSubGroup && selectedSubGroupIds.includes(Number(item.AssetSubGroup.ID))
+            );
+            selected = selectedAssetTypes;
+        }
+
+        gimmepops(`Assigning ${listNames[field].toLowerCase()}`, '<div id="popscontentarea"></div>');
+        const options = items.map(item =>
+            `<option value="${item.ID}"${selected.includes(Number(item.ID)) ? " selected" : ""}>${item.Title}</option>`
+        ).join("");
+        $("#popscontentarea").html(`<select id="metadata-field-select" multiple>${options}</select><div class="tpos-left-btn" id="metadata-field-save">Save</div>`);
+
+        $("#metadata-field-save").on("click", async function() {
+            const selectedIds = ($("#metadata-field-select").val() || []).map(Number);
+            const payload = {};
+            if (field === "cdmSite") payload.cdmSiteId = selectedIds[0] || null;
+            if (field === "cdmWorkPackage" || field === "cdmRouteSection") payload.workPackageId = { results: selectedIds };
+            if (["assetTypeGroup", "assetSubGroup", "assetType"].includes(field)) payload.assetTypeId = { results: selectedIds };
+
+            if (field === "cdmRouteSection") {
+                const response = await getItems("cdmWorkPackage", "ID,RouteSection/ID", "RouteSection");
+                payload.workPackageId = {
+                    results: response.d.results
+                        .filter(item => selectedIds.includes(Number(item.RouteSection?.ID)))
+                        .map(item => Number(item.ID))
+                };
+            }
+
+            try {
+                const listMetadata = await $.ajax({
+                    url: `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle('cdmHazards')?$select=ListItemEntityTypeFullName`,
+                    method: "GET",
+                    headers: { "Accept": "application/json;odata=verbose" }
+                });
+                payload.__metadata = {
+                    type: listMetadata.d.ListItemEntityTypeFullName
+                };
+                await $.ajax({
+                    url: `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle('cdmHazards')/items(${hazardId})`,
+                    method: "POST",
+                    data: JSON.stringify(payload),
+                    headers: {
+                        "Accept": "application/json;odata=verbose",
+                        "Content-Type": "application/json;odata=verbose",
+                        "X-HTTP-Method": "MERGE",
+                        "IF-MATCH": "*",
+                        "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                    }
+                });
+                $("#pops").remove();
+                cdmdata.get("cdmHazards", "ID eq " + hazardId, null, "frmedit_updateview");
+            } catch (error) {
+                console.error("Failed to update hazard metadata", error);
+                toastr.error("Could not update the hazard metadata");
+            }
+        });
+    } catch (error) {
+        console.error("Failed to load hazard metadata", error);
+        toastr.error("Could not load the hazard metadata");
+    }
 }
 
 function activateRAMSBtn() {
