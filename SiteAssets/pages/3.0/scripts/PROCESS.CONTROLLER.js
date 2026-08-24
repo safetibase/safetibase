@@ -4773,17 +4773,6 @@ function hazardreviewbuttonaction() {
                                         }
 
                                         if (significantState === "Non-Significant") {
-
-                                            // Non-Significant hazards must be Eliminated, Cancelled or Mitigated
-                                            const validStatuses = ["eliminated", "cancelled", "mitigated"];
-                                            if (!validStatuses.includes(currentStatus)) {
-                                                toastr.error(
-                                                    "Non-Significant hazards must have a status of Eliminated, Cancelled or Mitigated before progressing."
-                                                );
-                                                $("#pops").remove();
-                                                return;
-                                            }
-
                                             tdata.push("cdmCurrentStatus|Accepted");
                                         }
                                         else if (significantState === "Significant") {
