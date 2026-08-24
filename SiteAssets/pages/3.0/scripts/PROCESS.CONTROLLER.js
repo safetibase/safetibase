@@ -2182,12 +2182,11 @@ async function editHazardMetadata(hazardId, field) {
                 .map(item => Number(item.RouteSection.ID));
         } else if (field === "cdmWorkPackage") {
             const responses = await Promise.all([
-                getItems("cdmWorkPackage", "ID,Title,Site/ID,RouteSection/ID", "Site,RouteSection"),
+                getItems("cdmWorkPackage", "ID,Title,RouteSection/ID", "RouteSection"),
                 getItems("cdmRouteSection", "ID", "")
             ]);
             const routeIds = responses[1].d.results.map(item => Number(item.ID));
             items = responses[0].d.results.filter(item =>
-                (!selectedSite || Number(item.Site?.ID) === selectedSite) &&
                 (!routeIds.length || routeIds.includes(Number(item.RouteSection?.ID)))
             );
             selected = selectedWorkPackages;
@@ -2263,7 +2262,7 @@ async function editHazardMetadata(hazardId, field) {
                     }
                 });
                 $("#pops").remove();
-                tposdata.get("cdmHazards", "ID eq " + hazardId, null, "frmedit_updateview");
+                cdmdata.get("cdmHazards", "ID eq " + hazardId, null, null, null, null, null, "frmedit_updateview");
             } catch (error) {
                 console.error("Failed to update hazard metadata", error);
                 toastr.error("Could not update the hazard metadata");
