@@ -5162,34 +5162,26 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "clientreview") {
-                    var vcheck = $('#h_' + hzd + ' .cdmResidualRiskOwner').html();
-                    var contract = $('#h_' + hzd + ' .cdmContract').html();
-                    if (vcheck === null || vcheck === 'undefined' || vcheck === '') {
-                        toastr.error(`Please provide a Residual Risk Owner before submitting to ${configData['Client Name']}`);
-                    } else if (vcheck === "HS2 Rail Systems Interface Engineer" && !contract) {
-                        toastr.error("If the residual risk owner is HS2 Rail Systems Interface Engineer, you must provide a contract before submitting to HS2");
-                    } else {
-                        var tdata = [];
-                        nl =
-                            nnd +
-                            "]" +
-                            user +
-                            "]" +
-                            "submitted for client review]" +
-                            "^";
-                        hist = $("#h_" + hzd + "_cdmReviews").html();
+                    var tdata = [];
+                    nl =
+                        nnd +
+                        "]" +
+                        user +
+                        "]" +
+                        "submitted for client review]" +
+                        "^";
+                    hist = $("#h_" + hzd + "_cdmReviews").html();
 
-                        if (hist) {
-                            nl = nl + hist;
-                        }
-
-                        tdata.push("cdmReviews|" + nl);
-                        tdata.push(`cdmCurrentStatus|Ready for review by ${configData['Client Name']}`);
-                        tdata.push("cdmLastReviewDate|" + ind);
-                        tdata.push(`cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`);
-                        tdata.push("cdmLastReviewer|" + unm());
-                        cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                    if (hist) {
+                        nl = nl + hist;
                     }
+
+                    tdata.push("cdmReviews|" + nl);
+                    tdata.push(`cdmCurrentStatus|Ready for review by ${configData['Client Name']}`);
+                    tdata.push("cdmLastReviewDate|" + ind);
+                    tdata.push(`cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`);
+                    tdata.push("cdmLastReviewer|" + unm());
+                    cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
                 }
             }
         });
