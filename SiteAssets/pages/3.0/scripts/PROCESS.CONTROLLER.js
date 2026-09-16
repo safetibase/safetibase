@@ -2251,6 +2251,42 @@ async function editHazardMetadata(hazardId, field) {
                 };
             }
 
+            if (field === "assetTypeGroup") {
+                const subGroups = await getItems(
+                    "cdmAssetSubGroup",
+                    "ID,AssetTypeGroup/ID",
+                    "AssetTypeGroup"
+                );
+                const selectedSubGroupIds = subGroups.d.results
+                    .filter(item => (item.AssetTypeGroup?.results || [item.AssetTypeGroup])
+                        .filter(Boolean)
+                        .some(group => selectedIds.includes(Number(group.ID))))
+                    .map(item => Number(item.ID));
+                const assetTypes = await getItems(
+                    "cdmAssetType",
+                    "ID,AssetSubGroup/ID",
+                    "AssetSubGroup"
+                );
+                payload.assetTypeId = {
+                    results: assetTypes.d.results
+                        .filter(item => selectedSubGroupIds.includes(Number(item.AssetSubGroup?.ID)))
+                        .map(item => Number(item.ID))
+                };
+            }
+
+            if (field === "assetSubGroup") {
+                const assetTypes = await getItems(
+                    "cdmAssetType",
+                    "ID,AssetSubGroup/ID",
+                    "AssetSubGroup"
+                );
+                payload.assetTypeId = {
+                    results: assetTypes.d.results
+                        .filter(item => selectedIds.includes(Number(item.AssetSubGroup?.ID)))
+                        .map(item => Number(item.ID))
+                };
+            }
+
             try {
                 const listMetadata = await $.ajax({
                     url: `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle('cdmHazards')?$select=ListItemEntityTypeFullName`,
