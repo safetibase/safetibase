@@ -100,6 +100,7 @@ cdmdata = {
                     var html = printHazardRow(h);
 
                     var rowId = "#h_" + h.ID;
+                    var rowWasExpanded = $(rowId + " .vwhover:visible").length > 0;
 
                     if ($(rowId).length) {
                         $(rowId).replaceWith(html);
@@ -111,6 +112,12 @@ cdmdata = {
                     toggleInfoPanel();
                     activateHazardEdits();
                     activateRAMSBtn();
+
+                    if (rowWasExpanded) {
+                        $(rowId + " .vwdefault").hide();
+                        $(rowId + " .vwhover").show();
+                        $(rowId).addClass("animated fadeIn addmargin");
+                    }
                 },
                 error: function (err) {
                     console.log("UPDATEVIEW ERROR:", err);
