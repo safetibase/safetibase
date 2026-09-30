@@ -69,6 +69,12 @@ cdmdata = {
                 "cdmCurrentStatus,cdmResidualRisk,cdmInitialRisk," +
                 "cdmLastReviewStatus,cdmLastReviewDate,cdmLastReviewer,cdmReviews," +
                 "LegacyID,Created,Modified," +
+                "cdmEntityTitle,cdmTW,cdmRAMS," +
+                "cdmHazardTags,cdmUniclass,cdmLinks," +
+                "cdmContract,cdmResidualRiskOwner,cdmPASRiskClassification," +
+                "cdmSMMitigationSuggestion,cdmStageMitigationSuggestion," +
+                "cdmParent,cdmHazardCoordinates," +
+                "cdmInitialRAG,cdmResidualRAG," +
                 "cdmPWStructure/Title,cdmPWStructure/ID," +
                 "cdmPWElement/Title,cdmPWElement/ID," +
                 "cdmSite/Title,cdmSite/ID," +
