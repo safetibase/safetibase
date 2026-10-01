@@ -2155,7 +2155,7 @@ function printHazardRow(h) {
                     }
                 }
                 if (revstatus == "Communicated to construction team") { // Workflow stage 4 but with no review actions. Requested by BBV.
-                    if (configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0) {
+                    if (configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 || role == 'System admin' && configData['Full admin edit rights']) {
                         uce = 1;
                     }
                     if (hc != "ra") {
@@ -2171,6 +2171,10 @@ function printHazardRow(h) {
                     }
                 }
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
+                    // As per request from HS2, multiple submissions for client review are allowed
+                    if (configData[workflow]['pcreview']["userRoles"].filter(item => item === role).length > 0 || role == 'System admin' && configData['Full admin edit rights']) {
+                        uce = 1;
+                    }
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
                     } else { // RAMS
