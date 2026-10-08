@@ -21,10 +21,12 @@ function hzdreviewbuttonaction() {
             var vn = $("#h_" + hzd + " .cdmSite").html();
             //   var curstatus='';
             //   hist = $("#h_" + hzd + "_cdmReviews").html();
+            // console.log(vn);
 
             if (a == "initiatereview") {
                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
+                console.log(vcheck);
                 if (vcheck === null || vcheck === 'undefined' || vcheck === 'Awaiting assessment') {
                     toastr.error('Please provide a mitigation suggestion before initiating the review');
                 } else {
@@ -54,6 +56,9 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
+
+                                    // console.log(nl+hist);
                                     tdata.push("cdmReviews|" + nl);
                                     tdata.push("cdmCurrentStatus|Under peer review");
                                     tdata.push("cdmLastReviewDate|" + ind);
@@ -82,6 +87,8 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
+
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -168,6 +175,8 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
+
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -219,6 +228,8 @@ function hzdreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
+
+                                        // console.log(ns);
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
                                             "cdmCurrentStatus|Under pre-construction review"
@@ -254,6 +265,7 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -318,6 +330,7 @@ function hzdreviewbuttonaction() {
 
 
                                         var ns = $("#h_" + hzd + " .rucl").hasClass("_2");
+                                        // console.log(ns);
                                         if (ns === true) {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push(
@@ -387,6 +400,8 @@ function hzdreviewbuttonaction() {
                                     //     if (hzt == "Health") {
                                     //       hzti = 1;
                                     //     }
+                                    //     //   console.log(raid);
+
                                     //     tdata = [];
                                     //     // toastr.success(site);
                                     //     tdata.push("Title|" + title);
@@ -408,6 +423,7 @@ function hzdreviewbuttonaction() {
                                     //     tdata.push("cdmRAMS|" + raid);
                                     //     tdata.push("cdmEntityTitle|" + ratx);
                                     //     tdata.push("cdmStageExtra|" + stgi);
+                                    //     console.log(tdata);
                                     //     var udata = [];
                                     //     udata.push("cdmSMMitigationSuggestion|This hazard is further mitigated via one or several RAMS hazards with the following mitigation suggestion by the Construction Manager: " + mits + " Please click 'View linked / related hazards' for further details.");
 
@@ -435,6 +451,7 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -519,6 +536,7 @@ function hzdreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {

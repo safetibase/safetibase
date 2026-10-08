@@ -10,7 +10,7 @@ formatdatato = {
                 "Designer",
                 "Design Manager",
                 "Construction Manager",
-                "Principal Designer",
+                "Lead designer",
                 "Construction Engineer"
             ]; // designer, design manager, Construction Manager, principal designer and Construction Engineer
 
@@ -24,6 +24,7 @@ formatdatato = {
                     element.Title != undefined &&
                     key != "Title"
                 ) {
+                    // //console.log(element.Title);
                     cell += mkCell("cdmUser", ui, key, element);
                     for (var b = 0; b < role.length; b++) {
                         if (element.Title == roles[b]) {
@@ -225,6 +226,7 @@ formatdatato = {
                 if(lst=="cdmHazards"){
                     expand = expand + ",cdmPWStructure/UAID";
                     select = select + ",cdmPWStructure/UAID";
+                    //console.log('expand',expand);
                 }
             })
             .done(function() {
@@ -263,6 +265,7 @@ formatdatato = {
                                     GetListItems(data.d.__next)
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
+                                    //console.log("fairinput",flst);
                                     formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, true)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
@@ -346,6 +349,7 @@ formatdatato = {
                 if(lst=="cdmHazards"){
                     expand = expand + ",cdmPWStructure/UAID";
                     select = select + ",cdmPWStructure/UAID";
+                    //console.log('expand',expand);
                 }
             })
             .done(function() {
@@ -384,6 +388,7 @@ formatdatato = {
                                     GetListItems(data.d.__next)
                                 } else {
                                     full_dataset = [...full_dataset, ...response];
+                                    //console.log("fairinput",flst);
                                     formatdatato.createTable(sublot_data, full_dataset, lst, trg ,flst, false)
                                     $(".loading-text").remove()
                                     // Allows for you to access the dashboard specific to your user roles. 
@@ -405,6 +410,7 @@ formatdatato = {
     
     createTable: function(data, allHazardsMain, lst, trg , lstfilter, loadGlobalNav) {
         var allHazards = allHazardsMain;
+        if (lstfilter) console.log(lstfilter.length)
         if(lstfilter == undefined || Object.keys(lstfilter).length == 0){
             lstfilter =[];
         } else {
@@ -513,6 +519,7 @@ formatdatato = {
         $('.refresh-hazards-btn').click(function() {init(true)});
 
         function customfilters ( allHazards, filterlst){
+            console.log("enterf",filterlst);
             var fdata = [];
             if(filterlst ==[]){
                 fdata = allHazards;
@@ -617,12 +624,11 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var row = "";
-        wpt = escapeHTML(wpt); // To prevent client side XSS
-        wpt = '<h1 style="color:black;">' + wpt + '</h1>';
+        wpt = '<h1>' + wpt + '</h1>';
         if (tcnt === 0) {
             wpt = '';
         }
-        $("#" + trg).textContent = wpt;
+        $("#" + trg).html(wpt);
 
         for (var cc = 0; cc < tcnt; cc++) {
             // build rows
@@ -663,6 +669,7 @@ formatdatato = {
 
     cachedhazardtablerows: function(filtered_hazards, prev_number_loaded) {
         // var tlist = data.d.results;
+        // //console.log(tlist);
         var tcnt = filtered_hazards.length;
         var batch_size = 100;
         var index_to_load_to = 0
@@ -754,7 +761,9 @@ formatdatato = {
 
     hazardtablerows: function(response, next_url, prev_number_loaded) {
         // var tlist = data.d.results;
+        // //console.log(tlist);
         var tlist = response;
+        //console.log(tlist);
         var tcnt = tlist.length;
         number_loaded = tlist.length + prev_number_loaded;
         var row = "";
@@ -858,7 +867,7 @@ formatdatato = {
         var tlist = data.d.results;
         var tcnt = tlist.length;
         var row = "";
-        var wpt = '<div><h1 style="color:black">Child RAMS Hazards</h1></div>';
+        var wpt = '<div><h1>Child RAMS Hazards</h1></div>';
         if (tcnt === 0) {
             wpt = '';
         }
@@ -995,6 +1004,7 @@ function mkCell(entity, i, key, element) {
     }
     var t = "";
     var e = isObject(element);
+    ////console.log(e);
     if (e == false) {
         // t = '<div class="cell" id="'+entity+'_' + i + '_' + key + '"><div class="lbl">' + key + '</div><div class="val fld_'+key+'">' + element + '</div></div>';
         t =
@@ -1112,7 +1122,7 @@ function buildHazardListItem(h) {
                     if (urat == "Construction Manager" && urs == h.cdmSite.ID) {
                         ucanprecon = 1;
                     }
-                    if (urat == "Principal designer" && urs == h.cdmSite.ID) {
+                    if (urat == "Lead designer" && urs == h.cdmSite.ID) {
                         ucanldreview = 1;
                     }
                     if (urat == "Construction Manager" && urs == h.cdmSite.ID) {
@@ -1546,7 +1556,7 @@ function printHazardRow(h) {
         editableStagesObj['Under pre-construction review'] = 'Construction managers';
     }
     if (configData['Principal designer review editable workflow state']) {
-        editableStagesObj['Under principal designer review'] = 'Principal designers';
+        editableStagesObj['Under lead designer review'] = 'Lead designers';
     }
     if (configData['Construction manager review editable workflow state']) {
         editableStagesObj['Under site manager review'] = 'Construction managers';
@@ -1577,6 +1587,7 @@ function printHazardRow(h) {
     if (h.cdmStageExtra.Title.includes("Construction") || h.cdmStageExtra.Title.includes("Commission")) { //uses includes instead of == as commission type hazard renamed to commissioning. Patrick Hsu, 19 Feb 2024
         workflow = "ConstructionCommission";
         isRAMSValid = 1;
+        // //console.log(requiresLDReview);
     }
 
     else {
@@ -1598,6 +1609,7 @@ function printHazardRow(h) {
         vwramstrigger = 1;
     }
     var isSM = 0;
+    //console.log(h.cdmSMMitigationSuggestion + ' - mk: ' + hasRAMS + ' - vw: ' + vwramstrigger);
     // if(mkramstrigger===0){
     //   mkramsbtn='';
     // }
@@ -1621,7 +1633,7 @@ function printHazardRow(h) {
                 'Under peer review': 'peerreview',
                 'Under design manager review': 'dmreview',
                 'Under pre-construction review': 'pcreview',
-                'Under principal designer review': 'ldreview',
+                'Under lead designer review': 'ldreview',
                 'Under site manager review': 'smreview'
             };
             var workflowStates = ['Requires mitigation'];
@@ -1646,7 +1658,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1665,7 +1677,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1684,7 +1696,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 2;
                     }
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1704,7 +1716,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under design manager review')){
                         rucd = 1;
                     }  
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 2;
                     }   
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1712,7 +1724,7 @@ function printHazardRow(h) {
                     }  
                     break;   
                     
-                case('Under principal designer review'):
+                case('Under lead designer review'):
                     rucl = 3;
                     if(workflowStates.includes('Requires mitigation')){
                         ruce = 1;
@@ -1745,7 +1757,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 1;
                     } 
-                    if(workflowStates.includes('Under principal designer review')){
+                    if(workflowStates.includes('Under lead designer review')){
                         rucl = 1;
                     } 
                     break; 
@@ -1763,7 +1775,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 1;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 1;
                     }  
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1785,7 +1797,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 4;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 4;
                     }  
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1806,7 +1818,7 @@ function printHazardRow(h) {
                     if(workflowStates.includes('Under pre-construction review')){
                         rucpc = 5;
                     } 
-                    if(workflowStates.includes('Under principal designer review') && requiresLDReview == 1){
+                    if(workflowStates.includes('Under lead designer review') && requiresLDReview == 1){
                         rucl = 5;
                     }  
                     if(workflowStates.includes('Under site manager review') && requiresLDReview == 1){
@@ -1827,7 +1839,7 @@ function printHazardRow(h) {
                 ).concat(
                     configData['Pre-construction review editable workflow state'] ? ['Under pre-construction review'] : []
                 ).concat(
-                    configData['Principal designer review editable workflow state'] ? ['Under principal designer review'] : []
+                    configData['Principal designer review editable workflow state'] ? ['Under lead designer review'] : []
                 ).concat(
                     configData['Construction manager review editable workflow state'] ? ['Under site manager review'] : []
                 );
@@ -1852,7 +1864,7 @@ function printHazardRow(h) {
                         }
                         break;
 
-                    case 'Under principal designer review':
+                    case 'Under lead designer review':
                         if (editableWorkflowStages.includes(revstatus) && configData[workflow]['ldreview']["userRoles"].filter(item => item === role).length > 0) { //role that can edit hazards at these stages are controlled by the userRoles array. Patrick Hsu, 8 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
                             editableWorkflowStage = true;
                         }
@@ -1868,6 +1880,7 @@ function printHazardRow(h) {
                         editableWorkflowStage = false;
                         break;
                 }
+
                 if (hc != "ra") {// if not rams hazard = design hazard
                     if (
                         (configData[workflow]['initiatereview']['userRoles'].filter(item => item === role).length > 0 && //Make the definition of user role that can edit configurable. Patrick Hsu, 6 Feb 2024. Updated role == to include.() for multiple array elements. Patrick Hsu, 12 Feb 2024
@@ -1986,11 +1999,11 @@ function printHazardRow(h) {
                                     '<div class="tpos-rvbtn" data-action="pcreview" title="Click to advance the hazard in the workflow">Undertake pre-construction review</div>';
                             }
                         }
-                        if (revstatus == "Under principal designer review") {
+                        if (revstatus == "Under lead designer review") {
                             updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
                             if (ucl == 1) {
                                 revbtn =
-                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake principal designer review</div>';
+                                    '<div class="tpos-rvbtn" data-action="ldreview" title="Click to advance the hazard in the workflow">Undertake lead designer review</div>';
                             }
                         }
                         if (revstatus == "Under site manager review") {
@@ -2037,7 +2050,7 @@ function printHazardRow(h) {
                             }
                         }
                     }
-                } else { // RAMS
+                } else {
                     if (
                         (role == "Construction Engineer" &&
                         comp == h.cdmHazardOwner.Title &&
@@ -2097,7 +2110,7 @@ function printHazardRow(h) {
                 if (revstatus == "Accepted") {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 16 Feb 2024
-                    } else { // RAMS
+                    } else {
                         (ruce = 1), (rucp = 1), (rucs = 1);
                     }
                     if (configData['Client Review']) {
@@ -2110,7 +2123,7 @@ function printHazardRow(h) {
                 if (revstatus == `Ready for review by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
-                    } else { // RAMS
+                    } else {
                         (ruce = 4), (rucp = 4), (rucs = 4);
                     }
                     warning = `<div class="clr_5_active">This hazard is under review by ${configData['Client Name']} and therefore locked for editing.</div>`;
@@ -2118,7 +2131,7 @@ function printHazardRow(h) {
                 if (revstatus == `Accepted by ${configData['Client Name']}`) {
                     if (hc != "ra") {
                         updateProgressBarColour(revstatus); //calls function to update progress bar colour in a workflow-configurable way. Patrick Hsu, 28 Feb 2024
-                    } else { // RAMS
+                    } else {
                         (ruce = 5), (rucp = 5), (rucs = 5);
                     }
                     warning = '<div class="clr_5_active">This hazard has been accepted and therefore locked for editing.</div>';
@@ -2156,7 +2169,7 @@ function printHazardRow(h) {
         rucd +
         '"></div><div title="Pre-construction review" class="prm-cell rucpc _' +
         rucpc +
-        '"></div><div title="Principal designer review" class="prm-cell rucl _' +
+        '"></div><div title="Lead designer review" class="prm-cell rucl _' +
         rucl +
         '"></div><div title="Construction manager review" class="prm-cell rucs _' +
         rucs +
@@ -2171,7 +2184,7 @@ function printHazardRow(h) {
         ucd +
         '"></div><div title="Green - you can undertake pre-construction reviews for this hazard" class="prm-cell ucpc _' +
         ucpc +
-        '"></div><div title="Green - you can undertake principal designer reviews for this hazard" class="prm-cell ucl _' +
+        '"></div><div title="Green - you can undertake lead designer reviews for this hazard" class="prm-cell ucl _' +
         ucl +
         '"></div><div title="Green - you can undertake Construction Manager reviews for this hazard" class="prm-cell ucs _' +
         ucs +
@@ -2215,7 +2228,7 @@ function printHazardRow(h) {
     if (h.cdmCurrentStatus === 'Accepted') {
         reopenButton = `<div id="reopen-button" class="reopen-button" data-company=${h.cdmHazardOwner.ID} data-hazardid=${h.ID} title="Reopen hazard for editing. This will start the workflow again">Reopen hazard</div>`;
     }
-
+    
     var hazardHtml1 =
         '<div class="cdmHazard-row row row-hazard ' +
         decodeRisk("Residual", h.cdmResidualRisk, 1) +
@@ -2432,8 +2445,8 @@ function printHazardRow(h) {
         "                </tr>" +
         "" +
         "            </table>" +
-        "        </div>" 
-        
+        "        </div>"
+
     var hazardHtml2 = 
         '        <div class="row bordered-risk">' +
         '            <table class="tpos-tbl wbrd collapse">' +
@@ -2522,7 +2535,7 @@ function printHazardRow(h) {
         '                        <div class="lbl">Coordinates</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
-        '                        <div class="lbl">Hazard tags</div>' +
+        '                        <div class="lbl">Residual risk owner</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl">Status</div>' +
@@ -2636,8 +2649,9 @@ function printHazardRow(h) {
         h.cdmReviews +
         "    </div>" +
         "</div>";
-        
-        // add div if hazard type is health
+
+
+    // add div if hazard type is health
         if (h.cdmHazardType.Title === 'Health'){
             health_div =          '<div class="row safetyhide bordered-rag" id="rag">'+
                                     '<table class="tpos-tbl wbrd collapse">'+
@@ -2674,7 +2688,6 @@ function printHazardRow(h) {
 
     return hazardHtml;
 }
-
 
 function shortText(str) {
     //var t=str;

@@ -1,6 +1,7 @@
 var flst = {};
 var maindata = [];
 function activateDatasets(cdmSites, allHazardsData) {
+    //console.log("actdatasets",allHazardsData);
  maindata = allHazardsData;
     $(".dataset")
         .off("click")
@@ -14,11 +15,14 @@ function activateDatasets(cdmSites, allHazardsData) {
                 var rid = $(this).attr("id");
                 var trid = rid.split("_");
                 var i = trid[1];
+                // //console.log('ds test id: '+i);
+                // //console.log(rid);
                 $(this).addClass("active");
                 var role = $("#" + rid + "_cdmUserRole").data("elementname");
                 var comp = $("#" + rid + "_cdmCompany").data("elementname");
                 var site = $("#" + rid + "_cdmSite").data("elementname");
                 // toastr.success('getting user data');
+                // //console.log('ds test role: '+role);
                 setupuserstats(role, comp, site, allHazardsData);
                 // main.setup_user(role,comp,site);
             }
@@ -45,15 +49,12 @@ function activateDatasets(cdmSites, allHazardsData) {
         });
     $(".xtrabtn")
         .off("click")
-        .on("click", async function() {
+        .on("click", function() {
             
             var ulink = $(this).data('action');
             // window.location.href = 'https://tidewayeastlondon.sharepoint.com/sites/powerbi/SitePages/CDM-Risk-Register.aspx';
             // window.location.href = ulink;
             //window.open(ulink, '_blank');
-            if (ulink.startsWith('https')) {
-                window.open(ulink, '_blank');
-            }
             if (ulink == 'addfilters'){
                 gimmepops("Filter selection pane",
           
@@ -65,344 +66,357 @@ function activateDatasets(cdmSites, allHazardsData) {
                     search: true,
                     selectAll: true
                 });
-                tposcustomfilters(maindata);
+                
+                cdmdata.get("cdmhazards","",null,"frmsel_customfilters",null,null,[]);
+                
+            }
+            if (ulink.startsWith("https")) {
+                // Just open the link on a new page
+                window.open(ulink, "_blank")
             }
             if (ulink == 'synccsv') {
                 // First get the user roles and verify that they are allowed to archive hazards
-                const userData = await getListItemsByListName({
-                    listName: "cdmUsers",
-                    select: "Title,cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Created,Editor/Title,Editor/ID,Modified,ID",
-                    expansion: "cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Editor/Title,Editor/ID",
-                    order: "ID asc",
-                    filter: ""
-                });
-                userData.d.results = userData.d.results.filter((item) => item.cdmUser.ID === uid());
-                if (userData.d.results.length == 0) {
-                    toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
-                } else {
-                    // Now we need to get the user roles data and match the id from the user data
-                    const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                    $.ajax({
-                        url: userRolesUrl,
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json; odata=verbose"
-                        },
-                        success: (userRoleData) => {
-                            const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Sync Client Hazard Permissions'].includes(x.Title) })
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Sync Client Hazard Permissions'].includes(x.Title) })
 
-                            const userRolesParsed = userData.d.results.map(x => x.cdmUserRole.ID)
-                            const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
-                            if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle(%27cdmCompanies%27)/items?$select=ID,Title,cdmCompanyRole/Title&$expand=cdmCompanyRole/Title"
-                                $.ajax({
-                                    url: url,
-                                    method: "GET",
-                                    headers: {
-                                        "Accept": "application/json; odata=verbose"
-                                    },
-                                    success: function(data) {
-                                        var Company_ID = null
-                                        for (var i = 0; i < data.d.results.length; i++) {
-                                            if (data.d.results[i].Title == configData['Client Name']) {
-                                                Company_ID = data.d.results[i].ID
-                                            }
-                                        }
-                                        if (Company_ID) {
-                                            gimmepops(`Sync ${configData['Client Name']} CSV`)
-                                            const inputDiv = '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>';
-                                            const popsContent = document.getElementsByClassName('pops-content')[0];
-                                            popsContent.innerHTML = inputDiv;
-                                            var csvFile = document.getElementById("csvFileInput");
-                                            readFile = function() {
-                                                var reader = new FileReader();
-                                                reader.onload = async function() {
-                                                    const rows = reader.result.split(/\r?\n(?=(?:[^"]*"[^"]*")*[^"]*$)/);
-                                                    const csvObject = {};
-                                                    for (let i=0; i<rows.length; i++) {
-                                                        const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
-                                                        row = rows[i].split(regex);
-                                                        for (let j=0; j<row.length; j++) {
-                                                            if (i == 0) { // get the column names
-                                                                var headers = row.map(x => x.trim('\r'));
-                                                                csvObject[row[j].trim('\r')] = [];
-                                                            } else {
-                                                                csvObject[headers[j]].push(row[j].trim('\r'));
-                                                            }
-                                                        }
-                                                    }
-
-                                                    if (csvObject.hasOwnProperty('Status') && csvObject.hasOwnProperty('ID') && csvObject.hasOwnProperty('Review Timestamp')) { // Make sure the right file format is being used
-                                                        // Keep a record of the hazards that are successfully and unsuccessfully synced. Syncing is asynchronous wheras failing a sync is synchronous. To simplify recording the audit
-                                                        // information we will iterate over all the provided hazards, find the ones that fail and then attempt the sync ones that pass the validation tests (asynchronous). At the end of
-                                                        // this we will record the audit information.
-                                                        var successfulSyncs = [];
-                                                        var unsuccessfulSyncs = [];
-                                                        const hazardsToSync = [];
-                                                        
-                                                        let apiIdQueryStr = '(';
-                                                        const timestamps = [];
-                                                        for (let i=0; i<csvObject['Status'].length; i++) {
-                                                            if (csvObject['ID'][i] && i == csvObject['Status'].length-1) {
-                                                                apiIdQueryStr += `ID eq ${csvObject['ID'][i]})`;
-                                                            }
-                                                            else if (csvObject['ID'][i]) {
-                                                                apiIdQueryStr += `ID eq ${csvObject['ID'][i]} or `;
-                                                            }
-
-                                                            if (csvObject['Review Timestamp'][i]) {
-                                                                timestamps.push(csvObject['Review Timestamp'][i]);
-                                                            }
-                                                        }
-
-                                                        // SharePoint has a limit of 400 characters for a filter query. If the query string is too long we will split it into multiple queries
-                                                        const apiIdQueryStrs = [];
-                                                        if (apiIdQueryStr.length > 300) {
-                                                            const apiIdQueryStrSplit = apiIdQueryStr.slice(1, -1).split(' or ');
-                                                            let tempStr = '(';
-                                                            for (let i=0; i<apiIdQueryStrSplit.length; i++) {
-                                                                if (tempStr.length + apiIdQueryStrSplit[i].length < 300) {
-                                                                    tempStr += apiIdQueryStrSplit[i] + ' or ';
-                                                                } else {
-                                                                    tempStr = tempStr.slice(0, -4) + ')';
-                                                                    apiIdQueryStrs.push(tempStr);
-                                                                    tempStr = '(';
-                                                                }
-                                                            }
-                                                            tempStr = tempStr.slice(0, -4) + ')';
-                                                            apiIdQueryStrs.push(tempStr);
-                                                        } else {
-                                                            apiIdQueryStrs.push(apiIdQueryStr);
-                                                        }
-                                                        
-                                                        const hazardsToSyncRaw = [];
-                                                        for (let i=0; i<apiIdQueryStrs.length; i++) {
-                                                            const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=${apiIdQueryStrs[i]}`;
-
-                                                            await $.ajax({
-                                                                url: url,
-                                                                method: 'GET',
-                                                                headers: {
-                                                                    "Accept": "application/json; odata=verbose"
-                                                                },
-                                                                success: async (data) => {
-                                                                    hazardsToSyncRaw.push(...data.d.results);
-                                                                }
-                                                            })
-                                                        }
-
-                                                        const date = new Date();
-                                                        const dateNow = ukdate(date);
-
-                                                        for (let i=0; i<hazardsToSyncRaw.length; i++) {
-                                                            // First, check that the hazard has not been modified after the review timestamp - this would suggest an error
-                                                            const id = hazardsToSyncRaw[i]['ID'];
-                                                            const csvObjectIndex = csvObject['ID'].indexOf(id.toString());
-
-                                                            // There's an edge case where sync files are missed and then executed in order. If a hazard is in consecutive files then the second sync might be rejected
-                                                            // because its modified date > review timestamp. To mitigate this we will verify the last review is a sync and the last modified date = last sync date.
-                                                            const lastReview = hazardsToSyncRaw[i]['cdmReviews']?.split('^')[0];
-                                                            const lastReviewType = lastReview?.split(']')[2];
-                                                            const lastReviewDateSplit = lastReview?.split(']')[0].split('/');
-                                                            const lastReviewMonth = lastReviewDateSplit[1].length == 1 ? '0' + lastReviewDateSplit[1] : lastReviewDateSplit[1];
-                                                            const lastReviewDate = `${lastReviewDateSplit[2]}/${lastReviewMonth}/${lastReviewDateSplit[0]}`;
-                                                            const lateOrderSync = (lastReviewType == `Accepted by ${configData['Client Name']}` || lastReviewType.includes(`Reopened by ${configData['Client Name']}`) || 
-                                                                lastReviewType.includes(`Rejected by ${configData['Client Name']}`)) && hazardsToSyncRaw[i]['Modified'].split('T')[0].replaceAll('-', '/') == lastReviewDate &&
-                                                                csvObject['Review Timestamp'][csvObjectIndex].split('T')[0].replaceAll('-', '/') > lastReviewDate;
-                                                            if (csvObject['Review Timestamp'][csvObjectIndex] > hazardsToSyncRaw[i]['Modified'] || (csvObject['Review Timestamp'][csvObjectIndex] < hazardsToSyncRaw[i]['Modified'] && lateOrderSync)) {    
-                                                                const status = csvObject['Status'][csvObjectIndex];
-                                                                let history = hazardsToSyncRaw[i]['cdmReviews'];
-                                                                let auditTrailLine;
-                                                                let tdata;
-                                                                let error = false;
-
-                                                                if (status.includes('Accepted')) {
-                                                                    if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                        tdata = ['cdmCurrentStatus|' + `Accepted by ${configData['Client Name']}`, 'cdmHazardOwner|' + Company_ID, 'cdmLastReviewStatus|Accepted'];
-                                                                        // Check if the contract and residual risk owner have also been updated
-                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
-                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
-                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Accepted by ${configData['Client Name']}]` + 'No comment' + '^';
-                                                                    } else {
-                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                        error = true;
-                                                                    }
-
-                                                                } else if (status.includes('Ready for review')) {
-                                                                    if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Accepted by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                        tdata = ['cdmCurrentStatus|' + `Ready for review by ${configData['Client Name']}`, `cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`];
-                                                                        // Check if the contract and residual risk owner have also been updated
-                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
-                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
-                                                                        // Update the audit trail with the reopen reason
-                                                                        let comment = '';
-                                                                        if (csvObject.hasOwnProperty('Reopen Reason') && csvObject['Reopen Reason'][csvObjectIndex]) {
-                                                                            comment = csvObject['Reopen Reason'][csvObjectIndex];
-                                                                        }
-                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Reopened by ${configData['Client Name']}]` + `Reopen Reason: ${comment}` + '^';
-                                                                    } else {
-                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Accepted by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                        error = true;
-                                                                    }
-
-                                                                } else if (status.includes('Rejected')) {
-                                                                    if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
-                                                                        tdata = ["cdmCurrentStatus|" + "Requires mitigation", `cdmLastReviewStatus|Rejected by ${configData['Client Name']}`];
-                                                                        // Check if the contract and residual risk owner have also been updated
-                                                                        if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
-                                                                        if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
-                                                                        // Update the audit trail with the reason and feedback
-                                                                        let comment = '';
-                                                                        if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
-                                                                            comment += `Rejection Reason: ${csvObject['Rejection Reason'][csvObjectIndex]}`;
-                                                                        }
-                                                                        if (csvObject.hasOwnProperty('Rejection Feedback') && csvObject['Rejection Feedback'][csvObjectIndex]) {
-                                                                            comment += ` & Rejection Feedback: ${csvObject['Rejection Feedback'][csvObjectIndex]}`;
-                                                                        }
-                                                                        auditTrailLine = dateNow + ']' + unm() + ']' + `Rejected by ${configData['Client Name']}]` + comment + '^';
-                                                                    } else {
-                                                                        toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
-                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                                        error = true;
-                                                                    }
-                                                                }
-
-                                                                if (!error) {
-                                                                    history = auditTrailLine + history;
-                                                                    tdata.push(`cdmReviews|${history}`);
-                                                                    hazardsToSync.push({
-                                                                        id: id,
-                                                                        tdata: tdata
-                                                                    });
-                                                                }
-                                                            } else {
-                                                                toastr.error(`Could not sync hazard with id ${id} because it has been modified after the review by ${configData['Client Name']}. For more details please check the cdmHazardHistory list and filter the Title by "synced".`);
-                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it has been modified after the review by ${configData['Client Name']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
-                                                            }
-                                                            if (i == hazardsToSyncRaw.length-1) {
-                                                                // We'll keep an array of deferred promises which each resolve to true when the hazard is successfully or unsuccessfully written to sharepoint.
-                                                                // When all promises are resolved we can then safely write the audit information
-                                                                const promises = [];
-                                                                for (let j=0; j<hazardsToSync.length; j++) {
-                                                                    const deffered = new $.Deferred();
-                                                                    promises.push(deffered);
-                                                                    await cdmdata.update('cdmHazards', hazardsToSync[j].tdata, 'clientSync', hazardsToSync[j].id,
-                                                                    () => {
-                                                                        successfulSyncs.push(hazardsToSync[j].id)
-                                                                        deffered.resolve(true);
-                                                                    },
-                                                                    () => {
-                                                                        unsuccessfulSyncs.push(`Hazard ${hazardsToSync[j].id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
-                                                                        deffered.resolve(true);
-                                                                    })
-                                                                }
-
-                                                                if (hazardsToSync.length == 0) {
-                                                                    recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
-                                                                } else {
-                                                                    $.when(...promises).then(() => {
-                                                                        recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
-                                                                    })
-                                                                }
-                                                            }
-                                                        }
-                                                    } else {
-                                                        toastr.error('Invalid file format')
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getByTitle(%27cdmCompanies%27)/items?$select=ID,Title,cdmCompanyRole/Title&$expand=cdmCompanyRole/Title"
+                                        $.ajax({
+                                            url: url,
+                                            method: "GET",
+                                            headers: {
+                                                "Accept": "application/json; odata=verbose"
+                                            },
+                                            success: function(data) {
+                                                var Company_ID = null
+                                                for (var i = 0; i < data.d.results.length; i++) {
+                                                    if (data.d.results[i].Title == configData['Client Name']) {
+                                                        Company_ID = data.d.results[i].ID
                                                     }
                                                 }
-                                            reader.readAsBinaryString(csvFile.files[0]);
+                                                if (Company_ID) {
+                                                    gimmepops(`Sync ${configData['Client Name']} CSV`,
+                                                    '<div id="popscontentarea"><input id="csvFileInput" type="file" accept=".csv"/><input id="sync-hs2-hazards-btn" type="button" value="Sync"/></div>');
+                                                    var csvFile = document.getElementById("csvFileInput");
+                                                    readFile = function() {
+                                                        var reader = new FileReader();
+                                                        reader.onload = async function() {
+                                                            const rows = reader.result.split(/\r?\n(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+                                                            const csvObject = {};
+                                                            for (let i=0; i<rows.length; i++) {
+                                                                const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
+                                                                row = rows[i].split(regex);
+                                                                for (let j=0; j<row.length; j++) {
+                                                                    if (i == 0) { // get the column names
+                                                                        var headers = row.map(x => x.trim('\r'));
+                                                                        csvObject[row[j].trim('\r')] = [];
+                                                                    } else {
+                                                                        csvObject[headers[j]].push(row[j].trim('\r'));
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            if (csvObject.hasOwnProperty('Status') && csvObject.hasOwnProperty('ID') && csvObject.hasOwnProperty('Review Timestamp')) { // Make sure the right file format is being used
+                                                                // Keep a record of the hazards that are successfully and unsuccessfully synced. Syncing is asynchronous wheras failing a sync is synchronous. To simplify recording the audit
+                                                                // information we will iterate over all the provided hazards, find the ones that fail and then attempt the sync ones that pass the validation tests (asynchronous). At the end of
+                                                                // this we will record the audit information.
+                                                                var successfulSyncs = [];
+                                                                var unsuccessfulSyncs = [];
+                                                                const hazardsToSync = [];
+                                                                
+                                                                let apiIdQueryStr = '(';
+                                                                const timestamps = [];
+                                                                for (let i=0; i<csvObject['Status'].length; i++) {
+                                                                    if (csvObject['ID'][i] && i == csvObject['Status'].length-1) {
+                                                                        apiIdQueryStr += `ID eq ${csvObject['ID'][i]})`;
+                                                                    }
+                                                                    else if (csvObject['ID'][i]) {
+                                                                        apiIdQueryStr += `ID eq ${csvObject['ID'][i]} or `;
+                                                                    }
+
+                                                                    if (csvObject['Review Timestamp'][i]) {
+                                                                        timestamps.push(csvObject['Review Timestamp'][i]);
+                                                                    }
+                                                                }
+
+                                                                // SharePoint has a limit of 400 characters for a filter query. If the query string is too long we will split it into multiple queries
+                                                                const apiIdQueryStrs = [];
+                                                                if (apiIdQueryStr.length > 300) {
+                                                                    const apiIdQueryStrSplit = apiIdQueryStr.slice(1, -1).split(' or ');
+                                                                    let tempStr = '(';
+                                                                    for (let i=0; i<apiIdQueryStrSplit.length; i++) {
+                                                                        if (tempStr.length + apiIdQueryStrSplit[i].length < 300) {
+                                                                            tempStr += apiIdQueryStrSplit[i] + ' or ';
+                                                                        } else {
+                                                                            tempStr = tempStr.slice(0, -4) + ')';
+                                                                            apiIdQueryStrs.push(tempStr);
+                                                                            tempStr = '(';
+                                                                        }
+                                                                    }
+                                                                    tempStr = tempStr.slice(0, -4) + ')';
+                                                                    apiIdQueryStrs.push(tempStr);
+                                                                } else {
+                                                                    apiIdQueryStrs.push(apiIdQueryStr);
+                                                                }
+                                                                
+                                                                const hazardsToSyncRaw = [];
+                                                                for (let i=0; i<apiIdQueryStrs.length; i++) {
+                                                                    const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmHazards%27)/items?$filter=${apiIdQueryStrs[i]}`;
+
+                                                                    await $.ajax({
+                                                                        url: url,
+                                                                        method: 'GET',
+                                                                        headers: {
+                                                                            "Accept": "application/json; odata=verbose"
+                                                                        },
+                                                                        success: async (data) => {
+                                                                            hazardsToSyncRaw.push(...data.d.results);
+                                                                        }
+                                                                    })
+                                                                }
+                                                                console.log(hazardsToSyncRaw)
+                                                                const date = new Date();
+                                                                const dateNow = ukdate(date);
+
+                                                                for (let i=0; i<hazardsToSyncRaw.length; i++) {
+                                                                    // First, check that the hazard has not been modified after the review timestamp - this would suggest an error
+                                                                    const id = hazardsToSyncRaw[i]['ID'];
+                                                                    const csvObjectIndex = csvObject['ID'].indexOf(id.toString());
+
+                                                                    // There's an edge case where sync files are missed and then executed in order. If a hazard is in consecutive files then the second sync might be rejected
+                                                                    // because its modified date > review timestamp. To mitigate this we will verify the last review is a sync and the last modified date = last sync date.
+                                                                    const lastReview = hazardsToSyncRaw[i]['cdmReviews']?.split('^')[0];
+                                                                    const lastReviewType = lastReview?.split(']')[2];
+                                                                    const lastReviewDateSplit = lastReview?.split(']')[0].split('/');
+                                                                    const lastReviewMonth = lastReviewDateSplit[1].length == 1 ? '0' + lastReviewDateSplit[1] : lastReviewDateSplit[1];
+                                                                    const lastReviewDate = `${lastReviewDateSplit[2]}/${lastReviewMonth}/${lastReviewDateSplit[0]}`;
+                                                                    const lateOrderSync = (lastReviewType == `Accepted by ${configData['Client Name']}` || lastReviewType.includes(`Reopened by ${configData['Client Name']}`) || 
+                                                                        lastReviewType.includes(`Rejected by ${configData['Client Name']}`)) && hazardsToSyncRaw[i]['Modified'].split('T')[0].replaceAll('-', '/') == lastReviewDate &&
+                                                                        csvObject['Review Timestamp'][csvObjectIndex].split('T')[0].replaceAll('-', '/') > lastReviewDate;
+                                                                    if (csvObject['Review Timestamp'][csvObjectIndex] > hazardsToSyncRaw[i]['Modified'] || (csvObject['Review Timestamp'][csvObjectIndex] < hazardsToSyncRaw[i]['Modified'] && lateOrderSync)) {    
+                                                                        const status = csvObject['Status'][csvObjectIndex];
+                                                                        let history = hazardsToSyncRaw[i]['cdmReviews'];
+                                                                        let auditTrailLine;
+                                                                        let tdata;
+                                                                        let error = false;
+
+                                                                        if (status.includes('Accepted')) {
+                                                                            if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                tdata = ['cdmCurrentStatus|' + `Accepted by ${configData['Client Name']}`, 'cdmHazardOwner|' + Company_ID, 'cdmLastReviewStatus|Accepted'];
+                                                                                // Check if the contract and residual risk owner have also been updated
+                                                                                if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
+                                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Accepted by ${configData['Client Name']}]` + 'No comment' + '^';
+                                                                            } else {
+                                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                error = true;
+                                                                            }
+
+                                                                        } else if (status.includes('Ready for review')) {
+                                                                            if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Accepted by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                tdata = ['cdmCurrentStatus|' + `Ready for review by ${configData['Client Name']}`, `cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`];
+                                                                                // Check if the contract and residual risk owner have also been updated
+                                                                                if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
+                                                                                // Update the audit trail with the reopen reason
+                                                                                let comment = '';
+                                                                                if (csvObject.hasOwnProperty('Reopen Reason') && csvObject['Reopen Reason'][csvObjectIndex]) {
+                                                                                    comment = csvObject['Reopen Reason'][csvObjectIndex];
+                                                                                }
+                                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Reopened by ${configData['Client Name']}]` + `Reopen Reason: ${comment}` + '^';
+                                                                            } else {
+                                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Accepted by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                error = true;
+                                                                            }
+
+                                                                        } else if (status.includes('Rejected')) {
+                                                                            if (hazardsToSyncRaw[i]['cdmCurrentStatus'] == `Ready for review by ${configData['Client Name']}`) { // Check the hazard is in the correct state
+                                                                                tdata = ["cdmCurrentStatus|" + "Requires mitigation", `cdmLastReviewStatus|Rejected by ${configData['Client Name']}`];
+                                                                                // Check if the contract and residual risk owner have also been updated
+                                                                                if (csvObject['Contract'][csvObjectIndex]) tdata.push(`cdmContract|${csvObject['Contract'][csvObjectIndex]}`);
+                                                                                if (csvObject['Residual Risk Owner'][csvObjectIndex]) tdata.push(`cdmResidualRiskOwner|${csvObject['Residual Risk Owner'][csvObjectIndex]}`);
+                                                                                // Update the audit trail with the reason and feedback
+                                                                                let comment = '';
+                                                                                if (csvObject.hasOwnProperty('Rejection Reason') && csvObject['Rejection Reason'][csvObjectIndex]) {
+                                                                                    comment += `Rejection Reason: ${csvObject['Rejection Reason'][csvObjectIndex]}`;
+                                                                                }
+                                                                                if (csvObject.hasOwnProperty('Rejection Feedback') && csvObject['Rejection Feedback'][csvObjectIndex]) {
+                                                                                    comment += ` & Rejection Feedback: ${csvObject['Rejection Feedback'][csvObjectIndex]}`;
+                                                                                }
+                                                                                auditTrailLine = dateNow + ']' + unm() + ']' + `Rejected by ${configData['Client Name']}]` + comment + '^';
+                                                                            } else {
+                                                                                toastr.error(`Could not sync hazard with id ${id} because it is in the wrong workflow state. For more details please check the cdmHazardHistory list and filter the Title by "synced".`)
+                                                                                unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it is in the incorrect workflow state. Expected state: Ready for review by ${configData['Client Name']}, actual state: ${hazardsToSyncRaw[i]['cdmCurrentStatus']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                                error = true;
+                                                                            }
+                                                                        }
+
+                                                                        if (!error) {
+                                                                            history = auditTrailLine + history;
+                                                                            tdata.push(`cdmReviews|${history}`);
+                                                                            hazardsToSync.push({
+                                                                                id: id,
+                                                                                tdata: tdata
+                                                                            });
+                                                                        }
+                                                                    } else {
+                                                                        toastr.error(`Could not sync hazard with id ${id} because it has been modified after the review by ${configData['Client Name']}. For more details please check the cdmHazardHistory list and filter the Title by "synced".`);
+                                                                        unsuccessfulSyncs.push(`Hazard ${id}: could not be synced because it has been modified after the review by ${configData['Client Name']}. Confirm with ${configData['Client Name']} it is in the correct state.\n`);
+                                                                    }
+                                                                    if (i == hazardsToSyncRaw.length-1) {
+                                                                        // We'll keep an array of deferred promises which each resolve to true when the hazard is successfully or unsuccessfully written to sharepoint.
+                                                                        // When all promises are resolved we can then safely write the audit information
+                                                                        const promises = [];
+                                                                        for (let j=0; j<hazardsToSync.length; j++) {
+                                                                            const deffered = new $.Deferred();
+                                                                            promises.push(deffered);
+                                                                            await cdmdata.update('cdmHazards', hazardsToSync[j].tdata, 'clientSync', hazardsToSync[j].id,
+                                                                            () => {
+                                                                                successfulSyncs.push(hazardsToSync[j].id)
+                                                                                deffered.resolve(true);
+                                                                            },
+                                                                            () => {
+                                                                                unsuccessfulSyncs.push(`Hazard ${hazardsToSync[j].id}: could not be syned due to any internal SharePoint error. Please review the sync file and try again.`);
+                                                                                deffered.resolve(true);
+                                                                            })
+                                                                        }
+
+                                                                        if (hazardsToSync.length == 0) {
+                                                                            recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
+                                                                        } else {
+                                                                            $.when(...promises).then(() => {
+                                                                                recordSyncAudit(successfulSyncs, unsuccessfulSyncs, csvFile.files[0].name);
+                                                                            })
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                toastr.error('Invalid file format')
+                                                            }
+                                                        }
+                                                    reader.readAsBinaryString(csvFile.files[0]);
+                                                    }
+                                                    $("#sync-hs2-hazards-btn").on("click", readFile);
+                                                } else {
+                                                    toastr.error(`Could not find ${configData['Client Name']} in cdmCompanies List.`)
+                                                }
                                             }
-                                            $("#sync-hs2-hazards-btn").on("click", readFile);
-                                        } else {
-                                            toastr.error(`Could not find ${configData['Client Name']} in cdmCompanies List.`)
-                                        }
+                                        })
+                                    } else {
+                                        toastr.error("You don't have the required permissions to complete this action")
                                     }
-                                })
-                            } else {
-                                toastr.error("You don't have the required permissions to complete this action")
+                                }          
+                            });
+
+                            async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList, filename) {
+                                // Function to record the audit information of the hazard sync to the cdmHazardHistory list
+                                const cdmHazardHistory = list('cdmHazardHistory');
+                                const itemCreateInfo = new SP.ListItemCreationInformation();
+                                const oListItem = cdmHazardHistory.addItem(itemCreateInfo);
+                                oListItem.set_item('Title', 'synced');
+                                if (successfulSyncList.length > 0 && unsuccessfulSyncList.length > 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                                } else if (successfulSyncList.length == 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
+                                } else if (unsuccessfulSyncList.length == 0) {
+                                    oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
+                                }
+                                oListItem.update();
+                                ctx().load(oListItem);
+                                await ctx().executeQueryAsync(onSuccess());
+
+                                function onSuccess() {
+                                    toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced".', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
+                                }
+
+                                function onFailure() {
+                                    toastr.error('Failed to record audit information for this sync');
+                                }
                             }
-                        }          
-                    });
-
-                    async function recordSyncAudit(successfulSyncList, unsuccessfulSyncList, filename) {
-                        // Function to record the audit information of the hazard sync to the cdmHazardHistory list
-                        const cdmHazardHistory = list('cdmHazardHistory');
-                        const itemCreateInfo = new SP.ListItemCreationInformation();
-                        const oListItem = cdmHazardHistory.addItem(itemCreateInfo);
-                        oListItem.set_item('Title', 'synced');
-                        if (successfulSyncList.length > 0 && unsuccessfulSyncList.length > 0) {
-                            oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
-                        } else if (successfulSyncList.length == 0) {
-                            oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: N/A\n Unsuccessful syncs:\n${unsuccessfulSyncList}`);
-                        } else if (unsuccessfulSyncList.length == 0) {
-                            oListItem.set_item('cdmAction', `File name: ${filename}\nSuccessful syncs: ${successfulSyncList}\n Unsuccessful syncs: N/A`);
-                        }
-                        oListItem.update();
-                        ctx().load(oListItem);
-                        await ctx().executeQueryAsync(onSuccess());
-
-                        function onSuccess() {
-                            toastr.success('<br/>Successfully recorded audit information for this sync. To review this information access the cdmHazardHistory list and filter the Title by "synced".', 'Sync Audit Information', { timeOut: 0, extendedTimeOut: 0, closeButton: true });
-                        }
-
-                        function onFailure() {
-                            toastr.error('Failed to record audit information for this sync');
                         }
                     }
-                }
+                })
             }
                 
             if (ulink == 'archivehazards') {
                 // First get the user roles and verify that they are allowed to archive hazards
-                const userData = await getListItemsByListName({
-                    listName: "cdmUsers",
-                    select: "Title,cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Created,Editor/Title,Editor/ID,Modified,ID",
-                    expansion: "cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Editor/Title,Editor/ID",
-                    order: "ID asc",
-                    filter: ""
-                });
-                userData.d.results = userData.d.results.filter((item) => item.cdmUser.ID === uid());
-                if (userData.d.results.length == 0) {
-                    toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
-                } else {
-                    // Now we need to get the user roles data and match the id from the user data
-                    const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                    $.ajax({
-                        url: userRolesUrl,
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json; odata=verbose"
-                        },
-                        success: (userRoleData) => {
-                            const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Archive hazards permissions'].includes(x.Title) })
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return configData['Archive hazards permissions'].includes(x.Title) })
 
-                            const userRolesParsed = userData.d.results.map(x => x.cdmUserRole.ID)
-                            const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
-                            if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                gimmepops("Archiving Hazards");
-                                const inputHtml = '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
-                                '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>';
-                                const popsContent = document.getElementsByClassName('pops-content')[0];
-                                popsContent.innerHTML = inputHtml;
-                                // Add an event listner to listen for clicks
-                                document.getElementById('archive-button').addEventListener('click', () => {
-                                    toastr.warning('Archiving hazards...');
-                                    getCdmHazardsListItemsAndArchive();
-                                    closepops();
-                                })
-                            } else {
-                                toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
-                            }
-                        },
-                        error: {
-                            function(error) {console.log(JSON.stringify(error));}
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        gimmepops("Archiving Hazards",
+                                        '<p style="color:white">Do you want to archive all hazards marked as "cancelled". This will remove these hazards from the app to the Sharepoint list "cdmHazardsArchived".<p>' +
+                                        '<div id="popscontentarea"><div id="archive-button" class="archive-button">Archive hazards</div></div>');
+
+                                        // Add an event listner to listen for clicks
+                                        document.getElementById('archive-button').addEventListener('click', () => {
+                                            toastr.warning('Archiving hazards...');
+                                            getCdmHazardsListItemsAndArchive();
+                                            closepops();
+                                        })
+                                    } else {
+                                        toastr.error('You do not have the required permissions to archive hazards. Ask your system administrator to grant you further user roles.')
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
                         }
-                    })
-                }
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
 
                 // Get all the list items and then filter for the ones thhat are cancelled. We have to it this way round (even though it makes no sense) because you can't filter by the required column
                 // We request the data again instead of using allHazardsData because the allHazardsData is the result of a request that is limitted to 5000 items. The below request searches the entire
@@ -430,7 +444,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             }
                         },
                         error: {
-                            function(error) {console.log(JSON.stringify(error));}
+                            function(error) {}
                         }
                     })
                     return response
@@ -446,7 +460,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                     const promises = [];
                     for (let i=0; i<cdmHazardData.length; i++) {
                         // We can only archive hazards if they have been at least design manager reviewed
-                        const legalWorkflowStates = ['Under pre-construction review', 'Under principal designer review', 'Under site manager review', 'Accepted'];
+                        const legalWorkflowStates = ['Requires mitigation', 'Assessment in progress', 'Under peer review', 'Under design manager review', 'Under pre-construction review', 'Under lead designer review', 'Under site manager review', 'Accepted'];
                         if (cdmHazardData[i].cdmUniclass === 'Cancelled' && legalWorkflowStates.includes(cdmHazardData[i].cdmCurrentStatus)) {
                             hazardCounter++;
                             const hazardData = [];
@@ -523,8 +537,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                                 ctx().executeQueryAsync(onSuccessfulDelete, onUnsuccessfulDelete);
                             }
             
-                            function onUnsuccessfulCopy() {
+                            function onUnsuccessfulCopy(sender, args) {
                                 toastr.error(`Could not archive hazard with id ${cdmHazardData[i].ID}`);
+                                console.log(args.get_message())
                                 deferred.resolve(true);
                             }
 
@@ -556,43 +571,48 @@ function activateDatasets(cdmSites, allHazardsData) {
 
             if (ulink == 'exportbulkupload') {
                 // First lets check that the current user is authorised to do this.
-                const userData = await getListItemsByListName({
-                    listName: "cdmUsers",
-                    select: "Title,cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Created,Editor/Title,Editor/ID,Modified,ID",
-                    expansion: "cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Editor/Title,Editor/ID",
-                    order: "ID asc",
-                    filter: ""
-                });
-                userData.d.results = userData.d.results.filter((item) => item.cdmUser.ID === uid());
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                if (userData.d.results.length == 0) {
-                    toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
-                } else {
-                    // Now we need to get the user roles data and match the id from the user data
-                    const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
 
-                    $.ajax({
-                        url: userRolesUrl,
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json; odata=verbose"
-                        },
-                        success: (userRoleData) => {
-                            const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
-
-                            const userRolesParsed = userData.d.results.map(x => x.cdmUserRole.ID)
-                            const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
-                            if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                filterExportData()
-                            } else {
-                                toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
-                            }
-                        },
-                        error: {
-                            function(error) {console.log(JSON.stringify(error));}
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        filterExportData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
                         }
-                    })
-                }
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
 
                 // To save effort we can reuse the code for the extra button for the filters. The outcome of what we want is largely the same except we don't want to filter the data on screen, we
                 // want to filter the export data. We can just change what the apply filters button does to do achieve this. This is done in the tposcustomfilters function.
@@ -614,44 +634,49 @@ function activateDatasets(cdmSites, allHazardsData) {
 
             if (ulink == 'importbulkupload') {
                 // First lets check that the current user is authorised to do this.
-                const userData = await getListItemsByListName({
-                    listName: "cdmUsers",
-                    select: "Title,cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Created,Editor/Title,Editor/ID,Modified,ID",
-                    expansion: "cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Editor/Title,Editor/ID",
-                    order: "ID asc",
-                    filter: ""
-                });
-                userData.d.results = userData.d.results.filter((item) => item.cdmUser.ID === uid());
+                const userId = _spPageContextInfo.userId;
+                const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                $.ajax({
+                    url: usersListUrl,
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json; odata=verbose"
+                    },
+                    success: (userData) => {
+                        if (userData.d.results.length == 0) {
+                            toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                        } else {
+                            // Now we need to get the user roles data and match the id from the user data
+                            const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
 
-                if (userData.d.results.length == 0) {
-                    toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
-                } else {
-                    // Now we need to get the user roles data and match the id from the user data
-                    const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+                            $.ajax({
+                                url: userRolesUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userRoleData) => {
+                                    const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
 
-                    $.ajax({
-                        url: userRolesUrl,
-                        method: 'GET',
-                        headers: {
-                            "Accept": "application/json; odata=verbose"
-                        },
-                        success: (userRoleData) => {
-                            const authorisedRoles = userRoleData.d.results.filter((x) => { return 'Design Manager' === x.Title }) // We can change this to config data later
-
-                            const userRolesParsed = userData.d.results.map(x => x.cdmUserRole.ID)
-                            const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
-                            if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
-                                importData()
-                            } else {
-                                toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
-                            }
-                        },
-                        error: {
-                            function(error) {console.log(JSON.stringify(error));}
+                                    const userRolesParsed = userData.d.results.map(x => x.cdmUserRoleId)
+                                    const authorisedRolesParsed = authorisedRoles.map(x => x.ID)
+                                    if (userRolesParsed.some(x => authorisedRolesParsed.includes(x))) {
+                                        importData()
+                                    } else {
+                                        toastr.error('You do not have the required permissions to export data for bulk uploads. Ask your system administrator to grant you further user roles.');
+                                    }
+                                },
+                                error: {
+                                    function(error) {}
+                                }
+                            })
                         }
-                    })
-                }
-                // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                        // You ned to get the cdmUserRoles data as well and map the user role id to the role name
+                    },
+                    error: {
+                        function(error) {}
+                    }
+                })
 
                 /**
                 * Imports data from a CSV file into SharePoint lists.
@@ -659,17 +684,15 @@ function activateDatasets(cdmSites, allHazardsData) {
                 */
                 function importData() {
                     // Display a popup for importing CSV data.
-                    gimmepops(`Import bulk edit CSV`);
-                    const inputContent = `<div id="popscontentarea">
+                    gimmepops(`Import bulk edit CSV`,
+                    `<div id="popscontentarea">
                         <div class="bulk-import-vertical-block">
                             <input id="csvFileInput" type="file" accept=".csv"/>
                             <label for="pw-link-input">Enter ProjectWise link to meeting minutes:</label>
                             <input type="text" id="pw-link-input" name="pw-link-input">
                         </div>
                         <input id="bulk-upload-button" type="button" value="Upload changes" style="float:right"/>
-                    </div>`;
-                    const popsContent = document.getElementsByClassName('pops-content')[0];
-                    popsContent.innerHTML = inputContent;
+                    </div>`);
 
                     // Upload the CSV file to SharePoint when the button is clicked.
                     $("#bulk-upload-button").on("click", () => {
@@ -726,7 +749,6 @@ function activateDatasets(cdmSites, allHazardsData) {
                             // Success message displayed when bulk update finishes
                             toastr.success("Finished bulk update");
                         } catch (error) {
-                            console.log(JSON.stringify(error));
                             handleProcessingError(error);
                         }
                     }
@@ -1071,8 +1093,9 @@ function activateDatasets(cdmSites, allHazardsData) {
                         }
 
                         // Fetch the name of the current user
-                        const currentUserName = unm()
-                        const currentUserID = uid()
+                        const currentUser = await getCurrentUser()
+                        const currentUserName = currentUser.Title
+                        const currentUserID = currentUser.cdmUserId
 
                         // Retrieve current values of certain fields from the list item
                         const currentListItemValues = await loadListItemValues(listItem);
@@ -1083,6 +1106,7 @@ function activateDatasets(cdmSites, allHazardsData) {
                             cdmLastReviewStatus: previousLastReviewStatus,
                             cdmLastReviewDate: previousLastReviewDate
                         } = currentListItemValues;
+                        console.log('previous workflow status', previousWorkflowStatus)
                         // Define configurations for various fields incorporating validation conditions
                         const setFields = [
                             { field: "cdmSite", value: getIDofLookupItem(lookupData.cdmSites, csvObject.Site), allowNull: false },
@@ -1425,6 +1449,33 @@ function activateDatasets(cdmSites, allHazardsData) {
 
                     }
 
+
+                    async function getCurrentUser() {
+                        const userId = _spPageContextInfo.userId;
+                        const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+                        const userData = await new Promise((resolve, reject) => {
+                            $.ajax({
+                                url: usersListUrl,
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json; odata=verbose"
+                                },
+                                success: (userData) => {
+                                    if (userData.d.results.length == 0) {
+                                        toastr.error('You do not have any user roles assigned. Please ask your system administrator to add you to the system.')
+                                    } else {
+                                        resolve(userData.d.results[0])
+                                    }
+                                },
+                                error: (err) => {
+                                    reject(err)
+                                }
+                            });
+                        });
+
+                        return userData
+                    }
+
                 }
 
             }
@@ -1661,11 +1712,11 @@ function activateHazardEdits() {
                     } else if (principleDesignerReviewStage) {
                         const canPrincipleDesignerReview = $("#" + hi + " .ucl").hasClass("_1");
                         if (canPrincipleDesignerReview) {
-                            toastr.error(`This hazard is under principal designer review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                            toastr.error(`This hazard is under lead designer review so is locked for editing. Please review this hazard and submit a change request if it requires editing. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         } else if (configData['Principal designer review editable workflow state']) {
-                            toastr.error(`This hazard is under principal designer review so is locked for editing for all users except principal designers. Contact a principal designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
+                            toastr.error(`This hazard is under lead designer review so is locked for editing for all users except lead designers. Contact a lead designer to complete the review or make an edit. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`)
                         } else {
-                            toastr.error(`This hazard is under principal designer review so is locked for editing. Contact a principal designer to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
+                            toastr.error(`This hazard is under lead designer review so is locked for editing. Contact a lead designer to complete the review. ${configData['Full admin edit rights'] ? ' Admins can still make edits if you need to make a change.' : ''}`);
                         }
                     } else if (constructionManagerReviewStage) {
                         const canConstructionManagerReview = $("#" + hi + " .ucs").hasClass("_1");
@@ -1729,10 +1780,9 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the hazard",
                             '<div class="clr_3_active">A hazard is something with the potential to cause harm</div>' +
-                            txtbox
+                            txtbox +
+                            svBtn
                         );
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmRiskDescription") {
                         var existingTxt = $("#" + hi + " .cdmRiskDescription").html();
@@ -1745,10 +1795,9 @@ function activateHazardEdits() {
                         gimmepops(
                             "Describing the risk",
                             '<div class="clr_3_active">What harm could be caused to whom or what?</div>' +
-                            txtbox
+                            txtbox +
+                            svBtn
                         );
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == "cdmMitigationDescription") {
@@ -1762,10 +1811,9 @@ function activateHazardEdits() {
                         gimmepops(
                             "Our mitigation",
                             '<div class="clr_3_active">Completed actions to minimise the risks</div>' +
-                            txtbox
+                            txtbox +
+                            svBtn
                         );
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmStageMitigationSuggestion" && hc != "RAMS hazard") {
                         var existingTxt = $(
@@ -1780,10 +1828,9 @@ function activateHazardEdits() {
                         gimmepops(
                             "Your mitigation suggestion for " + stage,
                             '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                            txtbox
+                            txtbox +
+                            svBtn
                         );
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += svBtn;
                     }
                     if (fld == "cdmInitialRAG" || fld == "cdmResidualRAG") {
                         var rags = '<div id="rags"></div>';
@@ -1844,6 +1891,7 @@ function activateHazardEdits() {
                                 $(".sk-circle").hide();
                                 $(".rag").click(function() {
                                     var v = $(this).data("v");
+                                    ////console.log(v);
                                     var trm = btns[v];
                                     var val = trm[0] + "^" + trm[2] + "^" + trm[1];
                                     var tdata = [];
@@ -1933,12 +1981,11 @@ function activateHazardEdits() {
                         }
                         var cdtbl =
                             '<table id="newcoordinates" class="width-350">' +
-                            cd
-                        const tableContent = '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
+                            cd +
+                            '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
+
                         // var ctags=getctags(str);
                         gimmepops("Managing coordinates", cdtbl);
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += tableContent;
                         var na = [];
                         $(".tpos-delbtn")
                             .off("click")
@@ -1954,27 +2001,29 @@ function activateHazardEdits() {
                                 keeprow.each(function() {
                                     coordinates.push($(this).data("ctag"));
                                 });
+                                // //console.log(coordinates);
                             });
                         $(".tpos-addbtn")
                             .off("click")
                             .on("click", function() {
-                                var x = sanitizeInput($("#nx").val());
-                                var y = sanitizeInput($("#ny").val());
-                                var z = sanitizeInput($("#nz").val());
+                                var x = $("#nx").val();
+                                var y = $("#ny").val();
+                                var z = $("#nz").val();
                                 if (!x || !y || !z) {}
                                 else{
                                     var xyz = x + "," + y + "," + z;
                                     coordinates.push(xyz);
                                     var dd = "";
+                                    // //console.log(coordinates);
                                     for (var cc = 0; cc < coordinates.length; cc++) {
                                         dd += decCTag(cc, coordinates[cc]);
                                     }
 
                                     var cdtbl =
                                         '<table id="newcoordinates" class="width-350">' +
-                                        dd
-                                    var sanitisedCdtbl = sanitizeHTML(cdtbl);
-                                    $("#newcoordinates").replaceWith(sanitisedCdtbl);
+                                        dd +
+                                        '<tr class="ctagnew"><td><input style="color:rgb(0,0,0)" type="number" id="nx" placeholder="x" ></td><td><input style="color:rgb(0,0,0)" type="number" id="ny" placeholder="y" ></td><td><input style="color:rgb(0,0,0)" type="number" id="nz" placeholder="z" ></td><td><div class="tpos-addbtn">+</div></td></tr><tr><td colspan="4"><div class="tpos-svbtn">Save and Close</div></td></tr></table>';
+                                    $("#newcoordinates").replaceWith(cdtbl);
                                     $(".tpos-svbtn")
                                         .off("click")
                                         .on("click", function() {
@@ -2012,7 +2061,7 @@ function activateHazardEdits() {
                     }
                     if (fld == "cdmHazardTags") {
                         gimmepops(
-                            "Assigning a hazard tag",
+                            "Assigning a residual risk owner",
                             '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
                         );
                         cdmdata.get("cdmTags", "", null, "frmsel_htag", hc,null,[]);
@@ -2027,10 +2076,9 @@ function activateHazardEdits() {
                         '<div class="tpos-left-btn sv-hazard" onclick="savetxt(\'cdmLinks\');">Save</div>';
                         gimmepops(
                         "Associated Links",
-                        txtbox
+                        txtbox +
+                        svBtn
                         );
-                        const popsContent = document.getElementsByClassName("pops-content")[0];
-                        popsContent.innerHTML += svBtn;
                     }
 
                     if (fld == 'cdmSMMitigationSuggestion') {
@@ -2058,10 +2106,9 @@ function activateHazardEdits() {
                                 gimmepops(
                                     "Your mitigation suggestion for " + stage,
                                     '<div class="clr_3_active">Suggested actions to minimise the risks</div>' +
-                                    txtbox
+                                    txtbox +
+                                    svBtn
                                 );
-                                const popsContent = document.getElementsByClassName("pops-content")[0];
-                                popsContent.innerHTML += svBtn;
                             } else {
                                 toastr.error('This field can only be edited through the site managers approval comment at the pre-construction review workflow stage');
                             }
@@ -2201,7 +2248,7 @@ function activateRAMSBtn() {
             $('#tpos-main').html('');
             $('#tpos-main').html(screen);
             $("#tpos_search").keyup(function() {
-                var q = sanitizeInput($("#tpos_search").val());
+                var q = $("#tpos_search").val();
                 if (q != "" && q != " ") {
                     var f = $("div.row-hazard:Contains('" + q + "')");
 
@@ -2295,7 +2342,10 @@ function activateADDRAMSBTN() {
 
             var raid = $("#val_rams").html();
             var ratx = $("#sel_rams").val();
+            //console.log("RAID::: " + raid);
+            //console.log("RATX::: " + ratx);
             if (raid && ratx) {
+                //console.log("Missing Information");
                 nrdata.push("cdmSMMitigationSuggestion|" + mits);
                 nrdata.push("cdmRAMS|" + raid);
                 nrdata.push("cdmEntityTitle|" + ratx);
@@ -2314,6 +2364,7 @@ function activateADDRAMSBTN() {
 }
 
 function activateRAMSActions() {
+    //console.log('rams actions activated');
     $('.mkramsbtn').click(function() {
         var a = $(this).data("action");
         var hi = $(this)
@@ -2324,6 +2375,7 @@ function activateRAMSActions() {
         //   toastr.success("what???: " + id);
 
         hzd = id;
+        //console.log('rams actions activated for ' + hzd);
         var hist = "";
         var nd = new Date();
         var nnd = ukdate(nd);
@@ -2435,6 +2487,7 @@ function activateRAMSActions() {
 //         keeprow.each(function(){
 //             coordinates.push($(this).data('ctag'));
 //         });
+//         // //console.log(coordinates);
 //     });
 //     $('.tpos-addbtn').off('click').on('click',function(){
 //         var x=$('#nx').val();
@@ -2443,6 +2496,7 @@ function activateRAMSActions() {
 //         var xyz=x+','+y+','+z;
 //         coordinates.push(xyz);
 //         var dd='';
+//         // //console.log(coordinates);
 //         for(var cc=0;cc<coordinates.length;cc++){
 //             dd+=decCTag(cc,coordinates[cc]);
 //         }
@@ -2549,14 +2603,9 @@ function activateCoordinatesSave() {
                     newstring = x + "," + y + "," + z;
                 }
             }
-
-            var sanitizedNewString = escapeHTML(newstring)
-            $("#h_" + hzd + "_fullcoor").html(sanitizedNewString);
-
+            $("#h_" + hzd + "_fullcoor").html(newstring);
             var ctags = getctags(newstring);
-            
-            var sanitizedCtags = sanitizeHTML(ctags);
-            $("#mngCoo").replaceWith(sanitizedCtags);
+            $("#mngCoo").replaceWith(ctags);
             activateCoordinatesSave();
         });
     $(".tpos-svcbtn")
@@ -2659,7 +2708,7 @@ function getctags(str) {
 
 function savetxt(fld) {
     var tdata = [];
-    var txt = sanitizeInput($("#txtform").val());
+    var txt = $("#txtform").val();
     // toastr.success(txt);
     tdata.push(fld + "|" + txt);
     cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -2782,6 +2831,7 @@ function tposSelectOwner(lst, data, hzdt, trg) {
 function getDistResults(items,propertyName){
     var result = [];
 	var distResult=[];
+    //console.log(items);
     $.each(items, function(index, item) {
        if ($.inArray(item[propertyName], result)==-1) {
           result.push(item[propertyName]);
@@ -3000,6 +3050,8 @@ function tposSelectTag(lst, data, trg) {
 
 function tposSelectUniclass(lst, data, trg) {
     var tlist = data.d.results;
+    //console.log("LOOK BELOW");
+    //console.log(tlist);
     var options =
         '<tr><td class="hide" id="val_' +
         lst +
@@ -3201,6 +3253,7 @@ function tposSelectdropdown(lst, data, trg, col) {
     });
 
     $(".remove-selection").click(() => {
+        console.log("here")
         const update = [col + "|" + ""]
         cdmdata.update("cdmHazards", update, "frmedit_updateview");
     })
@@ -3211,8 +3264,9 @@ function tposSelectdropdown(lst, data, trg, col) {
       $("#pops").remove(); 
     });
   }
-async function tposcustomfilters( data, forExport) {
+function tposcustomfilters( data, forExport) {
     // var tlist=[];
+    // //console.log('maindata',maindata.length);
     // if (maindata.length = 0 ) {
     //     tlist = data.d.results;
     // }
@@ -3245,13 +3299,8 @@ async function tposcustomfilters( data, forExport) {
         }
 
         if (itcdmpwstructureid !== undefined && !distlistcdmpwstructure.includes(itcdmpwstructureid)){
-            if (configData['Create hazard show asset description']) {
-                const assetUAID = it.cdmPWStructure.UAID;
-                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+`Asset: ${itcdmpwstructuretitle}; UAID: ${assetUAID}`+'</option>';
-            } else {
-                selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>';
-            }
             distlistcdmpwstructure.push(itcdmpwstructureid);
+            selectcdmpwstructure += '<option value="'+itcdmpwstructuretitle+'">'+itcdmpwstructuretitle+'</option>'
         }
 
         if (!forExport && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus) || (forExport && configData['Exportable workflow states'].includes(itcdmCurrentStatus) && itcdmCurrentStatus !== undefined && !distlistcdmCurrentStatus.includes(itcdmCurrentStatus))){
@@ -3265,6 +3314,9 @@ async function tposcustomfilters( data, forExport) {
             // selectcdmResidualRiskOwner = "<option value= 'HS2 Infrastructure Management SME' >HS2 Infrastructure Management SME</option>"+
             // "<option value= 'HS2 Rail Systems Interface Engineer'>HS2 Rail Systems Interface Engineer</option>"
         }
+
+     
+      //console.log('distlistcdmCurrentStatus',distlistcdmCurrentStatus);
       
     }
     $("#popscontentarea").html('');
@@ -3310,28 +3362,28 @@ async function tposcustomfilters( data, forExport) {
         var fcdmStageExtraselected =[];
         fcdmStageExtra=$('#cdmStageExtrafilter').find(':selected');
         for( a=0; a<fcdmStageExtra.length;a++){
+            //console.log(fcdmStageExtra[a].innerText);
             fcdmStageExtraselected.push(fcdmStageExtra[a].innerText);
         }
+        //console.log(fcdmStageExtraselected);
         flst['cdmStageExtra'] = fcdmStageExtraselected;
 
         var fcdmpwstructure = [];
         var fcdmpwstructureselected =[];
         fcdmpwstructure=$('#cdmpwstructurefilter').find(':selected');
         for( b=0; b<fcdmpwstructure.length;b++){
-            if (configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset'])
-                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText.split(';')[0].split(':')[1].trimStart());
-            } else {
-                fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
-            }
+            //console.log(fcdmpwstructure,"cdmpwst");
+            fcdmpwstructureselected.push(fcdmpwstructure[b].innerText);
         }
-
+        //console.log(fcdmpwstructureselected);
         flst['cdmPWStructure'] = fcdmpwstructureselected;
 
         var fcdmCurrentStatus = [];
         var fcdmCurrentStatusselected =[];
         fcdmCurrentStatus= $('#cdmCurrentStatusfilter').find(':selected');
         for( c=0; c<fcdmCurrentStatus.length;c++){
-            fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace(/"/g,''));
+            //console.log("fcdmCurrentStatus",fcdmCurrentStatus[c].innerText);
+            fcdmCurrentStatusselected.push(fcdmCurrentStatus[c].innerText.replace('"',''));
         }
         
         flst['cdmCurrentStatus'] = fcdmCurrentStatusselected;
@@ -3339,11 +3391,13 @@ async function tposcustomfilters( data, forExport) {
         var fcdmResidualRiskOwner = [];
         var fcdmResidualRiskOwnerselected =[];
         fcdmResidualRiskOwner= $('#cdmResidualRiskOwnerfilter').find(':selected');
+        //console.log("fcdmResidualRiskOwner",fcdmResidualRiskOwner);
         for( c=0; c<fcdmResidualRiskOwner.length;c++){
+            console.log("fcdmResidualRiskOwner",fcdmResidualRiskOwner[c].innerText);
             fcdmResidualRiskOwnerselected.push(fcdmResidualRiskOwner[c].innerText);
         }
+        //console.log(fcdmCurrentStatusselected);
         flst['cdmResidualRiskOwner'] = fcdmResidualRiskOwnerselected;
-        console.log(flst)
 
         cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 
@@ -3646,6 +3700,7 @@ async function tposcustomfilters( data, forExport) {
   
 //     $("#sel_" + lstcdmpwstructure).bind("keyup change", function (ev) {
 //       var st = $(this).val();
+//       //console.log("key up",st);
 //       $("#val_" + lstcdmpwstructure).html("0");
 //       if (st) {
 //         $("tr:not(:Contains(" + st + "))").each(function () {
@@ -3664,6 +3719,7 @@ async function tposcustomfilters( data, forExport) {
 //     $("#sel_" + lstcdmpwstructure).click(function () {
 //       var st = $(this).val();
 //       toastr.success(st);
+//       //console.log("click",st);
 //       if (!st || st == "") {
 //         $("tr").each(function () {
 //           if ($(this).hasClass("tpos-" + lstcdmpwstructure + "-select-value") == 1) {
@@ -3690,6 +3746,7 @@ async function tposcustomfilters( data, forExport) {
       
 //       flst['cdmPWStructure'] = dv;
       
+//       //console.log(flst , "flst");
 //       formatdatato.statstablerows()
 //       cdmdata.get('cdmSites', null, 'Title asc', 'stats-table-row', 'statstbl',flst);
 //       $("#pops").remove();
@@ -3843,10 +3900,12 @@ function tposSelectPeer(lst, data, trg) {
 //             var user = unm();
 //             var nl = "";
 //             var vn = $("#h_" + hzd + " .cdmSite").html();
+//             // //console.log(vn);
 
 //             if (a == "initiatereview") {
 //                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
 //                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
+//                 //console.log(vcheck);
 //                 if (vcheck === null || vcheck === 'undefined' || vcheck === 'Awaiting assessment') {
 //                     toastr.error('Please provide a mitigation suggestion before initiating the review');
 //                 } else {
@@ -3858,7 +3917,7 @@ function tposSelectPeer(lst, data, trg) {
 //                             $(".tpos-svbtn")
 //                                 .off("click")
 //                                 .on("click", function() {
-//                                     var cmt = sanitizeInput($("#cmt").val());
+//                                     var cmt = $("#cmt").val();
 //                                     if (!cmt) {
 //                                         cmt = "no comment";
 //                                     }
@@ -3876,6 +3935,9 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
+//                                     // //console.log(hist);
+
+//                                     // //console.log(nl+hist);
 //                                     tdata.push("cdmReviews|" + nl);
 //                                     tdata.push("cdmCurrentStatus|Under peer review");
 //                                     tdata.push("cdmLastReviewDate|" + ind);
@@ -3904,6 +3966,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
+//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -3991,6 +4054,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
+//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4045,6 +4109,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                         }
 
 //                                         var ns = $("#h_" + hzd + " .rucpc").hasClass("_2");
+//                                         //console.log(ns);
 //                                         if (ns === true) {
 //                                             tdata.push("cdmReviews|" + nl);
 //                                             tdata.push(
@@ -4090,6 +4155,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
+//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4197,6 +4263,8 @@ function tposSelectPeer(lst, data, trg) {
 //                                     //     if (hzt == "Health") {
 //                                     //       hzti = 1;
 //                                     //     }
+//                                     //     //   //console.log(raid);
+
 //                                     //     tdata = [];
 //                                     //     // toastr.success(site);
 //                                     //     tdata.push("Title|" + title);
@@ -4218,6 +4286,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     //     tdata.push("cdmRAMS|" + raid);
 //                                     //     tdata.push("cdmEntityTitle|" + ratx);
 //                                     //     tdata.push("cdmStageExtra|" + stgi);
+//                                     //     //console.log(tdata);
 //                                     //     var udata = [];
 //                                     //     udata.push("cdmSMMitigationSuggestion|This hazard is further mitigated via one or several RAMS hazards with the following mitigation suggestion by the Construction Manager: " + mits + " Please click 'View linked / related hazards' for further details.");
 
@@ -4245,6 +4314,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
+//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4329,7 +4399,7 @@ function tposSelectPeer(lst, data, trg) {
 //                                     // if(hist==''||!hist||hist==undefined){
 //                                     //     hist='';
 //                                     // }
-//                                     // //(hist);
+//                                     // //console.log(hist);
 
 //                                     var tdata = [];
 //                                     if (act == "change") {
@@ -4442,6 +4512,7 @@ function hazardreviewbuttonaction() {
             if (a == "initiatereview") {
                 // var q='cdmCompany/ID eq \''+c+'\' and cdmUser/ID ne \''+uid()+'\' and cdmUserRole/Title eq \''+ur+'\'';
                 var vcheck = $('#h_' + hzd + ' .cdmStageMitigationSuggestion').html();
+                //console.log(vcheck);
                 if (vcheck === null || vcheck === 'undefined' || vcheck === 'Awaiting assessment') {
                     toastr.error('Please provide a mitigation suggestion before initiating the review');
                 } else {
@@ -4457,7 +4528,7 @@ function hazardreviewbuttonaction() {
                             $(".tpos-svbtn")
                                 .off("click")
                                 .on("click", function() {
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     if (!cmt) {
                                         cmt = "no comment";
                                     }
@@ -4475,6 +4546,9 @@ function hazardreviewbuttonaction() {
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
+
+                                    // //console.log(nl+hist);
                                     tdata.push("cdmReviews|" + nl);
                                     tdata.push(`cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}`); //Editable workflow config. Patrick Hsu, 30 Jan 2024
                                     tdata.push("cdmLastReviewDate|" + ind);
@@ -4498,11 +4572,13 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
+
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -4557,6 +4633,9 @@ function hazardreviewbuttonaction() {
                                         var ns = $("#h_" + hzd + " .rucs").hasClass("_2");
 
                                         tdata.push("cdmReviews|" + nl);
+
+                                        //console.log("Hazard Number:  " + hzd);
+
                                         getListItemsByListName({
                                                 listName: `cdmHazards`,
                                                 select: null,
@@ -4617,11 +4696,13 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
+
                                     var tdata = [];
                                     if (act == "change") {
                                         if (cmt == "" || !cmt || cmt == undefined) {
@@ -4673,6 +4754,8 @@ function hazardreviewbuttonaction() {
                                         if (hist) {
                                             nl = nl + hist;
                                         }
+
+                                        // //console.log(ns);
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push(
                                             `cdmCurrentStatus|${configData[workflow][a]["nextWorkFlowState"]}` //Editable workflow config. Patrick Hsu, 30 Jan 2024
@@ -4710,11 +4793,12 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -4785,6 +4869,7 @@ function hazardreviewbuttonaction() {
 
 
                                         var ns = $("#h_" + hzd + " .rucl").hasClass("_2");
+                                        // //console.log(ns);
                                         if (ns === true) {
                                             tdata.push("cdmReviews|" + nl);
                                             tdata.push(
@@ -4854,6 +4939,7 @@ function hazardreviewbuttonaction() {
                                     //     if (hzt == "Health") {
                                     //       hzti = 1;
                                     //     }
+                                    //     //   //console.log(raid);
 
                                     //     tdata = [];
                                     //     // toastr.success(site);
@@ -4876,6 +4962,7 @@ function hazardreviewbuttonaction() {
                                     //     tdata.push("cdmRAMS|" + raid);
                                     //     tdata.push("cdmEntityTitle|" + ratx);
                                     //     tdata.push("cdmStageExtra|" + stgi);
+                                    //     //console.log(tdata);
                                     //     var udata = [];
                                     //     udata.push("cdmSMMitigationSuggestion|This hazard is further mitigated via one or several RAMS hazards with the following mitigation suggestion by the Construction Manager: " + mits + " Please click 'View linked / related hazards' for further details.");
 
@@ -4890,7 +4977,7 @@ function hazardreviewbuttonaction() {
                 }
 
                 if (a == "ldreview") {
-                    gimmepops("Undertake the principal designer review", "");
+                    gimmepops("Undertake the lead designer review", "");
                     $(".pops-content").load(
                         "../3.0/html/internal.design.review.form.html",
                         function() {
@@ -4898,11 +4985,12 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -4959,7 +5047,7 @@ function hazardreviewbuttonaction() {
                                         tdata.push("cdmReviews|" + nl);
                                         tdata.push("cdmLastReviewDate|" + ind);
                                         tdata.push(
-                                            "cdmLastReviewStatus|Principal designer review completed"
+                                            "cdmLastReviewStatus|Lead designer review completed"
                                         );
                                         tdata.push("cdmLastReviewer|" + unm());
                                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
@@ -4982,11 +5070,12 @@ function hazardreviewbuttonaction() {
                                 .off("click")
                                 .on("click", function() {
                                     var act = $(this).data("action");
-                                    var cmt = sanitizeInput($("#cmt").val());
+                                    var cmt = $("#cmt").val();
                                     // hist = $('#h_'+hzd+'_cdmReviews').html();
                                     // if(hist==''||!hist||hist==undefined){
                                     //     hist='';
                                     // }
+                                    // //console.log(hist);
 
                                     var tdata = [];
                                     if (act == "change") {
@@ -5058,8 +5147,10 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "clientreview") {
+                    //console.log("Client Review Button Pressed")
                     var vcheck = $('#h_' + hzd + ' .cdmResidualRiskOwner').html();
                     var contract = $('#h_' + hzd + ' .cdmContract').html();
+                    //console.log(vcheck);
                     if (vcheck === null || vcheck === 'undefined' || vcheck === '') {
                         toastr.error(`Please provide a Residual Risk Owner before submitting to ${configData['Client Name']}`);
                     } else if (vcheck === "HS2 Rail Systems Interface Engineer" && !contract) {
@@ -5085,6 +5176,7 @@ function hazardreviewbuttonaction() {
                         tdata.push(`cdmLastReviewStatus|Ready for review by ${configData['Client Name']}`);
                         tdata.push("cdmLastReviewer|" + unm());
                         cdmdata.update("cdmHazards", tdata, "frmedit_updateview");
+                        //console.log("Updated Client Review")
                     }
                 }
             }
@@ -5303,16 +5395,17 @@ function reopenHazardAction() {
             
             // Only users in the hazard owner's company can reopen
             // Get the user data
-            const userData = await getListItemsByListName({
-                listName: "cdmUsers",
-                select: "Title,cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Created,Editor/Title,Editor/ID,Modified,ID",
-                expansion: "cdmUser/Title,cdmUser/ID,cdmUserRole/Title,cdmUserRole/ID,cdmCompany/Title,cdmCompany/ID,cdmSite/Title,cdmSite/ID,Author/Title,Author/ID,Editor/Title,Editor/ID",
-                order: "ID asc",
-                filter: ""
-            });
-            userData.d.results = userData.d.results.filter((item) => item.cdmUser.ID === uid());
-
+            const userId = _spPageContextInfo.userId;
+            const usersListUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUsers%27)/items?$filter=cdmUser%20eq%20${userId}`;
+            const userDataResult = await $.ajax({
+                url: usersListUrl,
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json; odata=verbose'
+                }
+            })
             const userRolesUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmUserRoles%27)/items`;
+
             const userRoleData = await $.ajax({
                 url: userRolesUrl,
                 method: 'GET',
@@ -5330,15 +5423,15 @@ function reopenHazardAction() {
             }
             
             //get the user roles IDs
-            const userRolesParsed = userData.d.results.map(x => x.cdmUserRole.ID)
+            const userRolesParsed = userDataResult.d.results.map(x => x.cdmUserRoleId)
 
             //get the filtered userRoleData IDs
 
             const authorisedRolesId  = authorisedRoles.map(x => x.ID)
             
             let authorised = false;
-            for (i=0; i<userData.d.results.length; i++) {
-                    if (userData.d.results[i].cdmCompany.ID === companyId) {
+            for (i=0; i<userDataResult.d.results.length; i++) {
+                    if (userDataResult.d.results[i].cdmCompanyId === companyId) {
                         authorised = true;
                 }
             }
@@ -5365,7 +5458,7 @@ function reopenHazardAction() {
                         const today = new Date();
                         const dateFormatted = today.toLocaleDateString('en-GB');
                         const user = unm();
-                        let comment = sanitizeInput($("#cmt").val());
+                        let comment = $("#cmt").val();
                         if (!comment) {
                             comment = "no comment";
                         }
@@ -5382,4 +5475,3 @@ function reopenHazardAction() {
         }
     )
 }
-            

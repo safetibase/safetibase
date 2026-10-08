@@ -264,7 +264,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 </div>
 
 <div class="selectnext">
-    <div class="tpos-info">If you wish to record the same hazard for assets, temporary works and/or RAMS for another <span class="siteConfig"></span>, you can select a new <span class="siteConfig"></span> by clicking the <span class="siteConfig"></span>s search box. Selecting another <span class="siteConfig"></span> will empty all previously selected options and provide new <span class="siteConfig"></span>
+    <div class="tpos-info">If you wish to record the same hazard for assets, temporary works and/or RAMS for another <span class="siteConfig"></span>, you can select a new <span class="siteConfig"></span> be clicking the <span class="siteConfig"></span>s search box. Selecting another <span class="siteConfig"></span> will empty all previously selected options and provide new <span class="siteConfig"></span>
         relevant options.</div>
 
     <div class="selection-panel" id="selection_panel">
@@ -298,7 +298,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
 <script>
     
-   async function routeSelection(e, v, vn) {
+    function routeSelection(e, v, vn) {
         var sTerm = '';
         var t = '';
         var pc = 0,
@@ -319,54 +319,46 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
             $('#selectedstructures').html('');
 
             //toastr.success('uuu');
+            console.log("JUST ABOUT TO GET TPOS DATA");
             tposdata.get('cdmPWStructures', 'cdmSite/ID eq ' + v, '', 'sel_structures');
+            console.log(tposdata);
             jsondata.get('tw', vn, 'sel_tw');
             jsondata.get('rams', vn, 'sel_rams');
             $('.selectnext').show();
             page.scroll('#next');
         }
         if (e == 'cdmPWStructures') {
-            t = $("#selectedstructures").html();
+            t = $('#selectedstructures').html();
 
 
-            //var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
-            const url = `${_spPageContextInfo.webAbsoluteUrl}/_api/web/lists/getByTitle(%27cdmStagesExtra%27)/items?$select=Title,ID`;
-            const data = await $.ajax({
-                url: url,
-                method: 'GET',
-                headers: {
-                "Accept": "application/json; odata=verbose"
-                }          
-            });
-            for (var i = 0; i < data.d.results.length; i++) {
-                if (data.d.results[i].Title != "Temporary Works Construction"){
-                    sTerm += '<option value="' + data.d.results[i].Title +'" class="qresult" data-entity="permanent" data-stage="' + data.d.results[i].ID + '" data-name="' + vn +
-                        '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + data.d.results[i].Title + '</span>' +
-                        ' </span></option>';
+            var stgs = ['Construction', 'Commission', 'Operation', 'Maintenance', 'Demolition'];
+
+            for (var i = 0; i < stgs.length; i++) {
+                if (stgs[i] === "Construction") {
+                    stid = 1;
+                } else if (stgs[i] === "Commission") {
+                    stid = 6;
+                } else if (stgs[i] === "Operation") {
+                    stid = 3;
+                } else if (stgs[i] === "Maintenance") {
+                    stid = 4;
+                } else if (stgs[i] === "Demolition") {
+                    stid = 5;
                 }
+                sTerm += '<div class="qresult" data-entity="permanent" data-stage="' + stid + '" data-name="' + vn +
+                    '" data-value="' + v + '"><span>' + vn + ' - <span class="stge-option">' + stgs[i] + '</span>' +
+                    ' </span><span class="qrremove" data-field="sel_structures">X</span></div>';
             }
             nt = t + sTerm;
             lbl = '<div class="tpos-lbl">Selected asset(s)</div>';
             if (nt) {
                 $('#pwstructurespanel').html('');
-                $("#popsarea").html('');
-                $('#pwstructurespanel').append(
-                '<div class ="customfiltersection" id="popsarea">'  + '<select name="selectedstructures[]" id="selectedstructures" multiple>' + nt + '</select></div>'
-                )
-
-                // Added this function to create a dropdown
-                $("#selectedstructures").multiselect({
-                    columns: 1,
-                    placeholder: 'Select assets:',
-                    search: false,
-                    selectAll: true
-                }) 
+                $('#pwstructurespanel').html(lbl + '<div id="selectedstructures" class="tpos-selection">' + nt +
+                    '</div>');
+                // $('#selectedstructures').prepend(lbl);
             }
+            $('#sel_cdmPWStructures').val('');
         }
-
-                
-            $('#sel_cdmPWStructures').val(''); // I am not sure what this line does
-        //}
         if (e == 'tw') {
             t = $('#selectedtw').html();
             sTerm = '<div class="qresult" data-entity="temporary" data-stage="2" data-name="' + vn + '" data-value="' +
@@ -377,7 +369,6 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
                 $('#twpanel').html('');
                 $('#twpanel').html(lbl + '<div id="selectedtw" class="tpos-selection">' + nt + '</div>');
             }
-            
             $('#sel_tw').val('');
         }
 
@@ -434,7 +425,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     function sev(n) {
         var lik = $('.liks').data('lik');
         var likscore = lik.substring(0, 1);
-
+        console.log(lik);
         var clr = '';
 
         var sev = $('.severity_' + n).data('sev');
@@ -475,6 +466,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
     function lik(n) {
         var sev = $('.sevs').data('sev');
         var sevscore = sev.substring(0, 1);
+        console.log(sev);
         var clr = '';
 
         var lik = $('.likelihood_' + n).data('lik');
@@ -562,7 +554,7 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         }
     }
     async function savehazards() {
-        $('.ms-options-wrap > .ms-options:visible').hide();
+
         var newhazards = [];
         var site = 0;
         var pw = [];
@@ -572,11 +564,10 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         //var title2=uid();
         var title10 = title1.getTime() + '^' + title1.getDate() + '^' + title1.getMonth() + 1 + '^' + title1.getFullYear();
         var title = title10.toString() + '^' + uid();
-        
-        var hz = sanitizeInput($('#cdmHazardDescription').val());
-        var rs = sanitizeInput($('#cdmRiskDescription').val());
-        var ms = sanitizeInput($('#cdmMitigationDescription').val());
 
+        var hz = $('#cdmHazardDescription').val();
+        var rs = $('#cdmRiskDescription').val();
+        var ms = $('#cdmMitigationDescription').val();
         if (!hz) {
             toastr.error('Please describe the hazard');
         }
@@ -590,31 +581,21 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         const urlParams = new URLSearchParams(window.location.search);
         const cdmGeometry = urlParams.get("cdmGeometry");
         const cdmHazardCoordinates = urlParams.get("cdmHazardCoordinates");
-        const selected_ele = document.getElementsByClassName("selected");
+
         var qr = $('.qresult');
-        var selection = [] //To store all selections
-        
-
-        for (i=0; i<selected_ele.length; i++){
-            selection.push(selected_ele[i].innerText)
-        }
-
-        //loops through all the assets
         for (var j = 0; j < qr.length; j++) {
             var o = qr.eq(j);
+
             var type = o.data('entity');
             var name = o.data('name');
             var value = o.data('value');
-
-            //checks if selection includes current asset
-            if (selection.includes(qr[j].innerText)){
-                if (type == 'permanent') {       
-                    var stage = o.data('stage');
-                    pw.push([name, value, stage]);
-                }}
-
+            toastr.success(type);
             if (type == 'site') {
                 site = value;
+            }
+            if (type == 'permanent') {
+                var stage = o.data('stage');
+                pw.push([name, value, stage]);
             }
             if (type == 'temporary') {
                 tw.push([name, value]);
@@ -666,6 +647,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         var rscv = parseInt(riskscoreval, 10);
 
         if (pw.length > 0) {
+            // console.log(tdata);
+
             for (var ps = 0; ps < pw.length; ps++) {
                 var tdata = [];
                 // toastr.success(site);
@@ -770,9 +753,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
 
         }
         for (var dd = 0; dd < newhazards.length; dd++) {
-            tposdata.set('cdmHazards', newhazards[dd], "addHazards")
+            tposdata.set('cdmHazards', newhazards[dd], 'qmsg');
         }
-    
         $('#div_sel_structures').html('');
         $('#div_sel_tw').html('');
         $('#div_sel_rams').html('');
@@ -781,6 +763,8 @@ onblur="WaterMarkmitigation(this, event);" onfocus="WaterMarkmitigation(this, ev
         $('#selectedrams').html('');
         $('#selectedstructures').html('');
         $('.button-row').hide();
+
+
     }
 
     function expandRiskMatrix() {

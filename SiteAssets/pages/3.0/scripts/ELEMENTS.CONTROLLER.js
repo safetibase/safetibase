@@ -1,28 +1,27 @@
 // POP UP
-function gimmepops(title,content){
+function gimmepops(title,content,cl){
     $('#pops').html('');
     $('#pops').remove();
-        var myvar = '<div id="pops" class="pops">'+
-        '		<div class="pops-title">'+escapeHTML(title)+'</div>'+
-        '		<div class="pops-content">'+sanitizeHTML(content)+'</div>'+
-        '		<div class="pops-footer">'+
-        '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
-        '		</div>'+
-        '	</div>';
-        
-        $('#tpos-page').append(myvar);
-        $('#pops').show();
-        $('.btn-cancel').click(function(){
-            closepops();
-        });
+
+    var myvar = '<div id="pops" class="pops">'+
+    '		<div class="pops-title">'+title+'</div>'+
+    '		<div class="pops-content">'+content+'</div>'+
+    '		<div class="pops-footer">'+
+    '			<div class="btn-cancel"><i class="fa fa-times fa-2x"></i></div>'+
+    '		</div>'+
+    '	</div>';
+
+    $('#tpos-page').append(myvar);
+    $('#pops').show();
+    $('.btn-cancel').click(function(){
+        closepops();
+    });
 }
 function closepops(){
     $('#pops').html('');
     $('#pops').remove();
 }
-
-
-
+ 
 // GLOBAL NAV SUB MENU
 function gimmesubs(title,content,cl){
     $('#subs').html('');
@@ -169,17 +168,7 @@ function mkSelect (lst, data, fset, trg) {
         var it = tlist[cc];
         var itid = it.ID;
         var ittitle = it.Title;
-        var ittitleHidden = it.Title;
-        if (trg === 'sel_structures' && configData['Create hazard show asset description']) {
-            // Filter out the assets that aren't marked as assets (prmiary assets, deleted assets, etc)
-            if (tlist[cc].AssetType !== "Asset") {
-                continue;
-            }
-            // Add the UAID to the UI
-            ittitle = `<b>Asset</b>: ${ittitle}; <b>UAID</b>: ${it.UAID}`;
-            ittitleHidden = `Asset: ${ittitle}; UAID: ${it.UAID}`;
-        }
-        options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitleHidden.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
+        options += '<tr style="display:none;" class="tpos-' + lst + '-select-value dvs" data-list="' + lst + '" data-value="' + itid + '"><td class="hide">*' + ittitle.toLowerCase() + '</td><td id="dv_' + lst + '_' + itid + '">' + ittitle + '</td></tr>';
 
     }
     $('#div_' + trg).html('<table class="tpos-select-table">' + options + '</table>');
@@ -193,6 +182,7 @@ function mkSelect (lst, data, fset, trg) {
         if (st) {
             $('tr:not(:contains(' + st + '))').each(function () {
                 var t = $(this).html();
+                ////console.log(t);
                 if ($(this).hasClass('tpos-' + lst + '-select-value') == 1) {
                     $(this).hide();
                 }
@@ -226,9 +216,6 @@ function mkSelect (lst, data, fset, trg) {
     $('.tpos-' + lst + '-select-value').click(function () {
         var dvid = $(this).data('value');
         var dv = $('#dv_' + lst + '_' + dvid).html();
-        if (trg === 'sel_structures' && configData['Create hazard show asset description']) { // In this case we need to process the string to get just the asset
-            dv = dv.split(';')[0].split(':')[1].trim();
-        }
         $('#sel_' + lst).val(dv);
         $('#val_' + lst).html(dvid);
 
@@ -236,112 +223,3 @@ function mkSelect (lst, data, fset, trg) {
         routeSelection(lst, dvid, dv);
     });
 }
-
-/**
- * Escapes string to be inputted into HTML to prevent XSS
- * @param {str} str The string to escape
- * @return {str} The escaped string
- */
-function escapeHTML(str) {
-    if (str) {
-        return str.replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    } else {
-        return str;
-    }
-}
-
-/**
- * Sanitises html to be inputted into the DOM to prevent XSS. Unlike the above function, this function is for inputs we want to be interpretted as html, so we allow
- * some tags and attributes
- * @param {str} str html to be sanitised
- * @returns {str} sanitised html
- */
-function sanitizeHTML(str) {
-    var temp = document.createElement('div');
-    temp.innerHTML = str;
-
-    // List of allowed tags and attributes
-    var allowedTags = ['b', 'i', 'em', 'strong', 'a', 'div', 'span', 'textarea', 'table', 'tbody', 'td', 'tr'];
-    var allowedAttributes = ['href', 'title', 'class', 'id', 'rows', 'cols', 'data-ctag'];
-
-    // Function to recursively sanitize nodes
-    function sanitizeNode(node) {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-            // Remove disallowed tags
-            if (!allowedTags.includes(node.tagName.toLowerCase())) {
-                node.parentNode.removeChild(node);
-                return;
-            }
-
-            // Remove disallowed attributes
-            for (var i = node.attributes.length - 1; i >= 0; i--) {
-                var attr = node.attributes[i];
-                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
-                    node.removeAttribute(attr.name);
-                }
-            }
-        }
-
-        // Recursively sanitize child nodes
-        for (var i = 0; i < node.childNodes.length; i++) {
-            sanitizeNode(node.childNodes[i]);
-        }
-    }
-
-    sanitizeNode(temp);
-    return temp.innerHTML;
-}
-
-/**
- * Function to sanitize user input
- * @param {string} input 
- * @returns {string} the sanitised input
- */
-
-function sanitizeInput(input) {
-    // Create a temporary div element to hold the plain text
-    var temp = document.createElement('div');
-    temp.textContent = input; // Use textContent to handle plain text
-
-    // Convert the plain text to HTML
-    var html = temp.innerHTML;
-    temp.innerHTML = html;
-
-    // List of allowed tags and attributes
-    var allowedTags = [];
-    var allowedAttributes = [];
-
-    // Function to recursively sanitize nodes
-    function sanitizeNode(node) {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-            // Remove disallowed tags
-            if (!allowedTags.includes(node.tagName.toLowerCase())) {
-                node.replaceWith(...node.childNodes); // Replace the node with its children
-                return;
-            }
-
-            // Remove disallowed attributes
-            for (var i = node.attributes.length - 1; i >= 0; i--) {
-                var attr = node.attributes[i];
-                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
-                    node.removeAttribute(attr.name);
-                }
-            }
-        }
-
-        // Recursively sanitize child nodes
-        for (var i = 0; i < node.childNodes.length; i++) {
-            sanitizeNode(node.childNodes[i]);
-        }
-    }
-
-    sanitizeNode(temp);
-    return temp.innerHTML; // Return the sanitized HTML as plain text
-}
-
-
-

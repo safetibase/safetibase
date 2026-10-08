@@ -13,12 +13,13 @@ function init(refresh) {
     const disableNavigationLinks = urlParams.get("disableNavigationLinks");
 
     let pageTitle = "";
-    const idParam = escapeHTML(urlParams.get("hazardId")); // To prevent client side XSS
-    const versionDiv = '<div class="version-number">V1.5.2.1</div>';
+    const idParam = urlParams.get("hazardId");
+    const versionDiv = '<div class="version-number">V1.5.2</div>';
+    const informationLink = '<a class="information-link" target="_blank" href="https://sway.office.com/PLDHKwL45Db1Z4Wx?ref=Link"><div class="information-icon">&#9432;</div></a>';
     if (idParam && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - Hazard ${idParam}</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase - Hazard ${idParam}</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
     } else if (urlParams.get("newHazard") && refresh === undefined) {
-        pageTitle = `<div class="block-container"><div>SafetIbase</div><div class="title-container">${versionDiv}</div><div> - New Hazard</div></div>`;
+        pageTitle = `<div class="block-container"><div>SafetIbase - New Hazard</div><div class="title-container">${versionDiv}</div><div class="title-container">${informationLink}</div></div>`;
     } else {
         const titleDiv = '<div>SafetIbase</div>';
         const searchDiv = '<div id="cdmsearch" class="cdmsearch" title="Input numbers only - hazards ids, including legacy system hazard ids or temporary work designs numbers"  onSubmit="false"><input type="text" placeholder="Search here" id="cdmsearchbox" onSubmit="false"></div>';
@@ -32,27 +33,10 @@ function init(refresh) {
     // load the layout for the page
     $('#tpos-page').load('../3.0/html/layout.html', function() {
 
-        if (!idParam && !urlParams.get("newHazard")) {
-            // set up the home screen nav
-            setUpHomeNav()
-            // get the user and their roles and display navigation
-            setupleftnav();
-        } else {
-            setupleftnav();
-            // $("#tpos-nav").remove()
-            $('<div />', {
-                id: 'overlay',
-                css: {
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 1000,
-                    background: 'rgba(0,0,0,0.5)'
-                }
-            }).appendTo('#tpos-nav');
-        }
+        // set up the home screen nav
+        setUpHomeNav()
+        // get the user and their roles and display navigation
+        setupleftnav();
         if (disableNavigationLinks) {
             $("#user_roles").hide();
         }
@@ -104,7 +88,7 @@ function setUpGuidanceNav(){
 
 function setupleftnav() {
     $('#tpos-nav').html('<div class="tpos-area-title-user">' + unm() + '</div><div id="user_roles" class="tpos-area-content"></div>');
-    cdmdata.get('cdmUsers', '', 'ID asc', 'urbuttons', 'tpos-nav');
+    cdmdata.get('cdmUsers', 'cdmUser/Id eq \'' + uid() + '\'', 'ID asc', 'urbuttons', 'tpos-nav');
 }
 
 function setupmainareastats(hazardId, cdmSites, allHazardsData) {
@@ -119,7 +103,7 @@ function setupmainareastats(hazardId, cdmSites, allHazardsData) {
     $('#tpos-main').html('<div class="tpos-area-title">Welcome to SafetIbase</div><div id="stats" class="tpos-area-content"></div>');
     $('#stats').load('../3.0/html/stats.tbl.html', function() {
         if (hazardId) {
-            cdmdata.get('cdmHazards', "ID eq " + hazardId, "Modified desc", "hazards-search", 'statstbl', '', `Hazard ${hazardId}`);
+            cdmdata.get('cdmHazards', "ID eq " + hazardId, "Modified desc", "hazards-search", 'statstbl', '');
         } else {
             // Passing through 'stats-table-row' in here forwards on the cdmSites data from cdmdata.get() to
             // DATA.FORMAT.CONTROLLER.js - formatdatato.statstablerows()
@@ -175,7 +159,7 @@ function setupuserstats(r, c, s, allHazardsData) {
             (r == 'Design Manager' && configData['Simplified design manager dashboard']) ||
             (r == 'Construction Engineer' && configData['Simplified construction engineer dashboard']) ||
             (r == 'Construction Manager' && configData['Simplified construction manager dashboard']) ||
-            (r == 'Principal Designer' && configData['Simplified principal designer dashboard']) ||
+            (r == 'Lead Designer' && configData['Simplified principal designer dashboard']) ||
             (r == 'System admin' && configData['Simplified system admin dashboard'])
         if (simplifiedDashboard) {
             $('#stats').html('<table class="tpos-tbl-user-dashboard" id="statstbl"><tr><td id="a"></td><td id="e"></td><td id="b"></td><td id="c"></td><td id="d"></td></tr></table>' + utbl4 + utbl2 + utbl5);
@@ -448,15 +432,15 @@ function setupuserstats(r, c, s, allHazardsData) {
             }
             // cdmdata.getQuickCount('cdmHazards',4,'Editor/ID eq '+uid()+' and cdmCurrentStatus eq \'Under peer review\' and cdmHazardOwner/Title eq \''+c+'\'','Peer reviews requested by you','d','blue',null);
         }
-        if (r == 'Principal Designer') {
+        if (r == 'Lead Designer') {
             // cdmdata.getQuickCount('cdmHazards', 3, 'cdmCurrentStatus eq \'Under principal designer review\' and cdmSite/Title eq \'' + s + '\'', 'Hazards for principal designer review', 'c', 'blue', null);
             
-            if ((r == 'Principal Designer' && configData['Simplified principal designer dashboard'])) {
+            if ((r == 'Lead Designer' && configData['Simplified principal designer dashboard'])) {
                 cdmdata.createDashboardBoxes(
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under lead designer review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -464,7 +448,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     3,
-                    "Hazards for principal designer review",
+                    "Hazards for lead designer review",
                     "a",
                     "blue",
                     null
@@ -474,7 +458,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     (() => {
                         filteredDataset = [];
                         for (var i = 0; i < allHazardsData.length; i++) {
-                            if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmSite.Title == s) {
+                            if (allHazardsData[i].cdmCurrentStatus == "Under lead designer review" && allHazardsData[i].cdmSite.Title == s) {
                                 filteredDataset.push(allHazardsData[i]);
                             }
                         }
@@ -482,7 +466,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                     })(),
                     "cdmHazards",
                     3,
-                    "Hazards for principal designer review",
+                    "Hazards for lead designer review",
                     "c",
                     "blue",
                     null
@@ -721,7 +705,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 (() => {
                     filteredDataset = [];
                     for (var i = 0; i < allHazardsData.length; i++) {
-                        if (allHazardsData[i].cdmCurrentStatus == "Under principal designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
+                        if (allHazardsData[i].cdmCurrentStatus == "Under lead designer review" && allHazardsData[i].cdmHazardOwner.Title == c) {
                             filteredDataset.push(allHazardsData[i]);
                         }
                     }
@@ -729,7 +713,7 @@ function setupuserstats(r, c, s, allHazardsData) {
                 })(),
                 "cdmHazards",
                 12,
-                "Under principal designer review",
+                "Under lead designer review",
                 "cld",
                 "blue",
                 null
@@ -827,10 +811,13 @@ function setupEditableHazards(allHazardsData) { // designers and Construction En
     toastr.success(ds.length + ' data sets');
     $.each(ds, function() {
         var tid = $(this).attr('id');
+        console.log(tid);
         var dd = tid;
 
         var tjs = $('#' + tid + '_cdmUserRole').data('elementname');
+        console.log(tjs);
         var tc = $('#' + tid + '_cdmCompany').data('elementname');
+        console.log(tc);
         if (tjs == 'Designer' || tjs == 'Construction Engineer') {
             var c = tc;
 
@@ -971,10 +958,13 @@ function setupReviewableHazards(a, allHazardsData) {
     toastr.success(ds.length + ' data sets');
     $.each(ds, function() {
         var tid = $(this).attr('id');
+        console.log(tid);
         var dd = tid;
 
         var tjs = $('#' + tid + '_cdmUserRole').data('elementname');
+        console.log(tjs);
         var tc = $('#' + tid + '_cdmCompany').data('elementname');
+        console.log(tc);
         var ts = $('#' + tid + '_cdmSite').data('elementname');
         var c = tc;
         var cst = '';
@@ -1308,8 +1298,8 @@ function setupReviewableHazards(a, allHazardsData) {
 
         }
         if (a == 'ldrHazard') {
-            if (tjs == 'Principal designer') {
-                cst = 'Under principal designer review';
+            if (tjs == 'Lead designer') {
+                cst = 'Under lead designer review';
                 q = ' and cdmSite/Title eq \'' + ts + '\' and cdmCurrentStatus eq \'' + cst + '\'';
                 utbl = '<div class="row">' + c + ' hazards - ' + cst + '</div><div><table class="tpos-tbl"><tr><td id="' + dd + '_chighrisk"></td><td id="' + dd + '_cmediumrisk"></td><td id="' + dd + '_clowrisk"></td></tr></table></div>';
                 // var utbl1='<div class="row">'+c+' hazards - assessment in progress'+'</div><div><table class="tpos-tbl"><tr><td id="'+dd+'_ahighrisk"></td><td id="'+dd+'_amediumrisk"></td><td id="'+dd+'_alowrisk"></td></tr></table></div>';
@@ -1407,11 +1397,14 @@ function setupReviewableHazards(a, allHazardsData) {
 function getsearchresults(v) {
 
     var vn = parseInt(v, 10);
+    // console.log(vn);
+    // console.log(v);
     var vs = v.toString();
     var vcnt = vs.replace(/ /g, '').length;
     for (var cc = 0; cc < 5 - vcnt; cc++) {
         vs = '0' + vs;
     }
+    console.log(vs);
     // if(vcnt===1){
     //     vs='0000'+vs;
     // }
@@ -1419,6 +1412,7 @@ function getsearchresults(v) {
     //     vs='000'+vs;
     // }
     // if(vcnt=)
+    // console.log(vs);
     $('#tpos-main').html('');
     // $('.dataset').removeClass('active');
     $('#stats').remove();
@@ -1427,10 +1421,7 @@ function getsearchresults(v) {
     // var newmain='<div class="tpos-main" id="tpos-main"></div>';
     // $('.tpos-body').prepend(newmain);
 
-    var searchResults = '<div class="tpos-area-title">Search results for query: ' + v + '</div><div id="searchresults" class="tpos-area-content"></div>';
-    var sanitisedSearchResults = sanitizeHTML(searchResults);
-    $('#tpos-main').html(sanitisedSearchResults);
-    
+    $('#tpos-main').html('<div class="tpos-area-title">Search results for query: ' + v + '</div><div id="searchresults" class="tpos-area-content"></div>');
     // var utbl='<div class="row">Results</div><div><table class="tpos-tbl"><tr><td id="idmatch"></td><td id="legacymatch"></td><td id="swidmatch"></td><td id="parentmatch"></td><td id="siblingmatch"></td><td id="twmatch"></td><td id="ramsmatch"></td></tr></table></div>';
     var utbl = '<div id="legacymatch"></div><div id="idmatch"></div><div id="twmatch"></div><div id="ramsmatch"></div>';
     $('#searchresults').append(utbl);
@@ -1447,8 +1438,7 @@ function getsearchresults(v) {
         "Modified desc",
         "hazards-search",
         "idmatch",
-        'ID Match',
-        `Hazard ${vn}`
+        'ID Match'
     );
     cdmdata.get(
         "cdmHazards",
