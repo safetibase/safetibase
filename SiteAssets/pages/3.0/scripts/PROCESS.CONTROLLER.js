@@ -1852,6 +1852,13 @@ function activateHazardEdits() {
                             }
                         });
                     }
+                    if (fld == "cdmDoors") {
+                        // Place holder for assigning a DOORS Reference
+                        gimmepops(
+                            "Assigning a DOORS Reference",
+                            '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
+                        );
+                    }
                     if (fld == "cdmPASRiskClassification") {
                         gimmepops(
                             "Assigning PAS 1192:6 Risk Classification",

@@ -2533,6 +2533,9 @@ function printHazardRow(h) {
         '                        <div class="lbl">Status</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
+        '                        <div class="lbl">DOORS Reference</div>' +
+        "                    </td>" +
+        '                    <td class="width-250">' +
         '                        <div class="lbl">Links</div>' +
         "                    </td>" +
         "                </tr>" +
@@ -2550,6 +2553,11 @@ function printHazardRow(h) {
         '                    <td class="width-250 fld">' +
         '                        <div class="cell cdmUniclass pointer" title="Click to manage status">' +
         unitags +
+        "</div>" +
+        "                    </td>" +
+        '                    <td class="width-250 fld">' +
+        '                        <div class="cell cdmDoors pointer" title="Click to edit">' +
+        (h.cdmDoors == null ? "" : h.cdmDoors) +
         "</div>" +
         "                    </td>" +
         '                    <td class="width-250 fld">' +
