@@ -61,6 +61,34 @@
   background-color: rgb(0, 0, 0);
 }
 
+.rams-picker {
+  overflow: hidden;
+}
+
+.rams-picker .pops-content {
+  min-height: 0;
+  overflow: auto;
+}
+
+.rams-picker .pops-title,
+.rams-picker .pops-footer {
+  flex-shrink: 0;
+}
+
+.rams-picker-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.rams-picker-actions .tpos-left-btn {
+  position: static;
+  float: none;
+  width: auto;
+  margin: 8px;
+}
+
 .pops-fullscreen {
   display: none;
   width: 98%;

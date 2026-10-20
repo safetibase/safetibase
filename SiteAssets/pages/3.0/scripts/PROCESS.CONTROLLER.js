@@ -1748,6 +1748,110 @@ function activateHazardEdits() {
                         );
                         cdmdata.get("cdmStatus", "", null, "frmsel_utag", hc,null,[]);
                     }
+                    // SCS specific RAMS editting
+                    if (fld == "cdmRAMS") {
+                        // Check if the user has permission to edit RAMS
+                        let canSiteManagerEdit = false;
+                        let systemAdmin = false;
+                        for (let i=0; i<userRolesSites.length; i++) {
+                            if (userRolesSites[i][0] == 'Construction Manager' && userRolesSites[i][1] == s) {
+                                canSiteManagerEdit = true;
+                            }
+                            if (userRolesSites[i][0] == 'System admin') {
+                                systemAdmin = true;
+                            }
+                        }
+                        if (!canSiteManagerEdit && !systemAdmin) {
+                            toastr.error("Not permitted");
+                            return;
+                        }
+                        const selectedRAMS = new Set(
+                            $("#" + hi + " .cdmRAMS").text().split(";").map(title => title.trim()).filter(Boolean)
+                        );
+                        gimmepops(
+                            "Assigning RAMS",
+                            '<div id="popscontentarea"><i class="fa fa-spinner fa-spin"></i> Loading data</div>'
+                        );
+                        const spParentSite = _spPageContextInfo.webServerRelativeUrl.split('/').slice(0, 3).join('/');
+                        const spchildSite = _spPageContextInfo.webServerRelativeUrl.split('/')[3];
+                        // Main lookup field in RAMSRegister
+                        const assetsLookupField = "SBAssets_x0028_site_x0029_";
+                        // Escape apostrophes for OData string literals
+                        const escapeODataString = value => String(value).replace(/'/g, "''");
+                        const filter =
+                            `${assetsLookupField}/Area eq '${escapeODataString(spchildSite)}' and ` +
+                            `${assetsLookupField}/Title eq '${escapeODataString(s)}'`;
+                        const query =
+                            `$select=Title,Description,${assetsLookupField}/Area,${assetsLookupField}/Title` +
+                            `&$expand=${assetsLookupField}` +
+                            `&$filter=${encodeURIComponent(filter)}`;
+                        const url = `${spParentSite}/_api/web/lists/getByTitle('RAMSRegister')/items?${query}`;
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: (data) => {
+                                const ramsItems = data.d.results;
+                                const content = $("#popscontentarea");
+                                const popup = content.closest("#pops").addClass("rams-picker");
+                                const table = $('<table class="tpos-select-table"><tr><td><input class="tpos-RAMSRegister-select-input dvi" id="sel_RAMSRegister" autocomplete="off" aria-label="Search RAMS" placeholder="Search RAMS ..."></td></tr></table>');
+                                const options = new Map(ramsItems.map(item => [item.Title, item.Description || ""]));
+                                // Retain saved selections even if they are no longer in this site's register.
+                                selectedRAMS.forEach(title => {
+                                    if (!options.has(title)) {
+                                        options.set(title, "Previously selected; not in this site's register");
+                                    }
+                                });
+                                options.forEach((description, title) => {
+                                    const checkbox = $('<input type="checkbox">')
+                                        .prop("checked", selectedRAMS.has(title))
+                                        .on("change", function() {
+                                            if (this.checked) {
+                                                selectedRAMS.add(title);
+                                            } else {
+                                                selectedRAMS.delete(title);
+                                            }
+                                        });
+                                    $("<tr>")
+                                        .addClass("tpos-RAMSRegister-select-value dvs")
+                                        .attr("data-list", "RAMSRegister")
+                                        .append($("<td>").append(
+                                            $("<label>").append(checkbox, document.createTextNode(`${title}: ${description}`))
+                                        ))
+                                        .appendTo(table);
+                                });
+                                content.empty().append(table);
+                                if (!ramsItems.length) {
+                                    content.append($("<p>").text("No RAMS are available for this site."));
+                                }
+                                const input = content.find("#sel_RAMSRegister");
+                                const rows = content.find(".tpos-RAMSRegister-select-value");
+                                const filterOptions = () => {
+                                    const search = input.val().toLowerCase();
+                                    rows.each(function() {
+                                        $(this).toggle($(this).text().toLowerCase().includes(search));
+                                    });
+                                };
+                                input.on("focus click", filterOptions);
+                                input.on("input change", filterOptions);
+                                const saveButton = $('<button type="button" class="tpos-left-btn">Save</button>');
+                                saveButton.on("click", () => {
+                                    cdmdata.update("cdmHazards", ["cdmRAMS|" + Array.from(selectedRAMS).join("; ")], "frmedit_updateview");
+                                    $("#pops").remove();
+                                });
+                                popup.find(".pops-footer").append(
+                                    $('<div class="rams-picker-actions">').append(saveButton)
+                                );
+                            },
+                            error: (err) => {
+                                console.error("Error fetching RAMS Register items:", err);
+                                toastr.error("Error fetching RAMS Register items.");
+                                return;
+                            }
+                        });
+                    }
                     if (fld == "cdmPASRiskClassification") {
                         gimmepops(
                             "Assigning PAS 1192:6 Risk Classification",
@@ -4775,6 +4879,11 @@ function hazardreviewbuttonaction() {
                     );
                 }
                 if (a == "pcreview") {
+                    const rams = $('#h_' + hzd + ' .cdmRAMS').html();
+                    if (rams === null || rams === 'undefined' || rams === '') {
+                        toastr.error('Please add at least one associated RAMS before initiating the review');
+                        return; // Prevent further execution if no RAMS are added
+                    }
                     gimmepops("Undertake the pre-construction review", "", "bigger");
 
                     $(".pops-content").load(
