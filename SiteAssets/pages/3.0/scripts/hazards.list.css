@@ -70,6 +70,15 @@
   overflow: auto;
 }
 
+.rams-picker .tpos-select-table {
+  position: static;
+  width: 100%;
+}
+
+.rams-picker .tpos-select-table > tbody {
+  max-height: min(400px, 50vh) !important;
+}
+
 .rams-picker .pops-title,
 .rams-picker .pops-footer {
   flex-shrink: 0;
