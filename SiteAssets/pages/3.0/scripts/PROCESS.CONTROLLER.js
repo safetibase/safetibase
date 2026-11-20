@@ -1775,7 +1775,7 @@ function activateHazardEdits() {
                         const spParentSite = _spPageContextInfo.webServerRelativeUrl.split('/').slice(0, 3).join('/');
                         const spchildSite = _spPageContextInfo.webServerRelativeUrl.split('/')[3];
                         // Main lookup field in RAMSRegister
-                        const assetsLookupField = "SBAssets_x0028_site_x0029_";
+                        const assetsLookupField = spParentSite === "SBT" ? "SBAssets_x0028_site_x0029_" : "SBAssets";
                         // Escape apostrophes for OData string literals
                         const escapeODataString = value => String(value).replace(/'/g, "''");
                         const filter =
