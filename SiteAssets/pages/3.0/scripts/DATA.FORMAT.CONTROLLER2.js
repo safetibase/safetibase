@@ -1493,11 +1493,6 @@ function printHazardRow(h) {
         hctitle = "Temporary works design hazard";
         en = h.cdmEntityTitle;
     }
-    if (h.cdmRAMS) {
-        hc = "ra";
-        hctitle = "RAMS hazard";
-        en = h.cdmEntityTitle;
-    }
     var mitsdisplay = "";
     var revsdisplay = "";
     var mitsowner = h.CurrentMitigationOwner.Title;
@@ -2489,11 +2484,8 @@ function printHazardRow(h) {
         h.cdmStageExtra.Title +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-20">' +
-        '                        <div class="lbl ramshide">' + lblramshazards + '</div>' +
-        "                    </td>" +
-        '                    <td class="width-20">' +
-        '                        <div class="lbl ramsonly">Parent </div>' +
+        '                    <td class="width-250">' +
+        '                        <div class="lbl">Associated RAMS</div>' +
         "                    </td>" +
         '                    <td class="width-250">' +
         '                        <div class="lbl ">PAS 1192:6 Risk Classification </div>' +
@@ -2514,10 +2506,10 @@ function printHazardRow(h) {
         h.cdmSMMitigationSuggestion +
         "</div>" +
         "                    </td>" +
-        '                    <td class="width-20 fld">' + mkramsbtn + '</td>' +
-        '                    <td class="width-20 fld"><div class="cell cdmParent ramsonly">' +
-        h.cdmParent +
-        "</div></td>" +
+        '                    <td class="width-250 fld">' + 
+                                '<div class="cell cdmRAMS pointer" title="Provided by site manager during the pre-construction review if required">' + 
+        (h.cdmRAMS == null ? "" : h.cdmRAMS) + 
+        '</div></td>' +
         '                    <td class="width-250 fld"><div class="cell cdmPASRiskClassification pointer" title="Click to select PAS 1192:6 Risk Classification">' +
         PASRiskClassification +
         "</div></td>" +
